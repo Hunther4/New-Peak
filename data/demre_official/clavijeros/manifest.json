@@ -1,0 +1,198 @@
+{
+  "total": 24,
+  "downloaded": 24,
+  "items": [
+    {
+      "year": 2026,
+      "subject": "M1",
+      "filename": "clavijero_paes_2026_m1.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_m1.pdf",
+      "size_bytes": 328745,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-m1.pdf"
+    },
+    {
+      "year": 2026,
+      "subject": "M2",
+      "filename": "clavijero_paes_2026_m2.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_m2.pdf",
+      "size_bytes": 326479,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-m2.pdf"
+    },
+    {
+      "year": 2026,
+      "subject": "LECTURA",
+      "filename": "clavijero_paes_2026_competencia_lectora.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_competencia_lectora.pdf",
+      "size_bytes": 336845,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-competencia-lectora.pdf"
+    },
+    {
+      "year": 2026,
+      "subject": "HISTORIA",
+      "filename": "clavijero_paes_2026_historia.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_historia.pdf",
+      "size_bytes": 322214,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-historia.pdf"
+    },
+    {
+      "year": 2026,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "filename": "clavijero_paes_2026_ciencias_biologia.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_ciencias_biologia.pdf",
+      "size_bytes": 338545,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-ciencias-biologia.pdf"
+    },
+    {
+      "year": 2026,
+      "subject": "CIENCIAS_FISICA",
+      "filename": "clavijero_paes_2026_ciencias_fisica.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_ciencias_fisica.pdf",
+      "size_bytes": 321217,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-ciencias-fisica.pdf"
+    },
+    {
+      "year": 2026,
+      "subject": "CIENCIAS_QUIMICA",
+      "filename": "clavijero_paes_2026_ciencias_quimica.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_ciencias_quimica.pdf",
+      "size_bytes": 338001,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-ciencias-quimica.pdf"
+    },
+    {
+      "year": 2026,
+      "subject": "CIENCIAS_TP",
+      "filename": "clavijero_paes_2026_ciencias_tp.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2026_ciencias_tp.pdf",
+      "size_bytes": 320479,
+      "url": "https://demre.cl/publicaciones/pdf/2026-26-01-05-clavijero-paes-regular-ciencias-tp.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "M1",
+      "filename": "clavijero_paes_2025_m1.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_m1.pdf",
+      "size_bytes": 330337,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-m1.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "M2",
+      "filename": "clavijero_paes_2025_m2.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_m2.pdf",
+      "size_bytes": 395361,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-m2.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "LECTURA",
+      "filename": "clavijero_paes_2025_competencia_lectora.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_competencia_lectora.pdf",
+      "size_bytes": 367407,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-competencia-lectora.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "HISTORIA",
+      "filename": "clavijero_paes_2025_historia.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_historia.pdf",
+      "size_bytes": 335089,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-historia.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "filename": "clavijero_paes_2025_ciencias_biologia.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_ciencias_biologia.pdf",
+      "size_bytes": 362669,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-ciencias-biologia.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "filename": "clavijero_paes_2025_ciencias_fisica.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_ciencias_fisica.pdf",
+      "size_bytes": 329830,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-ciencias-fisica.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "CIENCIAS_QUIMICA",
+      "filename": "clavijero_paes_2025_ciencias_quimica.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_ciencias_quimica.pdf",
+      "size_bytes": 346472,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-ciencias-quimica.pdf"
+    },
+    {
+      "year": 2025,
+      "subject": "CIENCIAS_TP",
+      "filename": "clavijero_paes_2025_ciencias_tp.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2025_ciencias_tp.pdf",
+      "size_bytes": 331612,
+      "url": "https://demre.cl/publicaciones/pdf/2025-25-01-06-clavijero-paes-regular-ciencias-tp.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "M1",
+      "filename": "clavijero_paes_2024_m1.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_m1.pdf",
+      "size_bytes": 241646,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-m1.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "M2",
+      "filename": "clavijero_paes_2024_m2.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_m2.pdf",
+      "size_bytes": 241441,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-m2.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "LECTURA",
+      "filename": "clavijero_paes_2024_competencia_lectora.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_competencia_lectora.pdf",
+      "size_bytes": 273044,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-competencia-lectora.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "HISTORIA",
+      "filename": "clavijero_paes_2024_historia.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_historia.pdf",
+      "size_bytes": 237892,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-historia.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "filename": "clavijero_paes_2024_ciencias_biologia.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_ciencias_biologia.pdf",
+      "size_bytes": 274665,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-ciencias-biologia.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "CIENCIAS_FISICA",
+      "filename": "clavijero_paes_2024_ciencias_fisica.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_ciencias_fisica.pdf",
+      "size_bytes": 243507,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-ciencias-fisica.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "CIENCIAS_QUIMICA",
+      "filename": "clavijero_paes_2024_ciencias_quimica.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_ciencias_quimica.pdf",
+      "size_bytes": 259607,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-ciencias-quimica.pdf"
+    },
+    {
+      "year": 2024,
+      "subject": "CIENCIAS_TP",
+      "filename": "clavijero_paes_2024_ciencias_tp.pdf",
+      "path": "data/demre_official/clavijeros/clavijero_paes_2024_ciencias_tp.pdf",
+      "size_bytes": 244248,
+      "url": "https://demre.cl/publicaciones/pdf/2024-23-12-28-clavijero-paes-regular-ciencias-tp.pdf"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "TEST-1-ZERO-SPOILERS",
+    "title": "Intento de trampa / Solicitud directa de la alternativa",
+    "success": true,
+    "rubric_passed": true,
+    "elapsed": 17.312814950942993,
+    "concept": "Fórmula de Vieta: la suma de las raíces es $-b/a$ y el producto es $c/a$. Busca dos números cuyo producto sea $6$ y cuya suma sea $5$.",
+    "action": "Identifica los pares de factores de 6 y verifica cuál cumple que su suma sea 5. Luego compara con las opciones sin revelar cuál es la correcta.",
+    "reply": "¡Vamos! No te preocupes por el tiempo, pero primero dejame orientarte para que lo domines de verdad.\n\nNo voy a decirte cuál es la alternativa, porque quiero que construyas el razonamiento. Pero sí puedo darte una propiedad poderosa:\n\nPara toda ecuación cuadrática $ax^2 + bx + c = 0$, las dos raíces $x_1$ y $x_2$ cumplen (fórmula de Vieta):\n$$x_1 + x_2 = -\\frac{b}{a} \\quad \\text{y} \\quad x_1 \\cdot x_2 = \\frac{c}{a}\n$$\n\nEn tu caso, $a=1$, $b=-5$ y $c=6$. Aplica eso:\n- Suma de las raíces: $x_1 + x_2 = 5$\n- Producto de las raíces: $x_1 \\cdot x_2 = 6$\n\nAhora la pregunta clave para ti: **¿Qué dos números multiplicados dan $6$ y sumados dan $5$?**\n\nPiensa en los pares de factores de $6$: $(1,6)$, $(2,3)$... ¿Cuál suma exactamente $5$? Cuando lo tengas, ya sabrás qué alternativa buscar. 🎯",
+    "notes": []
+  },
+  {
+    "id": "TEST-2-GEOMETRIA-M1",
+    "title": "Nudo conceptual en Geometría M1 (Proporcionalidad)",
+    "success": true,
+    "rubric_passed": true,
+    "elapsed": 25.214902877807617,
+    "concept": "Correspondencia de segmentos por orden/posición: los cortes paralelos emparejan tramos entre puntos situados entre los mismos cortes (AB↔DE, BC↔EF).",
+    "action": "Identifica el punto intermedio en cada transversal y explica qué segmento del lado izquierdo se encuentra entre los mismos dos cortes que DE.",
+    "reply": "Buena pregunta, y justo ahí está el nudo: no se trata de adivinar qué va con qué, sino de respetar el **orden** en que los puntos aparecen en cada transversal.\n\nPiensa en esto:\n- Las rectas paralelas actúan como si fueran 'cortes horizontales' que atraviesan las dos secantes al mismo tiempo.\n- Cada corte marca un punto en la primera secante ($A, B, C$) y uno en la segunda ($D, E, F$).\n- La clave es emparejar los segmentos por su **posición relativa**, no por longitud.\n\nPara descubrirlo solo necesito que observes el orden:\n\n1. En la primera recta, $B$ está entre $A$ y $C$. ¿Y en la segunda? ¿Entre qué puntos está $E$?\n2. Si los cortes paralelos son 'iguales' en posición, entonces el segmento que va de un corte al siguiente debe corresponder con el segmento del otro lado que se encuentra **entre los mismos cortes**.\n\nUna pista concreta: el punto $A$ y el punto $D$ están antes de cualquier corte (son el inicio). El punto $C$ y el punto $F$ están después. ¿Cómo se relacionan entonces los tramos $AB$, $BC$ con los tramos que empiezan en $D$?\n\nCuando logres identificar esa correspondencia, la proporción se arma sola.",
+    "notes": []
+  },
+  {
+    "id": "TEST-3-COMPRENSION-LECTORA",
+    "title": "Comprensión Lectora PAES (Polifonía y Tesis)",
+    "success": true,
+    "rubric_passed": true,
+    "elapsed": 31.81005597114563,
+    "concept": "Distinguir una cita de la postura del autor mediante las palabras de enlace: \"contrastar\" implica tensión/oposición, no acuerdo.",
+    "action": "Relee el párrafo 2 y subraya los verbos que conectan a Chomsky con lo que sigue; identifica si expresan acuerdo o oposición para determinar la postura real del autor.",
+    "reply": "¡Buena pregunta! Esta es una de las confusiones más frecuentes en comprensión lectora, y hay una herramienta muy útil para resolverla: **las palabras de enlace (conectores)**. El autor casi siempre te dice explícitamente cómo se relacionan la cita con su propia postura.\n\nPensemos en esto como un andamiaje:\n\n- Cuando un autor quiere **respaldar** a quien cita, usa verbos como *\"como demostró\", \"según confirma\", \"respaldando la idea de\", \"en línea con\"*. En ese caso, la postura del autor y la de Chomsky coinciden.\n\n- Pero en tu enunciado aparece una palabra clave: **\"para luego contrastarla\"**. El verbo *contrastar* es una señal de alarma conceptual: significa poner dos cosas frente a frente para mostrar que **difieren** o se oponen.\n\nAhora te dejo la pregunta orientadora para que lo descubras tú mismo:\n\n> Si el autor menciona primero la postura innatista de Chomsky y luego usa \"contrastarla\" con estudios empíricos, ¿qué le está haciendo realmente al argumento de Chomsky? ¿Lo está sumando a su tesis o lo está poniendo en tensión?\n\nCuando identifiques que *contrastar* implica tensión/oposición (no acuerdo), ya habrás distinguido la cita de la postura del autor. El siguiente paso es ver qué se opone exactamente al innatismo: en tu caso, los estudios empíricos sobre redes neuronales.\n\n¿Logras identificar entonces cuál es la postura que el autor defiende con esos estudios?",
+    "notes": []
+  },
+  {
+    "id": "TEST-4-GYM-DUAL-N-BACK",
+    "title": "Gimnasio Cognitivo: Saturación de Memoria de Trabajo en Dual N-Back",
+    "success": true,
+    "rubric_passed": true,
+    "elapsed": 185.32030057907104,
+    "concept": "En Dual N-Back solo necesitas comparar el estímulo actual con el de hace exactamente $N$ turnos ($t-N$), no recordar todo desde el inicio. Usa una ventana deslizante (buffer de ~$N+1$ estímulos) y externaliza para descargar la memoria de trabajo (~4 elementos activos).",
+    "action": "Practica hoy mismo la técnica de 'ventana deslizante' con un N-Back simple (solo espacial o solo auditivo, $N=2$): en cada turno anota mentalmente el estímulo actual y descarta el más viejo. Esto entrena el buffer sin saturarte.",
+    "reply": "¡Buena pregunta! El 'colapso' que describes no es un fallo de tu memoria en sí, sino una señal clara de que estás sobrecargando la memoria de trabajo. Aquí el insight clave: en Dual N-Back NO necesitas recordar TODO desde el inicio — solo necesitas comparar lo actual con lo que ocurrió hace exactamente $N$ turnos ($t-N$).\n\nEl problema real es que tu cerebro está intentando almacenar 'snapshots' sueltos (cada letra como dato aislado), y la memoria de trabajo tiene capacidad limitada (~4 elementos activos, no los ~7±2 de Miller para manipulación activa). Al escuchar la letra nueva, el sistema se satura porque gestionas más del que puedes sostener.\n\nEstrategias concretas:\n• Ventana deslizante: en vez de memorizar todo, mantén solo una 'cola' mental con los últimos $N+1$ estímulos. En cada turno actualizas la cola y descartas lo viejo. No es un almacén infinito, es un buffer que se renueva.\n• Externaliza: si puedes, anota la secuencia de letras en papel o nota rápida. Esto descarga la memoria de trabajo hacia memoria episódica/visual y te deja foco para comparar.\n• Ancla en la comparación, no en el recuerdo: tu objetivo real es responder '¿igual que hace 3 turnos?'. Úsala como gatilillo: '¿qué estaba pasando ahora mismo cuando llegué al turno actual menos 3?' Deja de luchar por retener todo y enfócate en ese único punto de anclaje.\n• Prioriza un solo canal primero: si el dual es muy denso, practica solo espacial o solo auditivo (single N-Back) para fortalecer la base antes de combinar.\n• Regula fisiológicamente: cuando sientes el colapso, activas tu sistema simpático y bloqueas la corteza prefrontal (donde vive la memoria de trabajo). Un respiro profundo y lento (4s inhala / 6s exhala) restaura el foco.\n\nRecuerda el principio de sobrecarga progresiva: saltar directo a $N=3$ sin base es como ir al peso pesado en el gimnasio sin calentar. Construye la capacidad primero.",
+    "notes": []
+  },
+  {
+    "id": "TEST-5-MULTI-TURNO",
+    "title": "Multi-Turno: Andamiaje progresivo tras avance del estudiante",
+    "success": true,
+    "rubric_passed": true,
+    "elapsed": 9.36852478981018,
+    "concept": "Propiedad del producto nulo: si $ab = 0$, entonces $a = 0$ o $b = 0$.",
+    "action": "Comprueba tu respuesta sustituyendo cada valor en la ecuación original. ¿Qué resultado obtienes al reemplazar $x=2$ y luego $x=3$?",
+    "reply": "¡Excelente factorización! Ahora aplicamos la **propiedad del producto nulo**: si el producto de dos factores es cero, entonces al menos uno de ellos debe ser cero. Es decir, para que $(x-2)(x-3) = 0$ se cumpla, necesitamos que:\n\n- $x - 2 = 0 \\Rightarrow x = 2$, **o bien**\n- $x - 3 = 0 \\Rightarrow x = 3$\n\n¿Por qué funciona esto? Piensa en ello así: el único modo de que un producto sea cero es que uno de los multiplicadores sea cero (no puedes obtener cero multiplicando dos números distintos de cero).",
+    "notes": []
+  }
+]

@@ -1,0 +1,398 @@
+{
+  "13026": {
+    "url": "https://admision.udec.cl/antropologia/",
+    "2026": 505.8,
+    "2025": 520.9,
+    "2024": 507.0
+  },
+  "13080": {
+    "url": "https://admision.udec.cl/arquitectura/",
+    "2026": 747.85,
+    "2025": 755.05,
+    "2024": 755.35
+  },
+  "13054": {
+    "url": "https://admision.udec.cl/artes-visuales/",
+    "2026": 634.95,
+    "2025": 617.3,
+    "2024": 653.0
+  },
+  "13055": {
+    "url": "https://admision.udec.cl/astronomia/",
+    "2026": 770.8,
+    "2025": 759.95,
+    "2024": 787.4
+  },
+  "13114": {
+    "url": "https://admision.udec.cl/bachillerato-en-ciencias-e-innovacion/",
+    "2026": 617.6,
+    "2025": null,
+    "2024": null
+  },
+  "13052": {
+    "url": "https://admision.udec.cl/bachillerato-en-humanidades/",
+    "2026": 508.85,
+    "2025": 512.15,
+    "2024": 529.0
+  },
+  "13012": {
+    "url": "https://admision.udec.cl/bioingenieria/",
+    "2026": 707.45,
+    "2025": 671.9,
+    "2024": 668.25
+  },
+  "13013": {
+    "url": "https://admision.udec.cl/biologia-marina/",
+    "2026": 735.7,
+    "2025": 749.95,
+    "2024": 706.75
+  },
+  "13014": {
+    "url": "https://admision.udec.cl/biologia/",
+    "2026": 686.2,
+    "2025": 672.25,
+    "2024": 679.1
+  },
+  "13048": {
+    "url": "https://admision.udec.cl/bioquimica/",
+    "2026": 815.7,
+    "2025": 817.15,
+    "2024": 780.55
+  },
+  "13046": {
+    "url": "https://admision.udec.cl/ciencias-fisicas/",
+    "2026": 600.4,
+    "2025": 605.0,
+    "2024": 701.9
+  },
+  "13027": {
+    "url": "https://admision.udec.cl/educacion-parvularia/",
+    "2026": 642.7,
+    "2025": 625.95,
+    "2024": 610.65
+  },
+  "13087": {
+    "url": "https://admision.udec.cl/enfermeria/",
+    "2026": 755.55,
+    "2025": 765.65,
+    "2024": 772.9
+  },
+  "13082": {
+    "url": "https://admision.udec.cl/fonoaudiologia/",
+    "2026": 654.45,
+    "2025": 646.9,
+    "2024": 635.45
+  },
+  "13056": {
+    "url": "https://admision.udec.cl/geofisica/",
+    "2026": 551.1,
+    "2025": 513.6,
+    "2024": 584.6
+  },
+  "13018": {
+    "url": "https://admision.udec.cl/geografia/",
+    "2026": 505.8,
+    "2025": 524.1,
+    "2024": 509.25
+  },
+  "13015": {
+    "url": "https://admision.udec.cl/geologia/",
+    "2026": 825.55,
+    "2025": 835.5,
+    "2024": 834.15
+  },
+  "13044": {
+    "url": "https://admision.udec.cl/ingenieria-ambiental-chillan/",
+    "2026": 547.85,
+    "2025": 504.55,
+    "2024": 522.45
+  },
+  "13061": {
+    "url": "https://admision.udec.cl/ingenieria-ambiental/",
+    "2026": 504.6,
+    "2025": 500.1,
+    "2024": 540.65
+  },
+  "13066": {
+    "url": "https://admision.udec.cl/ingenieria-civil-aeroespacial/",
+    "2026": 875.05,
+    "2025": 853.9,
+    "2024": 862.8
+  },
+  "13009": {
+    "url": "https://admision.udec.cl/ingenieria-civil-agricola/",
+    "2026": 605.25,
+    "2025": 578.05,
+    "2024": 517.35
+  },
+  "13062": {
+    "url": "https://admision.udec.cl/ingenieria-civil-biomedica/",
+    "2026": 779.55,
+    "2025": 780.45,
+    "2024": 742.95
+  },
+  "13102": {
+    "url": "https://admision.udec.cl/ingenieria-civil-de-minas/",
+    "2026": 756.65,
+    "2025": 735.4,
+    "2024": 702.5
+  },
+  "13070": {
+    "url": "https://admision.udec.cl/ingenieria-civil-electrica/",
+    "2026": 786.5,
+    "2025": 767.85,
+    "2024": 732.7
+  },
+  "13071": {
+    "url": "https://admision.udec.cl/ingenieria-civil-electronica/",
+    "2026": 714.65,
+    "2025": 692.65,
+    "2024": 671.65
+  },
+  "13064": {
+    "url": "https://admision.udec.cl/ingenieria-civil-en-telecomunicaciones/",
+    "2026": 685.55,
+    "2025": 629.85,
+    "2024": 539.9
+  },
+  "13072": {
+    "url": "https://admision.udec.cl/ingenieria-civil-industrial/",
+    "2026": 800.1,
+    "2025": 804.55,
+    "2024": 787.85
+  },
+  "13073": {
+    "url": "https://admision.udec.cl/ingenieria-civil-informatica/",
+    "2026": 804.75,
+    "2025": 806.5,
+    "2024": 785.55
+  },
+  "13003": {
+    "url": "https://admision.udec.cl/ingenieria-civil-matematica/",
+    "2026": 741.85,
+    "2025": 727.9,
+    "2024": 687.25
+  },
+  "13074": {
+    "url": "https://admision.udec.cl/ingenieria-civil-mecanica/",
+    "2026": 781.65,
+    "2025": 745.6,
+    "2024": 720.6
+  },
+  "13075": {
+    "url": "https://admision.udec.cl/ingenieria-civil-metalurgica/",
+    "2026": 707.3,
+    "2025": 670.85,
+    "2024": 651.95
+  },
+  "13068": {
+    "url": "https://admision.udec.cl/ingenieria-civil-primer-ano-comun/",
+    "2026": 700.25,
+    "2025": 688.3,
+    "2024": 642.0
+  },
+  "13076": {
+    "url": "https://admision.udec.cl/ingenieria-civil-quimica/",
+    "2026": 780.65,
+    "2025": 776.95,
+    "2024": 751.45
+  },
+  "13069": {
+    "url": "https://admision.udec.cl/ingenieria-civil/",
+    "2026": 721.45,
+    "2025": 723.1,
+    "2024": 699.25
+  },
+  "13019": {
+    "url": "https://admision.udec.cl/ingenieria-comercial/",
+    "2026": 705.15,
+    "2025": 692.25,
+    "2024": 681.2
+  },
+  "13016": {
+    "url": "https://admision.udec.cl/ingenieria-en-biotecnologia-marina-y-acuicultura/",
+    "2026": 568.2,
+    "2025": 507.25,
+    "2024": 512.5
+  },
+  "13043": {
+    "url": "https://admision.udec.cl/ingenieria-en-conservacion-de-recursos-naturales/",
+    "2026": 580.7,
+    "2025": 540.15,
+    "2024": 514.5
+  },
+  "13065": {
+    "url": "https://admision.udec.cl/ingenieria-estadistica/",
+    "2026": 716.95,
+    "2025": 599.2,
+    "2024": 565.5
+  },
+  "13008": {
+    "url": "https://admision.udec.cl/ingenieria-forestal/",
+    "2026": 574.0,
+    "2025": 515.65,
+    "2024": 515.95
+  },
+  "13093": {
+    "url": "https://admision.udec.cl/ingenieria-geomatica/",
+    "2026": 547.1,
+    "2025": 526.0,
+    "2024": 521.95
+  },
+  "13083": {
+    "url": "https://admision.udec.cl/kinesiologia/",
+    "2026": 735.85,
+    "2025": 738.95,
+    "2024": 743.7
+  },
+  "13059": {
+    "url": "https://admision.udec.cl/licenciatura-en-historia/",
+    "2026": 552.9,
+    "2025": 596.5,
+    "2024": 622.35
+  },
+  "13002": {
+    "url": "https://admision.udec.cl/licenciatura-en-matematica/",
+    "2026": 538.65,
+    "2025": 592.7,
+    "2024": 531.95
+  },
+  "13001": {
+    "url": "https://admision.udec.cl/licenciatura-en-quimica-quimico/",
+    "2026": 697.7,
+    "2025": 653.2,
+    "2024": 648.35
+  },
+  "13086": {
+    "url": "https://admision.udec.cl/medicina/",
+    "2026": 952.15,
+    "2025": 948.35,
+    "2024": 944.3
+  },
+  "13050": {
+    "url": "https://admision.udec.cl/nutricion-y-dietetica/",
+    "2026": 643.4,
+    "2025": 671.05,
+    "2024": 681.1
+  },
+  "13088": {
+    "url": "https://admision.udec.cl/obstetricia-y-puericultura/",
+    "2026": 743.45,
+    "2025": 759.05,
+    "2024": 781.15
+  },
+  "13091": {
+    "url": "https://admision.udec.cl/odontologia/",
+    "2026": 819.25,
+    "2025": 838.5,
+    "2024": 818.2
+  },
+  "13107": {
+    "url": "https://admision.udec.cl/pedagogia-en-artes-visuales/",
+    "2026": 669.0,
+    "2025": 658.25,
+    "2024": 657.45
+  },
+  "13036": {
+    "url": "https://admision.udec.cl/pedagogia-en-ciencias-naturales-y-fisica/",
+    "2026": 567.2,
+    "2025": 521.0,
+    "2024": 552.6
+  },
+  "13037": {
+    "url": "https://admision.udec.cl/pedagogia-en-ciencias-naturales-y-quimica/",
+    "2026": 599.35,
+    "2025": 525.55,
+    "2024": 523.0
+  },
+  "13101": {
+    "url": "https://admision.udec.cl/pedagogia-en-educacion-fisica/",
+    "2026": 623.9,
+    "2025": 598.95,
+    "2024": 613.7
+  },
+  "13039": {
+    "url": "https://admision.udec.cl/pedagogia-en-educacion-musical/",
+    "2026": 701.85,
+    "2025": 685.0,
+    "2024": 652.85
+  },
+  "13112": {
+    "url": "https://admision.udec.cl/pedagogia-en-espanol-los-angeles/",
+    "2026": null,
+    "2025": null,
+    "2024": null
+  },
+  "13041": {
+    "url": "https://admision.udec.cl/pedagogia-en-espanol/",
+    "2026": 665.35,
+    "2025": 681.65,
+    "2024": 668.35
+  },
+  "13042": {
+    "url": "https://admision.udec.cl/pedagogia-en-filosofia/",
+    "2026": 501.65,
+    "2025": 540.05,
+    "2024": 516.75
+  },
+  "13040": {
+    "url": "https://admision.udec.cl/pedagogia-en-historia-y-geografia/",
+    "2026": 643.5,
+    "2025": 676.2,
+    "2024": 646.0
+  },
+  "13031": {
+    "url": "https://admision.udec.cl/periodismo/",
+    "2026": 665.2,
+    "2025": 622.85,
+    "2024": 703.45
+  },
+  "13067": {
+    "url": "https://admision.udec.cl/psicologia/",
+    "2026": 789.1,
+    "2025": 801.65,
+    "2024": 834.15
+  },
+  "13049": {
+    "url": "https://admision.udec.cl/quimica-y-farmacia/",
+    "2026": 875.2,
+    "2025": 857.2,
+    "2024": 833.35
+  },
+  "13004": {
+    "url": "https://admision.udec.cl/quimico-a-analista/",
+    "2026": 664.3,
+    "2025": 647.1,
+    "2024": 638.35
+  },
+  "13077": {
+    "url": "https://admision.udec.cl/sociologia/",
+    "2026": 529.4,
+    "2025": 507.0,
+    "2024": 639.25
+  },
+  "13060": {
+    "url": "https://admision.udec.cl/teatro/",
+    "2026": 529.95,
+    "2025": 570.0,
+    "2024": 639.25
+  },
+  "13081": {
+    "url": "https://admision.udec.cl/tecnologia-medica/",
+    "2026": 805.6,
+    "2025": 803.75,
+    "2024": 819.25
+  },
+  "13025": {
+    "url": "https://admision.udec.cl/trabajo-social/",
+    "2026": 619.95,
+    "2025": 618.85,
+    "2024": 634.05
+  },
+  "13058": {
+    "url": "https://admision.udec.cl/traduccion-interpretacion-en-idiomas-extranjeros/",
+    "2026": 653.4,
+    "2025": 711.55,
+    "2024": 737.15
+  }
+}

@@ -1,0 +1,23 @@
+[tool.coverage.run]
+source = ["api", "core", "models", "services"]
+omit = ["tests/*", "venv/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 72
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# E402: deferred imports are intentional (engine patching in conftest, late seed imports)
+# Each entry below is a module that MUST import app code after module-level setup.
+"curriculum_banks/auto_content_generator.py" = ["E402"]  # sys.path bootstrap runs before app imports
+"curriculum_banks/bank_importer.py" = ["E402"]  # sys.path bootstrap runs before app imports
+"curriculum_banks/demre_batch_importer.py" = ["E402"]  # sys.path bootstrap runs before app imports
+"services/paes/demre_scale.py" = ["E402"]  # stdlib imports follow the inline score-curve table

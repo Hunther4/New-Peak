@@ -1,0 +1,1890 @@
+{
+  "metadata": {
+    "year": 2025,
+    "subject": "CIENCIAS_FISICA",
+    "test_filename": "prueba_oficial_paes_2025_ciencias_fisica.pdf",
+    "clavijero_filename": "clavijero_paes_2025_ciencias_fisica.pdf",
+    "total_extracted": 50,
+    "matched_keys": 50
+  },
+  "questions": [
+    {
+      "id": "paes-2025-ciencias_fisica-q03",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 3,
+      "stimulus": null,
+      "stem": "Una persona limpia un piso de baldosas, y se percata que la parte mojada parece más oscura que la parte seca, tal como se muestra en la siguiente imagen: En relación con lo anterior, ¿qué pregunta de investigación surge directamente de la observación realizada por la persona?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Cuáles longitudes de onda se reflejan en las baldosas?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "¿Cuáles longitudes de onda son absorbidas por el agua?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "¿Cuáles longitudes de onda se refractan en las baldosas?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "¿Cuáles longitudes de onda inciden en el agua?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q04",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 4,
+      "stimulus": null,
+      "stem": "Un grupo de estudiantes observa que, al hacer incidir dos rayos luminosos distintos entre sí con un mismo ángulo de incidencia sobre la superficie del agua, estos se refractan con ángulos distintos. Luego, repiten el experimento con otros rayos luminosos, observando el mismo comportamiento de los rayos refractados del experimento anterior. Al respecto, ¿cuál de las siguientes opciones corresponde a una pregunta de investigación relacionada directamente con lo observado?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Cómo influye el ángulo de incidencia en el ángulo de reflexión?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "¿Cómo influyen los medios de transmisión en el ángulo refractado?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "¿Qué relación hay entre la frecuencia del rayo incidente con el ángulo de reflexión?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "¿Qué relación hay entre la frecuencia del rayo incidente con el ángulo de refracción?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q06",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 6,
+      "stimulus": null,
+      "stem": "Frente a un espejo plano se coloca uno convexo, de modo que sus ejes ópticos coinciden. A igual distancia de ambos espejos, se ubica un objeto sobre el eje óptico. En esta situación, se puede afirmar correctamente que",
+      "options": [
+        {
+          "key": "A",
+          "text": "se formarán solo imágenes reales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "se formarán solo imágenes virtuales.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "se formará una imagen real y una imagen virtual.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "se formará una imagen virtual y múltiples imágenes reales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "se formará una imagen real y múltiples imágenes virtuales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q09",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 9,
+      "stimulus": null,
+      "stem": "Tres bloques de 1 kg, 2 kg y 3 kg, se conectan y cuelgan mediante cuerdas inextensibles y de masas despreciables. Las fuerzas en las cuerdas tienen magnitudes T1, T2 y T3, como se representa en la siguiente figura: Al respecto, ¿cuál de las siguientes expresiones para T3 en función de T1 es correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "T3 = T1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "T3 = 2T1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "T3 = 3T1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "T3 = 6T1 g",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q12",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 12,
+      "stimulus": null,
+      "stem": "Un resorte de longitud natural 50 cm, tiene un extremo fijo a una pared vertical y el otro libre. El resorte permanece en la dirección del eje x horizontal, como muestra la figura. Si para mantener el extremo libre en la posición x = 80 cm hay que ejercer una fuerza, paralela al eje x, de magnitud 24 N, entonces para mantener el extremo libre en la posición x = 40 cm hay que ejercer una fuerza, paralela al eje x, de magnitud",
+      "options": [
+        {
+          "key": "A",
+          "text": "8 N",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "12 N",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "16 N",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "24 N",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "32 N",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q13",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 13,
+      "stimulus": null,
+      "stem": "Un grupo de geólogas monitorea la sismicidad de un volcán ante la sospecha de que su actividad ha aumentado. Para ello, primeramente, realizan un estudio geográfico del sector donde se emplaza el volcán con el fin de instalar sensores sismográficos. Con los sensores ya instalados y en funcionamiento comienza un periodo de mediciones que son procesadas y analizadas. “Finalmente, a partir de los resultados obtenidos, el grupo de geólogas reporta que la sismicidad está dentro de los parámetros normales”. Al respecto, ¿a qué componente de la investigación científica se asocia la frase entre comillas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Al planteamiento del problema.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "A la formulación de la hipótesis.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "A la presentación de una conclusión.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "A la recolección de los datos experimentales. x (cm) 80 50 40 0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q15",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 15,
+      "stimulus": null,
+      "stem": "Un grupo de personas pretende realizar una investigación para comparar la máxima temperatura del aire en un mismo día y en distintos lugares del planeta, de acuerdo a la distancia que los separa de la línea del Ecuador. En base a los antecedentes presentados, ¿cuál de las siguientes hipótesis pudo haber dado origen a esta investigación?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La temperatura es constante en todos los puntos de la línea del Ecuador.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La temperatura disminuye conforme aumenta la altura de un lugar.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La temperatura aumenta conforme aumenta la latitud de un lugar.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La temperatura depende de la presión atmosférica.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q16",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 16,
+      "stimulus": null,
+      "stem": "Una lámpara saldrá al mercado pronto, la cual consiste en dos ampolletas conectadas en serie. Respecto de este tipo de conexión, ¿qué opción señala correctamente la información que debiese contener el manual para evitar problemas de funcionamiento de esta lámpara?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La corriente eléctrica medida en ambas ampolletas tiene la misma intensidad.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El encendido de la lámpara dependerá de que ambas ampolletas estén en buen estado.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "El voltaje en los extremos de cada ampolleta es distinto al voltaje suministrado por el enchufe.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La resistencia interna de la lámpara equivale a la suma de las resistencias de las ampolletas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q18",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 18,
+      "stimulus": null,
+      "stem": "Una persona está en un local comercial y pretende comprar un refrigerador cuyo uso implique el menor gasto económico posible. La persona compara el etiquetado de distintos refrigeradores, uno de los cuales se representa en la siguiente imagen: En relación con lo anterior, ¿qué información de la etiqueta debe considerar la persona para tomar su decisión?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El consumo mensual del refrigerador",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "El voltaje que se debe suministrar al refrigerador",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La temperatura del compartimiento congelado del refrigerador",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El volumen útil total de ambos compartimientos del refrigerador",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q19",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 19,
+      "stimulus": null,
+      "stem": "La diabetes tipo I es causada por la destrucción de células beta pancreáticas, las cuales tienen como función secretar insulina permitiendo regular los niveles de glucosa en la sangre. Con el fin de abordar este problema, un equipo de investigación ha desarrollado un tratamiento que implica la producción de células beta funcionales a partir de células troncales. Los resultados preliminares in vitro indican que las células transformadas son capaces de liberar insulina en respuesta a la exposición a la glucosa. En base a estos antecedentes, ¿qué hipótesis podría validarse a través de la implementación de esta estrategia por parte del equipo de investigación?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El trasplante de células troncales transformadas disminuye significativamente el ingreso de glucosa al interior de la célula.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La transformación de células troncales es fundamental para el trasplante de páncreas en personas con diabetes tipo I.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Altos niveles de glucosa disminuyen la probabilidad de liberación de insulina en células beta pancreáticas transformadas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Las células beta pancreáticas formadas a partir de células troncales son un posible tratamiento para la diabetes tipo I.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q23",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 23,
+      "stimulus": null,
+      "stem": "Un estudio realizado en adolescentes determinó la edad de aparición de algunas características sexuales asociadas a la pubertad. Los resultados se resumen en la siguiente figura, donde las líneas negras indican el rango etario de aparición de estas características y las flechas su promedio: Analizando los datos presentados, ¿cuál de las siguientes opciones corresponde a una conclusión correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El vello púbico corresponde a la característica sexual que se manifiesta más tardíamente.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El cambio de voz y el vello facial son las características sexuales que se manifiestan, en promedio, a más temprana edad.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El vello púbico es la característica sexual que, en promedio, se manifiesta más tempranamente durante el desarrollo.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "El cambio de voz y el vello axilar son las características sexuales que se manifiestan más tardíamente. Cambio de voz Vello púbico Vello facial Vello axilar 10 11 12 13 14 15 16 17 18 Edad (años)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q24",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 24,
+      "stimulus": null,
+      "stem": "Una científica evaluó in vitro el efecto inhibitorio de la molécula Z en la afinidad de los gametos masculinos (espermatozoides) con la superficie de los gametos femeninos (ovocitos). El diseño experimental consistió en cuantificar los espermatozoides presentes en la superficie de ovocitos bajo cuatro concentraciones crecientes de Z. Para estos fines, trabajó con una muestra de 100 espermatozoides y 25 ovocitos provenientes de ratones de laboratorio. Sus resultados sugieren que el efecto inhibitorio depende directamente de la concentración de la molécula Z. En este contexto, ¿cuál de las siguientes opciones representa de manera correcta los posibles resultados obtenidos por la científica?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Molécula Z Número de espermatozoides unidos Número de ovocitos Ausente 80 15 Presente 20 10",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Concentración de Z (u.a.) Número de espermatozoides Porcentaje 1 40 40 2 10 10 3 20 20 4 30 30 Espermatozoides 100- 75- 50- 25- 0- 1 2 3 4 Concentración de Z (u.a.) Ovocitos",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Número de gametos 80- 60- 40- 20- 0- 1 2 3 4 Concentración de Z (u.a.)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Espermatozoides unidos (N)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q27",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 27,
+      "stimulus": null,
+      "stem": "El lupus es una enfermedad autoinmune, es decir, corresponde a una enfermedad donde el propio sistema inmunológico ataca a las células sanas de la persona. La evidencia internacional muestra que la prevalencia de lupus es mayor en las mujeres. Considerando que un grupo de científicas desea saber si ocurre lo mismo en la población chilena, ¿cuál de las siguientes opciones señala una pregunta de investigación pertinente al problema planteado por las científicas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Cuál es el rango de edad de las mujeres que presentan lupus en Chile?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "¿Cuál es la probabilidad que una mujer chilena desarrolle lupus?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "¿Cuál es la frecuencia de lupus en la población total chilena?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "¿Cuál es el porcentaje de mujeres y hombres con lupus en Chile?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q28",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 28,
+      "stimulus": null,
+      "stem": "En los inicios de la inmunología, existían investigadores que proponían como teoría que la respuesta inmunológica es humoral, es decir, mediada por secreciones de sustancias liberadas por los glóbulos blancos. A partir de lo anterior, ¿cuál de las siguientes opciones corresponde a una evidencia que apoya dicha propuesta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La disminución de la cantidad de macrófagos en las zonas de la piel afectadas por una infección micótica.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El aumento de temperatura corporal producido por la presencia de una sustancia irritante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El aumento en la cantidad de anticuerpos en la sangre de un individuo afectado por un agente infeccioso.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La disminución en la cantidad de linfocitos T citotóxicos presentes en el plasma sanguíneo producida por una infección viral.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q29",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 29,
+      "stimulus": null,
+      "stem": "Un equipo de investigación está probando dos compuestos químicos (1 y 2), que afectan la viabilidad celular, como posibles fármacos que actúen contra el cáncer de mamas. Para ello, generaron tres cultivos con la misma cantidad de células (cultivos iniciales), extraídas del tejido mamario de una persona diagnosticada con cáncer de mama. Dos de los cultivos fueron tratados individualmente con los compuestos 1 y 2, y el cultivo restante quedó como control. Los resultados obtenidos se representan en la siguiente figura: En base a lo anterior, ¿cuál de las siguientes opciones corresponde a una inferencia correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El compuesto 1 aumentó el número de células viables cancerosas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El compuesto 1 aumentó el volumen de las células viables cancerosas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El compuesto 2 disminuyó la tasa de proliferación de las células viables cancerosas.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "El compuesto 2 transformó las células viables cancerosas en células viables normales. Experimento tras 72 horas Cultivos iniciales Cultivo control Cultivo con compuesto 1 Cultivo con compuesto 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q30",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 30,
+      "stimulus": null,
+      "stem": "El arroz dorado es una variedad de arroz genéticamente modificado para producir betacaroteno, un precursor de la vitamina A. En el siguiente gráfico, se presenta una comparación de los niveles de betacaroteno entre el arroz dorado y el arroz no modificado genéticamente a lo largo del tiempo: En relación con el análisis del gráfico, ¿cuál de las siguientes conclusiones es correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Los niveles de betacaroteno en el arroz dorado son siempre más altos que en el arroz no modificado genéticamente.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Los niveles de betacaroteno en el arroz dorado son siempre más bajos que en el arroz no modificado genéticamente.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Los niveles de betacaroteno en el arroz no modificado genéticamente aumentan de manera constante a lo largo del tiempo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Los niveles de betacaroteno en el arroz dorado aumentan con el transcurso de las semanas. 0 1 2 3 0 1 2 3 4 5 Niveles de betacaroteno (u.a.) Tiempo (Semanas) Arroz dorado Arroz no modificado genéticamente",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q31",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 31,
+      "stimulus": null,
+      "stem": "El algodón transgénico Bt ha sido modificado genéticamente para que sea resistente a insectos. Experimentalmente, a esta planta se le introducen genes provenientes de la bacteria Bacillus thuringiensis, los cuales codifican para proteínas que resultan ser tóxicas para las larvas de polillas que atacan el algodón. A partir de estos antecedentes, ¿cuál de las siguientes opciones corresponde a la hipótesis asociada con el procedimiento de generación del algodón Bt?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Las proteínas sintetizadas por la planta de algodón transgénico Bt provocaron toxicidad en las larvas de polilla.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Determinar el efecto defensivo del algodón transgénico Bt frente al ataque de larvas de polillas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Mediante la inserción de genes de Bacillus thuringiensis, el algodón consigue protección frente al ataque de insectos.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Mediante la inserción de genes de Bacillus thuringiensis, el algodón presentó una menor resistencia a insectos de lo que se postulaba.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q32",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 32,
+      "stimulus": null,
+      "stem": "La fermentación de bebidas, la fabricación de quesos y la producción de pan, corresponden a procesos basados en el metabolismo de las levaduras, los cuales pueden ser optimizados por medio de la manipulación genética. Lo anterior se puede lograr gracias al avance en la identificación de genes, sus funciones y los mecanismos del funcionamiento celular. Considerando la información entregada, ¿cuál de las siguientes opciones corresponde a una aplicación científica de la manipulación genética en el funcionamiento celular?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La manipulación genética permite la síntesis de nuevos organelos celulares con nuevas funciones.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La manipulación genética permite identificar nuevas especies unicelulares con potencial para ser utilizadas en procesos industriales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La manipulación genética permite aumentar la actividad metabólica de los organelos celulares de los organismos.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La manipulación genética permite mantener las funciones celulares inalteradas en las especies de interés productivo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q34",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 34,
+      "stimulus": null,
+      "stem": "Una estudiante tomó una botella, la cortó y colocó un tipo de tierra. Posteriormente dispuso una capa de lentejas de la misma variedad a germinar cerca de la ventana (1). Tras algunos días observó el germinado (2) y decidió girarlo en 180° (3). Luego de un tiempo, determinó que las plántulas están listas para consumir (4). En relación con lo anterior, ¿cuál podría ser la pregunta de la estudiante considerando el cambio de condiciones que ha realizado en el procedimiento experimental?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Cuál es el efecto del ángulo de incidencia de la luz solar sobre el crecimiento de la planta?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "¿Cuál es el efecto de la evaporación del agua en el crecimiento de las plántulas?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "¿Cuál es el efecto de la brisa en la ventana, respecto de la tasa de crecimiento de las plántulas?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "¿Cuál es el efecto del tipo de tierra utilizada en la tasa de crecimiento de las plántulas? (1) (2) (3) (4)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q38",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 38,
+      "stimulus": null,
+      "stem": "Un grupo de estudiantes realiza una serie de mediciones en el laboratorio, reportando sus resultados en la siguiente tabla: Masa de agua (g) Presión atmosférica (mmHg) Temperatura de ebullición (°C) 100 526 90 100 760 100 200 760 100 400 760 100 200 879 104 200 983 107 Posteriormente, su profesor les consulta qué condiciones de experimentación deberían variar para que el agua ebulla a una temperatura inferior a 90 °C. De acuerdo con los resultados reportados en la tabla, ¿cuál de las siguientes acciones permite obtener correctamente las condiciones que posibilitan obtener lo indicado por el profesor?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Disminuir la presión atmosférica a menos de 526 mmHg.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Aumentar la presión atmosférica a más de 983 mmHg.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Aumentar la masa de agua al doble.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Disminuir la masa de agua a la mitad.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q39",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 39,
+      "stimulus": null,
+      "stem": "Una persona investigando sobre los cambios químicos, realiza el siguiente experimento en su casa: le quita la cáscara a una manzana, corta cuatro trozos de igual masa y forma. Luego, toma tres trozos y cada uno de ellos es sumergido en tres recipientes que contienen diferentes solventes: uno es sumergido en vinagre, otro en limón y otro en agua. Posteriormente, deja el cuarto trozo de manzana en un recipiente al aire libre y sin tapa. Finalmente, deja transcurrir 1 hora y observa el cambio de color de cada trozo de manzana, los cuales adquirieron una coloración oscura con diferente intensidad. Los datos obtenidos se registran en la siguiente tabla: Condición experimental Vinagre Limón Agua Aire libre Intensidad de la coloración del trozo de manzana Baja Baja Media Alta Considerando que la intensidad de la coloración es una medida directa del nivel de oxidación de la manzana, ¿cuál de las siguientes opciones muestra correctamente la variable que manipula la persona?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Nivel de oxidación de la manzana",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Tiempo de exposición de la manzana",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Condición al que se expone el trozo de manzana",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Intensidad de la coloración del trozo de manzana",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q40",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 40,
+      "stimulus": null,
+      "stem": "Rutherford inicia su estudio del átomo experimentando con el bombardeo de rayos alfa sobre una lámina muy delgada de oro. El resultado fue que del total de partículas alfa proyectadas, la gran mayoría pasó sin problemas, otras experimentaron una leve desviación y muy pocas se devolvieron en trayectoria de línea recta. Debido a estos resultados, Rutherford estableció que “el átomo no tiene una estructura compacta, salvo una diminuta parte donde rebotan los rayos alfa”. Comprobó que la mayor parte de la masa del átomo estaba en esa diminuta parte, al centro del átomo y la llamó núcleo. Este estaba formado por protones y, a su alrededor, se encontraban girando los electrones separados por una distancia tal, que las partículas alfa pasaban sin problemas. ¿A qué componente de una investigación científica corresponde la oración entre comillas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A una conclusión",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "A una hipótesis",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "A una teoría",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "A un procedimiento experimental",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q42",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 42,
+      "stimulus": null,
+      "stem": "Un docente comenta en clase que los carbohidratos son biomoléculas presentes en diferentes alimentos y que algunos de estos pueden ser detectados poniendo en contacto el alimento con una solución al 1% m/m de KI y I2 (lugol), cuyo cambio de coloración indica la presencia de carbohidratos. En base a lo expuesto, un estudiante se plantea la siguiente interrogante, “¿Cómo varía la coloración del lugol en relación a la cantidad de carbohidratos en los alimentos?”. De acuerdo con lo anterior, ¿cuál de las siguientes opciones señala correctamente las variables que el estudiante debería manipular y constatar para poder contestar su interrogante?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Masa de alimento y cantidad de lugol",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Masa de alimento y tipo de alimento",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Tipo de alimento y coloración de lugol",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Coloración de lugol y cantidad de lugol",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "A",
+          "text": "B)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "D)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q43",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 43,
+      "stimulus": null,
+      "stem": "Uno de los agentes terapéuticos que fueron usados en el tratamiento clínico de la tuberculosis en los años 60 fue un derivado de tiourea conocido como tiocarlida (molécula líder) THC cuya estructura se presenta a continuación: Los laboratorios farmacéuticos en un intento por mejorar el valor terapéutico de la tiocarlida, sintetizaron una serie de derivados de esta molécula las cuales presentaron diferente actividad inhibitoria contra Mycobacterium tuberculosis (el microorganismo causante de la tuberculosis), al ser evaluadas en las mismas condiciones experimentales. Las modificaciones realizadas a la THC se muestran a continuación: En relación con lo anterior, ¿cuál de las siguientes conclusiones es correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Las diferencias en la actividad inhibitoria contra Mycobacterium tuberculosis se deben a la disposición de los grupos hidroxilo presentes en el radical de la THC.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Las diferencias en la actividad inhibitoria contra Mycobacterium tuberculosis se deben a la cantidad de átomos de carbono presentes en el radical de la THC.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Las diferencias en la actividad inhibitoria contra Mycobacterium tuberculosis se deben a la cantidad de los grupos hidroxilo presentes en el radical de la THC.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Las diferencias en la actividad inhibitoria contra Mycobacterium tuberculosis se deben a la cantidad de átomos de oxígeno presentes en el radical de la THC. I II III",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q44",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 44,
+      "stimulus": null,
+      "stem": "La fórmula estructural de la valina es: Al respecto, ¿qué funciones orgánicas se encuentran en este compuesto?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Alcohol y amina",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Cetona y alcohol",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Amina y ácido carboxílico",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Amida y ácido carboxílico",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Alcohol y amida",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q45",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 45,
+      "stimulus": null,
+      "stem": "Un estudiante toma tres esferas de metal, de igual volumen, que contienen la misma cantidad de aire en su interior. Cada una de las esferas tiene un sensor que permite medir la presión interna. El estudiante agrega las esferas, por separado, en tres vasos de precipitados que contienen igual volumen de agua, a diferentes temperaturas en un rango que no dilate las esferas. El diseño experimental se muestra en la siguiente imagen: Al respecto y sabiendo que el procedimiento realizado por el estudiante es correcto, ¿cuál de las siguientes hipótesis desea someter a prueba el estudiante con el diseño experimental implementado?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La temperatura afecta la presión del aire al interior de la esfera de acero a volumen constante.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "El volumen afecta la presión del gas al interior de la esfera de acero a temperatura constante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La temperatura de las esferas de acero determina cambios en los vasos de precipitados.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La presión del aire al interior de la esfera determina el volumen de la esfera de acero.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q46",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 46,
+      "stimulus": null,
+      "stem": "Si 1 mol del elemento X reacciona completamente con hidrógeno, se producen 34,0 g de producto, de acuerdo a la siguiente ecuación no balanceada: X2 + H2 XH3 ¿Cuál es la masa molar, en g/mol, del elemento X?",
+      "options": [
+        {
+          "key": "A",
+          "text": "31,0",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "17,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "16,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "15,5",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "14,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q48",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 48,
+      "stimulus": null,
+      "stem": "La combustión completa de un hidrocarburo de fórmula desconocida produce únicamente 132 g de CO2 (masa molar = 44 g/mol) y 72 g de agua (masa molar = 18 g/mol), de acuerdo a la siguiente reacción: CxHy + O2 CO2 + H2O Al respecto, ¿cuál es la fórmula empírica del hidrocarburo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "C3H5",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "C3H4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "C4H7",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "C3H8",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "C4H9",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q49",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 49,
+      "stimulus": null,
+      "stem": "En la siguiente ecuación se muestra la formación de hidróxido de magnesio, Mg(OH)2, a partir de la reacción entre un hidruro de magnesio, MgH2, y agua: MgH2 + 2 H2O Mg(OH)2 + 2 H2 Si la reacción se lleva a cabo con 4 mol de MgH2 y un exceso de H2O, ¿qué masa de H2 se forma?",
+      "options": [
+        {
+          "key": "A",
+          "text": "4 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "8 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "12 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "16 g",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "20 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q50",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 50,
+      "stimulus": null,
+      "stem": "Un grupo de investigadores ha observado que un lago cercano a su laboratorio recibe una descarga de residuos industriales líquidos (RILES) con contenido de metales pesados, compuestos solubles en agua que afectan negativamente la vida de los peces. A partir de lo anterior, el grupo de investigadores midió la concentración de metales pesados en muestras de agua del lago, en ausencia y presencia de precipitaciones intensas, realizando muestreos en las 4 estaciones durante un año. En relación con lo anterior, y considerando que el procedimiento experimental se realizó correctamente, ¿cuál de las siguientes opciones corresponde a la hipótesis que dio origen al procedimiento llevado a cabo por los investigadores?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La temperatura aumenta la capacidad de eliminar metales pesados de las aguas del lago.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La concentración de metales pesados en el lago disminuye en períodos de lluvia intensa.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "La solubilidad de los metales pesados en el lago disminuye en períodos de lluvia intensa.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La cantidad de metales pesados está determinada por el tiempo que transcurre desde la descarga de RILES hacia el lago.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q52",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 52,
+      "stimulus": null,
+      "stem": "Para preparar 200 mL de una solución 1 mol/L de NaOH (masa molar = 40 g/mol), a partir de una solución 20% m/v, de esta última se debe extraer y medir",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 mL y agregar 199 mL de agua.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "20 mL y agregar 180 mL de agua.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "1 mL y agregar agua hasta 200 mL.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "20 mL y agregar agua hasta 200 mL.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "40 mL y agregar agua hasta 200 mL.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q53",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 53,
+      "stimulus": null,
+      "stem": "¿Qué masa de solvente hay en 300 g de una disolución al 20% masa/masa?",
+      "options": [
+        {
+          "key": "A",
+          "text": "20 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "60 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "80 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "240 g",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "280 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q56",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 56,
+      "stimulus": null,
+      "stem": "Un rayo de luz que se transmite en el vacío, incide sobre un material transparente con un ángulo de incidencia  respecto de la normal, tal que o o 90 0    . ¿Qué ocurre con el rayo de luz luego de incidir en el material transparente?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Se refleja parcialmente con un ángulo menor que  y se refracta parcialmente con un ángulo menor que .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Se refleja parcialmente con un ángulo mayor que  y se refracta parcialmente con un ángulo mayor que .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Se refleja parcialmente con un ángulo igual a  y se refracta parcialmente con un ángulo menor que .",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Se refleja parcialmente con un ángulo igual a  y se refracta parcialmente con un ángulo igual a .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q58",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 58,
+      "stimulus": null,
+      "stem": "Un grupo de estudiantes plantea la posibilidad de recomponer rayos de luz de colores, previamente dispersados por un prisma, en un haz de luz blanca. ¿Cuál de los siguientes procedimientos le permitiría al grupo lograr el objetivo de investigación?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Medir los ángulos que forman entre sí los rayos una vez dispersados por el prisma",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Utilizar una secuencia de prismas o lentes para redireccionar los rayos previamente dispersados",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Estudiar el efecto de utilizar prismas de distintas características para descomponer la luz blanca",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Utilizar una secuencia de espejos planos para reflejar los rayos previamente dispersados por el prisma",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q59",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 59,
+      "stimulus": null,
+      "stem": "Al fijarse en las características de su crema de protección solar, una estudiante observa que la crema posee una protección alta contra rayos UVA y UVB, pero no contra los rayos UVC. La estudiante se sorprende que la crema no proteja contra los rayos UVC, pues recuerda que todas esas ondas se diferencian principalmente por su longitud de onda. ¿Cuál de las siguientes hipótesis explica correctamente lo observado por la estudiante?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La atmósfera terrestre bloquea el paso de la radiación UVC, pero no el de la radiación UVA y UVB.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "La radiación UVC no puede propagarse a través del vacío, por lo que no llega a la superficie terrestre.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Las radiaciones UVA y UVB son más rápidas que la UVC, por lo que la protección debe ser focalizada en ellas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Las frecuencias de los rayos UVA y UVB son iguales, por lo que es más fácil fabricar cremas protectoras contra ellas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q61",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 61,
+      "stimulus": null,
+      "stem": "Una persona introduce su mano en un recipiente de vidrio lleno con agua y nota que la imagen que observa de su mano a través del recipiente no invierte su orientación y es de mayor tamaño en comparación a cuando esta se encuentra fuera del agua. ¿Cuál de las siguientes afirmaciones explica correctamente lo observado por la persona?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El recipiente de vidrio lleno de agua actúa como lente convergente, quedando la mano dentro de su distancia focal.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "El recipiente de vidrio lleno de agua actúa como lente convergente, quedando la mano fuera de su distancia focal.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El recipiente de vidrio lleno de agua actúa como lente divergente, quedando la mano dentro de su distancia focal.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El recipiente de vidrio lleno de agua actúa como lente divergente, quedando su mano fuera de la distancia focal.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q62",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 62,
+      "stimulus": null,
+      "stem": "Un profesor presenta a sus estudiantes una fotografía que tomó de un objeto frente a un espejo cóncavo, observándose que no se formó el reflejo del objeto en el espejo. Considerando lo anterior, ¿cuál de las siguientes opciones menciona correctamente la condición que consideró el profesor para tomar la fotografía?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La tomó cuando el objeto estaba posicionado entre el foco y el espejo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La tomó cuando el objeto estaba posicionado en el foco del espejo.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "La tomó cuando el objeto estaba posicionado en el centro de curvatura del espejo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La tomó cuando el objeto estaba posicionado entre el foco y el centro de curvatura del espejo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q63",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 63,
+      "stimulus": null,
+      "stem": "Una persona busca analizar la relación entre la fuerza neta ejercida sobre un cuerpo y su movimiento. Para ello, ubica una canasta con maní en un plano inclinado en 20° respecto de la horizontal y observa que esta se mantiene en reposo. ¿Cuál de las siguientes predicciones debiese cumplirse en la situación descrita?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Si se inclina la superficie en 10°, en lugar de 20°, eventualmente la canasta deslizará.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Si se reemplaza la superficie por otra más rugosa, la canasta deslizará.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Si se saca cierta cantidad de maníes de la canasta, esta última deslizará.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Si se aumenta el ángulo de inclinación del plano, eventualmente la canasta deslizará.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q65",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 65,
+      "stimulus": null,
+      "stem": "La siguiente figura representa dos bloques de masas y , conectados por una cuerda delgada e inextensible que pasa por una polea ideal: Si actúa la fuerza de roce debido a la interacción entre el bloque de masa y la superficie horizontal, ¿cuál de las siguientes condiciones se debe cumplir para que ambos bloques aumenten su rapidez?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Que la magnitud de la fuerza que ejerce la cuerda sobre los bloques sea menor que la magnitud de la fuerza peso del bloque de masa .",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Que la magnitud de la fuerza que ejerce la cuerda sobre los bloques sea menor que la magnitud de la fuerza peso del bloque de masa .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Que la magnitud de la fuerza normal sea mayor que la magnitud de la fuerza que ejerce la cuerda sobre los bloques.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Que la magnitud de la fuerza normal sea mayor que la magnitud de la fuerza de roce. g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q66",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 66,
+      "stimulus": null,
+      "stem": "Un joven se mantiene en reposo con sus pies apoyados en una pared casi vertical (punto Q), sostenido con sus manos a la cuerda PR en el extremo R. La cuerda está fija a la pared en el extremo superior P, como ilustra la figura. Si la cuerda ejerce una fuerza en las manos del joven, la fuerza de reacción a , es la fuerza que",
+      "options": [
+        {
+          "key": "A",
+          "text": "la pared ejerce sobre los pies del joven en Q.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "la cuerda ejerce sobre la pared en el punto P.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "los pies del joven ejercen sobre la pared en Q.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "la pared ejerce sobre la cuerda en el extremo P.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "las manos del joven ejercen sobre la cuerda en el extremo R.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q67",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 67,
+      "stimulus": null,
+      "stem": "Un bloque de madera se encuentra en reposo encima de una superficie horizontal de madera. Sobre el bloque actúa una fuerza F constante y paralela a la superficie, haciendo que el bloque se mueva por esta con aceleración constante. A partir de cierto instante, la fuerza F deja de actuar. Al respecto, ¿cuál de las siguientes afirmaciones es correcta con relación a la fuerza neta que actúa sobre el bloque desde que la fuerza F deja de actuar hasta justo antes de detenerse?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Su magnitud es constante y su sentido coincide con el del movimiento del bloque.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Su magnitud es variable y su sentido coincide con el del movimiento del bloque.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Su magnitud es constante y su sentido se opone al del movimiento del bloque.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Su magnitud es variable y su sentido se opone al del movimiento del bloque. P Q R",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q69",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 69,
+      "stimulus": null,
+      "stem": "Un auto de juguete es empujado por una pared vertical, tal como se representa en la siguiente figura: En relación con lo anterior, ¿cuál es la dirección y sentido, desde tu posición, de la fuerza normal aplicada por la pared sobre el auto de juguete?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Paralela a la pared y hacia abajo",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Paralela a la pared y hacia arriba",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Perpendicular a la pared y hacia la derecha",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Perpendicular a la pared y hacia la izquierda Derecha Izquierda",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q70",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 70,
+      "stimulus": null,
+      "stem": "En un recipiente cilíndrico que contiene agua, se sumerge una moneda. Si se conoce la magnitud de la aceleración de gravedad y la densidad del agua, ¿cuál de las siguientes opciones presenta la variable faltante que permite determinar la presión que el agua ejerce sobre la moneda?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El radio del recipiente cilíndrico que contiene el agua",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La fuerza que el agua ejerce sobre la moneda sumergida",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La profundidad de la moneda con respecto a la superficie del agua",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "El volumen de agua que se desplaza cuando se sumerge la moneda",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q72",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 72,
+      "stimulus": null,
+      "stem": "Una investigadora y su ayudante indagan acerca de fenómenos geológicos en una zona de su país. Para esto, confeccionan dos mapas, uno de los volcanes activos y otro con los epicentros de sismos sobre 4,0 en magnitud que han ocurrido en el último año en esa zona. Los mapas de la investigadora y su ayudante se presentan a continuación: De acuerdo con la teoría de tectónica de placas y la información obtenida, ¿cuál es una inferencia apropiada al análisis de ambos mapas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La zona estudiada se encuentra cerca del centro de una de las placas tectónicas principales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La zona estudiada se encuentra cerca de un límite transformante de placas tectónicas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La zona estudiada se encuentra cerca de un límite convergente de placas tectónicas.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La zona estudiada se encuentra cerca de un límite divergente de placas tectónicas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q73",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 73,
+      "stimulus": null,
+      "stem": "Para investigar sobre el efecto invernadero, un grupo de estudiantes dispone de cuatro cajas plásticas transparentes iguales. En cada una de ellas, el grupo pone distinta cantidad de vasos con igual cantidad de agua a temperatura ambiente, tal como indica la siguiente tabla: Luego, fijan un termómetro en el interior de cada caja, las tapan, las dejan al Sol y registran la temperatura cada 5 minutos. ¿Qué pregunta de investigación puede ser abordada con el procedimiento realizado por los estudiantes?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Influye la temperatura en la humedad ambiental?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "¿Influye la humedad ambiental en el efecto invernadero?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "¿Influye la temperatura ambiental en el efecto invernadero?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "¿Influye el tiempo de registro en la temperatura promedio?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q74",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 74,
+      "stimulus": null,
+      "stem": "En un noticiero, en el cual informan el tiempo atmosférico para cierta localidad del país, un periodista dice: “hoy tenemos un tiempo atmosférico primaveral, pero mañana cambiará el clima, ya que se espera una lluvia intensa”. Al respecto, ¿es correcta la información proporcionada por el periodista y por qué?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Es correcta, porque las estaciones del año tienen climas independientes.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Es correcta, porque los conceptos de tiempo atmosférico y clima son sinónimos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Es incorrecta, porque las variaciones del clima se producen en un largo periodo de tiempo.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Es incorrecta, porque las variaciones del tiempo atmosférico se producen en un largo periodo de tiempo. Caja Nº vasos con agua en su interior M 0 N 1 O 2 P 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q75",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 75,
+      "stimulus": null,
+      "stem": "Un circuito eléctrico está compuesto por cuatro resistores S, T, U y W de resistencias de igual magnitud, conectados a una única fuente que suministra una determinada diferencia de potencial. Al respecto, ¿de qué manera debe ser la asociación entre los resistores para que por cada uno de estos circule una corriente eléctrica de igual intensidad?",
+      "options": [
+        {
+          "key": "A",
+          "text": "S y T están en paralelo y a su vez ambos se encuentran en serie con U y W.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "S, T y U están en paralelo entre sí, a su vez estos se encuentran en serie con W.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "S, T y U están en serie entre sí, a su vez estos se encuentran en paralelo con W.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "S y T están en serie, U y W están en serie, y a su vez U y W se encuentran en paralelo con S y T.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q77",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 77,
+      "stimulus": null,
+      "stem": "Se tienen las resistencias R1 = 30 , R2 = 30  y R3 = 60  conectadas como se representa en el esquema. Si el circuito está conectado a una diferencia de potencial de 12 V, la corriente eléctrica que se registra en el amperímetro A es",
+      "options": [
+        {
+          "key": "A",
+          "text": "0,60 A",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "0,53 A",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "0,40 A",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "0,24 A",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "0,10 A R2 R1 R3 A + –",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q78",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 78,
+      "stimulus": null,
+      "stem": "Una estudiante construye un circuito para estudiar cómo se distribuye la corriente en él. El circuito consiste en un interruptor, tres ampolletas idénticas, una batería y suficiente cable, conectados originalmente como se representa en la siguiente figura: Las pruebas de la estudiante consisten en encender y apagar el interruptor y anotar las ampolletas que se encienden y las que no. ¿Qué elemento del circuito debería ir modificando en sus pruebas la estudiante para poder lograr su objetivo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La distribución de las ampolletas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La polaridad de la batería",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La posición del interruptor",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La extensión de cable empleado",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-ciencias_fisica-q79",
+      "year": 2025,
+      "subject": "CIENCIAS_FISICA",
+      "question_number": 79,
+      "stimulus": null,
+      "stem": "Las siguientes figuras representan tres dispositivos eléctricos: De ellos, ¿cuál(es) es(son) elemento(s) de seguridad en un circuito domiciliario?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El amperímetro",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El amperímetro y la conexión a tierra",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El amperímetro y el interruptor automático",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La conexión a tierra y el interruptor automático",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    }
+  ]
+}

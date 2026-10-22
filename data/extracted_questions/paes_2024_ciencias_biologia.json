@@ -1,0 +1,2868 @@
+{
+  "metadata": {
+    "year": 2024,
+    "subject": "CIENCIAS_BIOLOGIA",
+    "test_filename": "prueba_oficial_paes_2024_ciencias_biologia.pdf",
+    "clavijero_filename": "clavijero_paes_2024_ciencias_biologia.pdf",
+    "total_extracted": 77,
+    "matched_keys": 77
+  },
+  "questions": [
+    {
+      "id": "paes-2024-ciencias_biologia-q01",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 1,
+      "stimulus": null,
+      "stem": "¿Cuál de las siguientes opciones corresponde a una característica común entre las mitocondrias, los cloroplastos y el núcleo de una célula vegetal?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Los tres organelos presentan compartimientos membranosos en su interior.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Los tres organelos presentan estructuras con una monocapa de fosfolípidos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Los tres organelos presentan material genético.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Los tres organelos presentan cadena de transporte de electrones.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q02",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 2,
+      "stimulus": null,
+      "stem": "La difusión simple y la difusión mediada por transportadores corresponden a dos tipos de transporte pasivo a través de la membrana celular. El siguiente gráfico representa la cinética de difusión simple y aquella mediada por un transportador, a medida que aumenta el gradiente de concentración del soluto transportado: ¿Cuál de las siguientes aseveraciones es coherente con los datos representados en el gráfico?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La velocidad de la difusión simple disminuye a medida que la concentración de soluto se incrementa.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La velocidad de la difusión simple exhibe un comportamiento inversamente proporcional a la concentración del soluto.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La velocidad de la difusión mediada por un transportador alcanza un máximo, sugiriendo que el transportador es saturable.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La velocidad de la difusión mediada por un transportador es directamente proporcional al gradiente de concentración del soluto en todo el rango medido. Velocidad de difusión (u.a.) Gradiente de concentración (u.a.) Difusión simple Mediada por transportador",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q03",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 3,
+      "stimulus": null,
+      "stem": "En una investigación, un grupo de científicas quería estudiar la relación entre la velocidad de transporte a través de la membrana plasmática y la concentración de una molécula conocida en células del intestino. Al realizar muchos experimentos, las científicas determinaron que la velocidad de transporte de la molécula al interior de las células aumentaba proporcionalmente hasta una determinada concentración, alcanzando una velocidad máxima de 25 u.a. Sobre ese valor de concentración la velocidad de transporte se volvía independiente de la concentración de la molécula transportada. Al respecto, ¿cuál de las siguientes opciones señala la tabla cuyos datos son coherentes con la tendencia obtenida por el grupo de científicas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Velocidad de transporte (u.a.) Concentración de la molécula (u.a.) 5 2 10 4 15 6 20 8 25 10 30 12",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Velocidad de transporte (u.a.) Concentración de la molécula (u.a.) 5 2 10 4 15 6 20 8 25 10 25 12",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Velocidad de transporte (u.a.) Concentración de la molécula (u.a.) 5 2 10 4 15 6 15 8 15 10 15 12",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Velocidad de transporte (u.a.) Concentración de la molécula (u.a.) 5 2 10 4 15 6 20 8 25 10 25 10",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q04",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 4,
+      "stimulus": null,
+      "stem": "Se investigó el efecto de la concentración del ion sodio (Na+) extracelular en el transporte de un aminoácido y un azúcar en un cultivo de células a 37 °C y pH fisiológico (7,2). Los resultados obtenidos se presentan en el siguiente gráfico: En relación con lo anterior, ¿cuál de las siguientes opciones corresponde a la variable dependiente en este experimento?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El pH fisiológico",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El tipo de células utilizadas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La tasa relativa de transporte",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La concentración de Na+ extracelular",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q05",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 5,
+      "stimulus": null,
+      "stem": "Un investigador está evaluando el efecto de la adición de cuatro sustancias sobre el oxígeno consumido (O2) y el ATP sintetizado en un cultivo de mitocondrias bajo condiciones ideales de temperatura y pH. Los resultados del estudio se presentan en el siguiente gráfico: Considerando que no hay un efecto acumulativo ni interacciones entre las sustancias añadidas, ¿cuál de las siguientes opciones señala una conclusión correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La adición de la sustancia 4 provoca un aumento de la síntesis de ATP.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La adición de la sustancia 2 provoca un aumento de la síntesis de ATP.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "La adición de la sustancia 3 provoca una disminución del consumo de O2.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La adición de la sustancia 1 provoca una disminución del consumo de O2. (u.a.): Unidades arbitrarias 1 2 3 4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q06",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 6,
+      "stimulus": null,
+      "stem": "La vasectomía es un procedimiento quirúrgico que consiste en cortar los conductos deferentes, evitando que los espermatozoides lleguen desde el testículo (lugar donde ocurre la espermatogénesis) hasta la próstata. Teniendo en cuenta estos antecedentes, ¿cuál de las siguientes acciones confirmaría inequívocamente el efecto anticonceptivo de la vasectomía?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establecer la reversibilidad de esta intervención quirúrgica.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Verificar la ausencia de eyaculación después de la vasectomía.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Complementar el efecto de la vasectomía con un método anticonceptivo hormonal.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Determinar que posvasectomía hay ausencia de espermatozoides en el semen.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q07",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 7,
+      "stimulus": null,
+      "stem": "El gráfico muestra las consultas por infecciones de transmisión sexual (ITS) en el sistema público de salud entre 1999 y 2003, separadas por sexo. ¿Cuál de las siguientes afirmaciones es una conclusión correcta, respecto de los datos presentados en el gráfico?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Las ITS por hongos son más frecuentes en los hombres.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "En ambos sexos, las ITS bacterianas son las más consultadas.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "En ambos sexos, la menor cantidad de consultas es por ITS virales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Las ITS presentan la misma prevalencia tanto en hombres como en mujeres. 0 200 400 600 800 1000 1200 1400 1600 1800 candidiasis gonorrea herpes sifilis Número de consultas ITS hombres mujeres Hombres Mujeres Candidiasis Gonorrea Herpes Sífilis",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q08",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 8,
+      "stimulus": null,
+      "stem": "En la siguiente tabla se presentan los datos de un estudio realizado sobre una muestra de niñas provenientes de un mismo colegio: ¿Cuál de las siguientes opciones señala correctamente la pregunta de investigación que pudo haber guiado este estudio?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Cuál es la relación que existe entre la edad promedio de las niñas y la edad de inicio de la menstruación?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "¿Cuál es la relación que existe entre el nivel que cursan las niñas en el colegio y la edad de inicio de la menstruación?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "¿Cuál es la relación que existe entre el sobrepeso y la edad en la que ocurre la primera menstruación?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "¿Cuál es la relación que existe entre la edad que tienen las niñas y el sobrepeso? Variables Con sobrepeso Sin sobrepeso Cantidad de niñas participantes 103 105 Nivel que cursan en el colegio Séptimo Séptimo Edad promedio (años) 13,5 13,5 Edad promedio primera menstruación (años) 11,9 13,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q09",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 9,
+      "stimulus": null,
+      "stem": "Durante el período reproductivo en el ovario se forman cíclicamente folículos primarios. Algunos de ellos maduran y se liberan en el momento de la ovulación, pero la mayoría de ellos experimentan un proceso denominado atresia que consiste en la degeneración y reabsorción folicular. Esta atresia explica la notable disminución de folículos desde el nacimiento hasta la menopausia. Según lo anterior, ¿cuál de los siguientes gráficos muestra de manera más adecuada el cambio en el número de folículos primarios a lo largo de la vida de una mujer sana? Número de folículos Años",
+      "options": [
+        {
+          "key": "A",
+          "text": "Años",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Años",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Años",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Número de folículos Número de folículos Número de folículos",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q10",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 10,
+      "stimulus": null,
+      "stem": "Pablo quiere esclarecer el contenido nutricional de un alimento X. Le plantea esta inquietud a su profesora, quien le suministra los siguientes reactivos para reconocer nutrientes: reactivo de Biuret (que detecta la presencia de enlaces peptídicos) y lugol (que detecta la presencia de almidón). Al respecto, ¿cuál de las siguientes opciones podría ser una pregunta de investigación pertinente al propósito de Pablo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Cómo se puede detectar la presencia de lípidos en el alimento X con los reactivos disponibles?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "¿Qué protocolo de uso de los reactivos requiere menor tiempo para identificar las biomoléculas presentes en el alimento X?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "¿En qué proporción están presentes los carbohidratos con respecto a las proteínas en el alimento X?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "¿Cuál es la contribución calórica del alimento X al ser digerido por un organismo?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q11",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 11,
+      "stimulus": null,
+      "stem": "¿Cuál de los siguientes eventos ocurre en la profase meiótica I, pero no en la profase mitótica?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Desaparición del nucléolo",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Formación del huso acromático",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Desorganización de la carioteca",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Condensación de los cromosomas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Apareamiento de los cromosomas homólogos",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q12",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 12,
+      "stimulus": null,
+      "stem": "Un estudiante se encuentra investigando cómo varía la cantidad de ADN y la dotación cromosómica durante distintas etapas del proceso de división celular, que permite la formación de células reproductivas en los vertebrados, centrando su análisis en la siguiente tabla: En relación con lo anterior, ¿cuál de las siguientes opciones describe correctamente la información científica entregada por esta tabla?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cambios en el material genético en dos divisiones mitóticas sucesivas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Cambios en la cantidad total de cromosomas durante la división celular meiótica.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Variaciones en la cantidad de material genético en distintas etapas de la división celular meiótica.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Sucesión de etapas características del ciclo celular proliferativo en dos divisiones celulares sucesivas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q13",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 13,
+      "stimulus": null,
+      "stem": "En los años 70, un grupo de científicos logró crear la primera bacteria transgénica capaz de expresar un gen foráneo. Este logro permitió usar bacterias para la producción de proteínas de interés médico como la insulina. En una investigación relacionada con la generación de esta hormona, un grupo de investigadores “detectó que las bacterias sintetizan el precursor de la insulina pero no lo procesan”, por lo que el producto obtenido era biológicamente inactivo. Al respecto, ¿a cuál de los siguientes componentes de la investigación científica corresponde la frase entre comillas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A una hipótesis",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "A una inferencia",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "A un resultado",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "A un objetivo Etapa Cantidad de ADN Dotación cromosómica Profase I 4c 2n Metafase I 4c 2n Anafase I 4c 2n Telofase I 4c–2c 2n–n Profase II 2c n Metafase II 2c n Anafase II 2c 2n Telofase II 2c–c 2n–n",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q14",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 14,
+      "stimulus": null,
+      "stem": "Previo a la meiosis y durante esta, la cantidad de ADN (c) por célula varía entre cada etapa del ciclo celular. El siguiente gráfico representa, en términos generales, la variación en la cantidad de ADN en algunos periodos de la interfase (etapas G1, S-G2) y al término de la meiosis I (MI) y meiosis II (MII): Utilizando estos antecedentes, un equipo de investigación estudió la meiosis en células testiculares de conejo y contabilizó en la etapa de transición S-G2 un total de 60 picogramos (pg) de ADN nuclear. Al respecto, ¿qué cantidad de ADN debería contabilizar este equipo al término de MII?",
+      "options": [
+        {
+          "key": "A",
+          "text": "120,0 pg",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "30,0 pg",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "15,0 pg",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "7,5 pg",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q15",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 15,
+      "stimulus": null,
+      "stem": "Utilizando técnicas biotecnológicas es posible modificar genéticamente las plantas de cultivo. Por ejemplo, se les pueden insertar nuevos genes de modo de incorporar rasgos productivos beneficiosos para la cosecha, tales como mayor valor nutricional, mayores rendimientos, mayor resistencia a enfermedades, entre otros. Estos genes insertados pueden ser foráneos (transgénicos) o de una especie relacionada (cisgénicos). En relación con la información anterior, ¿cuál de las siguientes opciones corresponde al modelo biológico de estudio que los científicos utilizan para estas aplicaciones biotecnológicas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El valor nutricional",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Las plantas de cultivo",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "La resistencia a enfermedades",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El rendimiento de las cosechas G1 S-G2 MI MII 0 2 4 6 Etapas ADN por célula (c)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q16",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 16,
+      "stimulus": null,
+      "stem": "En un modelo de cadena trófica, los organismos que poseen la mayor cantidad de energía disponible para transferir a otros organismos son",
+      "options": [
+        {
+          "key": "A",
+          "text": "los productores.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "los consumidores primarios.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "los consumidores secundarios.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "los consumidores terciarios.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "los carroñeros.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q17",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 17,
+      "stimulus": null,
+      "stem": "El gráfico representa la relación entre la productividad primaria neta y la temperatura ambiente en el crecimiento de un bosque joven. De acuerdo a la información, ¿cuál de las siguientes opciones es una inferencia correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A temperaturas inferiores a los 0 °C, la vegetación estudiada gasta más energía en su metabolismo, por lo que no hay productividad primaria neta.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "A temperaturas superiores a los 40 °C, la vegetación estudiada aumenta la transpiración, aumentando la productividad primaria neta.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Entre 20 °C y 40 °C, la vegetación estudiada aumenta la tasa fotosintética, elevando la productividad primaria neta.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "A temperaturas superiores a 40 °C, la productividad primaria neta aumenta, ya que la vegetación estudiada incrementa la tasa fotosintética. Productividad primaria neta (u.a.) -10 0 10 20 30 40 50 Temperatura ambiente (°C) 300 200 100",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q18",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 18,
+      "stimulus": null,
+      "stem": "En un experimento con dos plantas (1 y 2) se mide la eficiencia fotosintética a diferentes concentraciones de CO2. Al obtener los resultados, se evidencia que la planta 1 alcanza el máximo de eficiencia fotosintética con la mitad de la concentración de CO2 que requiere la planta 2 para obtener este mismo valor. Además, en la planta 1 y 2 luego de alcanzar la máxima tasa fotosintética, no varía el valor de esta pese a aumentar la concentración del gas. Al respecto, ¿cuál de las siguientes opciones señala correctamente el gráfico que representa de mejor manera los datos obtenidos?",
+      "options": [
+        {
+          "key": "A",
+          "text": "0 25 50 75 100 Concentración de CO2 (u.a.) Tasa fotosintética (u.a.) 1 2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "0 25 50 75 100 Concentración de CO2 (u.a.) Tasa fotosintética (u.a.) 1 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "0 25 50 75 100 Concentración de CO2 (u.a.) Tasa fotosintética (u.a.) 1 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "0 25 50 75 100 Concentración de CO2 (u.a.) Tasa fotosintética (u.a.) 1 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q19",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 19,
+      "stimulus": null,
+      "stem": "Un actor debe maquillarse para representar su personaje. Para esto necesita ver su imagen derecha y de mayor tamaño. ¿Qué tipo de espejo debe usar y dónde debe ubicarse?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Espejo convexo, ubicándose a una distancia del espejo igual al doble de su distancia focal.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Espejo cóncavo o convexo, ubicándose a una distancia del espejo igual a su distancia focal.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Espejo cóncavo, ubicándose a una distancia del espejo igual a su distancia focal.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Espejo cóncavo, ubicándose entre el espejo y el foco del espejo.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "Espejo plano, ubicándose cerca del espejo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q21",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 21,
+      "stimulus": null,
+      "stem": "Un grupo de estudiantes dispone de una fuente luminosa que apunta en una posición fija hacia una pantalla a cierta distancia. A la mitad de la distancia entre la fuente luminosa y la pantalla, prueban barreras (una a una) de las mismas dimensiones y material, pero con dos ranuras de diferentes tamaños. Luego, observan que para cada barrera el patrón de interferencia reflejado en la pantalla es distinto. En relación con lo anterior, ¿cuál de las siguientes opciones corresponde a la hipótesis que guio el experimento realizado por el grupo de estudiantes?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Las variaciones en el patrón de interferencia dependen de la distancia a la cual se posicionan las barreras con las dos ranuras.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Las variaciones en el patrón de interferencia dependen de la posición de la fuente luminosa.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Las variaciones en el patrón de interferencia dependen del tamaño de las ranuras en las barreras.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Las variaciones en el patrón de interferencia dependen de las características de la pantalla donde este se refleja.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q22",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 22,
+      "stimulus": null,
+      "stem": "Una persona hace incidir un haz de luz láser verde con un determinado ángulo sobre la superficie del agua contenida en un vaso y mide el ángulo de refracción del haz. Luego, agrega una gota de colorante rojo al agua el cual se dispersa uniformemente y mide nuevamente el ángulo de refracción. A continuación, repite esta medición agregando una gota del mismo colorante cada vez, hasta completar 10 gotas. Al respecto, ¿cuál de las siguientes opciones corresponde a un objetivo de investigación pertinente a este procedimiento?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Determinar la relación entre el ángulo de incidencia y el ángulo de refracción en el medio.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Determinar la relación entre el ángulo de incidencia y la cantidad de gotas de colorante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Determinar la relación entre el ángulo de refracción y la cantidad de gotas de colorante.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Determinar la relación entre el ángulo de refracción y el índice de refracción de un medio.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q23",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 23,
+      "stimulus": null,
+      "stem": "Uno de los dos posibles enfoques para comprender, al menos en parte, la naturaleza de la luz, sostiene que esta corresponde a una onda. Por lo tanto, su comportamiento puede ser explicado por medio de las ondas, en ciertas circunstancias. Al respecto, ¿a qué componente de la investigación científica corresponde este enfoque acerca de la naturaleza de la luz?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A una ley",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "A un modelo",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "A un diseño experimental",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "A un problema de investigación",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q24",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 24,
+      "stimulus": null,
+      "stem": "Al comparar la radiación infrarroja con la ultravioleta, propagándose en un mismo medio, es correcto concluir que",
+      "options": [
+        {
+          "key": "A",
+          "text": "ambas poseen distinta frecuencia pero igual longitud de onda.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "ambas poseen la misma frecuencia, dado que son invisibles al ojo humano.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "una es una onda mecánica y la otra electromagnética, porque poseen distinta frecuencia.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "ambas son ondas electromagnéticas, y se mueven con la misma rapidez en el vacío.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "ambas son ondas electromagnéticas y los fotones asociados a cada una de ellas tienen la misma energía.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q25",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 25,
+      "stimulus": null,
+      "stem": "La magnitud de la fuerza elástica ejercida por un resorte ideal sobre un objeto que cuelga de él, en equilibrio, se puede determinar por medio del producto entre",
+      "options": [
+        {
+          "key": "A",
+          "text": "la longitud natural del resorte y la constante elástica de este.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "la constante elástica del resorte y el estiramiento de este.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "la constante elástica del resorte y la masa del objeto.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "la masa del objeto y la longitud natural del resorte.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "la masa del objeto y el estiramiento del resorte.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q26",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 26,
+      "stimulus": null,
+      "stem": "Una caja se coloca sobre una cinta transportadora de goma que la traslada con rapidez constante, como se representa en la siguiente figura: Al respecto, ¿cuál de las siguientes fuerzas es la principal causante de que la caja se mueva con la misma rapidez que la cinta transportadora?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La fuerza de roce estático",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "La fuerza de tensión",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La fuerza elástica",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La fuerza normal",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q27",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 27,
+      "stimulus": null,
+      "stem": "G. Galilei planteó que el tiempo que demoran dos cuerpos en caer desde una misma altura es independiente de su masa. Para comprobarlo, alrededor del año 1590, dejó caer dos esferas de diferente masa desde lo alto de la Torre de Pisa. Este experimento ha sido repetido en diferentes épocas y condiciones, siendo uno relevante el realizado por el astronauta D. Scott en la Luna durante la misión Apolo 15 dejando caer una pluma y un martillo. En la actualidad el experimento también se realiza dentro de una cámara de vacío. En relación con lo anterior, ¿cuál ha sido el propósito de realizar el experimento en diversos contextos?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Comparar instrumentos de medida con diferente exactitud para medir el tiempo de caída de cuerpos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Controlar variables que influyen en el tiempo de caída de cuerpos y que Galileo no pudo manipular.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Cambiar la forma en que se dejan caer los cuerpos, para garantizar que se suelten simultáneamente.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Disponer de lugares de mayor altura para dejar caer los cuerpos y así medir con más precisión el tiempo de caída.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q28",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 28,
+      "stimulus": null,
+      "stem": "Una persona observa que una gota de agua cae en dirección vertical en un día lluvioso sin viento, estimando que se mueve con velocidad constante. Si P  representa el peso de la gota y R F  la fuerza de roce que experimenta esta con el aire, ¿cómo debe ser la fuerza neta que actúa sobre la gota para que la estimación de la persona sea correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Debe ser nula.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Debe ser negativa.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Debe ser menor a . P ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Debe ser mayor a . FR  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q29",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 29,
+      "stimulus": null,
+      "stem": "Sobre un bloque de 10 kg, que se encuentra sobre un plano horizontal, actúan solo dos fuerzas, una de 15 N hacia la derecha y una de 5 N hacia la izquierda. ¿Cuál es la magnitud de la aceleración que adquiere el bloque?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 2 s m",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "2 2 s m",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "10 2 s m",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "20 2 s m",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "100 2 s m",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q30",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 30,
+      "stimulus": null,
+      "stem": "Una masa de agua de 300 g aumenta su temperatura de 30 °C a 80 °C. Luego, la energía que absorbió en ese proceso se la entrega a una masa de agua de 600 g a 20 °C. Si la masa de agua de 600 g absorbe toda la energía, ¿cuál es su temperatura final?",
+      "options": [
+        {
+          "key": "A",
+          "text": "25 °C",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "40 °C",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "45 °C",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "50 °C",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "70 °C",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q31",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 31,
+      "stimulus": null,
+      "stem": "Se quiere comprobar que el cambio de longitud L  de un sólido es directamente proporcional al cambio de temperatura T  al que se somete y a la longitud inicial de referencia L0. Para esto se propone lo siguiente: tomar cinco varillas, todas de la misma longitud y a una misma temperatura inicial, pero cada una de un material diferente, aumentar la temperatura de las cinco varillas en 20 °C y luego medir los cambios de longitud de cada una de las barras. Para el objetivo propuesto, el experimento es",
+      "options": [
+        {
+          "key": "A",
+          "text": "correcto, porque se mide L  para varias barras.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "incorrecto, porque está mal elegida la variable independiente.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "correcto, porque todas las varillas tienen la misma longitud inicial.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "incorrecto, porque con el T  usado no se detectarán cambios de longitud.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "incorrecto, porque se necesitan más de cinco varillas de materiales diferentes.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q32",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 32,
+      "stimulus": null,
+      "stem": "Se ha descrito que en un cierto país existe una alta actividad sísmica en comparación con otros países. Según los antecedentes, este país presenta una gran cantidad de volcanes y se encuentra cercano al límite de dos placas tectónicas que convergen, produciéndose el hundimiento de una debajo de la otra. En base a lo anterior, ¿cuál de las siguientes opciones representa una inferencia pertinente a la información presentada?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La alta actividad sísmica en el país ocurre por la presencia de muchos volcanes.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La alta actividad sísmica en el país ocurre por un deslizamiento paralelo de una placa sobre la otra.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La alta actividad sísmica en el país ocurre por una separación de las placas tectónicas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La alta actividad sísmica en el país ocurre por los efectos de la subducción de las placas.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q33",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 33,
+      "stimulus": null,
+      "stem": "Analizando algunas propiedades físicas del agua, una profesora le solicita a sus estudiantes determinar si el calor específico del agua cambia al disolver café instantáneo en ella. Al respecto, ¿cuál de las siguientes opciones corresponde al procedimiento adecuado para que los estudiantes puedan cumplir con el objetivo planteado?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Disolver café instantáneo en agua previamente calentada y medir el tiempo que la mezcla tarda en volver a la temperatura original.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Calentar agua y agua con café instantáneo disuelto en recipientes separados a una tasa constante y verificar que la evaporación sea la misma en ambos casos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Calentar agua y agua con café instantáneo disuelto en recipientes separados a una tasa constante y verificar que ambos alcancen la misma temperatura al ebullir.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Poner a calentar a una tasa constante, durante un mismo tiempo, iguales cantidades de agua y agua con café instantáneo disuelto, y luego medir el aumento de temperatura en cada caso.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q34",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 34,
+      "stimulus": null,
+      "stem": "Una estudiante propone que la corriente eléctrica que fluye a través de una resistencia tiene una intensidad que depende del valor de la resistencia y del voltaje al que esta se encuentra sometida. Sus compañeros de curso disponen de distintas resistencias, cuyos valores son todos diferentes entre sí. Si desean determinar experimentalmente de qué manera la intensidad de la corriente eléctrica depende del voltaje, ¿cuál de las siguientes opciones es un procedimiento experimental adecuado para lograr su objetivo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Medir la intensidad de corriente eléctrica de distintas resistencias sometidas a igual voltaje.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Medir el voltaje de una misma resistencia con distintas intensidades de corriente eléctrica.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Medir la intensidad de corriente eléctrica de una misma resistencia sometida a distintos voltajes.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Medir el voltaje de distintas resistencias con una misma intensidad de corriente eléctrica.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q35",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 35,
+      "stimulus": null,
+      "stem": "Una reciente investigación sobre accidentes incendiarios en estaciones de autoservicio reveló que en casi todos los casos el origen de estos incendios era producto de cargas eléctricas en las personas al estar en contacto con el vapor que sale de la gasolina justo en el punto donde la pistola carga combustible al vehículo. En un 70 % de los casos las personas, luego de iniciar la carga de combustible, habían entrado y salido nuevamente del vehículo, tocando la pistola de descarga de combustible. En relación a los resultados de esta investigación, ¿cuál es la causa más probable de estos incendios?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Las personas, previamente cargadas con la pistola, se descargan al entrar al vehículo, luego al volver a tocar la pistola ocurre una descarga que origina los incendios.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Las personas, al desplazarse mientras se llena el estanque de combustible, producen carga estática producto de la fricción con el aire.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Las personas, al entrar y salir del vehículo previamente cargado, adquieren carga estática por contacto.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Las personas, al entrar y salir del vehículo, friccionan sus ropas con el tapiz de los asientos, cargándose eléctricamente.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q36",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 36,
+      "stimulus": null,
+      "stem": "La Ley de Ohm permite determinar la intensidad de corriente que se establece en un circuito a partir del voltaje y de la forma en que están conectadas las resistencias. Si bien en el momento en que se propuso, aún no existía la corriente alterna, al día de hoy se puede establecer una analogía entre circuitos de corriente continua y la conexión domiciliaria. ¿Cuál de las siguientes opciones describe de mejor forma al análogo del circuito hogareño en el cual están enchufados un televisor, una estufa y una ampolleta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Un circuito en serie con resistencias distintas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Un circuito en paralelo con tres resistencias idénticas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Un circuito en paralelo con tres resistencias de distinto valor",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Un circuito simple, con una resistencia equivalente a la de los tres artefactos",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q37",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 37,
+      "stimulus": null,
+      "stem": "A 25 °C y 1 atm, un estudiante mezcla, en un tubo de ensayo, 5 mL de agua destilada y 5 mL de aceite de maravilla. El estudiante se da cuenta que el aceite queda en la parte superior del tubo y el agua en la parte inferior. Luego, en un segundo intento agita el tubo manualmente por 1 minuto, lo deja reposar, y evidencia que las sustancias no se mezclan. En un tercer intento, en un instrumento de laboratorio pone a agitar el tubo por 10 minutos, posteriormente lo deja reposar y evidencia el mismo resultado. En un cuarto intento, en el mismo instrumento de laboratorio pone a agitar el tubo por 10 minutos pero esta vez aumenta la temperatura de la mezcla, sin embargo, obtiene el mismo resultado. Al respecto, ¿cuál de las siguientes opciones es una inferencia correcta respecto a los resultados obtenidos por el estudiante en las condiciones experimentales descritas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El tiempo de agitación de las sustancias impide la formación de una mezcla homogénea.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El volumen añadido de cada sustancia impide la formación de una mezcla homogénea.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La temperatura a la que están sometidas las sustancias impide la formación de una mezcla homogénea.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La diferencia de polaridad entre las sustancias impide la formación de una mezcla homogénea.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q38",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 38,
+      "stimulus": null,
+      "stem": "Un grupo de amigos está organizando una excursión a un cerro, y dentro de las cosas que deben llevar son botellas de vidrio de igual capacidad con el mismo volumen de agua. Uno de los amigos sugiere dejar las botellas en el congelador por la noche para que estén heladas a la mañana siguiente, sin embargo, al abrir el congelador todas las botellas explotaron. Uno de ellos menciona que las botellas explotaron porque el aire que quedó en las botellas las hizo explotar. En relación a lo anterior, ¿cuál de las siguientes preguntas permitiría iniciar una investigación que corrobore o refute la hipótesis planteada?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Cómo afecta el cambio de temperatura al volumen del agua y el aire contenidos en la botella?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "¿Cómo cambia la composición química del agua y del aire al bajar la temperatura?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "¿Cómo cambia el material de la botella que contiene el agua y el aire al disminuir la temperatura?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "¿Cómo cambia la presión del aire y la temperatura del agua al utilizar una botella de vidrio?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q39",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 39,
+      "stimulus": null,
+      "stem": "Una empresa dedicada a la fabricación de tamices, producto para separar sólidos en razón de su tamaño, desea evaluar algunos de sus nuevos productos. Para ello, se utilizan ocho tamices de diferente número de poro y 80 g de arena de sílice para cada evaluación, determinando la cantidad de arena retenida en cada tamiz por un período de 2 minutos. Los datos obtenidos se presentan en la siguiente tabla: Tamiz Masa de arena retenida (g) X 16,5 R 22,1 W 28,2 Q 30,0 T 38,7 Z 44,5 P 49,8 F 69,8 A partir de los resultados presentados en la tabla anterior, ¿cuál de las siguientes opciones es correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El diámetro de los poros del tamiz Z es mayor en comparación al tamiz de R.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El diámetro de los poros del tamiz Q es menor en comparación al tamiz de T.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El diámetro de los poros del tamiz W es mayor en comparación al tamiz de X.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El diámetro de los poros del tamiz F es menor en comparación al tamiz de P.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q40",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 40,
+      "stimulus": null,
+      "stem": "Una estudiante se dio cuenta de que en el interior del hervidor de su casa se encuentra un sólido blanquecino. Al consultarle a su profesora de Ciencias, ella le responde que es sarro y que, para sacarlo, debe agregar vinagre con agua caliente, a fin de que no quede rastro del sarro en su interior. La estudiante supone que debe ocurrir un cambio químico en el interior del hervidor, al combinarse las dos sustancias. En relación a lo anterior, ¿cuál de las siguientes evidencias permitiría confirmar la suposición de la estudiante?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Presencia de burbujas al agregar el vinagre al hervidor.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Aumento del volumen al agregar el vinagre al hervidor.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Cambio de estado del sarro al agregar el vinagre al hervidor.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Fragmentación del sarro en pequeños pedazos al agregar el vinagre al hervidor.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q41",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 41,
+      "stimulus": null,
+      "stem": "El grupo funcional presente en el siguiente compuesto CH2 C NH O CH3 corresponde a",
+      "options": [
+        {
+          "key": "A",
+          "text": "un ácido carboxílico.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "una cetona.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "una amida.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "una amina.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "un éster.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q42",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 42,
+      "stimulus": null,
+      "stem": "Los hidrocarburos policíclicos aromáticos (HAP’s) son un grupo de sustancias químicas que se forman durante la combustión incompleta de carbón, petróleo, madera, tabaco y carne asada, entre otros. Existen más de 100 tipos diferentes de HAP’s, y se ha evidenciado, por medio de estudios realizados en humanos, que “personas expuestas a través de la respiración o el contacto de la piel durante largos períodos de tiempo con mezclas que contienen HAP’s pueden contraer cáncer”. En relación con lo anterior, ¿a qué componente de la investigación científica corresponde la oración entre comillas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A la descripción de un procedimiento experimental",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "A la presentación de una conclusión",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "A la formulación de una hipótesis",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "A la postulación de una teoría",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q43",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 43,
+      "stimulus": null,
+      "stem": "Un investigador y su equipo realizaron un estudio a partir de una molécula orgánica, la boldina, obtenida del boldo, árbol endémico de Chile. En su estudio, utilizaron esta molécula orgánica para el tratamiento de una determinada afección inflamatoria. La estructura de la boldina se muestra a continuación: N OH OCH3 OCH3 OH CH3 H En este contexto, del uso farmacológico de la boldina y sus derivados, otros investigadores realizaron diversos ensayos, obteniendo los resultados que se muestran en la siguiente tabla: Derivados de la boldina Capacidad antiinflamatoria ++ +++ + A mayor cantidad de (+), mayor capacidad antiinflamatoria. A partir de lo anterior, ¿cuál de las siguientes opciones corresponde al objetivo que pudo guiar los ensayos realizados por los investigadores?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Indagar sobre la cantidad de grupos funcionales en la estructura de la boldina y su relación con la capacidad antiinflamatoria.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Indagar sobre diversos compuestos que se pueden obtener de árboles endémicos de Chile y sus capacidades antiinflamatorias.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Indagar sobre la relación entre el cambio de posición de un grupo funcional en la estructura de la boldina y su capacidad antiinflamatoria.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Indagar sobre la incorporación de nuevos grupos funcionales a la molécula de boldina y su capacidad antiinflamatoria. N OH OCH3 OH CH3 H H3CO N OH OCH3 OCH3 CH3 H HO N OH OCH3 OH CH3 H OCH3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q44",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 44,
+      "stimulus": null,
+      "stem": "Para definir el nombre de un compuesto orgánico, muchos científicos se reunieron para establecer las reglas de nomenclatura orgánica y la organización encargada de recopilar la información y estructurar las reglas fue la Unión Internacional de Química Pura y Aplicada (IUPAC, por sus siglas en inglés). En relación con lo anterior, ¿cuál de las siguientes opciones es una explicación correcta del porqué se establecen las reglas de la nomenclatura orgánica?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Se establecen las reglas de nomenclatura orgánica para que cualquier persona asociada al estudio de la química que lea o escuche el nombre no tenga dudas respecto al compuesto que se está haciendo referencia.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Se establecen las reglas de nomenclatura orgánica para que existan variados nombres para cada compuesto orgánico, reconociéndose similitudes, sin importar su procedencia.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Se establecen las reglas de nomenclatura orgánica para fijar similitudes estructurales de los compuestos con el fin de destacar su importancia.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Se establecen las reglas de nomenclatura orgánica para abordar diferencias solo cuando existan compuestos que presentan la misma cantidad de átomos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q45",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 45,
+      "stimulus": null,
+      "stem": "Un grupo de investigadores está analizando algunos factores que influyen en el blanqueamiento de un tipo de coral de aguas australianas. Para aquello, basados en estudios relacionados con el tema, afirman que altos niveles de CO2 acidifican el agua de mar debido a la formación de H2CO3 produciendo una disminución en la población de algas, lo que se relaciona con el blanqueamiento de los corales. Para comprobar lo afirmado, los investigadores montan 5 estanques de iguales dimensiones con 50 L de agua que contienen 10 corales de la misma especie de igual tamaño y dimensiones en condiciones naturales y luego, a cuatro de ellos, le adicionan cantidades crecientes de CO2, dejando un estanque como control. En relación con lo anterior, ¿cuál de las siguientes opciones señala correctamente la variable dependiente para el diseño experimental propuesto por el grupo de investigadores?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La variable dependiente es el volumen de agua del estanque con corales y del estanque del grupo control.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La variable dependiente es la cantidad de CO2 agregado a cada estanque que contiene los corales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La variable dependiente es el blanqueamiento producido en los corales por presencia de H2CO3.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La variable dependiente es el tipo de coral utilizado en presencia de cantidades crecientes de CO2.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q46",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 46,
+      "stimulus": null,
+      "stem": "En la reacción de moléculas de fósforo (P4) con moléculas de cloro (Cl2) para formar como producto moléculas de tricloruro de fósforo (PCl3) se cumple que",
+      "options": [
+        {
+          "key": "A",
+          "text": "4 moléculas de fósforo producen 4 moléculas de tricloruro de fósforo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2 moléculas de cloro producen 2 moléculas de tricloruro de fósforo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "1 molécula de cloro produce 3 moléculas de tricloruro de fósforo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "1 átomo de fósforo produce 4 moléculas de tricloruro de fósforo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "12 átomos de cloro producen 4 moléculas de tricloruro de fósforo.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q47",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 47,
+      "stimulus": null,
+      "stem": "La reacción de combustión de metano se representa a través de la siguiente ecuación química no balanceada: CH4 + O2 CO2 + H2O ¿Cuál de las siguientes relaciones en masa (g) es correcta para la combustión completa del metano? CH4 O2 CO2 H2O",
+      "options": [
+        {
+          "key": "A",
+          "text": "4 16 9 11",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "16 4 11 9",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "4 16 11 9",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "9 11 4 16",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "11 9 16 4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q48",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 48,
+      "stimulus": null,
+      "stem": "A partir de la siguiente ecuación química: 6 CO2 + 6 H2O C6H12O6 + 6 O2 ¿Cuántas moléculas de agua se requieren para formar 4 mol de glucosa?",
+      "options": [
+        {
+          "key": "A",
+          "text": "6,02 x 1023",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "1,5 х 6,02 х 1023",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "4 х 6,02 х 1023",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "6 х 6,02 х 1023",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "24 х 6,02 х 1023",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q49",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 49,
+      "stimulus": null,
+      "stem": "En una combustión completa se queman 48 g de C, considerando que el único producto es CO2, ¿qué masa exacta de comburente se necesita?",
+      "options": [
+        {
+          "key": "A",
+          "text": "16 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "32 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "44 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "128 g",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "176 g",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q50",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 50,
+      "stimulus": null,
+      "stem": "Un grupo de investigación realiza un análisis químico de una sustancia X para determinar la masa en gramos de cada elemento presente en ella. Considerando que la sustancia X contiene solo C, H y O, los investigadores combustionan una muestra de dicha sustancia en presencia de suficiente oxígeno, tal como se representa en la siguiente figura: Si las masas de H2O y CO2 absorbidas permiten determinar la cantidad de H y C, respectivamente, ¿qué información se debe conocer para determinar la masa de oxígeno presente en la muestra de la sustancia X?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La masa de O2 no consumido",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La masa total de los absorbentes",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La masa de O2 que ingresa",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La masa inicial de la muestra",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q51",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 51,
+      "stimulus": null,
+      "stem": "Una estudiante de segundo año medio lee en Internet que al mezclar sal de mesa con agua, esta conduce la corriente eléctrica. Para comprobarlo, la estudiante determinó la conductividad eléctrica de soluciones de distinta concentración. Los datos los presentó en la siguiente tabla: Número de mediciones Masa de sal de mesa (g) Conductividad eléctrica promedio (μS∙cm-1) 6 0,049 100 6 0,490 1000 6 5,370 10000 6 10,240 18000 Posteriormente, la estudiante presentó estos datos a su docente, quien cuestiona la forma en que estos están presentados. En relación con lo anterior, ¿cuál de las siguientes opciones señala correctamente el motivo de dicho cuestionamiento?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El número de veces que la estudiante mide la conductividad de la solución es insuficiente para asegurar la confiabilidad del resultado.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La masa de sal es insuficiente para realizar mediciones y a partir de ello establecer conclusiones.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La estudiante ha omitido el volumen del agua empleado para preparar las soluciones salinas al momento de reportar sus datos.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Los resultados presentados por la estudiante incluyen la medida correspondiente al agua pura en lugar de variaciones de mezclas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q52",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 52,
+      "stimulus": null,
+      "stem": "Un grupo de estudiantes investigaron experimentalmente, a 25 °C y 1 atm, la solubilidad en agua de tres compuestos y su relación con el tipo de enlace que los componen. Los estudiantes se percataron que la naftalina, a diferencia del amoníaco y del cloruro de sodio, no puede ser disuelta en agua. Los datos obtenidos fueron presentados en la siguiente tabla: Compuestos Enlace Disolución en agua Naftalina Covalente no polar No Amoníaco Covalente polar Sí Cloruro de sodio Iónico Sí Luego de interpretar los datos, el grupo de estudiantes quiere predecir la solubilidad de los compuestos anteriores en los siguientes solventes, bajo las mismas condiciones de temperatura y presión: Solvente Tipo de solvente Agua Polar Benceno No polar Metanol Polar Tolueno No polar Xileno No polar En base al análisis de la información entregada, ¿cuál de las siguientes inferencias es correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El tolueno puede disolver a la naftalina.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "El metanol puede disolver a la naftalina.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El benceno puede disolver al amoníaco.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El xileno puede disolver al cloruro de sodio.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q53",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 53,
+      "stimulus": null,
+      "stem": "Un estudiante encuentra en un libro de química, la siguiente tabla que muestra el tiempo necesario para que 0,5 g de magnesio reaccionen completamente con diferentes soluciones de ácido clorhídrico, bajo ciertas condiciones: Concentración solución ácido clorhídrico (mol/L) Temperatura (°C) Tiempo de reacción (s) 0,1 20 80 0,1 25 60 0,2 30 20 0,2 40 10 A partir de la información descrita en la tabla, el estudiante quiere determinar el tiempo necesario para que 0,5 g de magnesio reaccionen completamente con una solución de ácido clorhídrico 0,2 mol/L a 25 °C. En relación con el análisis de la tabla, ¿cuál de las siguientes inferencias es correcta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La reacción tardará menos de 10 s en ocurrir.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La reacción tardará entre 10 s y 20 s en ocurrir.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La reacción tardará entre 20 s y 60 s en ocurrir.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La reacción tardará más de 80 s en ocurrir.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q54",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 54,
+      "stimulus": null,
+      "stem": "Dada la siguiente figura: Al respecto, ¿cuál es la concentración molar de etanol (masa molar = 46 g/mol) contenido en la botella?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1,050 mol/L",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "0,500 mol/L",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "0,250 mol/L",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "0,046 mol/L",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "0,020 mol/L",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q55",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 55,
+      "stimulus": null,
+      "stem": "Unas investigadoras cultivaron células pancreáticas secretoras de enzimas digestivas en un medio con varios tipos de aminoácidos constituyentes de estas enzimas, uno de los cuales marcaron radiactivamente. Luego, realizaron un seguimiento en el tiempo de las marcas radiactivas en tres estructuras celulares. El siguiente gráfico presenta el porcentaje relativo de radiactividad por célula cuantificado en el retículo endoplasmático rugoso, en las vesículas de secreción y en la estructura celular X, asociada con la función secretora de las células del cultivo: A partir de estos antecedentes, ¿a qué estructura(s) podría corresponder X?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Al núcleo",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "A los lisosomas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "A la membrana plasmática",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Al complejo de Golgi",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q56",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 56,
+      "stimulus": null,
+      "stem": "Una estudiante de biología recibe dos preparaciones para analizarlas mediante microscopía, una de estas con células de origen animal y la otra con células de origen vegetal. Luego, se le pide identificar estructuras subcelulares que estén presentes en las células de ambas preparaciones. De los siguientes grupos de estructuras, ¿cuál debería indicar la estudiante?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ribosomas, pared celular y mitocondrias",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Retículos endoplasmáticos, ribosomas y mitocondrias",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Retículos endoplasmáticos, pared celular y ribosomas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cloroplastos, membrana celular y mitocondrias Porcentaje relativo de radiactividad por célula 0 0 20 40 60 80 100 120 50 100 Tiempo (min) Vesículas de secreción Estructura X Retículo endoplasmático rugoso",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q57",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 57,
+      "stimulus": null,
+      "stem": "Para investigar la síntesis de proteínas asociada al retículo endoplasmático rugoso (RER), se realizó un experimento, utilizando lo siguiente: RER, con proteínas X en su interior; detergente, para romper la membrana plasmática del RER; y proteasas específicas para degradar las proteínas X. El detalle del experimento y los datos obtenidos se resumen en la siguiente tabla: Según estos antecedentes, si se realiza un cuarto tratamiento usando solo RER y proteasas, ¿qué resultado se esperaría obtener, y por qué?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Habría degradación parcial de las proteínas X, porque habría una baja exposición a la acción de las proteasas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Habría degradación completa de las proteínas X, porque quedarían totalmente expuestas a la acción de las proteasas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "No habría degradación de las proteínas X, porque estas permanecerían protegidas de la acción de las proteasas.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "No habría degradación de las proteínas X sino ruptura parcial del RER, porque quedaría expuesto a la acción de las proteasas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q58",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 58,
+      "stimulus": null,
+      "stem": "Un investigador descubrió un nuevo organismo unicelular y sospechó que correspondía a una bacteria. Ante esto, decidió aplicar diferentes técnicas que le permitieron hallar un tipo de estructura exclusiva de las células procariontes. De acuerdo con lo anterior, ¿qué estructura celular pudo ser la encontrada por el investigador?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Membrana plasmática",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Peroxisoma",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Plásmido",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Vacuola Tratamiento RER Detergente Proteasas Resultado 1 Sí No No Sin degradación de las proteínas X 2 Sí Sí No Sin degradación de las proteínas X 3 Sí Sí Sí Con degradación completa de las proteínas X",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q59",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 59,
+      "stimulus": null,
+      "stem": "Durante un estudio acerca de la velocidad de ingreso de oxígeno, lípidos y glucosa a un tejido X, se cultivaron células de este tejido en ausencia y en presencia de una sustancia que provoca mutaciones (mutágeno). En los siguientes gráficos, que se encuentran a la misma escala, se representan los datos obtenidos en ambos cultivos: Al respecto, ¿qué inferencia, acerca del efecto del mutágeno sobre las células del tejido X, se fundamenta correctamente en los datos graficados?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El mutágeno produjo un incremento en la síntesis de energía química.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El mutágeno estimuló la mantención del consumo de oxígeno y lípidos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El mutágeno indujo un aumento del requerimiento celular de glucosa.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El mutágeno generó cambios en algunos transportadores de membrana.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q60",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 60,
+      "stimulus": null,
+      "stem": "En un laboratorio, un tipo de enfermedad respiratoria causó la muerte de la mayoría de los roedores de una jaula, sobreviviendo solo dos de ellos. Tras unos meses, se identificaron algunos individuos con los mismos síntomas en una segunda jaula. Para intentar solucionar el problema rápidamente, se extrajo sangre de los dos roedores sobrevivientes y se inyectó con esta a los individuos de la segunda jaula. ¿Cuál de los siguientes argumentos sustenta el procedimiento realizado?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Un recambio de la sangre en los roedores con síntomas permite evitar el contagio de la enfermedad.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "En la sangre de los roedores sobrevivientes existen anticuerpos que pueden combatir la enfermedad.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "La transfusión de sangre entre roedores es una vía de transferencia de antígenos asociados a la enfermedad.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La inyección de sangre de un roedor sobreviviente de la enfermedad a otro atenúa posibles reacciones de rechazo. Velocidad de ingreso a la célula (u.a.) Cultivo con mutágeno Cultivo control Concentración extracelular (u.a.) Lípidos O2 Glucosa Velocidad de ingreso a la célula (u.a.) Concentración extracelular (u.a.) Lípidos O2 Glucosa",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q61",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 61,
+      "stimulus": null,
+      "stem": "En un experimento se evaluó la migración celular durante el proceso de implantación de un embrión, luego de la aplicación de dos hormonas (X e Y) por separado y en conjunto (X + Y). Tras algunas horas, se midió la cantidad de células que se movilizaron y con estos datos se calculó un índice de migración celular, el que se representa en el siguiente gráfico, en función de los tratamientos hormonales aplicados: Al respecto, ¿cuál de las siguientes opciones es una pregunta de investigación que se responde mediante los resultados del experimento realizado?",
+      "options": [
+        {
+          "key": "A",
+          "text": "¿Qué efecto tiene la interacción de las hormonas X e Y sobre el desplazamiento de células embrionarias durante la implantación?",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "¿Qué efecto tienen las hormonas X e Y sobre el desprendimiento espontáneo del embrión durante su implantación?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "¿Qué efecto tienen las hormonas X e Y sobre el crecimiento de células embrionarias durante la implantación?",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "¿Qué efecto tienen las hormonas X e Y sobre la implantación exitosa del embrión, cuando actúan de manera conjunta y por separado? Índice de migración celular Tratamientos hormonales X Y X + Y",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q62",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 62,
+      "stimulus": null,
+      "stem": "Un estudio tiene como objetivo determinar la influencia de cierta dosis de un fármaco experimental X sobre la secreción de anticuerpos, utilizando cultivos celulares equivalentes de linfocitos B activados. Para tal efecto, se medirá la concentración de anticuerpos presentes en seis cultivos: tres tratados con el fármaco X y tres controles. A partir de lo anterior, ¿cuál de las siguientes tablas considera un diseño experimental adecuado para lograr el objetivo de este estudio?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cultivos tratados Concentración de anticuerpos Dosis de X (ug/mL) Cultivos control Concentración de anticuerpos Dosis de X (ug/mL) 1 1,0 1 0,0 2 1,0 2 0,0 3 1,0 3 0,0",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Cultivos tratados Concentración de anticuerpos Dosis de X (ug/mL) Cultivos control Concentración de anticuerpos Dosis de X (ug/mL) 1 1,0 1 0,1 2 1,0 2 0,5 3 1,0 3 1,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Cultivos tratados Concentración de anticuerpos Dosis de X (ug/mL) Cultivos control Concentración de anticuerpos Dosis de X (ug/mL) 1 0,1 1 1,0 2 0,5 2 1,0 3 1,0 3 1,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cultivos tratados Concentración de anticuerpos Dosis de X (ug/mL) Cultivos control Concentración de anticuerpos Dosis de X (ug/mL) 1 0,0 1 0,0 2 0,5 2 0,5 3 1,0 3 1,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q63",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 63,
+      "stimulus": null,
+      "stem": "Antes de efectuar un experimento, una profesora pidió a sus estudiantes indagar acerca de las funciones de dos tipos de glóbulos blancos que forman parte de la segunda barrera defensiva del organismo, llamados mastocitos y basófilos. Los estudiantes averiguaron que “estas células tienen la capacidad de sintetizar histamina, compuesto químico que desencadena una respuesta inmunológica cuando algún patógeno traspasa la primera barrera de defensa, además de participar en algunas reacciones alérgicas”. En el contexto descrito, ¿a qué componente de la investigación científica corresponde el texto entre comillas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Al procedimiento que los estudiantes incluirán en el diseño de su experimento.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Al marco conceptual asociado al experimento que los estudiantes realizarán.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "A la hipótesis que los estudiantes someterán a prueba experimentalmente.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "A la formulación del problema que los estudiantes indagarán experimentalmente.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q64",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 64,
+      "stimulus": null,
+      "stem": "En el año 1918, el virus de la influenza H1N1 provocó una gran epidemia en Estados Unidos. Una de las estrategias más efectivas para combatir la influenza fue el aislamiento social. En el siguiente gráfico se representa la tasa de mortalidad semanal a causa de la epidemia de 1918, en cuatro ciudades del país mencionado: De acuerdo con la información entregada, y asumiendo que el aislamiento social fue la principal medida para combatir la propagación del virus H1N1, ¿cuál de los siguientes pares de ciudades estadounidenses habría mantenido esta medida por más tiempo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Nueva York y Filadelfia",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "San Luis y Nueva York",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Filadelfia y San Francisco",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "San Francisco y San Luis 0 50 100 150 200 250 300 1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 Tasa de mortalidad (por cada 100000 habitantes) Tiempo (semanas) Filadelfia Nueva York San Francisco San Luis",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q65",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 65,
+      "stimulus": null,
+      "stem": "Chlamydia trachomatis (CT) es la bacteria que provoca una de las ITS más frecuente a nivel mundial, sin embargo, se requiere de un alto grado de sospecha para realizar el diagnóstico y tratamiento oportuno, ya que la infección por CT es habitualmente asintomática en mujeres. Considerando lo anterior, un grupo de científicos está desarrollando una vacuna que pretende disminuir la incidencia de CT en la población. Al respecto, ¿por qué vacunar a las personas podría lograr este objetivo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Porque una vacuna reforzaría las barreras primarias, impidiendo que el patógeno ingrese al organismo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Porque una vacuna estimularía las barreras terciarias, impidiendo que el patógeno prolifere en el organismo.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Porque una vacuna activaría las barreras secundarias, impidiendo que el patógeno se disemine por el organismo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Porque una vacuna induciría una respuesta inflamatoria, impidiendo que el patógeno permanezca en el organismo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q66",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 66,
+      "stimulus": null,
+      "stem": "A mediados del siglo XX, varias investigaciones revelaron que la inyección de testosterona en huevos de Gallus gallus (gallina doméstica) impedía el desarrollo de la estructura denominada bursa de Fabricio. Como consecuencia de esto, se identificó un decrecimiento del número total de linfocitos B en los individuos provenientes de los huevos tratados con testosterona. Según estos antecedentes, ¿qué opción corresponde a una inferencia correcta acerca de la función inmunológica de la bursa de Fabricio en estas aves?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Forma parte de las barreras de defensa primarias.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Participa en los procesos de defensa inflamatorios.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Interviene en la generación de defensa humoral.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Tiene un rol fundamental en la defensa fagocitaria.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q69",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 69,
+      "stimulus": null,
+      "stem": "Se ha observado que en la época de apareamiento cada pareja de caballitos de mar fecunda cerca de 2000 huevos, de los cuales eclosionan entre 100 a 1000 individuos. Finalmente, llegan a la etapa adulta alrededor de 50 caballitos de mar. Al respecto, ¿qué elemento de la teoría de evolución por selección natural está ejemplificado directamente en el texto anterior?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La variabilidad genética",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La sobrevivencia diferencial",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "La herencia de rasgos",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La acción de fuerzas ambientales",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q70",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 70,
+      "stimulus": null,
+      "stem": "Los tiburones pertenecen a un grupo denominado condrictios, los cuales presentan un esqueleto de tipo cartilaginoso. Por otra parte, la albacora corresponde al grupo de los osteíctios, los cuales presentan esqueletos óseos al igual que los homínidos, tal como se representa en el esquema a continuación. Además, los tiburones y las albacoras presentan aletas que les permiten desplazarse en el agua. Basándose en la información anterior, ¿cuál de las siguientes opciones es una aseveración correcta con respecto a las aletas que presentan los tiburones y las albacoras?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Son estructuras análogas, originadas por habitar ambientes con condiciones similares.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Son estructuras homólogas, originadas por la coexistencia en ambientes oceánicos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Son estructuras vestigiales, que van en regresión por la adaptación a nuevos ambientes.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Son estructuras adquiridas, que se desarrollaron en respuesta a requisitos ambientales compartidos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q71",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 71,
+      "stimulus": null,
+      "stem": "La siguiente figura representa la alternancia entre mitosis y meiosis que puede ocurrir durante el ciclo de vida de un tipo de levadura diploide (Schizosaccharomyces sp.), dependiendo de las condiciones ambientales: A partir de estos antecedentes, ¿cuál de las siguientes opciones es una inferencia correcta acerca del ciclo de vida de estos organismos?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ante un medio carente de nutrientes, el ciclo mitótico diploide induce resistencia y adaptación en las levaduras.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Para la generación de células haploides, las levaduras requieren de un medio con disponibilidad de nutrientes.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "En ausencia de nutrientes, la formación de ascosporas promueve la sobrevivencia y variabilidad genética de las levaduras.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La esporulación genera un rápido incremento de la cantidad de levaduras diploides, en presencia o ausencia de nutrientes.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q72",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 72,
+      "stimulus": null,
+      "stem": "Entre las evidencias moleculares de la evolución, el estudio de las proteínas puede ayudar a determinar qué tan relacionadas están dos o más especies, cuantificando las diferencias entre sus secuencias de aminoácidos. A continuación se presenta la secuencia de cuatro aminoácidos en la misma región de la proteína hemoglobina, en cuatro especies (1, 2, 3 y 4): De las siguientes opciones, ¿qué especies estarían más lejanamente emparentadas entre sí?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Las especies 1 y 4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Las especies 1 y 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Las especies 2 y 4",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Las especies 2 y 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q73",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 73,
+      "stimulus": null,
+      "stem": "Los habitantes de una casa notaron que al rociar con un insecticida Z un grupo de cucarachas que se encontraban en un sector de su patio, varias de estas murieron en pocos minutos. Sin embargo, al cabo de unas semanas observaron en el mismo lugar una gran cantidad de cucarachas adultas y de sus ninfas (estadio de desarrollo inmaduro). En el contexto de la selección natural, ¿cuál de las siguientes opciones explica correctamente lo sucedido?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El insecticida Z fue efectivo contra las cucarachas adultas, pero habían ninfas que maduraron y se reprodujeron.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Tras la exposición a Z, algunas cucarachas desarrollaron antitoxinas contra el insecticida, sobrevivieron y se reprodujeron.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "La exposición a Z indujo mutaciones que permitieron a las cucarachas sobrevivientes tolerar el insecticida y reproducirse.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Las cucarachas que presentaban una menor sensibilidad ante Z sobrevivieron y se reprodujeron. Especie Secuencia de aminoácidos en la hemoglobina 1 Lys – Glu – His – Iso 2 Arg – Lys – His – Lys 3 Lys – Glu – His – Lys 4 Lys – Glu – His – Iso",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q74",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 74,
+      "stimulus": null,
+      "stem": "El siguiente gráfico representa la variación de la distancia promedio entre algunas estructuras celulares en el tiempo, medida en un cultivo sincronizado de células en meiosis I: Considerando estos antecedentes, ¿cuál de las siguientes opciones corresponde a la etapa en la que se encuentran estas células al tiempo Tx?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Profase I",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Metafase I",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Anafase I",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Telofase I",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q75",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 75,
+      "stimulus": null,
+      "stem": "En el contexto de un estudio, las científicas de un centro de investigación oncológico provocaron un error en la replicación del ADN de células de un cultivo sincronizado, con el propósito de evaluar la actividad de las enzimas que corrigen estos errores. Considerando esta información, ¿en qué momento del ciclo celular las científicas podrían comenzar a evaluar el funcionamiento de estas enzimas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Al inicio de G2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Al inicio de G1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Al final de G1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Al final de la metafase",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q76",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 76,
+      "stimulus": null,
+      "stem": "Se conoce comúnmente que los líquenes están formados por un hongo (micobionte) y por un alga o una cianobacteria (fotobionte). En esta relación, el micobionte provee protección y capacidad de adherencia a un sustrato, y el fotobionte aporta carbono orgánico adquirido fotosintéticamente. En el caso de líquenes formados por cianobacterias, estas además pueden fijar N2. El año 2016 se descubrió la existencia de otro hongo que participa en esta relación, correspondiente a una especie de levadura. Según la descripción anterior, ¿cuál de las siguientes opciones señala correctamente la cantidad y el tipo de nutrición de los organismos que podrían conformar un liquen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Dos organismos heterótrofos y un autótrofo",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Dos organismos autótrofos y un heterótrofo",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Tres organismos autótrofos y un heterótrofo",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Tres organismos heterótrofos y un autótrofo",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q77",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 77,
+      "stimulus": null,
+      "stem": "En el siglo IX, el filósofo árabe al-Jahiz planteó que los mosquitos instintivamente salen a buscar su alimento. Tan pronto como ven al elefante, al hipopótamo o a cualquier otro animal, saben que su sangre les sirve de alimento y, cayendo sobre estos animales, los traspasan con sus probóscides. Las moscas, a su vez, cazan principalmente a los mosquitos. En este flujo de materia y energía planteado por al-Jahiz, ¿qué función específica desarrollan las moscas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Sintetizan moléculas orgánicas, usando la energía que obtienen de organismos autótrofos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Degradan materia orgánica, devolviéndola al medio ambiente como materia inorgánica.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Forman enlaces de moléculas orgánicas, mediante la incorporación de energía radiante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Transforman materia orgánica proveniente de heterótrofos, obteniendo energía química.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q78",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 78,
+      "stimulus": null,
+      "stem": "En una investigación, se utilizaron varias plantas de la misma especie para evaluar el comportamiento de dos pigmentos fotosensibles (1 y 2) bajo ciertas condiciones ambientales. Los resultados obtenidos se representaron en los siguientes gráficos: Basándose en el análisis de estos gráficos, y considerando que X → Y significa “Y depende de X”, ¿cuál de las siguientes opciones relaciona las variables representadas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Absorción de luz → Tasa de fotosíntesis → Pigmentos 1 y 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Tasa de fotosíntesis → Longitud de onda → Absorción de luz",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Longitud de onda → Absorción de luz → Tasa de fotosíntesis",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Pigmentos 1 y 2 → Tasa de fotosíntesis → Longitud de onda",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q79",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 79,
+      "stimulus": null,
+      "stem": "El aparato estomático de las plantas tiene la capacidad de abrirse o cerrarse, evitando alteraciones del proceso fotosintético que podrían ocurrir cuando difunde un exceso de vapor de agua hacia la atmósfera. A continuación, se esquematiza el ciclo de apertura estomática, en una escala de menor (–) a mayor (+) apertura, en cuatro plantas (1, 2, 3 y 4) de la misma especie: Analizando lo anterior, ¿cuál de las siguientes inferencias con respecto a estas plantas se sustenta en la información proporcionada?",
+      "options": [
+        {
+          "key": "A",
+          "text": "De las cuatro plantas, aquella que abre sus estomas en la noche y los cierra en el día podría habitar ambientes húmedos y fríos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "La apertura o cierre del aparato estomático sería independiente de la temperatura ambiental en estas plantas.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Estas plantas serían incapaces de modificar la apertura o cierre de sus estomas ante variaciones térmicas estacionales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Frente a un estrés térmico, estas plantas podrían modular la apertura o cierre de sus estomas.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-ciencias_biologia-q80",
+      "year": 2024,
+      "subject": "CIENCIAS_BIOLOGIA",
+      "question_number": 80,
+      "stimulus": null,
+      "stem": "Durante un experimento de biología, un grupo de estudiantes analizó las hojas de un árbol, identificando la presencia de carotenos, xantófilas y clorofilas en cierto tejido de estas hojas. Considerando lo anterior, ¿cuál de las siguientes opciones corresponde a un proceso en el que participan directamente las moléculas identificadas por el grupo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Síntesis de hidratos de carbono",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Almacenamiento de almidón",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Absorción de nutrientes",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Fotólisis del agua PROCESO DE ADMISIÓN 2024 IMPORTANTE ■ Este folleto está protegido bajo Registro de Propiedad Intelectual de la Universidad de Chile. ■ Está prohibida la reproducción, transmisión total o parcial de este folleto, por cualquier medio o método. ■ Es obligatorio devolver íntegramente el folleto antes de abandonar la sala. ■ Es obligatorio devolver la hoja de respuestas antes de abandonar la sala.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    }
+  ]
+}

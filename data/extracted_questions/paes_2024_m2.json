@@ -1,0 +1,1956 @@
+{
+  "metadata": {
+    "year": 2024,
+    "subject": "M2",
+    "test_filename": "prueba_oficial_paes_2024_m2.pdf",
+    "clavijero_filename": "clavijero_paes_2024_m2.pdf",
+    "total_extracted": 51,
+    "matched_keys": 51
+  },
+  "questions": [
+    {
+      "id": "paes-2024-m2-q06",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 6,
+      "stimulus": null,
+      "stem": "En el experimento de lanzar una moneda, sus dos opciones son equiprobables de salir, a menos que se indique lo contrario. Registro de Propiedad Intelectual Nº 2023-A-8892 Universidad de Chile. Derechos reservados . Prohibida su reproducción total o parcial. INSTRUCCIONES PARA LAS PREGUNTAS DE SUFICIENCIA DE DATOS En las preguntas de Suficiencia de Datos no se pide la solución al problema, sino que se decida si con los datos proporcionados, tanto en el enunciado como en las afirmaciones (1) y (2), se puede llegar a la solución del problema. Es así que se deberá marcar la opción:",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola, si la afirmación (1) por sí sola es suficiente para resolver el problema, pero la afirmación (2) por sí sola no lo es,",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola, si la afirmación (2) por sí sola es suficiente para resolver el problema, pero la afirmación (1) por sí sola no lo es,",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2), si ambas afirmaciones (1) y (2) juntas son suficientes para resolver el problema, pero ninguna de las afirmaciones por sí sola es suficiente,",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2), si cada una por sí sola es suficiente para resolver el problema,",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional, si ambas afirmaciones juntas son insuficientes para resolver el problema y se requiere información adicional para llegar a la solución. SÍMBOLOS MATEMÁTICOS  es menor que  es semejante con  es mayor que  es perpendicular a  es menor o igual que  es distinto de  es mayor o igual que // es paralelo a ángulo recto  pertenece a ángulo AB trazo AB log logaritmo en base 10 x valor absoluto de x  conjunto vacío x! factorial de x  es aproximado a  intersección de conjuntos  unión de conjuntos u vector u Ac complemento del conjunto A Categoría Nivel de colesterol total Deseable Hasta dL mg 200 Riesgo bajo Mayor que dL mg 200 hasta dL mg 240 Riesgo alto Mayor que dL mg 240",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q01",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 1,
+      "stimulus": null,
+      "stem": "El nivel de colesterol para las personas se presenta en la tabla adjunta. Rodrigo presenta un colesterol de dL mg 255 y su doctor le deja dos recetas: La primera receta es para que tome un medicamento que reduce el nivel de colesterol en dL mg 5,2 diarios, pero que solo debe tomar mientras presente un riesgo alto. La segunda receta indica un medicamento que reduce su nivel de colesterol en dL mg 8,0 diarios, pero que solo debe tomar mientras presente un riesgo bajo. Si Rodrigo sigue el tratamiento indicado por el doctor, ¿cuál de las siguientes expresiones numéricas permite determinar la duración del tratamiento, en días, para que el nivel de colesterol de Rodrigo llegue a ser deseable?",
+      "options": [
+        {
+          "key": "A",
+          "text": "    8,0 5,2 200 240 8,0 240 255 5,2    ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "8,0 5,2 200 255  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "8,0 240 5,2 255 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "8,0 5,2 200 240 240 255   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "8,0 200 240 5,2 240 255   ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q02",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 2,
+      "stimulus": null,
+      "stem": "Considera la igualdad 1 n 1 n P    , con n un número entero. ¿Para cuántos valores distintos de n se cumple que P es un número entero?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Solo para un valor.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Solo para dos valores.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Solo para cuatro valores.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Solo para cinco valores.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q03",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 3,
+      "stimulus": null,
+      "stem": "Considera un cuadrado A de lado cm p y un cuadrado B cuyo lado tiene medida igual a la medida de la diagonal del cuadrado A. ¿Para cuál de los siguientes valores de p , en cm , la suma de las medidas de las diagonales de los cuadrados A y B es un número racional?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2 2 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "2 2 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "2 2 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q04",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 4,
+      "stimulus": null,
+      "stem": "En el gráfico adjunto se presenta la composición elemental del cuerpo humano. Tal como en el ser humano, los cuatro elementos más abundantes en el resto de los organismos vivos son el Carbono, Hidrógeno, Oxígeno y Nitrógeno, y para recordar estos cuatro elementos es usual usar el acrónimo nemotécnico CHON. ¿Qué porcentaje de los elementos CHON en el cuerpo humano corresponde a Oxígeno?",
+      "options": [
+        {
+          "key": "A",
+          "text": "% 100 100 65 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "% 100 32 65 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "% 100 96 65 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "% 100 4 65  % 65 % 4 % 3 % 10 % 18 Oxígeno Hidrógeno Nitrógeno Otros elementos Carbono",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q05",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 5,
+      "stimulus": null,
+      "stem": "¿Cuál es el valor de 3 3 10 2 5 2  ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "6 6 20 10 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "6 80",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "5 40 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "6 6 40 30 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "6 40 2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q06",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 6,
+      "stimulus": null,
+      "stem": "Considera los números reales a y b, ambos distintos de cero. ¿Cuál de las siguientes relaciones permite asegurar que   b a b a 2    ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "  b a b a 2   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "b a b a 2 2   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "0 b a  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "0 b a  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q07",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 7,
+      "stimulus": null,
+      "stem": "¿Cuál es el valor de 3 6 5 4  ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 10",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "9 20",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "9 10",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "18 20",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q08",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 8,
+      "stimulus": null,
+      "stem": "¿Cuál de las siguientes expresiones es igual a y x x 2 5   ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "y x 2 10 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "y x 2 2 10 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "y x 2 10 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "xy 2 x 10 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q10",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 10,
+      "stimulus": null,
+      "stem": "¿Cuál es el valor de 1,0 log3 ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "3 log 1 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "1 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "2 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q11",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 11,
+      "stimulus": null,
+      "stem": "El área de un triángulo equilátero de lado cm q es la cuarta parte del área de un cuadrado de lado cm p . ¿Cuál es el valor de q p ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "4 1 3",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "4 34 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "4 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "2 1 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q12",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 12,
+      "stimulus": null,
+      "stem": "En la siguiente tabla se presentan los valores aproximados de N log para algunos números N : Considerando los valores de la tabla, ¿cuál es el valor de 000 35 log ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 845 ,0 699 ,0  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "1 845 ,0 699 ,0  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "3 845 ,0 699 ,0  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "1 845 ,0 699 ,0  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q13",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 13,
+      "stimulus": null,
+      "stem": "Si p , b y c son números reales mayores que 1 tal que c b logp  , ¿cuál de las siguientes expresiones es igual a b log b 1 log p 1 p      ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "c 2 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "c 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "c 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "c 1 c   N N log N N log 1 0 6 0,778 2 0,301 7 0,845 3 0,477 8 0,903 4 0,602 9 0,954 5 0,699 10 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q14",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 14,
+      "stimulus": null,
+      "stem": "Bajo condiciones especiales, la población de cierto tipo de bacterias se triplica cada 10 días. En esas condiciones, si una colonia de este tipo tiene inicialmente 5 10 8  bacterias, ¿cuál será su población de bacterias al término de 50 días?",
+      "options": [
+        {
+          "key": "A",
+          "text": "5 30 8 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "50 5 3 10 8  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "5 10 8 15  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "5 10 8 150  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q15",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 15,
+      "stimulus": null,
+      "stem": "Si 44 46 7 7 p   , ¿cuál de las siguientes afirmaciones es verdadera con respecto a p?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Es un número impar.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Es un número primo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Es un múltiplo de 13 .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Es un múltiplo de 21.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q16",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 16,
+      "stimulus": null,
+      "stem": "Un banco garantiza una tasa de interés trimestral de % 5,2 para los depósitos a plazo. La función que modela el capital final que tendrá una persona luego de depositar es:  n N 1 M C   en la que M corresponde al capital inicial, N es la tasa de interés expresada como decimal y n es la cantidad de trimestres que se mantiene el dinero en el banco. Si una persona hace un solo depósito inicial de 000 500 2 $ en ese banco, ¿cuál es la expresión que representa el capital final que tendrá esta persona después de 2 años?",
+      "options": [
+        {
+          "key": "A",
+          "text": " 8 25 ,1 000 500 2 $ ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": " 8 025 ,1 000 500 2 $ ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": " 1 25 ,1 000 500 2 $ 8  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": " 1 025 ,1 000 500 2 $ 8  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q17",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 17,
+      "stimulus": null,
+      "stem": "El sueldo líquido es el monto total que recibe una persona que trabaja, luego de descontar del total de haberes, las cotizaciones obligatorias y voluntarias del sueldo total imponible. Considera la siguiente liquidación de sueldo de una persona: ¿Cuál es la expresión que representa el sueldo líquido de esta persona en función del número “a ” del porcentaje de cotización voluntaria, en pesos?",
+      "options": [
+        {
+          "key": "A",
+          "text": "       100 a 17 1 000 950",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "        100 a 17 1 000 950",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "000 150 100 a 17 1 000 800        ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "000 150 100 ) a 17 ( 1 000 800         LIQUIDACIÓN DE SUELDO DATOS DEL(A) TRABAJADOR(A) RUT: 1*.***.***-8 NOMBRE: ****a ****r *****s Período de Remuneración: 31 días Mes: Enero Año: 2022 Haberes del Trabajador Valor Sueldo Base 000 700 $ Horas Extras 000 50 $ Aguinaldo 000 50 $ Sueldo total imponible 000 800 $ Bono de la empresa 000 100 $ Movilización 000 50 $ Sueldo total no Imponible 000 150 $ Total de Haberes 000 950 $ DESCUENTOS SUELDO IMPONIBLE Valor Cotización Previsional AFP (10 %) 000 80 $ Cotización Salud (7 %) 000 56 $ Cotización Voluntaria (a %) X TOTAL DESCUENTOS PREVISIONALES Y DETALLE DE REMUNERACIÓN SUELDO LIQUIDO A PAGAR $Z",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q18",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 18,
+      "stimulus": null,
+      "stem": "Considera la figura adjunta formada por tres cuadrados, uno de lado a metros y otros dos de área 2 p metros cuadrados, cada uno. ¿Cuál de las siguientes expresiones representa el área de la zona gris en metros cuadrados?",
+      "options": [
+        {
+          "key": "A",
+          "text": "   p 2 a p 2 a  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "   p 2 a p 2 a  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": " 2 p a 2   2 p 2 a  a metros",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q19",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 19,
+      "stimulus": null,
+      "stem": "Considera la siguiente gráfica que corresponde a la función que modela la relación lineal entre la profundidad t , en metros, de un objeto sumergido y la presión que el agua ejerce sobre este. ¿Cuál de las siguientes funciones modela la presión, en Pa , que el agua ejerce sobre el objeto, respecto de t , en metros?",
+      "options": [
+        {
+          "key": "A",
+          "text": "t 90 )t( f  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "1 t 10 )t( g   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "t 1,0 )t( h  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "1 t 1,0 )t( n    1 10 Presión (Pa) 90 Profundidad (m)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q21",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 21,
+      "stimulus": null,
+      "stem": "El azúcar de mesa, cuyo nombre químico es sacarosa, corresponde a un compuesto formado por carbono, hidrógeno y oxígeno. En un experimento hipotético se utiliza sacarosa para obtener agua de manera directamente proporcional a la masa de sacarosa utilizada. En la siguiente gráfica se relaciona la masa de agua obtenida en el experimento con varias masas de sacarosa. ¿Cuál de las siguientes expresiones representa la masa en gramos de sacarosa ) S ( necesarios para obtener cierta masa en gramos de agua ? ) A (",
+      "options": [
+        {
+          "key": "A",
+          "text": "A 100 57 S  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "100 A 57 S  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "57 A 100 S  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "A 57 100 S   Sacarosa ) g( Agua (g ) 150 500 171",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q22",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 22,
+      "stimulus": null,
+      "stem": "En el gráfico adjunto se presentan ciertas temperaturas medidas en distintas escalas de temperaturas. La ecuación de equivalencia entre una escala de temperatura y otra es siempre una ecuación lineal, por ejemplo la ecuación 32 C 5 9 F     es la ecuación de equivalencia entre grados Celsius y grados Fahrenheit. Si la ecuación de equivalencia de grados Newton y grados Delisle es b N a D     , ¿cuáles son los signos de a y b ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "0 a  y 0 b ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "0 a  y 0 b ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "0 a  y 0 b ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "0 a  y 0 b  Menor temperatura registrada en la superficie de la Tierra Temperatura de mezcla de sal de amonio, hielo y Agua en Fahrenheit Punto de fusión del hielo bajo presión de una atmósfera (0o) Temperatura promedio en la superficie de la Tierra (15oC) Temperatura promedio del cuerpo humano (37oC) Mayor temperatura registrada en la superficie de la Tierra Punto de ebullición del agua bajo presión de una atmósfera",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q23",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 23,
+      "stimulus": null,
+      "stem": "Considera la inecuación 3 x 2 10 1 6 m 5 x 4     , en x , tal que m es un número real. Si el conjunto solución de la inecuación es  2 ,    , ¿cuál es el valor de m ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "5 11 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "5 9 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q24",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 24,
+      "stimulus": null,
+      "stem": "Para probar la rapidez de dos computadores, se ejecuta un mismo algoritmo en ambos. El computador A ejecuta el algoritmo en p segundos, mientras que el computador B lo ejecuta tres veces en 2 p segundos, demorándose lo mismo en cada ejecución. Al ejecutar el algoritmo n veces seguidas en ambos computadores, el computador más rápido demora 60 segundos menos que el otro. ¿Cuál de las siguientes expresiones permite determinar el tiempo, en segundos, que demora el computador más lento en ejecutar el algoritmo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "n 72",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "n 120",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "n 72",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "n 120",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q26",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 26,
+      "stimulus": null,
+      "stem": "¿Para qué valores de p y q , respectivamente, se cumple la igualdad 1 x 2 q 3 p 2 qx px      , para todo número real x ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "5 y 3 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "7 y 5 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "5 7 y 5 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "1 y 1 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q29",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 29,
+      "stimulus": null,
+      "stem": "El nivel de agua, en milímetros, en un estanque al abrir una llave de paso se modela mediante una función, cuya gráfica es una recta, con respecto al tiempo transcurrido en horas. El nivel inicial del agua es cuatro veces el nivel que aumenta cada hora. Si al cabo de una hora de abrir la llave, el nivel del agua es mm 500 , ¿cuál es el nivel del agua al cabo de cinco horas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "mm 625",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "mm 900",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "mm 2100",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "mm 2500 x + y = 1 ax + ay = a x + 2y = 1 2x + 4ay = 2 2x + y = 1 ax + 2ay = 0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "A",
+          "text": "B)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "D) ax + ay = 1 2ax + y = 0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q30",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 30,
+      "stimulus": null,
+      "stem": "Si m y n son las soluciones de la ecuación cuadrática 0 5 x x 5 2    , ¿cuál es el valor de 1 n m n m         ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "5",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "5 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "5 1 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "1 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "5 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q31",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 31,
+      "stimulus": null,
+      "stem": "Una empresa que vende cubos de sal, vende paquetes de x cubos de lado cm 8 cada uno. El volumen de sal en cada paquete, como función de la cantidad de cubos que este contiene, x , corresponde a  x 8 x f 3  . La empresa decide reducir el tamaño de los lados de los cubos de sal en cm 1 , manteniendo la cantidad de cubos por paquete. ¿Cuál de las siguientes funciones modela el volumen de sal, en 3 cm , que la empresa deja de incluir por paquete, en términos de la cantidad de cubos del paquete?",
+      "options": [
+        {
+          "key": "A",
+          "text": " x 13 x g 2 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": " x 7 x h 3 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": " x x j ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "  1 x 8 x k 3  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q32",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 32,
+      "stimulus": null,
+      "stem": "Considera el triángulo ABC, con cm 12 BC AB   y sea x la medida, en cm , de la altura trazada desde el vértice B, la cual excede en cm 3 a la medida de AC. ¿Cuál de las siguientes ecuaciones permite calcular x ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "135 x 6 x 2 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "567 x 6 x 5 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "135 x 6 x 2 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "567 x 6 x 5 2  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "135 x 6 x 5 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q33",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 33,
+      "stimulus": null,
+      "stem": "La parábola de la figura representa la gráfica de la función f , con dominio el conjunto de los números reales, definida por    1 1 x x f 2    . Si a esta parábola se le aplica una reflexión con respecto al Y eje , luego una traslación según el vector  1 ,0 , ¿cuál es la función que corresponde a la gráfica que se obtiene?",
+      "options": [
+        {
+          "key": "A",
+          "text": " 1 x x g 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "  2 1 x x h  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": " 1 x x t 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "   1 1 x x s 2   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "   1 1 x x r 2    Y X –1 –1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q34",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 34,
+      "stimulus": null,
+      "stem": "Un estanque de altura cm b que se encuentra lleno de agua, comienza a perder agua de manera constante, sin llegar a vaciarse por completo. La función p, con dominio        a b ,0 2 , que modela la altura del agua que va quedando en el estanque, medida en cm, está dada por b t b a )t( p   , tal que t es el tiempo transcurrido, medido en horas desde que el estanque comienza a perder agua. ¿Cuál de las siguientes expresiones representa el tiempo t , en horas, que debe transcurrir para que la altura del agua que queda sea cm 3 b 2 ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "a 3 b 2 2 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "a 3 b2 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "a 3 b 3 b 2 2 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "a 3 b 4 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q35",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 35,
+      "stimulus": null,
+      "stem": "Se desea pintar en una pared una superficie de forma triangular, cuya altura es de 500 centímetros y cuya base es de 700 centímetros. El encargado de realizar el pintado concluye que se necesitan dar tres manos de pintura para que quede bien el trabajo. Los tarros de pintura se venden en formatos de medio galón y un galón. Cada galón rinde 2 m 40 . ¿Cuántos tarros necesita como mínimo para pintar la superficie triangular y que quede bien?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Un tarro de medio galón.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Un tarro de un galón.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Tres tarros de un galón.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Un tarro de un galón y un tarro de medio galón.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q36",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 36,
+      "stimulus": null,
+      "stem": "En la figura adjunta se presenta el cuadrado ABCD , al que se le aplica una homotecia, obteniéndose el cuadrado APQR , donde   P 2, 0  es la imagen de   B 3, 0 . ¿Cuál de las siguientes afirmaciones es verdadera?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La homotecia aplicada al cuadrado ABCD es equivalente a una rotación de  180 con respecto al centro de homotecia.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Si k es la razón de homotecia, entonces k pertenece al intervalo 1 k 0   .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Si k es la razón de homotecia y se considera el punto ) y ,0 ( D , entonces las coordenadas de su imagen R son   0, ky .",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "La razón de homotecia k es 2 3  . Y X D C B A P Q R",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q37",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 37,
+      "stimulus": null,
+      "stem": "Un segmento, de cm 20 de longitud, de una arteria ubicada cerca del corazón se puede aproximar, de forma teórica, a un cilindro de mm 6 de diámetro interior. Considerando esta aproximación teórica, ¿cuál es el volumen de sangre que contiene este segmento de arteria?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 cm 8,1 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "3 cm 2,7 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "3 cm 312",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "3 cm 720",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q38",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 38,
+      "stimulus": null,
+      "stem": "Considera los números reales a y b distintos de cero y c un número real negativo. Si el vector   b ,a está en el segundo cuadrante del plano cartesiano, ¿cuál de las siguientes afirmaciones es siempre verdadera?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El vector   c b ,c a   está en el tercer cuadrante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El vector   b ,a c está en el primer cuadrante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El vector   b ,c a  está en el segundo cuadrante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El vector   cb ,a  está en el tercer cuadrante.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "El vector   c a ,b  está en el cuarto cuadrante.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q39",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 39,
+      "stimulus": null,
+      "stem": "Al punto   7 ,1 C  se le aplica una traslación según el vector  3 ,2   y luego al punto trasladado se le aplica una rotación en  90 con centro en el origen y en sentido antihorario, obteniéndose un nuevo punto. ¿Cuáles son las coordenadas de este último punto obtenido?",
+      "options": [
+        {
+          "key": "A",
+          "text": "  4 ,3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": " 3 ,4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": " 3 ,4 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": " 3 ,4  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": " 3 ,4 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q40",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 40,
+      "stimulus": null,
+      "stem": "Una nutria está intentando cruzar un río desde el punto A hasta llegar a su madriguera en el otro lado del río en el punto B. Sin embargo, la corriente del río la desplaza constantemente en la dirección que indica la figura adjunta. Si la corriente del río desplazará a la nutria según el vector ) 0 ,r( v  , con 0 r  , ¿cuál de los siguientes vectores indica la dirección que debe tomar la nutria desde el punto A para llegar a su madriguera?",
+      "options": [
+        {
+          "key": "A",
+          "text": ") 4 ,4 ( n   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": ")r 4 ,4 ( m    ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": ") 4 ,r 4 ( q    ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": ")r 4 ,r 4 ( s      Corriente del río 1 3 A B 4 Y X Madriguera",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q41",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 41,
+      "stimulus": null,
+      "stem": "Considera los vectores   b ,a v  y   d ,c u  , con a , b , c y d números reales. Si v u w   , ¿cuál de las siguientes relaciones permite deducir que el vector w se encuentra en el primer cuadrante?",
+      "options": [
+        {
+          "key": "A",
+          "text": "c a  y d b ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "c a  y d b ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "0 ac  y 0 bd ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "0 d c b a    ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "d c b a   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q42",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 42,
+      "stimulus": null,
+      "stem": "¿Cuál es el área del triángulo de vértices ) p 2 ,p ( A , ) p 2 ,2 p ( B  y ) p ,2 p ( C  , con p un número real negativo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 p 2 ) 2 p (  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2 p ) 2 p (  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "p ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "p 2 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": " 2 2 p  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q43",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 43,
+      "stimulus": null,
+      "stem": "En la figura adjunta se representa a un triángulo rectángulo de modo que uno de sus vértices O coincide con el centro de una circunferencia con radio cm 6 y el otro vértice B está sobre la circunferencia. Se realiza el siguiente procedimiento para determinar la longitud de OA , cometiéndose un error: Paso 1: se plantea la ecuación OB AB 60 cos   . Paso 2: se reemplaza en la ecuación y se obtiene 6 AB 2 1  , lo cual equivale a 3 AB . Paso 3: se aplica el teorema de Pitágoras, obteniéndose 36 OA 9 2   . Paso 4: se resuelve la ecuación para concluir que OA mide cm 27 . ¿En cuál de los pasos se cometió el error?",
+      "options": [
+        {
+          "key": "A",
+          "text": "En el Paso 1",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "En el Paso 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "En el Paso 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "En el Paso 4  60 A O B",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q44",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 44,
+      "stimulus": null,
+      "stem": "En el gráfico adjunto se presenta la cantidad de días de lluvia y la cantidad de milímetros de agua lluvia registrada en cada uno de los doce meses de un año, en cierto lugar. Se define el “índice de lluvia diaria” de cada mes como el cociente entre la cantidad de milímetros de agua lluvia de un mes y la cantidad de días que llovió ese mes. Según el gráfico, ¿en cuál mes se presentó el mayor índice de lluvia diaria?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Mayo",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Junio",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Agosto",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Octubre Adaptado de Ghana: Economía y demografía, por Datosmacro, 2023, (https://datosmacro.expansion.com/paises/ghana).",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q45",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 45,
+      "stimulus": null,
+      "stem": "En un instituto de idiomas se aplicó un examen de 100 puntos a los estudiantes de japonés y a los estudiantes de alemán. Los resultados obtenidos por ambos grupos se representan a continuación: ¿Cuál de los siguientes argumentos es válido?",
+      "options": [
+        {
+          "key": "A",
+          "text": "La mediana de los puntajes de los estudiantes de japonés es mayor que la mediana de los puntajes de los estudiantes de alemán, porque el nivel de exigencia del examen de japonés fue de un % 50 y el de alemán fue de un % 40 .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El rango intercuartil de los puntajes de los estudiantes de alemán es 40 puntos, porque tal valor corresponde a la resta entre el puntaje máximo y el mínimo y lo anterior dividido por dos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "En ambos exámenes se obtuvo el puntaje máximo, porque la mayor cantidad de estudiantes de ambos grupos obtuvo 100 puntos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "El rango intercuartil de los puntajes de los estudiantes de japonés y el de los estudiantes que estudiaron alemán son iguales, porque para ambos grupos la diferencia entre el tercer cuartil y el primer cuartil es igual. 0 10 20 30 40 50 60 70 80 90 100 Puntaje Alemán Japonés",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q46",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 46,
+      "stimulus": null,
+      "stem": "En las siguientes tablas se presentan las edades de un grupo de niñas y un grupo de niños que asisten a un centro pediátrico. ¿Cuál de las siguientes afirmaciones es verdadera respecto a las edades de los grupos?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tienen la misma desviación estándar y el mismo promedio.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Tienen la misma desviación estándar, pero distinto promedio.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Tienen el mismo promedio, pero distinta desviación estándar.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Tienen distinto promedio y distinta desviación estándar. Grupo de niñas Edad en años Frecuencia 3 10 4 10 5 10 Grupo de niños Edad en años Frecuencia 8 10 9 10 10 10",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q47",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 47,
+      "stimulus": null,
+      "stem": "En la tabla adjunta se presenta la cantidad de estudiantes de dos cursos que rindieron una prueba de historia en dos horarios distintos. ¿Cuál de las siguientes expresiones representa siempre el promedio general obtenido en la prueba considerando a todos los estudiantes?",
+      "options": [
+        {
+          "key": "A",
+          "text": "      y x 3 q y x 2 p y 2 x    ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "      y x 3 q y y 2 p x 2 x    ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "          y x 2 q y 2 x p 2 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "      y x 3 p y x 2 q y 2 x     Horario 1 Horario 2 Cantidad de estudiantes del curso A x 2x Cantidad de estudiantes del curso B 2y y Promedio de notas obtenidas en la prueba por los estudiantes de cada horario p q",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q48",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 48,
+      "stimulus": null,
+      "stem": "Un naipe de 40 cartas tiene las siguientes características:  10 cartas numeradas del 1 al 10 , con el símbolo ⱷ de color rojo.  10 cartas numeradas del 1 al 10 , con el símbolo ☼ de color rojo.  10 cartas numeradas del 1 al 10 , con el símbolo ◘ de color negro.  10 cartas numeradas del 1 al 10 , con el símbolo ☻ de color negro. Un juego consiste en que un jugador extrae una carta al azar y gana si la carta es un número primo y el símbolo es de color rojo. ¿Cuál es la probabilidad de que el jugador gane?",
+      "options": [
+        {
+          "key": "A",
+          "text": "5 1",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "4 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "10 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "20 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q49",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 49,
+      "stimulus": null,
+      "stem": "Considera dos sucesos independientes entre sí. El suceso A ocurre con probabilidad 6,0 , mientras que la probabilidad de que ocurra simultáneamente con el suceso B es 3,0 . ¿Cuál es la probabilidad de que ocurra el suceso B?",
+      "options": [
+        {
+          "key": "A",
+          "text": "18 ,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "30 ,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "50 ,0",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "90 ,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q50",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 50,
+      "stimulus": null,
+      "stem": "En una caja se tienen 17 bolitas, del mismo tipo, numeradas del 1 al 17 . Si se extraen, sin reposición, 4 bolitas al azar, ¿cuál es la probabilidad de obtener 4 números impares?",
+      "options": [
+        {
+          "key": "A",
+          "text": "4 17 9    ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "4 9 1    ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "17 9 4 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "9 1 4 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "170 9",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q51",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 51,
+      "stimulus": null,
+      "stem": "En un curso se rifan dos premios, para lo que se vendieron exactamente 30 números. El primer número extraído al azar se lleva el primer premio y el segundo número extraído al azar se lleva el segundo premio. Pedro compró dos números de la rifa. Si el sorteo es sin reposición, ¿cuál es la probabilidad de que Pedro gane los dos premios?",
+      "options": [
+        {
+          "key": "A",
+          "text": "15 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "435 1",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "900 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "450 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q52",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 52,
+      "stimulus": null,
+      "stem": "Considera la función f , cuyo dominio es el conjunto de los números reales, definida por c x 3 ax ) x ( f 2    , con a y c números reales distintos de cero. Se puede determinar que la gráfica de f no interseca al X eje , si se sabe que: (1) c a  (2)       , 2 3 a",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q53",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 53,
+      "stimulus": null,
+      "stem": "Considera el siguiente cuadrilátero: Se puede determinar que el área del cuadrilátero ABCD es 2 p ) b b ( 2 1  , si se sabe que: (1) DC // AB (2) p 2 b b 2 1  ",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional b1 A B C D p b2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "E",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q54",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 54,
+      "stimulus": null,
+      "stem": "Sin conocer las notas que obtuvieron las personas de un curso en una prueba, es posible asegurar que al menos el % 50 de los estudiantes obtuvo nota superior a 2,5 , si se sabe que: (1) el promedio es 2,5 . (2) la mediana es 3,5 .",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2024-m2-q55",
+      "year": 2024,
+      "subject": "M2",
+      "question_number": 55,
+      "stimulus": null,
+      "stem": "Se puede determinar la varianza de las edades de un grupo de 30 personas mayores de 15 años, si se conoce: (1) la varianza que tenían las edades del grupo hace 3 años. (2) el promedio y el rango de las edades del grupo.",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional PROCESO DE ADMISIÓN 2024 IMPORTANTE ■ Este folleto está protegido bajo Registro de Propiedad Intelectual de la Universidad de Chile. ■ Está prohibida la reproducción, transmisión total o parcial de este folleto, por cualquier medio o método. ■ Es obligatorio devolver íntegramente el folleto antes de abandonar la sala. ■ Es obligatorio devolver la hoja de respuestas antes de abandonar la sala.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    }
+  ]
+}

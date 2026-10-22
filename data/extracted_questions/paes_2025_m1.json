@@ -1,0 +1,1488 @@
+{
+  "metadata": {
+    "year": 2025,
+    "subject": "M1",
+    "test_filename": "prueba_oficial_paes_2025_m1.pdf",
+    "clavijero_filename": "clavijero_paes_2025_m1.pdf",
+    "total_extracted": 41,
+    "matched_keys": 41
+  },
+  "questions": [
+    {
+      "id": "paes-2025-m1-q02",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 2,
+      "stimulus": null,
+      "stem": "Considera la siguiente recta numérica: ¿Cuál de los siguientes procedimientos representa la operación   8 5    usando la recta numérica?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ubicarse en el 5  y desplazarse 8 unidades a la izquierda.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Ubicarse en el 5  y desplazarse 8 unidades a la derecha.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ubicarse en el 8  y desplazarse 5 unidades a la derecha.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Ubicarse en el 8  y desplazarse 3 unidades a la derecha. 1 0 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q03",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 3,
+      "stimulus": null,
+      "stem": "Para encontrar el resultado de                  4 2 12 3 5 : 6 3 4 5 4 , se realiza el siguiente procedimiento, cometiéndose un error. Paso 1: se resuelven las operaciones de los paréntesis internos, obteniéndose              40 3 5 : 12 5 4 . Paso 2: se resuelven las multiplicaciones, obteniéndose 3 200 : 5 48  . Paso 3: se resuelve la división como 200 3 5 48   . Paso 4: se resuelve la multiplicación, obteniéndose 125 18  . ¿En cuál de los pasos se cometió el error?",
+      "options": [
+        {
+          "key": "A",
+          "text": "En el Paso 1",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "En el Paso 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "En el Paso 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "En el Paso 4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q04",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 4,
+      "stimulus": null,
+      "stem": "Una persona necesita comprar kg 60 de alimento de cierta marca para sus perros. En una tienda para mascotas, ese alimento tiene los siguientes precios:  El saco de kg 20 se vende a 500 33 $ .  El saco de kg 15 se vende a 000 25 $ .  El saco de kg 12 se vende a 000 20 $ .  El saco de kg 5 se vende a 000 10 $ . Si la persona requiere priorizar en primer lugar el menor precio a pagar y luego la menor cantidad de sacos, ¿cuál de las siguientes opciones le conviene a la persona?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Comprar doce sacos de kg 5 .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Comprar cinco sacos de kg 12 .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Comprar cuatro sacos de kg 15 .",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "Comprar tres sacos de kg 20 .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q06",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 6,
+      "stimulus": null,
+      "stem": "Dos personas se juntan a realizar ejercicios, pero cada una tiene su propia rutina, las que se detallan a continuación:  La primera persona realiza ejercicios durante 2 minutos y luego se toma 30 segundos de descanso, repitiendo esta serie ocho veces.  La segunda persona realiza ejercicios durante 1 minuto y 30 segundos y luego se toma 15 segundos de descanso, repitiendo esta serie doce veces. Si las dos personas comienzan sus rutinas al mismo tiempo, ¿cuál de los siguientes argumentos garantiza que una de las personas termina la rutina antes que la otra?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Que la cantidad de repeticiones de las series de ambas personas es distinta.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Que el tiempo de descanso de ambas personas es distinto.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Que la suma entre el tiempo de ejercicio, el descanso y las repeticiones de las series es distinta en cada persona.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Que la suma entre el tiempo de ejercicio y el descanso, multiplicada por las repeticiones de las series, es distinta en cada persona.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q07",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 7,
+      "stimulus": null,
+      "stem": "Una persona recorrió en bicicleta una ruta de km 30 en 3 días. El primer día recorrió 3 1 de la ruta, el segundo día recorrió 5 3 de lo que le faltaba y el tercer día recorrió el resto. ¿Cuántos kilómetros recorrió el tercer día?",
+      "options": [
+        {
+          "key": "A",
+          "text": "15",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "10",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "8",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q09",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 9,
+      "stimulus": null,
+      "stem": "Para conocer el equivalente en centímetros de una distancia medida en millas, se utiliza el siguiente modelo: x 934 160 C   , tal que x es la distancia en millas y C es el equivalente en centímetros. Si un kilómetro es equivalente a 000 100 centímetros, ¿cuál de las siguientes igualdades representa la equivalencia en kilómetros k de una distancia de x millas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "934 160 x 000 100 k  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "000 100 x 934 160 k   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "000 100 x 934 160 k  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "000 100 x 934 160 k   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q10",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 10,
+      "stimulus": null,
+      "stem": "La regla de Naegele es un método que permite determinar la fecha probable de parto de una mujer, determinando el día, mes y año tal como se representa en el siguiente diagrama: Si la fecha de la última menstruación de una mujer embarazada fue el 19/04/2022, ¿cuál será la probable fecha de parto de esta mujer según la regla de Naegele?",
+      "options": [
+        {
+          "key": "A",
+          "text": "26/01/2023",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "19/01/2023",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "12/01/2023",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "16/01/2023",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q11",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 11,
+      "stimulus": null,
+      "stem": "Si 30 corresponde al % 20 de una cantidad, ¿cuál es dicha cantidad?",
+      "options": [
+        {
+          "key": "A",
+          "text": "6",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "50",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "150",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "600",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q13",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 13,
+      "stimulus": null,
+      "stem": "Si p aumentado en su % 40 es 150 , ¿cuál de las siguientes expresiones corresponde a p?",
+      "options": [
+        {
+          "key": "A",
+          "text": "40 150 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "140 150 100 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "140 150",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "100 40 150 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q15",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 15,
+      "stimulus": null,
+      "stem": "En los departamentos de Administración y de Talleres de una empresa se necesitaba contratar a 150 personas entre ambos departamentos. Se presentaron 500 postulantes, según el detalle de la tabla adjunta. ¿Cuál de las siguientes afirmaciones es verdadera?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Del total de los hombres que postularon, exactamente un % 9 fue contratado.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "En Administración se contrató al % 20 del total de quienes postularon a ese departamento.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Exactamente un % 5 de las mujeres que fueron contratadas corresponden al departamento de Administración.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "En Talleres se contrató al % 50 de los hombres y al % 50 de las mujeres postulantes a ese departamento. Departamento Postulantes Contratados Administración Hombres 200 20 Mujeres 50 5 Talleres Hombres 50 25 Mujeres 200 100",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q17",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 17,
+      "stimulus": null,
+      "stem": "Una tienda ofrece un % 20 de descuento en el precio por la compra de cualquier camisa. Una persona quiere comprar tres camisas que tienen un valor de 000 30 $ cada una sin descuento. ¿Cuál de las siguientes expresiones representa el valor total que pagará la persona?",
+      "options": [
+        {
+          "key": "A",
+          "text": "      100 20 000 30 3 $",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "      100 80 000 30 3 $",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "      100 60 000 30 3 $",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "      100 40 000 30 3 $",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q21",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 21,
+      "stimulus": null,
+      "stem": "¿Cuál de los siguientes números es igual a 2 2 ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "2 2 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q23",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 23,
+      "stimulus": null,
+      "stem": "En un estudio sobre cierto insecticida, se determinó que, después de cada semana de uso, la cantidad de insectos disminuye a 5 2 de la cantidad de insectos que había al comienzo de dicha semana. Para acabar con una plaga de 1000 insectos, se utilizará este insecticida y cuando solo queden 64 individuos o menos, se requerirá de un día más para acabar con la plaga. Si se asume que los insectos no se reproducen durante el periodo de aplicación del insecticida, ¿cuántos días se necesitarán para acabar con la plaga?",
+      "options": [
+        {
+          "key": "A",
+          "text": "21",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "22",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "42",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "43",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q24",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 24,
+      "stimulus": null,
+      "stem": "Si   30 x x P 5 x 2      , con 5 x   , ¿cuál de las siguientes expresiones es igual a P ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "35 x ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "6 x2 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "6 x ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "6 x ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q25",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 25,
+      "stimulus": null,
+      "stem": "¿Cuál de las siguientes expresiones es igual a  1 b 3 b   ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 b 2  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "1 b 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "1 b 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "3 b 2  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q26",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 26,
+      "stimulus": null,
+      "stem": "Una persona compró kg 20 de naranjas en 000 16 $ y kg 20 de manzanas en 000 18 $ . Si la cantidad de kilogramos de frutas y su precio se modelan por medio de una relación lineal, ¿cuál de las siguientes expresiones representa el precio total, en pesos, al comprar kg x de cada fruta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "x 20 000 18 20 000 16      ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "       x 000 18 20 x 000 16 20",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "  x 000 18 x 000 16   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "       x 000 18 000 16",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q27",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 27,
+      "stimulus": null,
+      "stem": "Una persona va a comprar 18 yogures y el precio de cada uno es M $ . Para ello lleva un monto de P $ , el cual es suficiente para comprar. ¿Cuál de las siguientes expresiones corresponde al dinero que le sobra?",
+      "options": [
+        {
+          "key": "A",
+          "text": "  M 18 P $  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "     P M 18 $",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "  M P $ ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "     M 18 P $",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q28",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 28,
+      "stimulus": null,
+      "stem": "Una persona mide la longitud de un objeto con una huincha, obteniendo que este mide 2, 43 centímetros. Considera que 2 pulgadas son aproximadamente 1,5 centímetros, ¿cuál es la medida del objeto, en pulgadas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 pulgadas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "5 pulgadas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "17 pulgadas",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "108 pulgadas",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q29",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 29,
+      "stimulus": null,
+      "stem": "Una persona quiere desinfectar un sector de juegos. Para ello utilizará un líquido desinfectante que trae la siguiente información en la etiqueta: Si la persona usa una jeringa de mL 5 para añadir el desinfectante en un balde con cinco litros de agua, ¿cuántas veces tiene que vaciar el contenido de la jeringa llena en el agua?",
+      "options": [
+        {
+          "key": "A",
+          "text": "5",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "20",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "25",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "100 Tabla de dilución líquido desinfectante Cantidad de desinfectante Diluir en: 5 mL un cuarto litro de agua 10 mL medio litro de agua 20 mL un litro de agua",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q31",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 31,
+      "stimulus": null,
+      "stem": "Para una fiesta se compraron tres botellas de jugo del mismo precio y tres botellas de bebidas del mismo precio, gastándose en total 770 16 $ . Una botella de bebida es 390 $ más cara que una botella de jugo. ¿Cuál de las siguientes ecuaciones permite determinar el precio x de una botella de jugo, en pesos?",
+      "options": [
+        {
+          "key": "A",
+          "text": "770 16 390 x 3  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "770 16 390 x 6  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "  770 16 390 x 3 x 3   ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "  770 16 390 x 3 x 3   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q32",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 32,
+      "stimulus": null,
+      "stem": "La figura adjunta corresponde a una representación del triángulo de Pascal. En esta representación, el número en cada casilla blanca corresponde a la suma de las dos casillas inmediatamente superiores. ¿Cuál de las siguientes expresiones representa a x en términos de p ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "15 p ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "10 p ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "10 p ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "15 p  Ejemplo",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q33",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 33,
+      "stimulus": null,
+      "stem": "En un partido de básquetbol, un jugador tiene la posibilidad de hacer anotaciones que valen dos o tres puntos, dependiendo del lugar desde el que lanzó el balón al anotar. Un jugador marcó 37 puntos en el último partido haciendo cinco anotaciones de dos puntos y x anotaciones de tres puntos. ¿Cuál de las siguientes ecuaciones permite determinar la cantidad de anotaciones de tres puntos que hizo el jugador?",
+      "options": [
+        {
+          "key": "A",
+          "text": "37 5 x  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "37 10 x  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "37 5 x 3  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "37 10 x 3  ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q34",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 34,
+      "stimulus": null,
+      "stem": "Tomás y cuatro de sus amigos van a un parque de diversiones. El parque cobra una entrada a todos los asistentes y un gasto adicional por entrar a cierta atracción. Tomás decide pagar el total de estos gastos y luego cobrar a cada quien su parte. Escribe lo siguiente en el chat del grupo de amigos que fueron al parque. Si Tomás pagó un total de 000 31 $ en su visita al parque, ¿cuál de las siguientes ecuaciones permite calcular el precio x que se pagó por cada entrada al parque?",
+      "options": [
+        {
+          "key": "A",
+          "text": "000 31 x 5 4 4000   ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "000 31 x 3 4 4000   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "000 31 x 4 5 4000   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "000 31 x 5 5 4000   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q35",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 35,
+      "stimulus": null,
+      "stem": "La cantidad n de chirridos por minuto que emite un grillo se relaciona con la temperatura ambiental mediante la ecuación        7 40 n 10 T , tal que T es la temperatura ambiental en C  . ¿Cuántos chirridos por minuto emitirá un grillo si la temperatura ambiental es de C 20  ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "8",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "30",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "110",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "170",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q36",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 36,
+      "stimulus": null,
+      "stem": "Una persona vende plantas por internet a 3500 $ cada una. Un mes necesita realizar ventas por un monto superior a 000 500 $ . A mediados del mes, ha vendido solo 40 plantas y teme que no alcance su meta de ventas, por lo que decide comenzar a vender las plantas a 4500 $ cada una por el resto del mes. ¿Cuál de las siguientes inecuaciones permite calcular la cantidad x de plantas que tiene que vender la segunda mitad del mes para alcanzar su meta?",
+      "options": [
+        {
+          "key": "A",
+          "text": "000 500 4500 x 3500 40   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "000 500 4500 x 3500 40   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "000 500 x 4500 3500 40   ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "000 500 x 4500 3500 40   ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q38",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 38,
+      "stimulus": null,
+      "stem": "Una empresa distribuye bidones de agua de L 20 por un valor de 2200 $ cada uno. Esta empresa tiene un plan en el que cobra una suscripción mensual de 2000 $ , con lo cual el precio de cada uno de esos bidones comprados en el mes se reduce a 1800 $ . Otra empresa tiene un servicio similar, pero cobra una suscripción mensual de 2500 $ para que el precio de cada bidón del mismo tipo se reduzca a 1600 $ . Si una persona se suscribe a alguna de estas empresas, ¿cuál es la cantidad mínima de bidones que tiene que comprar para que le convenga económicamente la segunda empresa?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "3",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q44",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 44,
+      "stimulus": null,
+      "stem": "Un estudiante debe rendir cuatro pruebas en un semestre, de las cuales ya tiene tres notas, estas son 5 , 6 y 4. ¿Cuál de las siguientes expresiones permite determinar el promedio que tendría el estudiante con su cuarta nota x ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "4 x 15 ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "2 x 15 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "2 x 5 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "3 x 15 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q48",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 48,
+      "stimulus": null,
+      "stem": "Los números 68 , x , 75 , 80 y 70 tienen un promedio de 73 . ¿Cuál es el valor de x ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "25 , 73",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "73",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "72",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "6, 58",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q49",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 49,
+      "stimulus": null,
+      "stem": "En la tabla adjunta se presenta la distribución de la cantidad de videojuegos que tiene un grupo de jóvenes de un colegio. ¿Cuál de los siguientes argumentos es verdadero?",
+      "options": [
+        {
+          "key": "A",
+          "text": "El promedio de la cantidad de videojuegos es 5,3 , porque es el promedio de los datos centrales.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "El rango de la cantidad de videojuegos es 5 , porque la resta entre la frecuencia mayor y la frecuencia menor es 5 .",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "El promedio de la cantidad de videojuegos es 5,3 , porque es el promedio entre la mayor y la menor cantidad de videojuegos.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "La moda de la cantidad de videojuegos es 1 y 6 , porque son los dos datos que más se repiten. Cantidad de videojuegos Frecuencia 1 10 2 8 3 5 4 5 5 8 6 10",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q51",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 51,
+      "stimulus": null,
+      "stem": "En una encuesta, las personas indicaron su preferencia de estilo musical, eligiendo solo una de entre las opciones rock, pop, rap y reguetón, obteniéndose las respuestas que se presentan en la siguiente tabla: Si se selecciona al azar a una persona de las encuestadas, ¿cuál es la probabilidad de que prefiera el rock?",
+      "options": [
+        {
+          "key": "A",
+          "text": "7 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "13 7",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "20 13",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "20 7 Estilo Musical Frecuencia Rock 7 Pop 4 Rap 3 Reguetón 6",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q52",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 52,
+      "stimulus": null,
+      "stem": "En la tabla adjunta se presentan los resultados obtenidos al consultar a un grupo de personas sobre la preferencia de estudiar una de las cuatro carreras profesionales propuestas, tal que cada persona escogió solo una carrera. Si se escoge a una de estas personas al azar, ¿cuál de las siguientes expresiones permite determinar la probabilidad de que esta prefiera una carrera del área de la salud?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1100 enfermería Frecuencia medicina Frecuencia ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2300 enfermería Frecuencia medicina Frecuencia ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "2300 1 enfermería Frecuencia medicina Frecuencia  ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "1100 1 enfermería Frecuencia medicina Frecuencia   Carrera profesional Frecuencia Ingeniería civil 900 Periodismo 300 Medicina 700 Enfermería 400",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q53",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 53,
+      "stimulus": null,
+      "stem": "Considera las siguientes cajas con sus respectivas bolitas grises y blancas. ¿En cuál de las cajas, al extraer al azar una bolita, la probabilidad de que sea gris es mayor que 5,0 y menor que 1?",
+      "options": [
+        {
+          "key": "A",
+          "text": "En la Caja 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "En la Caja 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "En la Caja 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "En la Caja 4 Caja 1 Caja 2 Caja 3 Caja 4",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q54",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 54,
+      "stimulus": null,
+      "stem": "En la tabla adjunta se presentan los resultados de una encuesta realizada a 50 personas sobre su fruta preferida. Si se elige a una de estas personas al azar, ¿cuál es la probabilidad de que la persona elegida tenga como fruta preferida la pera o la naranja?",
+      "options": [
+        {
+          "key": "A",
+          "text": "14 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "25 7",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "24 7",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "7 1 Fruta Cantidad de personas Uva 13 Pera 6 Manzana 12 Naranja 8 Frutilla 11",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q55",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 55,
+      "stimulus": null,
+      "stem": "El Fondo Nacional de Salud (Fonasa) es un tipo de previsión de salud, junto con las Isapres y otras instituciones. Las personas solo pueden tener un tipo de previsión y las que tienen Fonasa se categorizan en los tramos A, B, C y D, según su nivel socioeconómico. En los gráficos adjuntos se presenta la distribución de la población de acuerdo con los tipos de previsión y la distribución de la población con Fonasa en los distintos tramos en 2021. Si se escogía al azar a una persona de la población nacional en 2021, ¿cuál es la probabilidad de que hubiera estado clasificada en el tramo A de Fonasa?",
+      "options": [
+        {
+          "key": "A",
+          "text": "154 ,0",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "2,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "25 ,0",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "97 ,0 Adaptado de: Fonasa (2022). Cuenta Pública Participativa 2022.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q57",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 57,
+      "stimulus": null,
+      "stem": "Una empresa de repostería usa un diseño de bandejas desmontables de forma circular que se apilan una sobre otra para ir colocando diferentes dulces, tal como se representa en la figura adjunta. Para determinar el diámetro de la bandeja que va ubicada en el piso k , la empresa usa la expresión   p 1 n 2 1 k 1           , tal que n representa la cantidad de bandejas desmontables que se usarán y p es el diámetro de la bandeja del primer piso, en centímetros. La empresa tiene que preparar un diseño de cinco pisos tal que el diámetro de la bandeja del primer piso mida cm 40 . ¿Cuál será el área de la bandeja del tercer piso donde irán los dulces?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 cm 225",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "2 cm 240",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "2 cm 300",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "2 cm 900 Primer piso",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q58",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 58,
+      "stimulus": null,
+      "stem": "En el patio de un colegio hay dibujados cuatro círculos de perímetros m 12 , m 10 , m 8 y m 4 , que se desean pintar de un color diferente para una actividad extraescolar. Se necesita conocer el área total de estos cuatro círculos para estimar la cantidad de pintura a comprar. ¿Cuál es el área que se necesita conocer?",
+      "options": [
+        {
+          "key": "A",
+          "text": "  2 2 m 17 ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "2 m 81",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "2 m 34",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "2 m 17",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q59",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 59,
+      "stimulus": null,
+      "stem": "Una piscina con forma de paralelepípedo recto, cuyas medidas son m 8 de ancho por m 20 de largo y una profundidad de m 7,1 , tiene agua hasta una marca ubicada cm 20 antes del borde superior. Para aplicar un producto limpiador, una persona desea conocer la cantidad de agua en la piscina. ¿Cuál es el volumen de agua contenido en la piscina?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 m 240",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "3 m 2, 265",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "3 m 28 , 269",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "3 m 272",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q60",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 60,
+      "stimulus": null,
+      "stem": "Una maestranza produce piezas metálicas uniendo dos cilindros sólidos de la misma altura, tal como se representa en la siguiente figura: ¿Cuál es el volumen de material que se necesita para fabricar esta pieza?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 cm 5000",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "3 cm 2500",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "3 cm 1250",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "3 cm 560",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q61",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 61,
+      "stimulus": null,
+      "stem": "Considera un perfil rectangular de m 6 de largo hecho de aluminio de mm 8,4 de grosor, tal como el que se representa a continuación: ¿Por cuál de los siguientes números hay que multiplicar el largo del perfil, en mm , para obtener la cantidad de aluminio necesaria para confeccionar uno de estos perfiles, en 3 mm ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "   8,4 8, 50 8,4 6, 101 8, 50 6, 101    ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "   8,4 2 8, 50 8,4 6, 101 8, 50 6, 101     ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "   8,4 8, 50 8,4 2 6, 101 8, 50 6, 101     ",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "   8,4 2 8, 50 8,4 2 6, 101 8, 50 6, 101      ",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q62",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 62,
+      "stimulus": null,
+      "stem": "En la siguiente imagen se representa una figura sobre una hoja de papel cuadriculado con dos posiciones marcadas: ¿Cuál de los siguientes movimientos se le debe aplicar a la figura en la posición 1 para que quede en la posición 2?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Trasladar la figura cuatro unidades a la izquierda y cuatro unidades hacia abajo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Trasladar la figura cuatro unidades a la izquierda y cinco unidades hacia abajo.",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Trasladar la figura tres unidades a la izquierda y tres unidades hacia abajo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Trasladar la figura cinco unidades a la izquierda y cuatro unidades hacia abajo.",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2025-m1-q65",
+      "year": 2025,
+      "subject": "M1",
+      "question_number": 65,
+      "stimulus": null,
+      "stem": "En la figura adjunta, el punto B es el simétrico del punto A con respecto a la recta L , el punto D es el simétrico del punto C con respecto a la recta L y  50 CDB . ¿Cuánto mide uno de los ángulos formados por las rectas DB y CA ?",
+      "options": [
+        {
+          "key": "A",
+          "text": " 40",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": " 45",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": " 50",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": " 80 Listado de referencias bibliográficas Pregunta Cita bibliográfica 55 Fonasa. (2022). Cuenta pública 2022. Fondo Nacional de Salud (Fonasa). https://www.fonasa.cl/sites/fonasa/adjuntos/CUENTAPUBLICA2022c Proceso de Admisión 2 0 2 5",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+schema: spec-driven
+
+# ---------------------------------------------------------------------------
+# New Peak — PAES exam-preparation platform
+#
+# Artifact store: openspec (repo-local). Native dispatcher contract:
+#   gentle-ai sdd-status --cwd <repo> --json --instructions
+#   gentle-ai sdd-continue [change] --cwd <repo>
+# Do not re-implement the dispatcher's logic; route through it.
+# ---------------------------------------------------------------------------
+
+context: |
+  Stack: FastAPI 0.115.6 + SQLModel 0.0.22 (SQLite/WAL) backend; React 19.2 + Vite 8 + Zustand 5 + Tailwind 4 frontend.
+  Layout: backend/{api/routes,models,services,core,migrations}; frontend/src/{pages,components,store/slices,api}.
+  Schema: SQLite via SQLAlchemy; every schema change ships as a versioned migration under backend/migrations/ (001..012).
+  Testing: pytest (backend) + Vitest (frontend); both CI-enforced with coverage thresholds.
+  Conventions: conventional commits, English artifacts and UI copy, no AI attribution, spec-driven changes only.
+  Run: root `paes.ps1` / `paes.cmd` launcher (backend :8000, frontend :7700). Per-project commands live under `projects:`.
+
+strict_tdd: true
+
+strict_tdd_resolution:
+  marker: "Explicit session preflight: the project has been running test-first for recent bug-fix work units."
+  workspace_level_target: ".github/workflows/ci.yml — CI target defined by the workspace; runs the complete in-scope set (backend job + frontend job) from the workspace root."
+  projects: [backend, frontend]
+  local_aggregate_note: >
+    No single root-level local command runs both suites. Apply and verify MUST use the
+    per-project commands under `projects:` (focused per-file execution), and MUST NOT
+    synthesize a combined command. Adding one root-level aggregate command would satisfy
+    the workspace-wide gate unconditionally and would not otherwise change this file.
+  verified_on: "2026-10-21"
+
+delivery:
+  strategy: auto-chain
+  review_budget_lines: 800
+  note: "A work unit that cannot land inside the budget must be reported as `size:exception`, never compressed by deleting tests, comments, or docs."
+
+conventions:
+  language: "All generated artifacts (code, comments, UI copy, docs, specs, tests) are written in English."
+  commits: "Conventional commits, English conventional-commit messages, no AI attribution."
+  timezone: >
+    Windows has no IANA tz database, so `zoneinfo.ZoneInfo("America/Santiago")` raises
+    `ZoneInfoNotFoundError` at import time. ALWAYS use `backend/core/timeutils.py`
+    (dependency-free Chile DST fallback) for date/time work.
+  orm_ordering: >
+    SQLAlchemy orders pending INSERTs alphabetically by class name, NOT by FK dependency.
+    Declare ORM relationships explicitly.
+  ruff_e711: "Ruff's E711 autofix is wrong for SQLAlchemy columns — `== None` must stay `is_(None)`."
+  working_tree: >
+    The working tree carries pre-existing uncommitted WIP changes. Never discard, revert,
+    reformat, or run a formatter over the whole repo — only touch files a task owns.
+
+projects:
+  - path: backend
+    stack: "Python 3.11 / FastAPI 0.115.6 / SQLModel 0.0.22 / SQLAlchemy / SQLite (WAL)"
+    ci_enforced: true
+    test:
+      framework: "pytest 8.3.4"
+      command: "backend/venv/Scripts/python.exe -m pytest"
+      working_directory: backend
+      focus_command: "backend/venv/Scripts/python.exe -m pytest {test_file}"
+      result: "820 passed, 0 failed (verified 2026-10-21)"
+    coverage:
+      tool: "pytest-cov 6.0.0"
+      command: "backend/venv/Scripts/python.exe -m pytest --cov=api --cov=core --cov=models --cov=services"
+      threshold: 72
+      current: 80.66
+    lint:
+      tool: "ruff 0.8.6 (pinned in backend/requirements.txt)"
+      command: "ruff check ."
+      working_directory: backend
+      result: "0 errors (verified 2026-10-21)"
+    type_check:
+      available: false
+      note: "No type checker configured."
+    formatter:
+      available: false
+      note: "No formatter configured; `ruff format` is not wired into CI."
+    layers:
+      unit: true
+      integration: true
+      e2e: false
+    notes:
+      - "Route modules live in backend/api/routes/; SQLModel tables in backend/models/; domain logic in backend/services/ (services/paes/ for the PAES engine)."
+      - "Migration runner: backend/migrations/runner.py, migrations 001..012."
+
+  - path: frontend
+    stack: "Node 22 / React 19.2 / Vite 8 / Zustand 5 / Tailwind 4 / Vitest 4 / Testing Library"
+    ci_enforced: true
+    test:
+      framework: "vitest 4.1.8"
+      command: "pnpm test"
+      working_directory: frontend
+      focus_command: "pnpm vitest run {test_file}"
+      result: "29 files / 261 tests passed (verified 2026-10-21)"
+    coverage:
+      tool: "@vitest/coverage-v8 4.1.8"
+      command: "pnpm run test:coverage"
+      thresholds: { statements: 38, branches: 28, functions: 32, lines: 39 }
+      current: { statements: 44.03, branches: 33.96, functions: 38.29, lines: 45.67 }
+    lint:
+      tool: "eslint 10"
+      command: "pnpm lint"
+      working_directory: frontend
+      result: "FAILING — 81 problems (64 errors, 17 warnings) as of 2026-10-21"
+      status: failing
+      ci_enforced: false
+    type_check:
+      available: false
+      note: "No tsconfig.json and no TypeScript dependency."
+    formatter:
+      available: false
+      note: "No formatter configured."
+    build:
+      command: "pnpm build"
+      working_directory: frontend
+      result: "succeeds (verified 2026-10-21)"
+    layers:
+      unit: true
+      integration: true
+      e2e: false
+    notes:
+      - "Source layout: frontend/src/{pages,components/{ui,dashboard,paes,layout},store/slices,api,hooks,utils}."
+      - "ESLint is NOT part of CI. Do not treat a pre-existing `pnpm lint` failure as a regression caused by the change under review."
+
+testing:
+  strict_tdd: true
+  detected: "2026-10-21"
+  workspace_level_command: ".github/workflows/ci.yml"
+  note: "Project-local commands below are independent. There is no single local aggregate runner; run the focused per-project command for the project a task owns."
+
+  capabilities: |
+    ## Testing Capabilities
+
+    **Strict TDD Mode**: enabled
+    **Detected**: 2026-10-21
+
+    ### Projects
+
+    | Relative path | Stack | Test command | Framework |
+    | ------------- | ----- | ------------ | --------- |
+    | `backend` | Python 3.11 / FastAPI / SQLModel | `backend/venv/Scripts/python.exe -m pytest` (cwd `backend`) | pytest 8.3.4 |
+    | `frontend` | React 19 / Vite 8 / Vitest | `pnpm test` (cwd `frontend`) | vitest 4.1.8 |
+
+    ### Test Layers
+
+    | Relative path | Layer       | Available | Tool        |
+    | ------------- | ----------- | --------- | ----------- |
+    | `backend`  | Unit        | ✅ | pytest |
+    | `backend`  | Integration | ✅ | pytest + FastAPI TestClient / httpx |
+    | `backend`  | E2E         | ❌ | — |
+    | `frontend` | Unit        | ✅ | vitest + Testing Library |
+    | `frontend` | Integration | ✅ | vitest + Testing Library (jsdom) |
+    | `frontend` | E2E         | ❌ | — |
+
+    ### Coverage
+
+    | Relative path | Available | Command | Threshold | Current |
+    | ------------- | --------- | ------- | --------- | ------- |
+    | `backend`  | ✅ | `backend/venv/Scripts/python.exe -m pytest --cov=api --cov=core --cov=models --cov=services` | 72 (pyproject `fail_under`) | 80.66 |
+    | `frontend` | ✅ | `pnpm run test:coverage` | 38 / 28 / 32 / 39 (statements / branches / functions / lines) | 44.03 / 33.96 / 38.29 / 45.67 |
+
+    ### Quality Tools
+
+    | Relative path | Tool         | Available | Command        | Result |
+    | ------------- | ------------ | --------- | -------------- | ------ |
+    | `backend`  | Linter       | ✅ | `ruff check .` | 0 errors (ruff 0.8.6) |
+    | `backend`  | Type checker | ❌ | —             | — |
+    | `backend`  | Formatter    | ❌ | —             | — |
+    | `frontend` | Linter       | ✅ | `pnpm lint`   | FAILING — 64 errors, 17 warnings (not CI-enforced) |
+    | `frontend` | Type checker | ❌ | —             | — |
+    | `frontend` | Formatter    | ❌ | —             | — |
+    | `frontend` | Build        | ✅ | `pnpm build`  | succeeds |
+
+rules:
+  proposal:
+    - "Include a rollback plan for risky changes."
+    - "State which discovered project (backend, frontend, or both) each scope item touches."
+    - "Reference the relevant spec domain under openspec/specs/."
+  specs:
+    - "Use Given/When/Then for scenarios."
+    - "Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)."
+    - "Tag every scenario with its owning project so verification can pick the right runner."
+  design:
+    - "Include sequence diagrams for complex flows."
+    - "Document architecture decisions with rationale."
+    - "Route all date/time logic through backend/core/timeutils.py — never call zoneinfo.ZoneInfo directly."
+    - "State schema changes as a new numbered file in backend/migrations/ plus the runner update."
+  tasks:
+    - "Group by phase, use hierarchical numbering."
+    - "Keep tasks completable in one session."
+    - "Keep each work unit inside the 800-changed-line review budget."
+    - "Attach the owning project's focused test command to every task."
+    - "Never include a whole-repo format or lint sweep as a task."
+  apply:
+    guidelines:
+      - "Follow existing code patterns."
+      - "Touch only the files a task owns; never run a formatter over the whole repo."
+      - "Preserve the pre-existing WIP working tree — never discard or revert unrelated changes."
+    tdd: true
+    test_command: "Per project — see projects[].test.focus_command (backend: `backend/venv/Scripts/python.exe -m pytest {file}`; frontend: `pnpm vitest run {file}`)."
+  verify:
+    test_command: "Per project — see projects[].test.command and projects[].coverage.command."
+    build_command: "backend: `backend/venv/Scripts/python.exe -m pytest` (import check via the suite); frontend: `pnpm build`."
+    coverage_threshold: 72
+    coverage_thresholds_by_project:
+      backend: 72
+      frontend: { statements: 38, branches: 28, functions: 32, lines: 39 }
+    notes:
+      - "Do not gate verification on `pnpm lint`: it currently fails on pre-existing errors and is not CI-enforced."
+      - "A pre-existing failing check must be reported as pre-existing, not silently fixed or attributed to the change."
+  archive:
+    - "Warn before merging destructive deltas."
+    - "Merge delta specs into openspec/specs/{domain}/spec.md; never modify an archived change."

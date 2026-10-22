@@ -1,0 +1,1380 @@
+{
+  "metadata": {
+    "year": 2026,
+    "subject": "M2",
+    "test_filename": "prueba_oficial_paes_2026_m2.pdf",
+    "clavijero_filename": "clavijero_paes_2026_m2.pdf",
+    "total_extracted": 37,
+    "matched_keys": 36
+  },
+  "questions": [
+    {
+      "id": "paes-2026-m2-q09",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 9,
+      "stimulus": null,
+      "stem": "En esta prueba, todas las variables que se modelan mediante una distribución normal, se consideran variables aleatorias continuas. Si Z es una variable aleatoria continua que se modela mediante una distribución normal con media 0 y desviación estándar 1(Z ∼N(0, 1)), se cumple que la parte de color gris del gráfico de esta distribución corresponde a P(Z ≤z) y en la tabla se presentan algunos de sus valores. z P(Z ≤z) 0,67 0,749 0,99 0,839 1,00 0,841 1,15 0,875 1,28 0,900 1,64 0,950 1,96 0,975 2,00 0,977 2,17 0,985 2,32 0,990 2,58 0,995 Propiedad Intelectual Universidad de Chile. Derechos reservados ©. Prohibida su reproducción total o parcial. INSTRUCCIONES PARA LAS PREGUNTAS DE SUFICIENCIA DE DATOS En las preguntas de Suficiencia de Datos no se pide la solución al problema, sino que se decida si con los datos proporcionados, tanto en el enunciado como en las afirmaciones (1) y (2), se puede llegar a la solución del problema. Es así que se deberá marcar la opción:",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola, si la afirmación (1) por sí sola es suficiente para resolver el problema, pero la afirmación (2) por sí sola no lo es,",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola, si la afirmación (2) por sí sola es suficiente para resolver el problema, pero la afirmación (1) por sí sola no lo es,",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2), si ambas afirmaciones (1) y (2) juntas son suficientes para resolver el problema, pero ninguna de las afirmaciones por sí sola es suficiente,",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2), si cada una por sí sola es suficiente para resolver el problema,",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional, si ambas afirmaciones juntas son insuficientes para resolver el problema y se requiere información adicional para llegar a la solución. SÍMBOLOS MATEMÁTICOS < es menor que ∼ es semejante con > es mayor que ⊥ es perpendicular a ≤ es menor o igual que̸ = es distinto de ≥ es mayor o igual que // es paralelo a ángulo recto ∈ pertenece a ∢ ángulo AB trazo AB log logaritmo en base 10 AB medida del trazo AB ∅ conjunto vacío |x| valor absoluto de x ≈ es aproximado a x! factorial de x ∪ unión de conjuntos ∩ intersección de conjuntos Ac complemento del conjunto A →u vector u",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q01",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 1,
+      "stimulus": null,
+      "stem": "Una máquina industrial que produce piezas de acero de un mismo tipo necesita 1,2 kg de acero para producir 10 de estas piezas. Si la máquina se programa para reducir en 4 15 la cantidad de acero necesaria para producir cada pieza, ¿cuántas barras de medio kilogramo de acero se necesitan para producir 50 piezas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "8",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "9",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q02",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 2,
+      "stimulus": null,
+      "stem": "Considera un número P al que se le resta su octava parte, obteniéndose el número Q. ¿Cuál de los siguientes números hay que sumarle a Q para obtener P?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 8 Q",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "1 7 Q",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "7 8 Q",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "8 7 Q",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q03",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 3,
+      "stimulus": null,
+      "stem": "Una hoja de 20 por 30 centímetros está hecha de un papel cuya masa es de 75 g por metro cuadrado. Estas hojas se empaquetan en resmas de 500 hojas y se guardan en cajas de cartón que tienen una masa de 500 g cuando están vacías. Si la masa de una caja con resmas no puede superar los 25 kilogramos, ¿cuál es la mayor masa, en gramos, que tiene una caja con la máxima cantidad de resmas guardadas en ella?",
+      "options": [
+        {
+          "key": "A",
+          "text": "22 500",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "23 000",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "24 750",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "25 000",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q05",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 5,
+      "stimulus": null,
+      "stem": "Al aumentar el precio del combustible, una empresa que presta un servicio de transporte de carga debe ajustar el precio que cobra. Para ello calcula el porcentaje de aumento de su tarifa como Q · F, tal que Q es el porcentaje de aumento del precio del combustible y F es un factor que depende de la masa máxima autorizada del vehículo. El factor que se debe aplicar se obtiene de la siguiente tabla: Masa máxima autorizada del vehículo (en toneladas) Factor aplicado al porcentaje de aumento del combustible (F) Menor que 3,5 0,1 Mayor o igual que 3,5 y menor que 20 0,2 Mayor o igual que 20 0,3 La empresa tiene un vehículo de carga cuya masa máxima autorizada es de 3 toneladas por el cual cobra una tarifa de $200 000 por servicio de transporte de carga a una ciudad. Si el porcentaje de aumento del precio del combustible es de un 7 %, ¿cuál de las siguientes expresiones permite obtener el precio ajustado que se tiene que cobrar por el servicio de transporte de carga?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$200 000 · 7 100 · 0,1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "$200 000 · 7 · 0,1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "$ Å 200 000 + 2000 · 7 100 · 0,1 ã",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "$(200 000 + 2000 · 7 · 0,1)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q06",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 6,
+      "stimulus": null,
+      "stem": "En el modelo RGB se utilizan combinaciones de tres colores primarios (rojo, verde y azul) con valores entre 0 y 255 para representar la intensidad de cada color, tal como se ejemplifica a continuación: En los colores grises, los tres niveles de intensidad son iguales, por lo que cuando se necesita convertir colores a escala de grises, se promedian los tres niveles y se repite el mismo valor en cada coordenada. Por ejemplo, el color (40, 30, 200) quedaría en el gris (90, 90, 90). Por otro lado, cada gris en el modelo RGB se puede expresar como porcentaje mediante una escala lineal en la que el blanco corresponde al 0 % y el negro al 100 %, tal como se representa a continuación: ¿Cuál es el porcentaje en escala de grises del color (60, 40, 70)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "22,¯2 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "33,¯3 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "66,¯6 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "77,¯7 %",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q07",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 7,
+      "stimulus": null,
+      "stem": "Un fabricante produce envases cilíndricos de distintos tamaños a pedido. Por razones de estabilidad de los envases, el radio de la base circular es determinado por la altura. El volumen V de cada envase cilíndrico producido se calcula con la siguiente ecuación: V = h3 · π · 0,64, tal que h es la altura del envase. Si el volumen de un cilindro se calcula multiplicando su área basal circular por su altura, ¿cuál de las siguientes opciones describe qué porcentaje de la altura corresponde al radio de la base?",
+      "options": [
+        {
+          "key": "A",
+          "text": "8 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "36 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "64 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "80 %",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q12",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 12,
+      "stimulus": null,
+      "stem": "El diámetro de un determinado hongo, en milímetros, se puede calcular mediante la expresión k 1 + ce−mt, tal que t es el tiempo transcurrido, en días, k es el diámetro máximo del hongo, en milímetros, c, m y e son constantes positivas, tal que c < 1. Para determinar la cantidad de días que deben transcurrir para que el diámetro del hongo sea de 0,5 · k milímetros, se realiza el siguiente procedimiento, cometiéndose un error. Paso 1: se establece la ecuación k 2 = k 1 + ce−mt y se obtiene 1 + ce−mt = 2. Paso 2: se desarrolla la ecuación anterior y se obtiene c−1 = e−mt. Paso 3: se aplica logaritmo a ambos lados de la igualdad anterior, luego en el lado izquierdo se aplican propiedades de logaritmos y se obtiene −log c = log e−mt. Paso 4: se despeja el tiempo t de la ecuación anterior y se obtiene t = log (c −em) días. ¿En cuál de los pasos se cometió el error?",
+      "options": [
+        {
+          "key": "A",
+          "text": "En el Paso 1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "En el Paso 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "En el Paso 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "En el Paso 4",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q14",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 14,
+      "stimulus": null,
+      "stem": "Una entidad financiera ofrece dos tipos de cuentas de ahorro, una tipo P y otra tipo Q. La cuenta de ahorro tipo P considera un interés compuesto mensual de un 0,5 %, mientras que la cuenta de ahorro tipo Q considera un interés anual de un 5 %. Si en ambas cuentas se deposita un monto inicial de $M y no se hacen retiros ni depósitos, ¿en cuánto supera el interés obtenido en la cuenta tipo P al interés obtenido en la cuenta tipo Q transcurrido un año?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$M · (0,0512 −0,5)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "$M · (1,005 −1,05)12",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "$M · (1,00512 −1,05)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "$M · (0,00512 −0,05)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q15",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 15,
+      "stimulus": null,
+      "stem": "¿Cuál de las siguientes expresiones es igual a x(x + 2) Å (x−2)+ 1 3(x2 −2x + 4) ã ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "x 3 (x + 2)2 (x −1)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "x 3 \u0000x2 −4 \u0001(x −1)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "x 3 (x −2)2 (x + 3)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "x \u0000x2 −4 \u0001 + 1 3 \u0000x2 −2x + 4 \u0001",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q16",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 16,
+      "stimulus": null,
+      "stem": "La figura adjunta está formada por tres rectángulos contiguos cuyas bases tienen la misma medida y la altura de cada rectángulo es un tercio mayor que la altura del rectángulo que está a su izquierda. ¿Cuál de las siguientes expresiones representa el perímetro de la figura?",
+      "options": [
+        {
+          "key": "A",
+          "text": "20a 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "61a 9",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "22a 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "68a 9",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q17",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 17,
+      "stimulus": null,
+      "stem": "La densidad de un material se define como la razón entre su masa y su volumen. En la tabla adjunta se presenta la densidad del hierro en dos estados. Estado Densidad Líquido 7,3 g cm3 Sólido 7,9 g cm3 Considera un molde con forma de prisma recto de base rectangular cuyas medidas interiores son 5 cm de ancho, 15 cm de largo y 10 cm de alto. Dicho molde se llena con hierro líquido, el cual se solidifica luego de algunas horas. Si la masa del hierro no varía al pasar de un estado a otro, ¿cuál de las siguientes expresiones representa el volumen del bloque de hierro solidificado?",
+      "options": [
+        {
+          "key": "A",
+          "text": "750 · 7,3 7,9 cm3",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "750 · 7,9 7,3 cm3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "750 7,3 · 7,9 cm3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "7,3 · 7,9 750 cm3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q18",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 18,
+      "stimulus": null,
+      "stem": "Considera un calamar de 4 kg que se mueve a una rapidez P y luego de liberar 0,02 kg de agua se mueve a una rapidez Q. Si la rapidez con la cual se mueve el calamar es inversamente proporcional a su masa, ¿cuál de las siguientes expresiones representa el porcentaje en que aumentó la rapidez del calamar luego de liberar el agua?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Å4 −0,02 4 ã · 100 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Å 1 −4 −0,02 4 ã · 100 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Å 4 4 −0,02 ã · 100 %",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Å 4 4 −0,02 −1 ã · 100 %",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q19",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 19,
+      "stimulus": null,
+      "stem": "¿Cuál es el conjunto solución de la inecuación x −2 4 + 7 −2x 3 < 3x + 1 2 ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ò −∞, 72 41 ï",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "ò72 41, ∞ ï",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "ò76 41, ∞ ï",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "ò −∞, 76 41 ï",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q20",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 20,
+      "stimulus": null,
+      "stem": "En un ciclo termodinámico, llamado ciclo de Carnot, un tipo de gas experimenta las siguientes transferencias de calor: • Absorbe una cantidad Q1 de calor a una temperatura constante T1. • Cede una cantidad Q2 de calor a una temperatura constante T2. La temperatura y el calor de ambos procesos cumplen la relación Q2 T2 = Q1 T1 . Por otro lado, el rendimiento r del ciclo está dado por r = 1 −T2 T1 . Si para cierto gas que experimenta el ciclo de Carnot se tiene que Q1 = 3 2Q2, ¿cuál es el rendimiento de ese ciclo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 3",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "1 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "2 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "3 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q21",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 21,
+      "stimulus": null,
+      "stem": "Al generarse un sismo, se producen principalmente dos tipos de ondas sísmicas, las ondas S y las ondas P. En la corteza, las ondas S tienen una rapidez aproximada de 4 km s y las ondas P tienen una rapidez aproximada de 7 km s . Si una persona percibe una diferencia de 12 segundos entre la llegada de las ondas S y las ondas P, ¿a qué distancia de la localización de la persona se habría generado, aproximadamente, el sismo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A 36 km",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "A 84 km",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "A 112 km",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "A 132 km",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q22",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 22,
+      "stimulus": null,
+      "stem": "En un supermercado, el precio normal de una lata de un cierto tipo de atún es de $1500, pero durante esta semana, cada una de esas latas tendrá un 20 % de descuento. Una persona destina cada semana entre $12 000 y $20 000, ambos valores incluidos, para comprar latas de este atún. ¿Cuál de las siguientes desigualdades permite determinar la cantidad de latas x que podrá comprar la persona en la semana del descuento?",
+      "options": [
+        {
+          "key": "A",
+          "text": "12 000 ≤0,2 · 1500 · x ≤20 000",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "0,2 · 12 000 ≤1500 · x ≤0,2 · 20 000",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "12 000 ≤(1 −0,2) · 1500 · x ≤20 000",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "(1 −0,2) · 12 000 ≤1500 · x ≤(1 −0,2) · 20 000",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q24",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 24,
+      "stimulus": null,
+      "stem": "En una simulación, dos automóviles parten al mismo tiempo y en sentidos opuestos desde dos lugares distintos de una carretera recta, tal como se representa en la siguiente figura: Si el automóvil B viaja a una rapidez constante de 40 m s y el punto P está a una distancia de 180 km del punto donde partió el automóvil A, ¿cuál es la rapidez constante que le permite al automóvil A llegar 20 minutos antes al punto P que el automóvil B?",
+      "options": [
+        {
+          "key": "A",
+          "text": "16,6 m s",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "25 m s",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "30 m s",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "37,5 m s",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q26",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 26,
+      "stimulus": null,
+      "stem": "Considera un cuadrado inscrito en otro cuadrado de lado p cm, tal como se representa en la figura adjunta. Si x > p 2 y el área del cuadrado inscrito es 2 3 del área del otro cuadrado, ¿cuál de las siguientes expresiones representa el valor de x?",
+      "options": [
+        {
+          "key": "A",
+          "text": "p 2 Ä 1 + 4 √ 3 ä",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "p 2 Ä 1 + 4 √ 6 ä",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "p 6 Ä 3 + √ 3 ä",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "p 6 Ä 3 + √ 6 ä",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q30",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 30,
+      "stimulus": null,
+      "stem": "En la figura adjunta se representa la gráfica de la función f, definida por f(x) = a · bx−2, con a y b números reales positivos y distintos de cero. ¿Cuál de las siguientes expresiones representa a f(x + 1)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "4 · 3x−1",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "3 · 4x−1",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "4 · 3x−3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "12 · 3x",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q31",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 31,
+      "stimulus": null,
+      "stem": "En una caverna, la intensidad I de la luz, en candelas, que se alcanza a una distancia d desde la entrada, en metros, se puede expresar como: I(d) = I0 · 2−0,1d, tal que I0 es la intensidad de la luz en la entrada de la caverna, en candelas. Cuando se han recorrido p metros desde la entrada de la caverna, la intensidad de la luz se ha reducido a la quinta parte de la intensidad de la luz con respecto a la intensidad de luz en la entrada de la caverna. ¿Cuál de las siguientes expresiones representa a p?",
+      "options": [
+        {
+          "key": "A",
+          "text": "−10 log2 Å1 5 ã",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "−10 log2 (5)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "−10 log2 Å4 5 ã",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "−10 log2 Å5 4 ã",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q32",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 32,
+      "stimulus": null,
+      "stem": "Considera la función f, definida por f(x) = 5 sen(x + π). ¿Cuál es el valor de f \u0010π 4 \u0011 ?",
+      "options": [
+        {
+          "key": "A",
+          "text": "−5 √ 2 2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "− √ 2 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "√ 2 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "5 √ 2 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q34",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 34,
+      "stimulus": null,
+      "stem": "El logo de una marca consiste en un rectángulo dividido en secciones de colores amarillo y verde, tal como se representa a continuación: Si la altura del logo mide tres metros, ¿cuántos metros cuadrados de sección de color amarillo se necesitan para armar este logo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2,88",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "3,96",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "6,84",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "10,8",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q35",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 35,
+      "stimulus": null,
+      "stem": "Se tiene un prisma recto de base rectangular cuya altura es de 2 cm y su volumen es Q 500 cm3. ¿Cuál sería el volumen del prisma, en centímetros cúbicos, si el área de su superficie basal se aumenta en un 20 %?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Q 12 500",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Q 2500",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "3Q 1250",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "9Q 3125",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q36",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 36,
+      "stimulus": null,
+      "stem": "Considera una estructura formada por dos prismas rectos de base rectangular de igual profundidad, tal como se presenta a continuación: ¿Cuánto mide la superficie total de la estructura?",
+      "options": [
+        {
+          "key": "A",
+          "text": "48 m2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "46 m2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "44 m2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "D",
+          "text": "38 m2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "C",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q37",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 37,
+      "stimulus": null,
+      "stem": "Considera los vectores →u = (a, 5b) y →v = (−2a, b + 4), para los cuales se cumple que →u −2 →v = (9, 0). Para determinar el vector →z = →u + →v, se realiza el siguiente procedimiento, cometiéndose un error. Paso 1: se reemplazan los valores de →u y →v en la igualdad →u −2 →v = (9, 0), obteniéndose a + 4a = 9 y 5b + b + 4 = 0. Paso 2: se resuelven las ecuaciones a + 4a = 9 y 5b + b + 4 = 0, obteniéndose a = 9 5 y b = −2 3 . Paso 3: los valores de a y b se reemplazan en los vectores →u y →v, obteniéndose →u = Å9 5, −10 3 ã y →v = Å −18 5 , 10 3 ã . Paso 4: se resuelve →u + →v, obteniéndose →z = Å −9 5, 0 ã . ¿En cuál de los pasos se cometió el error?",
+      "options": [
+        {
+          "key": "A",
+          "text": "En el Paso 1",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "En el Paso 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "En el Paso 3",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "En el Paso 4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q38",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 38,
+      "stimulus": null,
+      "stem": "A una figura se le aplica una reflexión con respecto al eje Y y luego a su imagen se le aplica una traslación, tal como se representa a continuación: Se aplicará la misma secuencia de transformaciones a la flecha que se representa a continuación: ¿Cuáles son las coordenadas del punto que se obtiene a partir del punto A, luego de aplicar ambas transformaciones?",
+      "options": [
+        {
+          "key": "A",
+          "text": "(−2a, a −2)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "(a −2, −2a)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "(−2a −5, a + 3)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "(−2a −5, a −2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q40",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 40,
+      "stimulus": null,
+      "stem": "Un lente de un proyector se ubica a 1,2 m de distancia de un muro en el que se proyecta una imagen rectangular de 0,8 m de ancho por 0,6 m de alto, tal como se representa en la siguiente figura: Considera que la imagen proyectada proviene de un punto al centro del lente del proyector y que la imagen proyectada queda siempre centrada en el muro. ¿Cuál es la distancia máxima que puede haber entre el muro y el lente del proyector para que la imagen proyectada no tenga dimensiones mayores que las del muro?",
+      "options": [
+        {
+          "key": "A",
+          "text": "6 m",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "4,8 m",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "4 m",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "3,6 m",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q43",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 43,
+      "stimulus": null,
+      "stem": "En un curso se realizó una encuesta a un grupo de estudiantes sobre la cantidad de mascotas que tienen. Los resultados se presentaron en la siguiente tabla, la cual se manchó por un descuido, ocultando la frecuencia de 3 y 4 mascotas. Se sabe que el promedio de la cantidad de mascotas es 2 y que la encuesta fue contestada por 20 estudiantes. ¿Cuál de los siguientes sistemas de ecuaciones permite calcular la cantidad x de estudiantes con tres mascotas y la cantidad y de estudiantes con cuatro mascotas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "14 + x + y = 20 14 + x + y 5 = 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "14 + x + y = 20 18 + 3x + 4y 5 = 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "14 + x + y = 20 18 + x + y 20 = 2",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "14 + x + y = 20 18 + 3x + 4y 20 = 2",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q44",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 44,
+      "stimulus": null,
+      "stem": "Se consultó a un grupo de personas acerca de la edad que tenían. Al momento de tabular los datos, se perdió el dato correspondiente a la cantidad de personas menores de edad; solo se sabe que es una cantidad par y que es mayor que la cantidad de personas mayores de edad. Lo obtenido se representó en el siguiente gráfico: Si luego de unos años se vuelve a realizar la encuesta a las mismas personas, ¿cuál de las siguientes expresiones representa la cantidad mínima de personas que deberían haber dejado de ser menores de edad para que la cantidad de personas mayores de edad sea mayor que la cantidad de personas menores de edad?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Z −40",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "Z −39",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Z 2 −20",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Z 2 −19",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q47",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 47,
+      "stimulus": null,
+      "stem": "De acuerdo con una encuesta realizada a 3000 personas, 1830 de ellas manifiestan estar conforme con una política implementada en su comuna, mientras que el resto manifiesta estar no conforme con dicha política. Si se seleccionan al azar a dos personas de las encuestadas, ¿cuál es la probabilidad de que solo una de ellas esté conforme con la política implementada?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1830 3000",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "1830 3000 · 1170 3000",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "1 1830 · 1 1170",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "3660 3000 · 1170 2999",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q49",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 49,
+      "stimulus": null,
+      "stem": "Considera que al responder una pregunta de verdadero y falso al azar, la probabilidad de contestarla correctamente es 1 2 . Si se contestan al azar y de manera independiente 10 preguntas de verdadero y falso en una prueba, ¿cuál es la probabilidad de tener correctas exactamente 6 de esas preguntas?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ç 10 6 å Å1 2 ã6 Å1 2 ã4",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "Ç 10 4 å Å1 2 ã10 Å1 2 ã4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Å1 2 ã10 Å1 2 ã4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Å1 2 ã6 Å1 2 ã4",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q51",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 51,
+      "stimulus": null,
+      "stem": "Considera los números irracionales p y q, tal que p̸ = q. Se puede determinar que (p + q)2 es un número racional, si se sabe que: (1) p2 = q2 (2) p2 y q2 son números racionales",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "A",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q52",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 52,
+      "stimulus": null,
+      "stem": "Considera el siguiente gráfico de una función f de la forma f(x) = bx, cuyo dominio corresponde al intervalo [−10, a], tal que a y b son constantes positivas. Es posible determinar que las áreas de los triángulos grises son iguales, si se sabe que: (1) f(−10) = −f(a) (2) f Å−10 + a 2 ã = 0",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q53",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 53,
+      "stimulus": null,
+      "stem": "En la figura adjunta se representa el suelo rectangular de una habitación, el cual tiene un área de 6 m2. Parte del suelo se cubre con cuatro alfombras cuadradas de iguales medidas entre sí, que se ubican una al lado de la otra, sin sobreponerlas y sin dejar espacios entre ellas, tal como se representa a continuación: Se puede determinar el área de cada alfombra, si se sabe que: (1) la razón de los lados del suelo es 8 : 3. (2) la parte del suelo que queda sin cubrir es un tercio.",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "D",
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q54",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 54,
+      "stimulus": null,
+      "stem": "En la figura adjunta se representa una circunferencia y cuatro de sus cuerdas. Se puede determinar la medida, en cm, de la cuerda BC, si se sabe que: (1) BE = CE (2) AD = 15 cm",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": null,
+      "official_status": "SCORED"
+    },
+    {
+      "id": "paes-2026-m2-q55",
+      "year": 2026,
+      "subject": "M2",
+      "question_number": 55,
+      "stimulus": null,
+      "stem": "Se puede determinar que el promedio de un grupo de datos positivos A es mayor que el promedio de un grupo de datos B, si se sabe que: (1) la varianza de los datos de A es mayor que la varianza de los datos de B. (2) el grupo de datos A está formado por el triple de cada uno de los datos del grupo B.",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1) por sí sola",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "B",
+          "text": "(2) por sí sola",
+          "is_correct": true,
+          "distractor_type": "CORRECT"
+        },
+        {
+          "key": "C",
+          "text": "Ambas juntas, (1) y (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "D",
+          "text": "Cada una por sí sola, (1) ó (2)",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        },
+        {
+          "key": "E",
+          "text": "Se requiere información adicional @demre.uchile DEMRE U.chile DEMRE Uchile /demre.uchile /DEMREuchile /demre.uchile /demre_uchile demre.cl",
+          "is_correct": false,
+          "distractor_type": "DISTRACTOR"
+        }
+      ],
+      "correct_answer": "B",
+      "official_status": "SCORED"
+    }
+  ]
+}
