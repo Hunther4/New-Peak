@@ -1,147 +1,209 @@
+<div align="center">
+
 # New Peak
 
-New Peak (Peak Practice) is a study platform for the PAES, Chile's university admission exam
-(Prueba de Acceso a la Educación Superior). It replaces an older legacy application and combines
-exam practice, study-progress tracking, a weekly routine planner, and AI-assisted study features
-in a single self-hostable web application.
+**High-Performance PAES Preparation Platform**  
+*3PL Item Response Theory Calibration · FSRS Spaced Repetition · Hardened Deliberate Practice*
 
-GitHub repository: [Hunther4/New-Peak](https://github.com/Hunther4/New-Peak)
+[![CI](https://github.com/Hunther4/New-Peak/actions/workflows/ci.yml/badge.svg)](https://github.com/Hunther4/New-Peak/actions/workflows/ci.yml)
+![Backend Coverage](https://img.shields.io/badge/backend%20coverage-%E2%89%A572%25-brightgreen?style=flat-square&logo=pytest&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat-square&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white)
+![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-261230?style=flat-square&logo=ruff&logoColor=white)
+![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue?style=flat-square)
 
-## Features
+</div>
 
-- **Exam practice** — PAES-style question banks organized by subject, competency, eje temático,
-  topic, and subtopic.
-- **Study progress tracking** — mastery maps, retention metrics, and spaced-repetition state
-  driven by FSRS parametric tabs (per-subtopic learning states, Leitner boxes, next-review dates).
-- **Weekly study routine planner** — recurring weekly study routines with per-day sessions.
-- **AI-assisted study** — an AI study coach plus adaptive modules: mental math, math thinking,
-  memory training, IQ practice, and cognitive skill sessions.
-- **Admission tooling** — admission-score computation against PAES scaling curves.
-- **Hardened web surface** — security headers with per-request CSP nonces, upload MIME
-  whitelisting, and rate limiting.
+---
 
-## Tech Stack
+## Overview
 
-**Backend** (Python 3.11)
+**New Peak** is a modern, self-hostable preparation and psychometric tracking system engineered specifically for the **PAES** (Prueba de Acceso a la Educación Superior, Chile's university admission exam). 
 
-- FastAPI + Uvicorn, SQLModel + SQLite (single-file database), Pydantic v2.
-- AI providers: OpenAI and Groq APIs; ChromaDB for lightweight RAG.
-- `cryptography` (ECDSA verification, AES-256-GCM), bcrypt, slowapi rate limiting.
-- Tests: pytest + pytest-cov (coverage `fail_under = 72`); lint: ruff (pinned).
+Built to replace legacy study software, New Peak bridges the gap between raw question drills and cognitive mastery through:
+1. **Psychometric Precision:** Official DEMRE curve scaling and 3-Parameter Logistic (3PL) Item Response Theory ($\theta$ latent ability estimation via Bayes EAP and Newton-Raphson MLE).
+2. **Memory Retention:** FSRS (Free Spaced Repetition Scheduler) with adaptive Leitner progression isolated per subtopic.
+3. **Targeted Review:** *Cuaderno Negro de Errores* (Error Vault) with zero-forgiveness revenge study modes.
+4. **Hardened Multi-User Foundation:** Nonced CSP security, ECDSA device signatures, and spec-driven multi-user partitioning.
 
-**Frontend**
+---
 
-- React 19, React Router 7, Zustand for state, Tailwind CSS 4, Vite build tooling.
-- Tests: Vitest 4 + Testing Library + jsdom; coverage via `@vitest/coverage-v8`.
-- Package manager: pnpm.
+## System Architecture
 
-**CI** (GitHub Actions, `.github/workflows/ci.yml`) — Python 3.11 + Node 22 jobs:
-ruff check, pytest with coverage, vitest with coverage thresholds
-(statements 38 / branches 28 / functions 32 / lines 39), and a production `vite build`.
+```mermaid
+flowchart TD
+    subgraph Client["Frontend (React 19 + Vite)"]
+        UI["Tailwind CSS 4 UI Components"]
+        Zustand["Zustand Store Slices (PAES, Gym, Settings)"]
+        WebCrypto["WebCrypto Primitives (ECDSA P-256)"]
+        RoutineBar["Customizable Weekly Routine Bar"]
+    end
 
-## Getting Started
+    subgraph Gateway["API Gateway & Middleware (FastAPI)"]
+        CSP["Per-Request CSP Nonce & Security Headers"]
+        Limiter["SlowAPI Rate Limiter"]
+        AuthMdl["Identity & Principal Resolver (Bearer/ECDSA)"]
+    end
 
-Prerequisites:
+    subgraph CoreServices["Domain Engine & Services"]
+        IRT["3PL IRT Ability Estimator (Bayes EAP / MLE)"]
+        FSRS["FSRS Scheduler & Spaced Repetition Engine"]
+        Coach["Socratic AI Coach (ChromaDB RAG + DEMRE Docs)"]
+        Curriculum["PAES Curriculum & Question Bank (1,100+ items)"]
+    end
 
-- Windows with PowerShell 5.1+
-- Python 3.11+ (a backend virtualenv at `backend/venv` with dependencies installed from
-  `backend/requirements.txt`)
-- Node 22 + [pnpm](https://pnpm.io/) (frontend dependencies installed in `frontend/`)
+    subgraph DataStore["Persistence & AI Providers"]
+        SQLite[("SQLite (peak.db)\nIdempotent Migrations")]
+        Chroma[("ChromaDB Vector Store")]
+        LLM["AI Providers (OpenAI / Groq / Local LM Studio)"]
+    end
 
-Launch both services with the Windows launcher:
+    UI --> Zustand
+    Zustand --> WebCrypto
+    Zustand -->|REST API + JSON| Gateway
+    Gateway --> CSP --> Limiter --> AuthMdl
+    AuthMdl --> CoreServices
+    CoreServices --> SQLite
+    Coach --> Chroma
+    Coach --> LLM
+```
+
+---
+
+## Key Features
+
+* **3PL Item Response Theory (IRT):** Calculates student ability ($\theta$) across discrimination ($a$), difficulty ($b$), and guessing ($c$) parameters calibrated from official DEMRE scaling tables.
+* **FSRS Spaced Repetition:** Calculates retrievability and optimal review intervals per subject subtopic (`Matemática M1/M2`, `Lectura`, `Ciencias`).
+* **Weekly Study Routine Planner:** 1-Click scheduling toolbar with persistent custom presets (e.g., *Enfoque M1 UBB*, *Full Matemáticas*), collapsible compact views, and automated day tracking.
+* **Error Vault & Revenge Mode:** Dedicated catalog of missed questions tagged by misconception type with step-by-step distractor resolutions.
+* **Cognitive Gym:** Integrated mental math, Dual N-Back working memory training, and cognitive bridges for academic endurance.
+* **Hardened Perimeter:** Dynamic Content Security Policy (CSP) nonces per request, strict MIME-type sniffing prevention for uploads, bcrypt 72-byte password guards, and ECDSA signature verifications.
+
+---
+
+## Quickstart
+
+### Prerequisites
+* **Windows** with PowerShell 5.1+
+* **Python 3.11+** (virtual environment inside `backend/venv`)
+* **Node.js 22+** and [pnpm](https://pnpm.io/)
+
+### 1-Click Launch
+Start both the FastAPI backend and Vite frontend concurrently using the automated PowerShell launcher:
 
 ```powershell
 .\paes.ps1
 ```
 
-The launcher:
+The launcher automatically:
+1. Validates virtual environments and dependencies.
+2. Checks port availability (`8000` and `7700`) to prevent port conflicts or zombie processes.
+3. Boots FastAPI (`--reload`) and Vite (`--strictPort`).
+4. Polls HTTP endpoints until live readiness is confirmed, then launches your default browser.
 
-1. Verifies the backend directory, frontend directory, and `backend/venv` python exist.
-2. Inspects the configured ports — a port held by a foreign process aborts the run instead of
-   leaving a half-launched stack.
-3. Starts the FastAPI backend with uvicorn (`--reload`) and the Vite dev server
-   (`--strictPort`), reusing either service if it already answers on its port.
-4. Polls both services until they actually answer HTTP, then opens the browser.
-5. Appends service output to `logs/backend.log` and `logs/frontend.log`.
+**Default URLs:**
+* Frontend Web App: [http://localhost:7700](http://localhost:7700)
+* Backend OpenAPI Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-Optional parameters: `-BackendPort` (default 8000), `-FrontendPort` (default 7700),
-`-ReadyTimeoutSeconds` (default 90), `-NoBrowser`.
+---
 
-Dev URLs:
+## Configuration
 
-- Backend: http://127.0.0.1:8000/ (interactive OpenAPI docs under `/docs`)
-- Frontend: http://127.0.0.1:7700/ (Vite proxies `/api` and `/uploads` to the backend)
+Environment variables are loaded from `backend/.env`. A documented template is available at [`backend/.env.example`](backend/.env.example).
 
-Environment configuration is documented in `backend/.env.example`. Never commit real
-`backend/.env` values or API keys.
+| Variable | Description | Default |
+| :--- | :--- | :--- |
+| `DATABASE_URL` | SQLite connection string | `sqlite:///./peak.db` |
+| `OPENAI_API_KEY` | Optional OpenAI key for Socratic Coach | `""` |
+| `GROQ_API_KEY` | Optional Groq key for fast inference | `""` |
+| `LM_STUDIO_URL` | Local LLM inference server endpoint | `http://127.0.0.1:1234/v1` |
+| `PEAK_ENROLLMENT_TOKEN` | Secret token required to register new devices (when enabled) | `""` |
+| `DISABLE_AUTH` | Local dev auth bypass (strictly rejected when `PRODUCTION=1`) | `0` |
 
-## Running Tests and Quality Gates
+---
 
-Backend (from `backend/`, using the venv interpreter):
+## Quality Gates & Testing
+
+Quality standards are strictly enforced locally and on GitHub Actions CI.
+
+### Backend (Pytest + Ruff)
+Executed with the virtual environment interpreter from `backend/`:
 
 ```bash
+# Run 817+ unit & integration tests with mandatory 72% coverage threshold
 python -m pytest --cov=api --cov=core --cov=models --cov=services --cov-report=term-missing
+
+# Lint with zero-tolerance ruff rule checks
 ruff check .
 ```
 
-- Coverage is enforced at 72% via `backend/pyproject.toml` (`fail_under = 72`), across the
-  `api`, `core`, `models`, and `services` packages.
-- Ruff is pinned (`ruff==0.8.6`, target Python 3.11) and CI requires zero lint errors.
+* Coverage is enforced via `backend/pyproject.toml` (`fail_under = 72`).
+* Zero lint warnings tolerated under `ruff==0.8.6`.
 
-Frontend (from `frontend/`):
+### Frontend (Vitest + Vite)
+Executed from `frontend/`:
 
 ```bash
-pnpm install --frozen-lockfile
+# Run unit & component tests with coverage
 pnpm run test:coverage
-pnpm build
+
+# Verify production bundle build
+pnpm run build
 ```
 
-- Vitest runs in a jsdom environment; v8 coverage fails below the thresholds configured in
-  `frontend/vite.config.js` (statements 38, branches 28, functions 32, lines 39).
-- `pnpm lint` runs ESLint (currently not CI-enforced).
+* Test environment: `jsdom` with `@testing-library/react`.
+* Enforced coverage thresholds in `frontend/vite.config.js`: Statements $\ge 38\%$, Branches $\ge 28\%$, Functions $\ge 32\%$, Lines $\ge 39\%$.
 
-## Project Status
+---
 
-- A hardened baseline is complete: security headers, CSP nonces, upload MIME checks, rate
-  limiting, and passing CI quality gates.
-- A multi-user foundation program ([openspec/changes/multi-user-foundation](openspec/changes/multi-user-foundation/proposal.md))
-  is in progress. Slice S1 (identity schema + ECDSA crypto primitives) has landed on
-  `feature/multi-user-foundation/*` branches; slices S2–S11 are pending.
-- Today the app still has a single shared API key; all user data is shared global state until
-  the ownership slices land.
+## Multi-User Roadmap (OpenSpec)
 
-### Multi-user roadmap (11 chained slices)
+The system is transitioning from a single-tenant deployment to a cryptographically verified multi-tenant architecture tracked under [`openspec/changes/multi-user-foundation`](openspec/changes/multi-user-foundation/proposal.md).
 
-| Slice | Theme | Status |
-|---|---|---|
-| S1 | Identity schema (`users`, `user_devices`, `auth_challenges`, `auth_sessions`) + ECDSA crypto primitives | Landed |
-| S2 | Enrollment + one-shot legacy-key bootstrap | Pending |
-| S3 | Challenge/verify round + bearer session lifecycle | Pending |
-| S4 | Scope every PAES query to the principal (remove client-supplied `user_id`) | Pending |
-| S5 | Browser device-key client, auth slice, enrollment screen | Pending |
-| S6 | Login screen + auth gate | Pending |
-| S7 | Destructive per-user ownership migration (014) | Pending |
-| S8 | Scope the whole Peak Practice track to the principal | Pending |
-| S9 | Per-user encrypted provider keys (AES-256-GCM, HKDF subkeys) | Pending |
-| S10 | Per-principal credential resolution; legacy-key migration; OpenAI routing | Pending |
-| S11 | Make the identity boundary the default in the test suite | Pending |
+| Slice | Milestone | Focus Area | Status |
+| :---: | :--- | :--- | :---: |
+| **S1** | **Identity Schema & Cryptography** | `users`, `user_devices`, `auth_sessions` tables + ECDSA P-256 primitives | ![Landed](https://img.shields.io/badge/status-Landed-brightgreen?style=flat-square) |
+| **S2** | **Enrollment & Legacy Bootstrap** | One-shot migration of single-user data & public key device registration | ![In Progress](https://img.shields.io/badge/status-In%20Progress-yellow?style=flat-square) |
+| **S3** | **Challenge & Session Lifecycle** | Cryptographic challenge/verify rounds, bearer tokens, sliding expiry | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S4** | **PAES Principal Scoping** | Removal of client-supplied `user_id` in favor of authenticated principal | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S5** | **Browser Key Management** | WebCrypto device keys in client IndexedDB; eliminate API keys from bundle | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S6** | **Auth Gate & Login Surface** | Client authentication gate preventing unauthenticated dashboard leaks | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S7** | **Ownership Migration 014** | Foreign key enforcement on all practice tables with dump verification gate | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S8** | **Peak Practice Isolation** | Gym and cognitive exercise session isolation per principal | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S9** | **Encrypted Provider Keys** | Per-user AES-256-GCM + HKDF sealed API keys for LLM providers | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S10** | **Per-Principal Router** | Dynamic credential injection into AI coach without global key caches | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
+| **S11** | **Strict Boundary Enforcement** | Full test suite execution with live identity boundaries active | ![Pending](https://img.shields.io/badge/status-Pending-lightgrey?style=flat-square) |
 
-## Repository Layout
+---
 
+## Project Structure
+
+```text
+├── backend/
+│   ├── api/            # Route handlers (auth, paes, coach, models, gym)
+│   ├── core/           # Security, ECDSA crypto, database sessions, middleware
+│   ├── models/         # SQLModel database schemas (identity, paes, exercises)
+│   ├── services/       # Domain business logic (3PL IRT, FSRS, psychometrics)
+│   ├── migrations/     # Versioned, idempotent schema migration scripts
+│   └── tests/          # Pytest backend test suite (817+ tests)
+├── frontend/
+│   ├── src/
+│   │   ├── api/        # HTTP client & backend proxy bindings
+│   │   ├── components/ # Atomic UI components, PAES routine bar, exams
+│   │   ├── pages/      # Route pages (PaesStudy, Gym, Settings, Dashboard)
+│   │   └── store/      # Modular Zustand state management slices
+│   └── vite.config.js  # Build tooling, proxies, and coverage thresholds
+├── openspec/           # Spec-driven development change proposals & tasks
+├── .github/workflows/  # CI pipelines with dependency caching (pip & pnpm)
+├── paes.ps1            # Resilient Windows service orchestrator
+└── README.md           # Repository documentation
 ```
-backend/    FastAPI application: api routes, core services, models, migrations, tests
-frontend/   React + Vite client: components, store slices, tests
-openspec/   Spec-driven change proposals for the multi-user foundation program
-docs/       Project documentation
-books/      Study material assets
-data/       Local data assets
-.github/    CI workflows
-paes.ps1    Windows launcher (backend + frontend + browser)
-```
 
-## Branch Model
+---
 
-- `main` — stable, protected by CI.
-- `feature/multi-user-foundation` — tracker branch holding the multi-user program.
-- Each slice lands as a feature-slice PR chained off the tracker branch (S1 → S2 → … → S11),
-  and the completed program merges back into `main` once.
+## License
+
+This project is licensed under the terms of the [GNU General Public License v3.0](LICENSE).
