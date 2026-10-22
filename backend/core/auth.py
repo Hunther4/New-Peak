@@ -16,11 +16,17 @@ import bcrypt
 from fastapi import Request
 from fastapi.responses import JSONResponse
 from sqlmodel import Session, select
+from starlette.concurrency import run_in_threadpool
 
 import core.database
 from models.models import AppSetting
 
 logger = logging.getLogger(__name__)
+
+#: Exact public paths — never a prefix wildcard: a prefix like "/api/auth"
+#: would leak /api/auth/me and every future /api/auth/* route.
+EXACT_PUBLIC_PATHS = frozenset({"/api/auth/enroll"})
+LEGACY_ENROLLMENT_CONSUMED_KEY = "legacy_enrollment_consumed_at"
 
 
 class LazyAPIKeyManager:
@@ -110,12 +116,14 @@ api_key_manager = LazyAPIKeyManager()
 
 
 async def auth_middleware(request: Request, call_next):
-    """FastAPI middleware that enforces X-API-Key authentication.
+    """FastAPI middleware enforcing shared-key / session authentication.
 
     Skips auth when:
       - DISABLE_AUTH environment variable is set to ``1``.
       - The request method is OPTIONS (CORS preflight — handled before auth).
       - The request path starts with ``/api/health``.
+      - The path is an auth public path (exact match — enrollment is public,
+        the route itself enforces the enrollment gate).
     """
     if os.environ.get("DISABLE_AUTH") == "1":
         return await call_next(request)
@@ -134,6 +142,12 @@ async def auth_middleware(request: Request, call_next):
         if request.url.path == "/" or os.environ.get("DISABLE_DOCS") != "1":
             return await call_next(request)
 
+    # Exact-path public allowlist (D-6): only the explicit paths, never a
+    # prefix. Enrollment stays reachable without any session; its own gate
+    # (ENROLLMENT_TOKEN, legacy-key consumption) lives in the route.
+    if request.url.path in EXACT_PUBLIC_PATHS:
+        return await call_next(request)
+
     api_key = request.headers.get("X-API-Key")
     if not api_key:
         return JSONResponse(
@@ -141,7 +155,6 @@ async def auth_middleware(request: Request, call_next):
             content={"detail": "Invalid or missing API key"},
         )
 
-    from starlette.concurrency import run_in_threadpool
     is_valid = await run_in_threadpool(api_key_manager.verify, api_key)
     if not is_valid:
         return JSONResponse(
@@ -149,5 +162,27 @@ async def auth_middleware(request: Request, call_next):
             content={"detail": "Invalid or missing API key"},
         )
 
+    # D-7: once the one-shot legacy bootstrap has been consumed (durably, in
+    # AppSetting), the legacy shared key stops serving every human request —
+    # enrollment is already public above, so any request that reaches this
+    # point is a non-enrollment use of the key.
+    if await run_in_threadpool(_legacy_bootstrap_consumed):
+        logger.info("auth: legacy enrollment key refused path=%s", request.url.path)
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "The enrollment key has already been used"},
+        )
+
     return await call_next(request)
+
+
+def _legacy_bootstrap_consumed() -> bool:
+    """Read the durable legacy-consumption marker (threadpool-safe)."""
+    with Session(core.database.engine) as session:
+        setting = session.exec(
+            select(AppSetting).where(
+                AppSetting.key == LEGACY_ENROLLMENT_CONSUMED_KEY
+            )
+        ).first()
+        return setting is not None
 

@@ -14,6 +14,7 @@ from starlette.staticfiles import StaticFiles
 
 from api.routes import (
     assessments,
+    auth,
     books,
     coach,
     cognitive,
@@ -173,6 +174,7 @@ app.include_router(paes_router)
 app.include_router(paes_admission_router)
 app.include_router(paes_errors_router, prefix="/api/paes/errors", tags=["PAES Errors"])
 app.include_router(paes_questions_router, prefix="/api/paes/questions", tags=["PAES Questions"])
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 
 
 @app.get("/")
