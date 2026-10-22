@@ -4,8 +4,10 @@ Core authentication module — API key management and FastAPI auth middleware.
 Architecture:
   - LazyAPIKeyManager: singleton that bootstraps the API key hash on first
     call (startup), caches it, and provides constant-time verification.
-  - auth_middleware: FastAPI ASGI middleware that checks X-API-Key header
-    against the cached hash before allowing requests through.
+  - auth_middleware: FastAPI ASGI middleware that resolves the caller into a
+    Principal (bearer session or opt-in machine credential), attaches it to
+    ``request.state.principal`` before the route handler runs, and refuses
+    everything else with one uniform 401.
 """
 import hmac
 import logging
@@ -19,14 +21,20 @@ from sqlmodel import Session, select
 from starlette.concurrency import run_in_threadpool
 
 import core.database
+from core.identity import Principal, resolve_session_principal
 from models.models import AppSetting
 
 logger = logging.getLogger(__name__)
 
 #: Exact public paths — never a prefix wildcard: a prefix like "/api/auth"
-#: would leak /api/auth/me and every future /api/auth/* route.
-EXACT_PUBLIC_PATHS = frozenset({"/api/auth/enroll"})
-LEGACY_ENROLLMENT_CONSUMED_KEY = "legacy_enrollment_consumed_at"
+#: would leak /api/auth/me and every future /api/auth/* route. Enrollment is
+#: public and gated in its route; challenge is public by definition; verify
+#: is the session-issuing endpoint itself.
+EXACT_PUBLIC_PATHS = frozenset({"/api/auth/enroll", "/api/auth/challenge", "/api/auth/verify"})
+
+#: Environment flag (D-4) that promotes the legacy shared key to the opt-in
+#: machine credential. Every other use of the key is refused.
+MACHINE_ENABLED_ENV = "PEAK_ADMIN_KEY_ENABLED"
 
 
 class LazyAPIKeyManager:
@@ -116,73 +124,102 @@ api_key_manager = LazyAPIKeyManager()
 
 
 async def auth_middleware(request: Request, call_next):
-    """FastAPI middleware enforcing shared-key / session authentication.
+    """Resolve the caller into a Principal attached to ``request.state``.
 
-    Skips auth when:
-      - DISABLE_AUTH environment variable is set to ``1``.
-      - The request method is OPTIONS (CORS preflight — handled before auth).
-      - The request path starts with ``/api/health``.
-      - The path is an auth public path (exact match — enrollment is public,
-        the route itself enforces the enrollment gate).
+    Flow (auth enabled):
+      1. OPTIONS preflight / /api/health / docs → pass through.
+      2. Exact public allowlist (enroll/challenge/verify) → pass through.
+      3. ``Authorization: Bearer <token>`` → resolve_session_principal into
+         request.state.principal; any failure is one uniform 401.
+      4. ``X-API-Key`` → machine credential, ONLY when PEAK_ADMIN_KEY_ENABLED=1
+         and the key verifies; the machine principal attaches with
+         ``is_system=True`` and is refused by user routes (DE-2, R4).
+      5. Anything else → the same uniform 401.
+
+    DISABLE_AUTH=1 (test/legacy bypass) skips steps 3–5 entirely — except
+    that an explicitly presented bearer token still resolves to its real
+    principal so session-authenticated routes keep working through the
+    migration window (S11 flips the default).
     """
     if os.environ.get("DISABLE_AUTH") == "1":
+        bearer = _bearer_token(request)
+        if bearer:
+            principal = await run_in_threadpool(_resolve_bearer, bearer)
+            if principal is not None:
+                request.state.principal = principal
         return await call_next(request)
 
-    # Bypass auth for CORS preflight requests
     if request.method == "OPTIONS":
         return await call_next(request)
 
     if request.url.path.startswith("/api/health"):
         return await call_next(request)
 
-    # FastAPI auto-generated docs are bypass-listed so developers can explore
-    # the API during development. In production, set DISABLE_DOCS=1 or remove
-    # this block to enforce auth on /docs and /openapi.json as well.
     if request.url.path in ("/", "/docs", "/openapi.json", "/redoc"):
         if request.url.path == "/" or os.environ.get("DISABLE_DOCS") != "1":
             return await call_next(request)
 
-    # Exact-path public allowlist (D-6): only the explicit paths, never a
-    # prefix. Enrollment stays reachable without any session; its own gate
-    # (ENROLLMENT_TOKEN, legacy-key consumption) lives in the route.
     if request.url.path in EXACT_PUBLIC_PATHS:
         return await call_next(request)
 
-    api_key = request.headers.get("X-API-Key")
-    if not api_key:
-        return JSONResponse(
-            status_code=401,
-            content={"detail": "Invalid or missing API key"},
-        )
+    normative = JSONResponse(
+        status_code=401,
+        content={"detail": "Invalid or missing credentials"},
+    )
 
-    is_valid = await run_in_threadpool(api_key_manager.verify, api_key)
-    if not is_valid:
-        return JSONResponse(
-            status_code=401,
-            content={"detail": "Invalid or missing API key"},
-        )
+    bearer = _bearer_token(request)
+    if bearer:
+        principal = await run_in_threadpool(_resolve_bearer, bearer)
+        if principal is None:
+            logger.info("auth: refused (unknown session) path=%s", request.url.path)
+            return normative
+        request.state.principal = principal
+        return await call_next(request)
 
-    # D-7: once the one-shot legacy bootstrap has been consumed (durably, in
-    # AppSetting), the legacy shared key stops serving every human request —
-    # enrollment is already public above, so any request that reaches this
-    # point is a non-enrollment use of the key.
-    if await run_in_threadpool(_legacy_bootstrap_consumed):
-        logger.info("auth: legacy enrollment key refused path=%s", request.url.path)
-        return JSONResponse(
-            status_code=401,
-            content={"detail": "The enrollment key has already been used"},
-        )
-
-    return await call_next(request)
-
-
-def _legacy_bootstrap_consumed() -> bool:
-    """Read the durable legacy-consumption marker (threadpool-safe)."""
-    with Session(core.database.engine) as session:
-        setting = session.exec(
-            select(AppSetting).where(
-                AppSetting.key == LEGACY_ENROLLMENT_CONSUMED_KEY
+    machine_key = _machine_api_key(request)
+    if machine_key:
+        if os.environ.get(MACHINE_ENABLED_ENV) != "1":
+            return normative
+        verified = await run_in_threadpool(api_key_manager.verify, machine_key)
+        if verified:
+            request.state.principal = Principal(
+                user_id=None,
+                email=None,
+                device_id=None,
+                session_id=None,
+                is_system=True,
             )
-        ).first()
-        return setting is not None
+            return await call_next(request)
+        logger.info("auth: refused (machine credential) path=%s", request.url.path)
+        return normative
+
+    logger.info("auth: no bearer token -> unknown session token path=%s", request.url.path)
+    return normative
+
+
+def _bearer_token(request: Request) -> str | None:
+    """Extract a non-empty bearer token, or None for anything else."""
+    header = request.headers.get("Authorization", "")
+    if header.startswith("Bearer "):
+        token = header[len("Bearer "):].strip()
+        return token or None
+    return None
+
+
+def _machine_api_key(request: Request) -> str | None:
+    """Read the legacy shared key presented as an API key, if any."""
+    api_key = request.headers.get("X-API-Key")
+    if api_key and api_key.strip():
+        return api_key.strip()
+    return None
+
+
+def _resolve_bearer(token: str) -> Principal | None:
+    """Threadpool bridge into core.identity.resolve_session_principal.
+
+    Opens its own session so the sync resolution never blocks the event
+    loop; the sliding-window refresh commits inside the identity helper.
+    """
+    with Session(core.database.engine) as session:
+        return resolve_session_principal(session, token)
 
