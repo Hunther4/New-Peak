@@ -1,18 +1,18 @@
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from main import app
 from seed_paes import seed_paes_data
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 def test_paes_errors_vault_empty(client, session: Session):
     seed_paes_data()
-    # User 999 has no attempts
+    # The vault belongs to the caller; an unknown ``user_id`` query parameter
+    # is ignored and never selects another user's data (DO-02).
     resp = client.get("/api/paes/errors/vault?user_id=999")
     assert resp.status_code == 200
     data = resp.json()
@@ -23,7 +23,6 @@ def test_paes_errors_vault_empty(client, session: Session):
 
 def test_paes_errors_lifecycle_and_revenge(client, session: Session):
     seed_paes_data()
-    user_id = 1
 
     # 1. Iniciar sesión de práctica
     start_resp = client.post("/api/paes/study/session/start", json={
@@ -48,8 +47,8 @@ def test_paes_errors_lifecycle_and_revenge(client, session: Session):
     assert attempt_resp.status_code == 200
     assert attempt_resp.json()["is_correct"] is False
 
-    # 3. Consultar GET /api/paes/errors/vault
-    vault_resp = client.get(f"/api/paes/errors/vault?user_id={user_id}")
+    # 3. Consultar GET /api/paes/errors/vault (owner comes from the principal)
+    vault_resp = client.get("/api/paes/errors/vault")
     assert vault_resp.status_code == 200
     vault_data = vault_resp.json()
     assert vault_data["total_errors"] >= 1
@@ -60,8 +59,7 @@ def test_paes_errors_lifecycle_and_revenge(client, session: Session):
     # 4. Generar sesión de revancha POST /api/paes/errors/revenge-session
     rev_resp = client.post("/api/paes/errors/revenge-session", json={
         "subject_code": "M1",
-        "question_count": 10,
-        "user_id": user_id
+        "question_count": 10
     })
     assert rev_resp.status_code == 200
     rev_data = rev_resp.json()

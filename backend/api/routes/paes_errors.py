@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
 from core.database import get_session
+from core.identity import Principal, UserPrincipalDep
 from core.rate_limiter import get_rate_limit_str, limiter
 from models.paes_models import (
     PaesEjeTematico,
@@ -32,7 +33,6 @@ questions_router = APIRouter(tags=["PAES Questions"])
 class RevengeSessionRequest(BaseModel):
     subject_code: Optional[str] = "M1"
     question_count: int = Field(default=10, ge=1, le=65)
-    user_id: int = 1
 
 
 # --- Helper Functions ---
@@ -437,7 +437,7 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
 @limiter.limit(get_rate_limit_str())
 def get_error_vault(
     request: Request,
-    user_id: int = 1,
+    principal: Principal = UserPrincipalDep,
     subject_code: Optional[str] = None,
     session: Session = Depends(get_session),
 ):
@@ -445,7 +445,7 @@ def get_error_vault(
     Retorna los errores no dominados del estudiante agrupados por materia
     y tipo de distractor (ej. error de cálculo, confusión conceptual, trampa heurística).
     """
-    items, _, _ = _get_unmastered_data(session, user_id=user_id, subject_code=subject_code)
+    items, _, _ = _get_unmastered_data(session, user_id=principal.user_id, subject_code=subject_code)
 
     by_subject: Dict[str, int] = {}
     by_distractor_type: Dict[str, int] = {}
@@ -481,18 +481,20 @@ def get_error_vault(
 def create_revenge_session(
     request: Request,
     req: RevengeSessionRequest,
+    principal: Principal = UserPrincipalDep,
     session: Session = Depends(get_session),
 ):
     """
     Genera una sesión de práctica corta (por defecto 10 preguntas) compuesta
     exclusivamente por los ítems fallidos no superados del estudiante.
     """
-    items, _, _ = _get_unmastered_data(session, user_id=req.user_id, subject_code=req.subject_code)
+    caller_id = principal.user_id
+    items, _, _ = _get_unmastered_data(session, user_id=caller_id, subject_code=req.subject_code)
 
     if not items:
         # Fallback to any subject if specified subject has none
         if req.subject_code:
-            items, _, _ = _get_unmastered_data(session, user_id=req.user_id, subject_code=None)
+            items, _, _ = _get_unmastered_data(session, user_id=caller_id, subject_code=None)
         if not items:
             raise HTTPException(
                 status_code=400,
@@ -509,7 +511,7 @@ def create_revenge_session(
 
     study_session = PaesStudySession(
         id=session_id,
-        user_id=req.user_id,
+        user_id=caller_id,
         session_mode="REVENGE",
         subject_id=subj.id if subj else None,
         is_completed=False,

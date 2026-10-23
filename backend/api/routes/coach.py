@@ -28,7 +28,6 @@ class CoachChatMessage(BaseModel):
 
 class CoachChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2500, description="Consulta del estudiante")
-    user_id: int = Field(default=1, description="ID del usuario")
     context_type: str = Field(default="general", description="'paes' | 'gym' | 'dashboard' | 'general'")
     active_question: Optional[Dict[str, Any]] = Field(
         default=None,
