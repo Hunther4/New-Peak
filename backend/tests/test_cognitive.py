@@ -226,8 +226,16 @@ class TestCognitiveAuth:
 
     @pytest.fixture(autouse=True)
     def enable_auth(self, monkeypatch):
-        """Habilitamos la seguridad para esta sección eliminando DISABLE_AUTH."""
-        monkeypatch.delenv("DISABLE_AUTH", raising=False)
+        """Habilitamos la seguridad para esta sección eliminando DISABLE_AUTH.
+
+        The legacy X-API-Key is exercised as the opt-in machine credential
+        (ID-11/ID-12): the flag must be on whenever these tests present a
+        valid key. DISABLE_AUTH is set to "" (never deleted) so a stray
+        load_dotenv() cannot re-inject DISABLE_AUTH=1 from a developer .env
+        after the app import — dotenv never overrides a present variable.
+        """
+        monkeypatch.setenv("DISABLE_AUTH", "")
+        monkeypatch.setenv("PEAK_ADMIN_KEY_ENABLED", "1")
 
     def test_cognitive_endpoints_return_401_without_key(self, client):
         """GIVEN X-API-Key omitido WHEN cualquier endpoint cognitivo THEN 401."""

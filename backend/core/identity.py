@@ -1,4 +1,4 @@
-﻿"""Identity primitives for the passwordless, device-bound auth layer.
+"""Identity primitives for the passwordless, device-bound auth layer.
 
 This module owns the frozen ``Principal`` contract the design fixes, the
 email normalization rule, and the enrollment operation that persists the
