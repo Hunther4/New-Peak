@@ -534,6 +534,55 @@ def test_devices_added_with_session_then_401_without(client, session):
     assert extra.status_code == 401
 
 
+def test_device_duplicate_public_key_409(client, session):
+    """ID-09: a repeated public key on POST /devices is a typed 409, not a 500.
+
+    No pre-check guards this route — the translation catches the
+    commit-time constraint race (uq_user_devices_user_id_public_key).
+    """
+    user, device, privkey = _enrolled(client, session)
+    token = _login(client, "session@example.com", device.id, privkey)
+    duplicate = client.post(DEVICES_PATH, json={
+        "public_key_b64": _spki_b64(privkey), "label": "dupe",
+    }, headers={"Authorization": f"Bearer {token}"})
+    assert duplicate.status_code == 409, duplicate.text
+    assert len(session.exec(select(UserDevice)).all()) == 1  # no extra row
+
+
+def test_rotate_duplicate_public_key_409_leaves_state_untouched(client, session):
+    """ID-09: rotating to another device's key is 409 and rolls back cleanly.
+
+    The same transaction stages the key replacement and the session
+    revocations; the rollback must undo both.
+    """
+    user, device, privkey = _enrolled(client, session)
+    token = _login(client, "session@example.com", device.id, privkey)
+    headers = {"Authorization": f"Bearer {token}"}
+    other = client.post(DEVICES_PATH, json={"public_key_b64": _spki_b64(_make_p256())},
+                        headers=headers)
+    assert other.status_code == 200
+    other_id = other.json()["device_id"]
+
+    session.expire_all()
+    other_key = session.get(UserDevice, other_id).public_key
+    rotated = client.post(f"{DEVICES_PATH}/{device.id}/rotate", json={
+        "public_key_b64": base64.b64encode(other_key).decode("ascii"),
+    }, headers=headers)
+    assert rotated.status_code == 409, rotated.text
+
+    # nothing happened: the key, the epoch and the device's sessions
+    session.expire_all()
+    row = session.get(UserDevice, device.id)
+    assert row.public_key == _spki_der(privkey)
+    assert row.key_epoch == 1
+    live_sessions = session.exec(
+        select(AuthSession).where(
+            (AuthSession.device_id == device.id) & (AuthSession.revoked_at.is_(None))
+        )
+    ).all()
+    assert len(live_sessions) == 1
+
+
 def test_rotate_replaces_key_bumps_epoch_revokes_sessions(client, session, monkeypatch):
     monkeypatch.delenv("DISABLE_AUTH", raising=False)
     user, device, privkey = _enrolled(client, session)
@@ -659,6 +708,27 @@ def test_reset_identity_cli_existing_and_unknown_email(session, monkeypatch, cap
     monkeypatch.setattr("sys.argv", ["reset_identity", "--email", "nobody@example.com"])
     assert reset_module.main() != 0               # unknown email: non-zero exit
     assert len(session.exec(select(UserDevice)).all()) == count_before
+
+
+def test_reset_identity_cli_normalizes_mixed_case_email(session, monkeypatch):
+    """ID-10: `Alice@Example.com` resolves the stored `alice@example.com`."""
+    import scripts.reset_identity as reset_module
+
+    user = User(email="alice@example.com")
+    session.add(user)
+    session.flush()
+    session.add(UserDevice(user_id=user.id, public_key=_spki_der(_make_p256())))
+    session.commit()
+
+    monkeypatch.setattr("sys.argv", ["reset_identity", "--email", "Alice@Example.com"])
+    assert reset_module.main() == 0
+
+    session.expire_all()  # the CLI committed through the shared connection
+    devices = session.exec(
+        select(UserDevice).where(UserDevice.user_id == user.id)
+    ).all()
+    live = [d for d in devices if d.revoked_at is None]
+    assert len(live) == 1 and live[0].label == "recovery"
 
 
 # --- ID-12: the machine credential path -----------------------------------------

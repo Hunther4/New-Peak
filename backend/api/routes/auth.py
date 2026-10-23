@@ -18,12 +18,14 @@ caller's session, and the device rotate/revoke routes keep the one-transaction
 per-route rule — rotate replaces the key and revokes the device's sessions in
 a single commit.
 """
+import hmac
 import logging
 import os
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
-from sqlmodel import Session
+from sqlalchemy.exc import IntegrityError
+from sqlmodel import Session, select
 
 import core.database
 from core.auth import api_key_manager
@@ -110,7 +112,12 @@ def enroll(
         legacy_used = True
     elif os.environ.get("ENROLLMENT_TOKEN") is not None:
         configured = os.environ["ENROLLMENT_TOKEN"]
-        if body.enrollment_token != configured:
+        # Constant-time comparison; defensively encoded so a None candidate
+        # or a non-ASCII byte sequence can never raise.
+        if not hmac.compare_digest(
+            configured.encode("utf-8"),
+            (body.enrollment_token or "").encode("utf-8"),
+        ):
             logger.info("enroll: enrollment token mismatch or missing")
             raise HTTPException(401, "Invalid or missing credentials")
 
@@ -133,7 +140,23 @@ def enroll(
     # One commit: the user, the device and the durable consumption marker.
     if legacy_used:
         record_legacy_consumption(session)
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError:
+        # A concurrent enrollment inserted the same rows first: the loser of
+        # the INSERT race re-selects what won and answers with the module's
+        # typed response instead of an uncontrolled 500.
+        session.rollback()
+        if (
+            session.exec(select(User).where(User.email == normalized)).first()
+            is not None
+        ):
+            logger.info("enroll: lost the concurrent email INSERT race")
+            raise HTTPException(409, "That email is already enrolled")
+        if legacy_used and legacy_bootstrap_consumed(session):
+            logger.info("enroll: lost the concurrent consumption-marker race")
+            raise HTTPException(401, "The enrollment key has already been used")
+        raise
 
     logger.info(
         "enroll: issued device_id=%s needs_challenge=true (no session)", device.id
@@ -212,7 +235,14 @@ def add_device(
         public_key=spki_der,
     )
     session.add(device)
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError:
+        # Another of the caller's devices already holds that key (the
+        # uq_user_devices_user_id_public_key race): typed 409, never a 500.
+        session.rollback()
+        logger.info("device add: duplicate public key user_id=%s", principal.user_id)
+        raise HTTPException(409, "That public key is already registered")
     session.refresh(device)
     logger.info(
         "device add: issued device_id=%s for user_id=%s (no session)",
@@ -278,7 +308,18 @@ def rotate_device(
     device.public_key = spki_der
     device.key_epoch = device.key_epoch + 1
     session.add(device)
-    revoke_device_sessions(session, device.id)
+    try:
+        # revoke_device_sessions holds the pair's single commit — any
+        # pending mutation flushes with it.
+        revoke_device_sessions(session, device.id)
+    except IntegrityError:
+        # The replacement key duplicates another device key of this user
+        # (the uq_user_devices_user_id_public_key race): typed 409 and the
+        # rollback undoes the staged key replacement **and** the staged
+        # session revocations — nothing happened.
+        session.rollback()
+        logger.info("rotate: duplicate public key user_id=%s", principal.user_id)
+        raise HTTPException(409, "That public key is already registered")
     logger.info(
         "rotate: device_id=%s key_epoch=%s sessions revoked", device.id, device.key_epoch
     )

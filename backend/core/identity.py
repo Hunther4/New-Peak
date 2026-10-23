@@ -22,6 +22,7 @@ from datetime import datetime, timedelta, timezone
 from cryptography.exceptions import InvalidSignature
 from fastapi import Depends, HTTPException, Request
 from sqlalchemy import update
+from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 
 from core.crypto_keys import (
@@ -184,7 +185,11 @@ def record_legacy_consumption(session: Session) -> None:
     """Persist the consumption marker in the same commit as the enrollment.
 
     The row is added, not committed — committing is the caller's job so the
-    marker and the enrollment rows are one committed transaction.
+    marker and the enrollment rows are one committed transaction. A caller
+    that loses the commit race (another request inserted the marker first)
+    rolls back, re-selects the existing row, and answers with the module's
+    typed response — see the IntegrityError translation in the enroll
+    route.
     """
     session.add(
         AppSetting(
@@ -216,7 +221,10 @@ def ensure_deployment_id(session: Session) -> str:
     """Read the per-deployment identifier, creating it once on first boot.
 
     An idempotent precondition: it commits **only** when the row is missing
-    (first boot), never inside the R3 consumption transaction.
+    (first boot), never inside the R3 consumption transaction. Two first
+    boots racing each other cannot surface the unique constraint: the
+    commit-time loser rolls back and re-selects the winner's row instead of
+    raising.
     """
     row = session.exec(
         select(AppSetting).where(AppSetting.key == DEPLOYMENT_ID_KEY)
@@ -225,7 +233,17 @@ def ensure_deployment_id(session: Session) -> str:
         return row.value
     value = uuid.uuid4().hex
     session.add(AppSetting(key=DEPLOYMENT_ID_KEY, value=value))
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError:
+        session.rollback()
+        row = session.exec(
+            select(AppSetting).where(AppSetting.key == DEPLOYMENT_ID_KEY)
+        ).first()
+        if row is None or not row.value:
+            raise
+        logger.info("identity: deployment_id race lost, reused existing value")
+        return row.value
     logger.info("identity: generated deployment_id %s", value)
     return value
 
@@ -305,18 +323,31 @@ def verify_challenge(
 ) -> tuple[AuthSession, str]:
     """Consume the challenge and issue exactly one session (R3 protocol).
 
-    One transaction, one commit: select the unconsumed + unexpired challenge,
-    select the unrevoked device, normalize the signature to DER via
-    ``core/crypto_keys.py``, verify over the canonical six-line message, then
-    the rowcount-guarded ``UPDATE … WHERE consumed_at IS NULL`` followed by
-    the session insert. A failed signature is refused **before** the update
-    (its ``attempts`` bump commits separately for audit).
+    One transaction, one commit, opened with **BEGIN IMMEDIATE** so the
+    write lock is held from the very first read: a concurrent verify of the
+    same challenge waits for its turn instead of verifying against a
+    deferred WAL snapshot. Then: select the unconsumed + unexpired
+    challenge, select the unrevoked device, normalize the signature to DER
+    via ``core/crypto_keys.py``, verify over the canonical six-line message,
+    then the rowcount-guarded ``UPDATE … WHERE consumed_at IS NULL`` followed
+    by the session insert. A failed signature is refused **before** the
+    update (its ``attempts`` bump commits separately for audit).
 
     Returns ``(session_row, raw_token)``. Raises ``ChallengeRejected`` for
     every 401 case and ``InvalidSignatureFormat`` for the typed 400.
     """
-    deployment_id = ensure_deployment_id(session)  # first-boot only
+    deployment_id = ensure_deployment_id(session)  # first-boot only (pre-transaction)
     now = _now()
+
+    # Block opener: BEGIN IMMEDIATE before the first challenge read. When
+    # the driver is already inside a transaction opened with immediate
+    # semantics — the app-wide engine in ``core/database.py`` starts every
+    # transaction with ``BEGIN IMMEDIATE`` through its begin event — the
+    # lock is already held and starting a second one would be an error.
+    connection = session.connection()
+    dbapi_connection = connection.connection  # the driver-level connection
+    if not dbapi_connection.in_transaction:
+        connection.exec_driver_sql("BEGIN IMMEDIATE")
 
     challenge = session.exec(
         select(AuthChallenge).where(AuthChallenge.id == challenge_id)

@@ -21,7 +21,7 @@ from cryptography.hazmat.primitives.asymmetric import ec
 from sqlmodel import Session, select
 
 import core.database
-from core.identity import _now
+from core.identity import EmailFormatError, _now, normalize_email
 from models import User, UserDevice
 
 
@@ -33,8 +33,16 @@ def main() -> int:
     parser.add_argument("--email", required=True, help="the account to recover")
     args = parser.parse_args()
 
+    # The stored email is normalized (lower/strip); the lookup must go
+    # through the same rule so `Alice@Example.com` finds `alice@example.com`.
+    try:
+        email = normalize_email(args.email)
+    except EmailFormatError as exc:
+        print(f"Invalid --email {args.email!r}: {exc}", file=sys.stderr)
+        return 1
+
     with Session(core.database.engine) as session:
-        user = session.exec(select(User).where(User.email == args.email)).first()
+        user = session.exec(select(User).where(User.email == email)).first()
         if user is None:
             print(f"No enrolled account for {args.email}", file=sys.stderr)
             return 1
