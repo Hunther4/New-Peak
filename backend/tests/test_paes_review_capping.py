@@ -10,10 +10,8 @@ database order.
 from datetime import datetime, timedelta, timezone
 
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from main import app
 from models.paes_models import (
     PaesCompetency,
     PaesCurriculumVersion,
@@ -26,8 +24,9 @@ from models.paes_models import (
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 
 def test_review_queue_is_ordered_by_lowest_projected_retention_first():
@@ -106,7 +105,7 @@ def test_review_capping_accepts_naive_last_practiced_at():
     assert selected[0]["projected_r"] == pytest.approx(calculate_retrievability(1.0, 2.0))
 
 
-def test_fsrs_status_returns_the_review_queue_ordered_by_retention(client, session: Session):
+def test_fsrs_status_returns_the_review_queue_ordered_by_retention(client, enrolled_user, session: Session):
     """The endpoint must serve the queue ordered by retention, not in database order."""
     now = datetime.now(timezone.utc)
 
@@ -129,7 +128,8 @@ def test_fsrs_status_returns_the_review_queue_ordered_by_retention(client, sessi
     session.add(topic)
     session.flush()
 
-    # Three due subtopics with very different projected retentions.
+    # Three due subtopics with very different projected retentions. They belong
+    # to the calling principal.
     profiles = [
         ("a", 1.0, 30),   # forgotten: low stability, long time since practice
         ("b", 4.0, 10),

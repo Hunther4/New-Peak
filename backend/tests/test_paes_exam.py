@@ -3,10 +3,8 @@ Tests for PAES Exam simulation and finalization.
 Verifies balanced sampling across 4 DEMRE ejes and score conversion.
 """
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from main import app
 from models.models import Skill
 from models.paes_models import (
     PaesCompetency,
@@ -20,8 +18,9 @@ from models.paes_models import (
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 @pytest.fixture
 def seeded_exam_data(session: Session):
@@ -191,20 +190,21 @@ def test_paes_study_plan_generate_endpoint(client, seeded_exam_data):
     assert sum(plan["eje_allocation_minutes"].values()) > 0
 
 
-def test_paes_study_plan_with_user_learning_states(client, seeded_exam_data, session: Session):
+def test_paes_study_plan_with_user_learning_states(client, enrolled_user, seeded_exam_data, session: Session):
     """Verifica que masteries_by_eje calcule correctamente las brechas a partir de subtemas."""
     from models.paes_models import PaesLearningState
 
     # Asignar dominio alto en subtema de Números y bajo en Álgebra
+    # (subtopics owned by the calling principal).
     ls_num = PaesLearningState(
         id="ls-num-test",
-        user_id=1,
+        user_id=enrolled_user.user_id,
         subtopic_id="sub-exam-0",
         mastery_score=0.90,
     )
     ls_alg = PaesLearningState(
         id="ls-alg-test",
-        user_id=1,
+        user_id=enrolled_user.user_id,
         subtopic_id="sub-exam-1",
         mastery_score=0.20,
     )

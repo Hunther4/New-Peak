@@ -9,10 +9,8 @@ The estimate is now computed over every scored response the user has for that
 subject.
 """
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session, select
 
-from main import app
 from models.paes_models import (
     PaesAssessmentState,
     PaesCompetency,
@@ -31,8 +29,9 @@ ITEM_C = 0.2
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 
 @pytest.fixture

@@ -1,14 +1,13 @@
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from main import app
 from seed_paes import seed_paes_data
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 def test_error_notebook_and_revenge_session(client, session: Session):
     seed_paes_data()
