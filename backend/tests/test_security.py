@@ -56,8 +56,16 @@ class TestAuthOnAllEndpoints:
 
     @pytest.fixture(autouse=True)
     def enable_auth(self, monkeypatch):
-        """Override conftest's autouse disable_auth — turn auth ON."""
-        monkeypatch.delenv("DISABLE_AUTH", raising=False)
+        """Override conftest's autouse disable_auth — turn auth ON.
+
+        The legacy X-API-Key is exercised as the opt-in machine credential
+        (ID-11/ID-12): the flag must be on whenever these tests present a
+        valid key. DISABLE_AUTH is set to "" (never deleted) so a stray
+        load_dotenv() cannot re-inject DISABLE_AUTH=1 from a developer .env
+        after the app import — dotenv never overrides a present variable.
+        """
+        monkeypatch.setenv("DISABLE_AUTH", "")
+        monkeypatch.setenv("PEAK_ADMIN_KEY_ENABLED", "1")
 
     # -- missing key ---------------------------------------------------------
 

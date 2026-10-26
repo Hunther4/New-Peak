@@ -6,7 +6,6 @@
 *3PL Item Response Theory Calibration · FSRS Spaced Repetition · Hardened Deliberate Practice*
 
 [![CI](https://github.com/Hunther4/New-Peak/actions/workflows/ci.yml/badge.svg)](https://github.com/Hunther4/New-Peak/actions/workflows/ci.yml)
-![Backend Coverage](https://img.shields.io/badge/backend%20coverage-%E2%89%A572%25-brightgreen?style=flat-square&logo=pytest&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat-square&logo=fastapi&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
@@ -16,6 +15,8 @@
 ![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue?style=flat-square)
 
 </div>
+
+> **Project status:** The single-tenant hardened edition is the deployed baseline today. The multi-user foundation program (identity → per-user ownership → encrypted credentials) is under active development — see the roadmap below.
 
 ---
 
@@ -27,7 +28,7 @@ Built to replace legacy study software, New Peak bridges the gap between raw que
 1. **Psychometric Precision:** Official DEMRE curve scaling and 3-Parameter Logistic (3PL) Item Response Theory ($\theta$ latent ability estimation via Bayes EAP and Newton-Raphson MLE).
 2. **Memory Retention:** FSRS (Free Spaced Repetition Scheduler) with adaptive Leitner progression isolated per subtopic.
 3. **Targeted Review:** *Cuaderno Negro de Errores* (Error Vault) with zero-forgiveness revenge study modes.
-4. **Hardened Multi-User Foundation:** Nonced CSP security, ECDSA device signatures, and spec-driven multi-user partitioning.
+4. **Spec-Driven Hardening:** Nonced CSP security, hardened upload perimeter, ECDSA identity primitives, and a slice-verified multi-user foundation in active development.
 
 ---
 
@@ -58,7 +59,7 @@ flowchart TD
     subgraph DataStore["Persistence & AI Providers"]
         SQLite[("SQLite (peak.db)\nIdempotent Migrations")]
         Chroma[("ChromaDB Vector Store")]
-        LLM["AI Providers (OpenAI / Groq / Local LM Studio)"]
+        LLM["AI Providers (Groq / OpenRouter / GeneralCompute / Local LM Studio)"]
     end
 
     UI --> Zustand
@@ -117,10 +118,11 @@ Environment variables are loaded from `backend/.env`. A documented template is a
 | Variable | Description | Default |
 | :--- | :--- | :--- |
 | `DATABASE_URL` | SQLite connection string | `sqlite:///./peak.db` |
-| `OPENAI_API_KEY` | Optional OpenAI key for Socratic Coach | `""` |
-| `GROQ_API_KEY` | Optional Groq key for fast inference | `""` |
-| `LM_STUDIO_URL` | Local LLM inference server endpoint | `http://127.0.0.1:1234/v1` |
-| `PEAK_ENROLLMENT_TOKEN` | Secret token required to register new devices (when enabled) | `""` |
+| `GROQ_API_KEY` | Optional Groq key for fast inference (Socratic Coach) | `""` |
+| `OPENROUTER_API_KEY` | Optional OpenRouter key for Socratic Coach routing | `""` |
+| `GENERALCOMPUTE_API_KEY` | Optional GeneralCompute key as a third cloud provider | `""` |
+| `LM_STUDIO_BASE_URL` | Local LLM inference server endpoint (OpenAI-compatible) | `http://127.0.0.1:1234/v1` |
+| `ENROLLMENT_TOKEN` | Secret token required to register new devices (planned — ships with slice S2) | `""` |
 | `DISABLE_AUTH` | Local dev auth bypass (strictly rejected when `PRODUCTION=1`) | `0` |
 
 ---
@@ -133,14 +135,14 @@ Quality standards are strictly enforced locally and on GitHub Actions CI.
 Executed with the virtual environment interpreter from `backend/`:
 
 ```bash
-# Run 817+ unit & integration tests with mandatory 72% coverage threshold
+# Backend suite: 800+ tests, enforced 72% coverage threshold (the frontend suite adds 200+)
 python -m pytest --cov=api --cov=core --cov=models --cov=services --cov-report=term-missing
 
 # Lint with zero-tolerance ruff rule checks
 ruff check .
 ```
 
-* Coverage is enforced via `backend/pyproject.toml` (`fail_under = 72`).
+* Coverage is enforced via `backend/pyproject.toml` (`fail_under = 72`); the current backend coverage is ~81%.
 * Zero lint warnings tolerated under `ruff==0.8.6`.
 
 ### Frontend (Vitest + Vite)
@@ -162,6 +164,8 @@ pnpm run build
 ## Multi-User Roadmap (OpenSpec)
 
 The system is transitioning from a single-tenant deployment to a cryptographically verified multi-tenant architecture tracked under [`openspec/changes/multi-user-foundation`](openspec/changes/multi-user-foundation/proposal.md).
+
+**Snapshot as of 2026-10-22.** The authoritative slice-level status lives in [`openspec/changes/multi-user-foundation/tasks.md`](openspec/changes/multi-user-foundation/tasks.md).
 
 | Slice | Milestone | Focus Area | Status |
 | :---: | :--- | :--- | :---: |
@@ -188,7 +192,7 @@ The system is transitioning from a single-tenant deployment to a cryptographical
 │   ├── models/         # SQLModel database schemas (identity, paes, exercises)
 │   ├── services/       # Domain business logic (3PL IRT, FSRS, psychometrics)
 │   ├── migrations/     # Versioned, idempotent schema migration scripts
-│   └── tests/          # Pytest backend test suite (817+ tests)
+│   └── tests/          # Pytest backend test suite (800+ tests)
 ├── frontend/
 │   ├── src/
 │   │   ├── api/        # HTTP client & backend proxy bindings
@@ -201,6 +205,16 @@ The system is transitioning from a single-tenant deployment to a cryptographical
 ├── paes.ps1            # Resilient Windows service orchestrator
 └── README.md           # Repository documentation
 ```
+
+---
+
+## Contributing
+
+Issues and pull requests are welcome. Keep changes review-scoped: branch from `main`, run the quality gates (`ruff check .`, backend pytest, `pnpm run test:coverage`), and organize larger work as scoped slices under the [OpenSpec plan](openspec/changes/multi-user-foundation/tasks.md).
+
+## Support
+
+Open a GitHub issue on this repository with a descriptive title and the failing command, plus the relevant log from `logs/backend.log` or `logs/frontend.log`.
 
 ---
 

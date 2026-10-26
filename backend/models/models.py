@@ -8,6 +8,7 @@ from sqlmodel import Field, Relationship, SQLModel
 
 class Skill(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     slug: str = Field(unique=True, index=True, max_length=200)
     name: str = Field(max_length=200)
     domain: str

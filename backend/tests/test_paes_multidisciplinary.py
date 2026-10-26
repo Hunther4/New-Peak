@@ -1,8 +1,6 @@
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from main import app
 from seed_paes import seed_paes_data
 from services.paes.demre_scale import SUBJECT_METADATA, raw_score_to_paes
 from services.paes.seed_multidisciplinary import seed_multidisciplinary
@@ -10,8 +8,9 @@ from services.paes.seed_multidisciplinary_questions import seed_questions
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 @pytest.fixture
 def seeded_multidisciplinary(session: Session):

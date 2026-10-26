@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 from sqlmodel import Session, func, select
 
 from core.database import get_session
+from core.identity import Principal, UserPrincipalDep
 from core.rate_limiter import get_rate_limit_str, limiter
 from core.timeutils import SANTIAGO_TZ, elapsed_days, to_utc_aware
 from models.models import ErrorPattern, Skill
@@ -197,11 +198,12 @@ def _collect_scored_responses(
 @limiter.limit(get_rate_limit_str())
 def get_fsrs_status(
     request: Request,
-    user_id: int = 1,
+    principal: Principal = UserPrincipalDep,
     subject_code: Optional[str] = None,
     session: Session = Depends(get_session)
 ):
     """Devuelve la retención proyectada R(t), estabilidad y cola de repasos FSRS filtrada por asignatura."""
+    user_id = principal.user_id
     query = (
         select(PaesLearningState, PaesSubtopic, PaesSubject.code)
         .join(PaesSubtopic, PaesLearningState.subtopic_id == PaesSubtopic.id)
@@ -283,11 +285,12 @@ def get_subjects(request: Request, session: Session = Depends(get_session)):
 @limiter.limit(get_rate_limit_str())
 def get_curriculum_subtopics(
     request: Request,
-    user_id: int = 1,
+    principal: Principal = UserPrincipalDep,
     subject_code: Optional[str] = None,
     session: Session = Depends(get_session),
 ):
     """Lista los subtemas oficiales con el estado de dominio del estudiante, opcionalmente filtrados por prueba."""
+    user_id = principal.user_id
     query = select(PaesSubtopic).order_by(PaesSubtopic.order_index)
 
     if subject_code and subject_code.upper() != "ALL":
@@ -327,8 +330,9 @@ def get_curriculum_subtopics(
 
 @router.post("/study/session/start")
 @limiter.limit(get_rate_limit_str())
-def start_study_session(request: Request, req: StartStudySessionRequest, user_id: int = 1, session: Session = Depends(get_session)):
+def start_study_session(request: Request, req: StartStudySessionRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
     """Inicia una sesión de estudio o simulacro de examen PAES M1."""
+    user_id = principal.user_id
     # The subject is resolved FIRST: an unknown code must fail explicitly
     # instead of silently serving the whole curriculum.
     target_subject_code = (req.subject_code or "M1").upper()
@@ -520,8 +524,9 @@ def start_study_session(request: Request, req: StartStudySessionRequest, user_id
 
 @router.get("/study/error_notebook")
 @limiter.limit(get_rate_limit_str())
-def get_error_notebook(request: Request, subject_code: Optional[str] = None, user_id: int = 1, session: Session = Depends(get_session)):
+def get_error_notebook(request: Request, subject_code: Optional[str] = None, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
     """Retorna las preguntas falladas no superadas del estudiante para el Cuaderno de Errores."""
+    user_id = principal.user_id
     attempts = session.exec(
         select(PaesQuestionAttempt)
         .where(PaesQuestionAttempt.user_id == user_id)
@@ -614,9 +619,18 @@ def get_error_notebook(request: Request, subject_code: Optional[str] = None, use
 
 @router.post("/study/session/{session_id}/finalize_exam")
 @limiter.limit(get_rate_limit_str())
-def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, user_id: int = 1, session: Session = Depends(get_session)):
+def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
     """Consolida un simulacro de examen PAES M1, calcula puntaje DEMRE 100-1000 y desglose por ejes."""
-    study_session = session.get(PaesStudySession, session_id)
+    user_id = principal.user_id
+    # Owner-scoped raw load (DO-02): the session must belong to the caller or
+    # it does not exist — 404, never 403, so another user's session existence
+    # is never confirmed.
+    study_session = session.exec(
+        select(PaesStudySession).where(
+            PaesStudySession.id == session_id,
+            PaesStudySession.user_id == user_id,
+        )
+    ).first()
     if not study_session:
         raise HTTPException(status_code=404, detail="Sesión de examen no encontrada")
 
@@ -823,9 +837,16 @@ def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, u
 
 @router.post("/study/session/submit")
 @limiter.limit(get_rate_limit_str())
-def submit_attempt(request: Request, req: SubmitAttemptRequest, user_id: int = 1, session: Session = Depends(get_session)):
+def submit_attempt(request: Request, req: SubmitAttemptRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
     """Evala un intento, actualiza FSRS, calcula fatiga y dispara telemetra cognitiva."""
-    study_session = session.get(PaesStudySession, req.session_id)
+    user_id = principal.user_id
+    # Owner-scoped raw load (DO-02): same rule as finalize_exam.
+    study_session = session.exec(
+        select(PaesStudySession).where(
+            PaesStudySession.id == req.session_id,
+            PaesStudySession.user_id == user_id,
+        )
+    ).first()
     if not study_session:
         raise HTTPException(status_code=404, detail="Sesin de estudio no encontrada")
 
@@ -1047,8 +1068,9 @@ def socratic_tutor_step(request: Request, req: SocraticStepRequest, session: Ses
 
 @router.post("/study/plan/generate")
 @limiter.limit(get_rate_limit_str())
-def create_study_plan(request: Request, req: StudyPlanRequest, user_id: int = 1, session: Session = Depends(get_session)):
+def create_study_plan(request: Request, req: StudyPlanRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
     """Genera el cronograma semanal adaptativo según pesos DEMRE y brecha de puntaje."""
+    user_id = principal.user_id
     states = session.exec(
         select(PaesLearningState, PaesSubtopic)
         .join(PaesSubtopic, PaesLearningState.subtopic_id == PaesSubtopic.id)
@@ -1125,12 +1147,10 @@ REST_DAY_SUBJECT = "REST"
 
 
 class UpdateRoutineRequest(BaseModel):
-    user_id: int = 1
     routine: dict[str, str]
 
 
 class QuickStartRequest(BaseModel):
-    user_id: int = 1
     question_count: int = 15
 
 
@@ -1188,7 +1208,7 @@ def _routine_for_user(session: Session, user_id: int) -> dict[str, str]:
 @limiter.limit(get_rate_limit_str())
 def get_study_routine(
     request: Request,
-    user_id: int = 1,
+    principal: Principal = UserPrincipalDep,
     session: Session = Depends(get_session),
 ):
     """Retorna la configuración semanal de estudio del usuario.
@@ -1199,8 +1219,8 @@ def get_study_routine(
     """
     return {
         "status": "success",
-        "user_id": user_id,
-        "routine": _routine_for_user(session, user_id),
+        "user_id": principal.user_id,
+        "routine": _routine_for_user(session, principal.user_id),
     }
 
 
@@ -1209,6 +1229,7 @@ def get_study_routine(
 def update_study_routine(
     request: Request,
     body: UpdateRoutineRequest,
+    principal: Principal = UserPrincipalDep,
     session: Session = Depends(get_session),
 ):
     """Actualiza la rutina semanal (días: monday..sunday).
@@ -1217,7 +1238,7 @@ def update_study_routine(
     database: a code that does not exist is rejected instead of being stored.
     """
     available = _available_subject_codes(session)
-    current = _routine_for_user(session, body.user_id)
+    current = _routine_for_user(session, principal.user_id)
 
     unknown = []
     for day, subject in body.routine.items():
@@ -1245,10 +1266,10 @@ def update_study_routine(
     }
 
     row = session.exec(
-        select(PaesWeeklyRoutine).where(PaesWeeklyRoutine.user_id == body.user_id)
+        select(PaesWeeklyRoutine).where(PaesWeeklyRoutine.user_id == principal.user_id)
     ).first()
     if row is None:
-        row = PaesWeeklyRoutine(id=f"routine-{uuid.uuid4().hex[:12]}", user_id=body.user_id)
+        row = PaesWeeklyRoutine(id=f"routine-{uuid.uuid4().hex[:12]}", user_id=principal.user_id)
     row.routine_json = json.dumps(payload, ensure_ascii=False)
     row.updated_at = utc_now()
     session.add(row)
@@ -1256,7 +1277,7 @@ def update_study_routine(
 
     return {
         "status": "success",
-        "user_id": body.user_id,
+        "user_id": principal.user_id,
         "routine": payload,
     }
 
@@ -1266,10 +1287,10 @@ def update_study_routine(
 def quick_start_today(
     request: Request,
     body: QuickStartRequest,
+    principal: Principal = UserPrincipalDep,
     session: Session = Depends(get_session),
 ):
-    """
-    Inicia una sesión de 1-Clic para el día actual según la rutina configurada.
+    """Inicia una sesión de 1-Clic para el día actual según la rutina configurada.
     Si el día está configurado como descanso (REST), hace fallback a 'M1'.
     """
     # "Today" is resolved in the study timezone (America/Santiago) so the
@@ -1277,7 +1298,7 @@ def quick_start_today(
     today_key = santiago_weekday_key(utc_now())
 
     available = _available_subject_codes(session)
-    routine = _routine_for_user(session, body.user_id)
+    routine = _routine_for_user(session, principal.user_id)
     subject = routine.get(today_key, REST_DAY_SUBJECT)
     if subject == REST_DAY_SUBJECT:
         # A rest day still has to start something real: an existing subject.
@@ -1305,7 +1326,7 @@ def quick_start_today(
     session_res = start_study_session(
         request=request,
         req=start_payload,
-        user_id=body.user_id,
+        principal=principal,
         session=session,
     )
     return {

@@ -155,20 +155,28 @@ class TestAuthIntegration:
 
     @pytest.fixture(autouse=True)
     def enable_auth(self, monkeypatch):
-        """Override the autouse disable_auth fixture — auth is ON for these tests."""
-        monkeypatch.delenv("DISABLE_AUTH", raising=False)
+        """Override the autouse disable_auth fixture — auth is ON for these tests.
+
+        The legacy X-API-Key is exercised as the opt-in machine credential
+        (ID-11/ID-12): the flag must be on whenever these tests present a
+        valid key. DISABLE_AUTH is set to "" (never deleted) so a stray
+        load_dotenv() cannot re-inject DISABLE_AUTH=1 from a developer .env
+        after the app import — dotenv never overrides a present variable.
+        """
+        monkeypatch.setenv("DISABLE_AUTH", "")
+        monkeypatch.setenv("PEAK_ADMIN_KEY_ENABLED", "1")
 
     def test_missing_key_returns_401(self, client):
         """GIVEN no X-API-Key WHEN calling any endpoint THEN 401."""
         response = client.get("/api/skills/")
         assert response.status_code == 401
-        assert response.json() == {"detail": "Invalid or missing API key"}
+        assert response.json() == {"detail": "Invalid or missing credentials"}
 
     def test_invalid_key_returns_401(self, client, api_key):
         """GIVEN wrong X-API-Key WHEN calling endpoint THEN 401."""
         response = client.get("/api/skills/", headers={"X-API-Key": "wrong-key"})
         assert response.status_code == 401
-        assert response.json() == {"detail": "Invalid or missing API key"}
+        assert response.json() == {"detail": "Invalid or missing credentials"}
 
     def test_valid_key_returns_200(self, client, api_key):
         """GIVEN valid X-API-Key WHEN calling endpoint THEN 200."""

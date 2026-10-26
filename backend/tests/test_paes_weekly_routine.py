@@ -14,10 +14,8 @@ between 21:00 and 24:00 in Chile.
 from datetime import datetime, timezone
 
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session, select
 
-from main import app
 from models.paes_models import (
     PaesCompetency,
     PaesCurriculumVersion,
@@ -40,8 +38,9 @@ WEEK_DAYS = [
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 
 def _seed_subject(session: Session, subject_id: str, code: str, curriculum_id: str) -> PaesSubject:
@@ -110,7 +109,7 @@ def m1_and_m2(session: Session):
 # BUG-3 — persistence
 # ---------------------------------------------------------------------------
 
-def test_update_routine_is_persisted_in_the_database(client, m1_only, session: Session):
+def test_update_routine_is_persisted_in_the_database(client, enrolled_user, m1_only, session: Session):
     """The routine must be stored in the database, not in process memory."""
     from models.paes_models import PaesWeeklyRoutine
 
@@ -121,10 +120,12 @@ def test_update_routine_is_persisted_in_the_database(client, m1_only, session: S
 
     assert resp.status_code == 200
 
-    row = session.exec(select(PaesWeeklyRoutine).where(PaesWeeklyRoutine.user_id == 1)).first()
-    assert row is not None
-    assert "monday" in row.routine_json
-    assert "M1" in row.routine_json
+    # The owner is the principal; a forged ``user_id`` body field is ignored.
+    rows = session.exec(select(PaesWeeklyRoutine)).all()
+    assert len(rows) == 1
+    assert rows[0].user_id == enrolled_user.user_id
+    assert "monday" in rows[0].routine_json
+    assert "M1" in rows[0].routine_json
 
 
 def test_routine_survives_a_fresh_read(client, m1_only):
@@ -140,17 +141,6 @@ def test_routine_survives_a_fresh_read(client, m1_only):
     routine = resp.json()["routine"]
     assert routine["monday"] == "M1"
     assert routine["sunday"] == "REST"
-
-
-def test_routine_is_not_shared_between_users(client, m1_and_m2):
-    """A stored routine must not leak into another user's routine."""
-    client.post("/api/paes/study/routine", json={"user_id": 1, "routine": {"monday": "M2"}})
-
-    stored = client.get("/api/paes/study/routine?user_id=1").json()["routine"]
-    other = client.get("/api/paes/study/routine?user_id=2").json()["routine"]
-
-    assert stored["monday"] == "M2"
-    assert other["monday"] == "M1"
 
 
 def test_update_routine_rejects_a_subject_that_does_not_exist(client, m1_only, session: Session):
@@ -261,14 +251,14 @@ def test_quick_start_uses_the_santiago_local_day(client, m1_only, monkeypatch):
     assert data["subject_code"] == "M1"
 
 
-def test_quick_start_rejects_a_stored_subject_that_does_not_exist(client, m1_only, session: Session):
+def test_quick_start_rejects_a_stored_subject_that_does_not_exist(client, enrolled_user, m1_only, session: Session):
     """Quick-start must verify the subject exists before starting a session."""
     from models.paes_models import PaesStudySession, PaesWeeklyRoutine
 
     session.add(
         PaesWeeklyRoutine(
             id="routine-legacy-01",
-            user_id=5,
+            user_id=enrolled_user.user_id,
             routine_json=(
                 '{"monday": "HISTORIA", "tuesday": "HISTORIA", "wednesday": "HISTORIA", '
                 '"thursday": "HISTORIA", "friday": "HISTORIA", "saturday": "HISTORIA", '

@@ -14,6 +14,7 @@ from starlette.staticfiles import StaticFiles
 
 from api.routes import (
     assessments,
+    auth,
     books,
     coach,
     cognitive,
@@ -101,12 +102,21 @@ def _check_cors_production_guard():
         logger.warning("CORS_ORIGIN is '*' — do not use in production")
 
 
+def _check_disable_auth_production_guard():
+    """The DISABLE_AUTH test/legacy bypass must never reach production (R6)."""
+    if os.getenv("DISABLE_AUTH") == "1" and os.getenv("PRODUCTION") == "1":
+        raise RuntimeError(
+            "refusing to start: DISABLE_AUTH=1 is incompatible with PRODUCTION=1"
+        )
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     )
+    _check_disable_auth_production_guard()
     _check_cors_production_guard()
     if os.getenv("DISABLE_AUTH") == "1":
         logger.warning("Authentication DISABLED — API is open")
@@ -173,6 +183,7 @@ app.include_router(paes_router)
 app.include_router(paes_admission_router)
 app.include_router(paes_errors_router, prefix="/api/paes/errors", tags=["PAES Errors"])
 app.include_router(paes_questions_router, prefix="/api/paes/questions", tags=["PAES Questions"])
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 
 
 @app.get("/")

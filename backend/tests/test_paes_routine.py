@@ -7,19 +7,19 @@ Verifica:
 
 Nota: las materias de la rutina se validan contra las asignaturas que existen
 en la base de datos, por lo que los tests siembran LECTURA/CIENCIAS/M2 antes
-de asignarlas.
+de asignarlas. Los ``user_id`` de las peticiones son válidos forjados: el
+propietario es el principal autenticado y dichos campos se ignoran (DO-02).
 """
 import pytest
-from fastapi.testclient import TestClient
 
-from main import app
 from seed_paes import seed_paes_data
 from services.paes.seed_multidisciplinary import seed_multidisciplinary
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 
 @pytest.fixture

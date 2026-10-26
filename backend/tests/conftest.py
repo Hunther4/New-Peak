@@ -130,6 +130,92 @@ def disable_auth(monkeypatch):
     yield
 
 
+class EnrolledUser:
+    """A real principal plus its authenticated client (opt-in `enrolled_user`)."""
+
+    def __init__(self, client, user_id: int, email: str, bearer_token: str):
+        self.client = client
+        self.user_id = user_id
+        self.email = email
+        self.bearer_token = bearer_token
+
+
+def _p256_key():
+    from cryptography.hazmat.primitives.asymmetric import ec
+
+    return ec.generate_private_key(ec.SECP256R1())
+
+
+def _spki_b64(key) -> str:
+    import base64
+
+    from cryptography.hazmat.primitives import serialization
+
+    spki = key.public_key().public_bytes(
+        serialization.Encoding.DER,
+        serialization.PublicFormat.SubjectPublicKeyInfo,
+    )
+    return base64.b64encode(spki).decode("ascii")
+
+
+def _sign_p1363(privkey, message: bytes) -> str:
+    """WebCrypto-style raw (64-byte r‖s) signature, base64-encoded."""
+    import base64
+
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.asymmetric import ec
+
+    raw = privkey.sign(message, ec.ECDSA(hashes.SHA256()))
+    return base64.b64encode(raw).decode("ascii")
+
+
+@pytest.fixture(name="enrolled_user")
+def enrolled_user_fixture(client, session):
+    """A REAL user obtained through the production enrollment services.
+
+    The route runs enroll → challenge → verify, verifies the signed challenge,
+    and returns the resulting bearer session attached to the client — the same
+    recipe design.md prescribes for the route harness (S11.2 replaces the
+    autouse ``disable_auth`` fixture with this pattern suite-wide; until then
+    only modules whose routes consume ``UserPrincipalDep`` opt into it).
+    """
+    from core.crypto_keys import canonical_message
+    from core.limiter import limiter
+
+    limiter.reset()
+    privkey = _p256_key()
+    email = "harness-principal@example.com"
+    response = client.post(
+        "/api/auth/enroll",
+        json={"email": email, "public_key_b64": _spki_b64(privkey), "label": "harness"},
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    challenge = client.post(
+        "/api/auth/challenge",
+        json={"email": email, "device_id": body["device_id"]},
+    ).json()
+    message = canonical_message(
+        challenge_id=challenge["challenge_id"],
+        nonce=challenge["nonce"],
+        email=challenge["email"],
+        origin=challenge["origin"],
+        deployment_id=challenge["deployment_id"],
+    )
+    response = client.post(
+        "/api/auth/verify",
+        json={
+            "challenge_id": challenge["challenge_id"],
+            "signature_b64": _sign_p1363(privkey, message),
+        },
+    )
+    assert response.status_code == 200, response.text
+    token = response.json()["token"]
+    client.headers["Authorization"] = f"Bearer {token}"
+    yield EnrolledUser(client, body["user_id"], email, token)
+    limiter.reset()
+
+
 @pytest.fixture(name="api_key")
 def api_key_fixture(session):
     """Sets up a known API key in the AppSetting table and caches it on

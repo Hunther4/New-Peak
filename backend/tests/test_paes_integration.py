@@ -1,10 +1,8 @@
 from datetime import datetime, timezone
 
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from main import app
 from models.models import Skill
 from models.paes_models import (
     PaesLearningState,
@@ -20,11 +18,12 @@ from services.paes.learning_engine import (
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 @pytest.fixture
-def seeded_paes(session: Session):
+def seeded_paes(session: Session, enrolled_user):
     # Ensure baseline skill exists for cognitive telemetry bridge
     skill1 = session.get(Skill, 1)
     if not skill1:
@@ -91,11 +90,11 @@ def seeded_paes(session: Session):
     session.add(q)
     session.flush()
 
-    # Add learning state
+    # Add learning state (owned by the calling principal)
     now = datetime.now(timezone.utc)
     st = PaesLearningState(
         id="ls-test-01",
-        user_id=1,
+        user_id=enrolled_user.user_id,
         subtopic_id="sub-test-01",
         mastery_score=0.50,
         fsrs_stability=2.0,
@@ -138,7 +137,7 @@ def test_parametric_sympy_generation():
 
 
 def test_paes_fsrs_status_endpoint(client, seeded_paes):
-    res = client.get("/api/paes/fsrs/status?user_id=1")
+    res = client.get("/api/paes/fsrs/status")
     assert res.status_code == 200
     data = res.json()
     assert "subtopics" in data

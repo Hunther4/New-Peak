@@ -14,10 +14,8 @@ import re
 from pathlib import Path
 
 import pytest
-from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from main import app
 from models.paes_models import (
     PaesCompetency,
     PaesCurriculumVersion,
@@ -46,8 +44,9 @@ def _observed_literals():
 
 
 @pytest.fixture
-def client(disable_auth):
-    return TestClient(app)
+def client(enrolled_user):
+    """Real principal enrolled through the production services (conftest)."""
+    return enrolled_user.client
 
 
 # ---------------------------------------------------------------------------
@@ -132,7 +131,7 @@ def test_diagnose_mistake_uses_the_canonical_cause():
     assert dominant[0]["cause"] == "CALCULO"
 
 
-def _seed_question_with_attempt(session: Session, mistake_cause=None, option_distractor=None):
+def _seed_question_with_attempt(session: Session, user_id: int, mistake_cause=None, option_distractor=None):
     """Seed one M1 question plus a wrong attempt, and return nothing."""
     cv = PaesCurriculumVersion(id="cv-tax-01", code="DEMRE-TAX-2026", name="Tax 2026", year=2026)
     session.add(cv)
@@ -176,7 +175,7 @@ def _seed_question_with_attempt(session: Session, mistake_cause=None, option_dis
         )
     )
     session.add(
-        PaesStudySession(id="sess-tax-01", user_id=1, session_mode="PRACTICE")
+        PaesStudySession(id="sess-tax-01", user_id=user_id, session_mode="PRACTICE")
     )
     session.flush()
     session.add(
@@ -184,7 +183,7 @@ def _seed_question_with_attempt(session: Session, mistake_cause=None, option_dis
             id="att-tax-01",
             session_id="sess-tax-01",
             question_id="q-tax-01",
-            user_id=1,
+            user_id=user_id,
             selected_option="B",
             is_correct=False,
             mistake_cause=mistake_cause,
@@ -193,11 +192,11 @@ def _seed_question_with_attempt(session: Session, mistake_cause=None, option_dis
     session.commit()
 
 
-def test_error_vault_buckets_by_canonical_type_and_keeps_the_raw_value(client, session: Session):
+def test_error_vault_buckets_by_canonical_type_and_keeps_the_raw_value(client, enrolled_user, session: Session):
     """The aggregator buckets by the canonical type but still exposes the raw one."""
-    _seed_question_with_attempt(session, option_distractor="CALCULATION_ERROR")
+    _seed_question_with_attempt(session, user_id=enrolled_user.user_id, option_distractor="CALCULATION_ERROR")
 
-    resp = client.get("/api/paes/errors/vault?user_id=1")
+    resp = client.get("/api/paes/errors/vault")
 
     assert resp.status_code == 200
     payload = resp.json()
@@ -210,11 +209,11 @@ def test_error_vault_buckets_by_canonical_type_and_keeps_the_raw_value(client, s
     assert payload["items"][0]["raw_mistake_cause"] == "CALCULATION_ERROR"
 
 
-def test_error_notebook_aggregates_by_the_canonical_cause(client, session: Session):
+def test_error_notebook_aggregates_by_the_canonical_cause(client, enrolled_user, session: Session):
     """The error notebook groups by the canonical cause too."""
-    _seed_question_with_attempt(session, mistake_cause="SIGN_MISTAKE")
+    _seed_question_with_attempt(session, user_id=enrolled_user.user_id, mistake_cause="SIGN_MISTAKE")
 
-    resp = client.get("/api/paes/study/error_notebook?user_id=1")
+    resp = client.get("/api/paes/study/error_notebook")
 
     assert resp.status_code == 200
     payload = resp.json()
