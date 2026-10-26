@@ -3,13 +3,15 @@
 **Change**: `multi-user-foundation` · **Phase**: sdd-tasks · **Artifact store**: openspec
 **Date**: 2026-10-22 · **Last updated**: 2026-10-24
 
-> **Estado real al 2026-10-24:**
+> **Estado real al 2026-10-26:**
 > - F:\ cleanup: completado (contenido real movido a `F:\inutil`)
-> - FSRS tests: creados en `backend/tests/test_learning_engine_fsrs.py` pero **NO ejecutados** — baseline aún por verificar
-> - Multi-tenancy: **PARCIAL** — solo `Skill` tiene `user_id`; `Session`, `Assessment`, `UserProfile`, `AppSetting` y todos los modelos game-session **siguen sin él**
-> - S4 (PAES principal scoping): ** desmarcado ** — no se implementó; los tasks.md previos lo marcaban hecho por error
-> - FSRS weight externalization: **pendiente** — weights hardcoded en `learning_engine.py` líneas 448-455
-> - Los slices S1–S3 (identidad) no están implementados en código; los artifacts de openspec son el plan, no el código existente
+> - FSRS tests: **38/38 verdes** en `backend/tests/test_learning_engine_fsrs.py` (ruff limpio tras CI fix)
+> - S1–S3 (identidad): **implementados y commiteados** (`crypto_keys.py`, identity models/migración 013, enroll, challenge/verify, sesiones, S3.5 hygiene)
+> - S4 (PAES principal scoping): **COMPLETADO** — las 13 rutas son principal-derived, cargas crudas owner-scoped, suite `test_data_isolation.py` **8/8 verdes** (2026-10-26)
+> - Multi-tenancy schema (user_id en `Session`/`Assessment`/`UserProfile`/etc. + migración 014 + FSRS weights externos): **EN CURSO** — sub-agente en background
+> - S7+S8 (ownership migration + Peak Practice scoping): **INICIADO** — sub-agente en background (S7.1/S8.1 RED, S7.4, S7.5)
+> - S5, S6, S9, S10, S11: **pendientes**
+> - Nota: `backend\venv` está vacío; el entorno de tests real es `backend\uv-venv` (completado desde `requirements.txt` sin `chromadb` el 2026-10-26; `cryptography==50.0.2` pineado)
 **Inputs**: `proposal.md` (11 slices, mandatory test table), `design.md` (schema, R3 consumption protocol, failure matrix, `Principal` contract), `specs/{identity,data-ownership,credentials,user-settings}/spec.md`, `spec-crosscutting.md` §2 (authoritative requirement → slice → test binding), `research.md` R1–R4 (8/8 gaps closed).
 **Delivery**: `auto-chain` · project review budget **800 changed lines** (`openspec/config.yaml:35`) · chain strategy **`feature-branch-chain`** (owner-selected).
 
@@ -132,9 +134,9 @@ Tracker branch `feature/multi-user-foundation` carries a **draft / no-merge trac
 
 *Boundary: all 13 client-supplied `user_id` sites and both raw session loads are principal-derived; a second user is invisible. Project: backend. Est ~690 lines.*
 
-- [ ] S4.1 [DO-01, DO-02, DO-11] RED — create `backend/tests/test_data_isolation.py`: the OpenAPI schema of the 13 operations declares no `user_id` and still validates a request carrying an unknown `user_id`; a forged id serves only the caller's rows; a submit updates only the caller's `fsrs_stability`/`leitner_box`/`mastery_score`/`next_review_at` and leaves the other user's row byte-for-byte unchanged; submitting into another user's session → **404** with that session's counters unchanged; finalizing another user's exam → **404** with their IRT `theta` unchanged; the caller's own session still works; the reported owner equals the principal id, not the forged value; `POST /api/coach/chat` accepts no `user_id` body field. Test: `backend\venv\Scripts\python.exe -m pytest backend/tests/test_data_isolation.py -q` → **MUST FAIL** before S4.2. Est ~180 lines.
-- [ ] S4.2 [DO-01] GREEN — delete the `user_id` parameter/body field from the 13 sites and resolve the owner from the principal: `backend/api/routes/paes.py` (10 sites), `backend/api/routes/paes_errors.py` (2 sites), `backend/api/routes/coach.py` (1 site). The parameter is **deleted, not ignored**. Test: `backend\venv\Scripts\python.exe -m pytest backend/tests/test_data_isolation.py -q` → green. Est ~300 lines.
-- [ ] S4.3 [DO-02, DO-11] GREEN — make the two raw session loads owner-scoped in `backend/api/routes/paes.py` (`:619`, `:828`): select by id **and** `principal.user_id`, answer **404, never 403**; report the server-derived owner id in every response that still carries `user_id`. Test: `backend\venv\Scripts\python.exe -m pytest backend/tests/test_data_isolation.py -q` → green. Est ~210 lines.
+- [x] S4.1 [DO-01, DO-02, DO-11] RED — create `backend/tests/test_data_isolation.py`: the OpenAPI schema of the 13 operations declares no `user_id` and still validates a request carrying an unknown `user_id`; a forged id serves only the caller's rows; a submit updates only the caller's `fsrs_stability`/`leitner_box`/`mastery_score`/`next_review_at` and leaves the other user's row byte-for-byte unchanged; submitting into another user's session → **404** with that session's counters unchanged; finalizing another user's exam → **404** with their IRT `theta` unchanged; the caller's own session still works; the reported owner equals the principal id, not the forged value; `POST /api/coach/chat` accepts no `user_id` body field. Test: `backend\venv\Scripts\python.exe -m pytest backend/tests/test_data_isolation.py -q` → **MUST FAIL** before S4.2. Est ~180 lines.
+- [x] S4.2 [DO-01] GREEN — delete the `user_id` parameter/body field from the 13 sites and resolve the owner from the principal: `backend/api/routes/paes.py` (10 sites), `backend/api/routes/paes_errors.py` (2 sites), `backend/api/routes/coach.py` (1 site). The parameter is **deleted, not ignored**. Test: `backend\venv\Scripts\python.exe -m pytest backend/tests/test_data_isolation.py -q` → green. Est ~300 lines.
+- [x] S4.3 [DO-02, DO-11] GREEN — make the two raw session loads owner-scoped in `backend/api/routes/paes.py` (`:619`, `:828`): select by id **and** `principal.user_id`, answer **404, never 403**; report the server-derived owner id in every response that still carries `user_id`. Test: `backend\venv\Scripts\python.exe -m pytest backend/tests/test_data_isolation.py -q` → green. Est ~210 lines.
 
 ## Slice S5 — Browser device keys, the auth slice and the enrollment screen
 
