@@ -13,20 +13,19 @@ FSRS_W = [0.4072, 1.1827, 3.1262, 15.4722, 7.2102, 0.5316, 1.0651, 0.0234,
           1.6160, 0.1544, 1.0824, 1.9813, 0.0953, 0.2975, 0.2242, 0.2507, 2.9466]
 """
 import math
-import pytest
-from datetime import datetime, timedelta, timezone
 
 # Import the module under test
 import sys
+
 sys.path.insert(0, "backend")
 from services.paes.learning_engine import (
-    calculate_retrievability,
-    infer_fsrs_grade,
-    next_difficulty,
-    next_recall_stability,
-    initial_difficulty,
     FACTOR,
     FSRS_W,
+    calculate_retrievability,
+    infer_fsrs_grade,
+    initial_difficulty,
+    next_difficulty,
+    next_recall_stability,
 )
 
 
@@ -194,7 +193,6 @@ class TestNextDifficulty:
     def test_mean_reversion_towards_good(self):
         """Difficulty should revert toward D0(Good) after each review."""
         d0_good = initial_difficulty(3)
-        w6, w7 = FSRS_W[6], FSRS_W[7]
 
         # Starting difficulty far from D0(Good)
         d_far = 9.0
