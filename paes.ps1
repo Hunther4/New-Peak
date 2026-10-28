@@ -41,6 +41,12 @@ $ProjectRoot = $PSScriptRoot
 $BackendDir = Join-Path $ProjectRoot 'backend'
 $FrontendDir = Join-Path $ProjectRoot 'frontend'
 $VenvDir = Join-Path $BackendDir 'venv'
+if (-not (Test-Path (Join-Path $VenvDir 'Scripts\uvicorn.exe'))) {
+    $UvVenvDir = Join-Path $BackendDir 'uv-venv'
+    if (Test-Path (Join-Path $UvVenvDir 'Scripts\uvicorn.exe')) {
+        $VenvDir = $UvVenvDir
+    }
+}
 $PythonExe = Join-Path $VenvDir 'Scripts\python.exe'
 $LogsDir = Join-Path $ProjectRoot 'logs'
 $BackendLogPath = Join-Path $LogsDir 'backend.log'
@@ -296,25 +302,25 @@ Write-Detail "pnpm              : $PnpmPath"
 # Both ports are inspected before anything is started, so a conflict never
 # leaves a half-launched stack behind.
 
-$backendPort = Get-PortState -Port $BackendPort -Role 'backend'
-$frontendPort = Get-PortState -Port $FrontendPort -Role 'frontend'
+$backendPortState = Get-PortState -Port $BackendPort -Role 'backend'
+$frontendPortState = Get-PortState -Port $FrontendPort -Role 'frontend'
 
-if ($backendPort.State -eq 'foreign') {
-    Write-PortConflict -Port $BackendPort -Role 'backend' -Process $backendPort.Process
+if ($backendPortState.State -eq 'foreign') {
+    Write-PortConflict -Port $BackendPort -Role 'backend' -Process $backendPortState.Process
     exit 1
 }
-if ($frontendPort.State -eq 'foreign') {
-    Write-PortConflict -Port $FrontendPort -Role 'frontend' -Process $frontendPort.Process
+if ($frontendPortState.State -eq 'foreign') {
+    Write-PortConflict -Port $FrontendPort -Role 'frontend' -Process $frontendPortState.Process
     exit 1
 }
 
 # --- Backend -----------------------------------------------------------------
 
 $backendStarted = $false
-if ($backendPort.State -eq 'ours') {
-    Write-Peak "Backend ya activo en puerto $BackendPort (PID $($backendPort.ProcessId))." 'Green'
+if ($backendPortState.State -eq 'ours') {
+    Write-Peak "Backend ya activo en puerto $BackendPort (PID $($backendPortState.ProcessId))." 'Green'
     if (-not (Wait-ForEndpointReady -Url $BackendUrl -TimeoutSeconds $ReuseGraceSeconds)) {
-        Write-Peak "ERROR: el puerto $BackendPort lo ocupa un proceso de este repositorio (PID $($backendPort.ProcessId)) pero no responde." 'Red'
+        Write-Peak "ERROR: el puerto $BackendPort lo ocupa un proceso de este repositorio (PID $($backendPortState.ProcessId)) pero no responde." 'Red'
         Write-Peak "Revisa el log: $BackendLogPath" 'Red'
         Write-LogTail -LogPath $BackendLogPath
         exit 1
@@ -332,10 +338,10 @@ else {
 # --- Frontend ----------------------------------------------------------------
 
 $frontendStarted = $false
-if ($frontendPort.State -eq 'ours') {
-    Write-Peak "Frontend ya activo en puerto $FrontendPort (PID $($frontendPort.ProcessId))." 'Green'
+if ($frontendPortState.State -eq 'ours') {
+    Write-Peak "Frontend ya activo en puerto $FrontendPort (PID $($frontendPortState.ProcessId))." 'Green'
     if (-not (Wait-ForEndpointReady -Url $FrontendUrl -TimeoutSeconds $ReuseGraceSeconds)) {
-        Write-Peak "ERROR: el puerto $FrontendPort lo ocupa un proceso de este repositorio (PID $($frontendPort.ProcessId)) pero no responde." 'Red'
+        Write-Peak "ERROR: el puerto $FrontendPort lo ocupa un proceso de este repositorio (PID $($frontendPortState.ProcessId)) pero no responde." 'Red'
         Write-Peak "Revisa el log: $FrontendLogPath" 'Red'
         Write-LogTail -LogPath $FrontendLogPath
         exit 1
