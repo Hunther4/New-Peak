@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 
 from services.paes.demre_scale import SUBJECT_METADATA
+from services.paes.nem_scale import grade_to_nem_score, nem_score_to_grade
 
 # Catálogo oficial CRUCH con carreras emblemáticas de alta demanda
 CRUCH_CAREERS: List[Dict[str, Any]] = [
@@ -4549,27 +4550,13 @@ def get_career_by_id(career_id: str) -> Optional[Dict[str, Any]]:
 def normalize_nem_ranking(value: Union[float, int]) -> float:
     """
     Normaliza el valor de NEM o Ranking al rango oficial DEMRE (100 a 1000).
-    Si el usuario ingresa una nota chilena (1.00 a 7.00 o valor < 100), la convierte según la
-    fórmula oficial DEMRE Grupo A:
-    4.00 -> 100 pts
-    5.00 -> 400 pts
-    6.00 -> 700 pts
-    7.00 -> 1000 pts
-    Puntaje = 100.0 + (Nota - 4.00) * 300.0
+    Si el usuario ingresa una nota chilena (1.00 a 7.00 o valor < 100), la convierte según
+    la tabla oficial DEMRE Grupo A: Enseñanza Humanístico-Científica (4.00 = 100 pts ... 7.00 = 1000 pts).
     """
     val = float(value)
     if val < 100.0:
-        # Es escala de notas (1.0 a 7.0). Piso mínimo de aprobación DEMRE es 4.0 (100 pts)
-        clamped_note = max(4.0, min(7.0, val))
-        val = 100.0 + (clamped_note - 4.0) * 300.0
+        val = float(grade_to_nem_score(val))
     return float(np.clip(val, 100.0, 1000.0))
-
-
-def nem_score_to_grade(score: Union[float, int]) -> float:
-    """Convierte puntaje NEM oficial (100 a 1000) a nota de enseñanza media chilena (4.00 a 7.00)."""
-    s = float(np.clip(score, 100.0, 1000.0))
-    grade = 4.0 + (s - 100.0) / 300.0
-    return round(grade, 2)
 
 
 def paes_score_to_raw_items(score: Union[int, float], subject_code: str = "M1") -> int:

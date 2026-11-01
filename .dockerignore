@@ -7,6 +7,20 @@
 .pytest_cache
 .ruff_cache
 logs
+
+# Environment and secrets (CRITICAL)
+.env
+*.env
+backend/.env*
+frontend/.env*
+
+# Databases and local storage
+*.db
+*.sqlite
+/data
+uploads/
+
+# Virtual environments and caches
 backend/venv
 backend/uv-venv
 backend/__pycache__
@@ -14,6 +28,8 @@ backend/.pytest_cache
 backend/.ruff_cache
 frontend/node_modules
 frontend/coverage
+
+# Scripts and binaries
 *.apk
 paes.ps1
 tunnel.ps1

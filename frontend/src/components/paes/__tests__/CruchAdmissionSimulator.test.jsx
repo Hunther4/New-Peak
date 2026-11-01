@@ -97,7 +97,7 @@ describe("CruchAdmissionSimulator Component", () => {
       expect(api.paes.admission.getCareers).toHaveBeenCalledTimes(1)
     })
 
-    expect(await screen.findByText(/Beauchef/i)).toBeInTheDocument()
+    expect((await screen.findAllByText(/Beauchef/i)).length).toBeGreaterThan(0)
   })
 
   it("renders live probability bar and admission verdict", async () => {
@@ -110,5 +110,17 @@ describe("CruchAdmissionSimulator Component", () => {
     expect(await screen.findByText("88.5%")).toBeInTheDocument()
     expect(screen.getAllByText("Segura").length).toBeGreaterThan(0)
     expect(screen.getByText(/Alta certeza de selección/i)).toBeInTheDocument()
+  })
+
+  it("renders scope controls and grouped career optgroups", async () => {
+    render(<CruchAdmissionSimulator />)
+
+    await waitFor(() => {
+      expect(api.paes.admission.getCareers).toHaveBeenCalled()
+    })
+
+    expect(screen.getByText(/Top \/ Alta Demanda/i)).toBeInTheDocument()
+    expect(screen.getByText(/Catálogo Completo/i)).toBeInTheDocument()
+    expect(screen.getByRole("combobox")).toBeInTheDocument()
   })
 })

@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react"
 import { api } from "../../api/client"
+import { gradeFromNem, nemFromGrade } from "../../utils/nemScale"
 
 export function CruchAdmissionSimulator() {
   const [careers, setCareers] = useState([])
   const [loadingCareers, setLoadingCareers] = useState(true)
   const [selectedCareerId, setSelectedCareerId] = useState("medicina-udec")
-  const [selectedUniversityFilter, setSelectedUniversityFilter] = useState("CONCEPCION")
+  const [selectedRegionFilter, setSelectedRegionFilter] = useState("ALL")
+  const [selectedUniversityFilter, setSelectedUniversityFilter] = useState("ALL")
+  const [scopeFilter, setScopeFilter] = useState("POPULAR") // "POPULAR" | "ALL"
   const [selectedCampusFilter, setSelectedCampusFilter] = useState("ALL")
   const [searchTerm, setSearchTerm] = useState("")
 
-  // Sincronización Nota (4.00 - 7.00) y Puntaje NEM oficial DEMRE (100 - 1000)
-  // Fórmula DEMRE Grupo A: Puntaje = 100 + (Nota - 4.0) * 300
-  const gradeFromNem = (score) => Number((4.0 + (Math.max(100, Math.min(1000, score)) - 100) / 300).toFixed(2))
-  const nemFromGrade = (grade) => Math.round(100 + (Math.max(4.0, Math.min(7.0, grade)) - 4.0) * 300)
-
-  // Factores académicos (NEM, Ranking) y pruebas PAES
-  const [nem, setNem] = useState(820)
-  const [nemGrade, setNemGrade] = useState(gradeFromNem(820)) // 6.40
+  // Factores académicos (NEM, Ranking) y pruebas PAES calibrados con tabla oficial DEMRE Grupo A
+  const [nem, setNem] = useState(828)
+  const [nemGrade, setNemGrade] = useState(6.40) // 6.40 = 828 pts oficiales DEMRE
   const [ranking, setRanking] = useState(850)
   const [m1, setM1] = useState(800)
   const [lectura, setLectura] = useState(780)
@@ -64,6 +62,9 @@ export function CruchAdmissionSimulator() {
           setCareers(res.careers)
           const defaultCareer = res.careers.find((c) => c.id === "medicina-udec") || res.careers[0]
           setSelectedCareerId(defaultCareer.id)
+          if (res.careers.some((c) => c.region === "Biobío")) {
+            setSelectedRegionFilter("Biobío")
+          }
         }
       } catch (err) {
         console.error("Error cargando carreras CRUCH:", err)
@@ -116,22 +117,106 @@ export function CruchAdmissionSimulator() {
     return () => clearTimeout(timer)
   }, [runSimulation])
 
-  // Filtrado de carreras por universidad, campus y búsqueda textual
+  // Heurística de alta demanda / carreras populares
+  const isPopularCareer = useCallback((c) => {
+    if (c.is_popular === true) return true
+    const cutoff2026 = Number(c.cutoffs?.["2026"] || c.cutoffs?.["2025"] || 0)
+    if (cutoff2026 >= 720) return true
+    const popularRegex =
+      /(medicina|odontolog|enfermer|obstetricia|kinesiolog|psicolog|derecho|arquitectura|civil industrial|civil inform|civil plan com|civil el[eé]ctrica|civil qu[ií]mica|civil mec[aá]nica|ingenier.*comercial|auditor|trabajo social|farmacia|bioqu|tecnolog.*m[eé]dica|veterinaria|educaci[oó]n diferencial)/i
+    return popularRegex.test(c.name || "")
+  }, [])
+
+  // Regiones disponibles en los datos
+  const availableRegions = useMemo(() => {
+    const regSet = new Set()
+    careers.forEach((c) => {
+      if (c.region) regSet.add(c.region)
+    })
+    const regionPills = [{ id: "ALL", label: "🌐 Todas las Regiones" }]
+    const regionIcons = {
+      Biobío: "📍",
+      Ñuble: "🌱",
+      Metropolitana: "🏛️",
+      Valparaíso: "🌊",
+    }
+    const preferredOrder = ["Biobío", "Ñuble", "Metropolitana", "Valparaíso"]
+    preferredOrder.forEach((r) => {
+      if (regSet.has(r)) {
+        regionPills.push({
+          id: r,
+          label: `${regionIcons[r] || "📌"} Región del ${r}`,
+        })
+        regSet.delete(r)
+      }
+    })
+    regSet.forEach((r) => {
+      regionPills.push({ id: r, label: `📌 ${r}` })
+    })
+    return regionPills
+  }, [careers])
+
+  // Universidades disponibles dinámicamente según la región seleccionada
+  const availableUniversities = useMemo(() => {
+    let pool = careers
+    if (selectedRegionFilter !== "ALL") {
+      pool = pool.filter((c) => c.region === selectedRegionFilter)
+    }
+    const map = new Map()
+    pool.forEach((c) => {
+      if (c.university_short && !map.has(c.university_short)) {
+        map.set(c.university_short, c.university || c.university_short)
+      }
+    })
+
+    const shortLabels = {
+      UdeC: "U. de Concepción",
+      UBB: "U. del Bío-Bío",
+      UCSC: "UCSC",
+      UCH: "U. de Chile",
+      PUC: "Católica (PUC)",
+      USACH: "USACH",
+      UTFSM: "Santa María",
+    }
+
+    const items = [
+      {
+        id: "ALL",
+        label: selectedRegionFilter === "ALL" ? "Todas las Universidades" : `Todas en ${selectedRegionFilter}`,
+      },
+    ]
+
+    map.forEach((fullName, shortCode) => {
+      items.push({
+        id: shortCode,
+        label: shortLabels[shortCode] || shortCode,
+      })
+    })
+
+    return items
+  }, [careers, selectedRegionFilter])
+
+  // Filtrado de carreras por región, universidad, campus, alcance y búsqueda
   const filteredCareers = useMemo(() => {
     let list = careers
-    if (selectedUniversityFilter === "CONCEPCION") {
-      list = list.filter(
-        (c) =>
-          ["UdeC", "UBB", "UCSC"].includes(c.university_short) ||
-          c.city === "Concepción" ||
-          c.region === "Biobío"
-      )
-    } else if (selectedUniversityFilter !== "ALL") {
+
+    if (selectedRegionFilter !== "ALL") {
+      list = list.filter((c) => c.region === selectedRegionFilter)
+    }
+
+    if (selectedUniversityFilter !== "ALL") {
       list = list.filter((c) => c.university_short === selectedUniversityFilter)
     }
 
     if (selectedCampusFilter !== "ALL") {
       list = list.filter((c) => (c.campus || "").toLowerCase().includes(selectedCampusFilter.toLowerCase()))
+    }
+
+    if (scopeFilter === "POPULAR" && !searchTerm.trim()) {
+      const popList = list.filter(isPopularCareer)
+      if (popList.length > 0) {
+        list = popList
+      }
     }
 
     if (searchTerm.trim()) {
@@ -146,7 +231,68 @@ export function CruchAdmissionSimulator() {
     }
 
     return list
-  }, [careers, selectedUniversityFilter, selectedCampusFilter, searchTerm])
+  }, [
+    careers,
+    selectedRegionFilter,
+    selectedUniversityFilter,
+    selectedCampusFilter,
+    scopeFilter,
+    searchTerm,
+    isPopularCareer,
+  ])
+
+  // Agrupación por Área de Estudio y ordenamiento por Puntaje de Corte 2026 descendente
+  const AREA_PRIORITY = [
+    "Ciencias de la Salud",
+    "Ingeniería y Ciencias Exactas",
+    "Ciencias Sociales y Jurídicas",
+    "Ciencias Sociales",
+    "Arquitectura, Arte y Diseño",
+    "Educación",
+    "Humanidades y Ciencias",
+    "Ciencias Naturales y Agropecuarias",
+  ]
+
+  const groupedCareers = useMemo(() => {
+    const map = {}
+    filteredCareers.forEach((c) => {
+      const area = c.area || "Otras Áreas"
+      if (!map[area]) map[area] = []
+      map[area].push(c)
+    })
+
+    Object.keys(map).forEach((area) => {
+      map[area].sort((a, b) => {
+        const scoreA = Number(a.cutoffs?.["2026"] || a.cutoffs?.["2025"] || 0)
+        const scoreB = Number(b.cutoffs?.["2026"] || b.cutoffs?.["2025"] || 0)
+        if (scoreB !== scoreA) return scoreB - scoreA
+        return (a.name || "").localeCompare(b.name || "")
+      })
+    })
+
+    const sortedEntries = []
+    AREA_PRIORITY.forEach((area) => {
+      if (map[area] && map[area].length > 0) {
+        sortedEntries.push([area, map[area]])
+        delete map[area]
+      }
+    })
+    Object.entries(map).forEach(([area, list]) => {
+      if (list.length > 0) sortedEntries.push([area, list])
+    })
+
+    return sortedEntries
+  }, [filteredCareers])
+
+  // Sincronizar carrera seleccionada si queda fuera de los filtros
+  useEffect(() => {
+    if (filteredCareers.length > 0) {
+      const exists = filteredCareers.some((c) => c.id === selectedCareerId)
+      if (!exists) {
+        setSelectedCareerId(filteredCareers[0].id)
+      }
+    }
+  }, [filteredCareers, selectedCareerId])
 
   const selectedCareer = useMemo(() => {
     return careers.find((c) => c.id === selectedCareerId) || filteredCareers[0] || careers[0]
@@ -194,18 +340,6 @@ export function CruchAdmissionSimulator() {
     simulation?.category || "Competitiva",
     simulation?.probability || 50
   )
-
-  const universityPills = [
-    { id: "CONCEPCION", label: "📍 Zona Concepción (Biobío)" },
-    { id: "UdeC", label: "U. de Concepción" },
-    { id: "UBB", label: "U. del Bío-Bío" },
-    { id: "UCSC", label: "UCSC" },
-    { id: "ALL", label: "Todas las Universidades" },
-    { id: "UCH", label: "U. de Chile" },
-    { id: "PUC", label: "Católica (PUC)" },
-    { id: "USACH", label: "USACH" },
-    { id: "UTFSM", label: "Santa María" },
-  ]
 
   return (
     <div className="space-y-8 animate-fade-in pb-12">
@@ -271,21 +405,94 @@ export function CruchAdmissionSimulator() {
               )}
             </div>
 
-            {/* Filtro de Universidades */}
-            <div className="flex flex-wrap gap-1.5">
-              {universityPills.map((u) => (
+            {/* 1. Filtro de Región */}
+            {availableRegions.length > 1 && (
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-[11px] font-mono">
+                  <span className="text-neutral-400 font-semibold uppercase tracking-wider">1. Región Geográfica:</span>
+                  <span className="text-neutral-500">{selectedRegionFilter === "ALL" ? "Nacional" : selectedRegionFilter}</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {availableRegions.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedRegionFilter(r.id)
+                        setSelectedUniversityFilter("ALL")
+                        setSelectedCampusFilter("ALL")
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                        selectedRegionFilter === r.id
+                          ? "bg-sky-500 text-neutral-950 font-bold shadow-sm"
+                          : "bg-white/[0.04] text-neutral-400 hover:text-white hover:bg-white/[0.08]"
+                      }`}
+                    >
+                      {r.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 2. Filtro de Universidad */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center text-[11px] font-mono">
+                <span className="text-neutral-400 font-semibold uppercase tracking-wider">2. Universidad:</span>
+                <span className="text-neutral-500">{selectedUniversityFilter === "ALL" ? "Todas" : selectedUniversityFilter}</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {availableUniversities.map((u) => (
+                  <button
+                    key={u.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedUniversityFilter(u.id)
+                      setSelectedCampusFilter("ALL")
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                      selectedUniversityFilter === u.id
+                        ? "bg-sky-500 text-neutral-950 font-bold shadow-sm"
+                        : "bg-white/[0.04] text-neutral-400 hover:text-white hover:bg-white/[0.08]"
+                    }`}
+                  >
+                    {u.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. Filtro de Alcance: Populares vs Catálogo Completo */}
+            <div className="flex items-center justify-between p-1 rounded-xl bg-neutral-950/70 border border-white/[0.06]">
+              <span className="text-[10px] font-mono text-neutral-400 px-2 uppercase tracking-wider font-semibold">
+                Alcance:
+              </span>
+              <div className="flex gap-1">
                 <button
-                  key={u.id}
-                  onClick={() => setSelectedUniversityFilter(u.id)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
-                    selectedUniversityFilter === u.id
-                      ? "bg-sky-500 text-neutral-950 font-bold shadow-sm"
-                      : "bg-white/[0.04] text-neutral-400 hover:text-white hover:bg-white/[0.08]"
+                  type="button"
+                  onClick={() => setScopeFilter("POPULAR")}
+                  className={`px-3 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                    scopeFilter === "POPULAR"
+                      ? "bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
                   }`}
+                  title="Filtra por carreras de alta demanda y mayor interés general"
                 >
-                  {u.label}
+                  ⭐ Top / Alta Demanda
                 </button>
-              ))}
+                <button
+                  type="button"
+                  onClick={() => setScopeFilter("ALL")}
+                  className={`px-3 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                    scopeFilter === "ALL"
+                      ? "bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
+                  }`}
+                  title="Muestra todas las carreras disponibles sin excepción"
+                >
+                  📚 Catálogo Completo
+                </button>
+              </div>
             </div>
 
             {/* Buscador de Carreras y Filtro de Campus */}
@@ -309,8 +516,10 @@ export function CruchAdmissionSimulator() {
                 )}
               </div>
 
-              {/* Campus Pills para UdeC / Concepción */}
-              {["CONCEPCION", "UdeC", "UBB"].includes(selectedUniversityFilter) && (
+              {/* Campus Pills si existen sedes específicas */}
+              {["Concepción", "Chillán", "Los Ángeles"].some((cp) =>
+                filteredCareers.some((c) => (c.campus || "").toLowerCase().includes(cp.toLowerCase()))
+              ) && (
                 <div className="flex items-center gap-1.5 overflow-x-auto text-[10px] font-mono">
                   <span className="text-neutral-500">Campus:</span>
                   {[
@@ -335,7 +544,7 @@ export function CruchAdmissionSimulator() {
                 </div>
               )}
 
-              {/* Selector de Carrera */}
+              {/* Selector de Carrera Agrupado por Área y Ordenado por Corte */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <label className="text-neutral-400 font-medium">Seleccionar Carrera:</label>
@@ -349,11 +558,25 @@ export function CruchAdmissionSimulator() {
                   disabled={loadingCareers}
                   className="w-full bg-neutral-800/90 border border-white/[0.1] rounded-2xl px-4 py-3 text-white text-xs md:text-sm font-semibold focus:outline-none focus:border-sky-500 transition-colors cursor-pointer"
                 >
-                  {filteredCareers.map((c) => (
-                    <option key={c.id} value={c.id} className="bg-neutral-900 text-white">
-                      {c.name} ({c.campus}) — {c.university_short} • Cód. {c.code || "---"} (Corte '26: {c.cutoffs["2026"]} pts)
+                  {groupedCareers.length === 0 ? (
+                    <option value="" disabled className="bg-neutral-900 text-neutral-400">
+                      No hay carreras disponibles con estos filtros
                     </option>
-                  ))}
+                  ) : (
+                    groupedCareers.map(([area, careerList]) => (
+                      <optgroup
+                        key={area}
+                        label={`── ${area.toUpperCase()} (${careerList.length}) ──`}
+                        className="bg-neutral-950 text-sky-400 font-bold py-1"
+                      >
+                        {careerList.map((c) => (
+                          <option key={c.id} value={c.id} className="bg-neutral-900 text-white font-normal py-1">
+                            {c.name} ({c.campus}) — {c.university_short} • Corte '26: {c.cutoffs?.["2026"] || "---"} pts
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))
+                  )}
                 </select>
               </div>
             </div>
@@ -445,7 +668,7 @@ export function CruchAdmissionSimulator() {
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-neutral-200">NEM (Notas Enseñanza Media)</span>
-                      <div className="text-[10px] text-neutral-400 font-mono">Fórmula: 100 + (Nota - 4.0) × 300</div>
+                      <div className="text-[10px] text-neutral-400 font-mono">Tabla Oficial DEMRE Grupo A (301 notas)</div>
                     </div>
                     <div className="text-right">
                       <span className="font-mono font-black text-sky-400 text-sm">{nem} pts</span>
@@ -492,7 +715,7 @@ export function CruchAdmissionSimulator() {
                   />
                   <div className="flex justify-between text-[10px] text-neutral-500 font-mono">
                     <span>4.00 (100 pts)</span>
-                    <span>5.50 (550 pts)</span>
+                    <span>5.50 (572 pts)</span>
                     <span>7.00 (1000 pts)</span>
                   </div>
                 </div>
