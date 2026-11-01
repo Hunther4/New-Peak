@@ -67,7 +67,7 @@ export default function Dashboard() {
                 </h4>
               </div>
               <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed italic">
-                “Es gracioso como quizá el 80-90% de nosotros creemos que unas simples pruebas definirán nuestro futuro. Esto me hace pensar en el dilema del barco de Teseo: ¿qué somos nosotros si no un cuerpo que se renueva a sí mismo y así mismo? ¿Qué somos nosotros sin esta prueba? Al final la respuesta es simple y tonta incluso: somos nosotros y lo que decidamos hacer. Ánimo en lo que hagas, ahora y en el futuro.”
+                “Es gracioso como quizá el 80-90% de nosotros creemos que unas simples pruebas definirán nuestro futuro. Esto me hace pensar en el dilema del barco de Teseo: ¿qué somos nosotros si no un cuerpo que se renueva a sí mismo continuamente, qué somos nosotros sin esta prueba? Al final la respuesta es simple y tonta incluso: somos nosotros y lo que decidamos hacer. Ánimo en lo que hagas, ahora y en el futuro.”
               </p>
             </div>
           </div>
