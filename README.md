@@ -97,7 +97,18 @@ flowchart TD
 ### 1-Click Launch
 Start both the FastAPI backend and Vite frontend concurrently using the automated PowerShell launcher:
 
-```powershell
+``En cualquier terminal (CMD o PowerShell) en la raíz del proyecto, simplemente escribe cualquiera de estos comandos:
+
+`cmd
+paes
+# o tambien:
+peak
+# o tambien:
+teseo
+`
+
+O directamente vía PowerShell:
+`powershell
 .\paes.ps1
 ```
 
