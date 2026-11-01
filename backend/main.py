@@ -13,6 +13,7 @@ from starlette.responses import Response
 from starlette.staticfiles import StaticFiles
 
 from api.routes import (
+    admin,
     assessments,
     auth,
     books,
@@ -60,10 +61,10 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         nonce = secrets.token_hex(16)  # 32-character hex string
         csp = (
             f"default-src 'self'; "
-            f"script-src 'self' 'nonce-{nonce}'; "
-            f"style-src 'self' 'nonce-{nonce}'; "
+            f"script-src 'self' 'nonce-{nonce}' https://cdn.jsdelivr.net; "
+            f"style-src 'self' 'nonce-{nonce}' https://cdn.jsdelivr.net; "
             f"img-src 'self' data: blob:; "
-            f"font-src 'self' data:; "
+            f"font-src 'self' data: https://cdn.jsdelivr.net; "
             f"connect-src 'self'; "
             f"frame-ancestors 'none'"
         )
@@ -99,7 +100,7 @@ def _check_cors_production_guard():
     if origin == "*":
         if is_prod:
             raise RuntimeError("CORS_ORIGIN cannot be '*' in production")
-        logger.warning("CORS_ORIGIN is '*' — do not use in production")
+        logger.warning("CORS_ORIGIN is '*' -- do not use in production")
 
 
 def _check_disable_auth_production_guard():
@@ -119,12 +120,12 @@ async def lifespan(app: FastAPI):
     _check_disable_auth_production_guard()
     _check_cors_production_guard()
     if os.getenv("DISABLE_AUTH") == "1":
-        logger.warning("Authentication DISABLED — API is open")
+        logger.warning("Authentication DISABLED -- API is open")
     create_db_and_tables()
     raw_key = api_key_manager.initialize()
     if raw_key:
         logger.info(
-            "API Key generated: %s**** — copy this key and store it securely. "
+            "API Key generated: %s**** -- copy this key and store it securely. "
             "Set PEAK_API_KEY in .env to use your own key.",
             raw_key[:4],
         )
@@ -150,7 +151,7 @@ app.middleware("http")(auth_middleware)
 app.add_middleware(UploadsMimeMiddleware)
 app.add_middleware(SecurityHeadersMiddleware)
 
-# CORS middleware — outermost so ALL responses, including auth errors and exceptions, get CORS headers
+# CORS middleware -- outermost so ALL responses, including auth errors and exceptions, get CORS headers
 cors_env = os.getenv("CORS_ORIGIN", "http://localhost:5173,http://localhost:8081,http://localhost:7700")
 allowed_origins = [o.strip() for o in cors_env.split(",") if o.strip()]
 app.add_middleware(
@@ -161,7 +162,7 @@ app.add_middleware(
 )
 
 
-# Rate limiting — slowapi
+# Rate limiting -- slowapi
 app.state.limiter = limiter
 app.add_exception_handler(429, _rate_limit_exceeded_handler)
 
@@ -184,8 +185,44 @@ app.include_router(paes_admission_router)
 app.include_router(paes_errors_router, prefix="/api/paes/errors", tags=["PAES Errors"])
 app.include_router(paes_questions_router, prefix="/api/paes/questions", tags=["PAES Questions"])
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
+app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 
 
-@app.get("/")
-def root():
-    return {"status": "Peak Practice API corriendo"}
+_frontend_dist = _BASE / "dist"
+if not _frontend_dist.exists():
+    _frontend_dist = _BASE.parent / "frontend" / "dist"
+
+if _frontend_dist.exists() and (_frontend_dist / "index.html").exists():
+    from fastapi import HTTPException
+    from starlette.responses import FileResponse
+
+    app.mount("/assets", StaticFiles(directory=str(_frontend_dist / "assets")), name="assets")
+
+    _dist_resolved = _frontend_dist.resolve()
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        if full_path.startswith("api/") or full_path.startswith("static/") or full_path.startswith("uploads/"):
+            raise HTTPException(status_code=404, detail="Not Found")
+        
+        if full_path:
+            try:
+                target_path = (_frontend_dist / full_path).resolve()
+            except Exception:
+                raise HTTPException(status_code=404, detail="Not Found")
+
+            if not target_path.is_relative_to(_dist_resolved):
+                raise HTTPException(status_code=404, detail="Not Found")
+
+            if target_path.is_file():
+                return FileResponse(target_path)
+
+            # If path targets a static asset file with extension that doesn't exist, return 404
+            if "." in full_path.split("/")[-1]:
+                raise HTTPException(status_code=404, detail="Not Found")
+
+        return FileResponse(_frontend_dist / "index.html")
+else:
+    @app.get("/")
+    def root():
+        return {"status": "Peak Practice API corriendo"}

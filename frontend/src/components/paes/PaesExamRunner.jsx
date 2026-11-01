@@ -500,11 +500,11 @@ export function PaesExamRunner() {
 
             {/* Official DEMRE Question Image or Text Fallback */}
             {paesActiveQuestion.image_url ? (
-              <div className="mb-8 rounded-2xl overflow-hidden border border-white/10 bg-white p-3 md:p-5 shadow-2xl">
+              <div className="mb-8 rounded-2xl overflow-hidden border border-white/10 bg-neutral-900/90 p-2 md:p-3 shadow-2xl min-h-[140px] flex items-center justify-center">
                 <img
                   src={paesActiveQuestion.image_url}
                   alt={`Pregunta ${paesActiveQuestion.id || ""}`}
-                  className="w-full h-auto object-contain max-h-[550px] mx-auto rounded-lg select-none"
+                  className="w-full h-auto object-contain max-h-[550px] mx-auto rounded-xl bg-white p-2.5 md:p-4 select-none"
                   loading="lazy"
                 />
               </div>

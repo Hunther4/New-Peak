@@ -55,6 +55,25 @@ export default function Dashboard() {
       {/* 1. Deliberate Practice Hero & Plateau Alert */}
       {isLoading ? <SkeletonHero /> : <DeliberatePracticeHero />}
 
+      {/* Barco de Teseo Reflection Banner */}
+      <section className="mb-6">
+        <div className="p-5 rounded-3xl bg-gradient-to-r from-amber-500/[0.05] via-neutral-900/60 to-purple-500/[0.05] border border-amber-500/20 backdrop-blur-xl relative overflow-hidden">
+          <div className="flex items-start gap-3.5">
+            <span className="text-xl select-none mt-0.5">⛵</span>
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300 font-mono">
+                  PaesTeseo · El Barco de Teseo
+                </h4>
+              </div>
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed italic">
+                “Es gracioso como quizá el 80-90% de nosotros creemos que unas simples pruebas definirán nuestro futuro. Esto me hace pensar en el dilema del barco de Teseo: ¿qué somos nosotros si no un cuerpo que se renueva a sí mismo y así mismo? ¿Qué somos nosotros sin esta prueba? Al final la respuesta es simple y tonta incluso: somos nosotros y lo que decidamos hacer. Ánimo en lo que hagas, ahora y en el futuro.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 2. Optimal Daily Action (Algorithmic ZDP + FSRS Recommendation) */}
       <OptimalDailyAction />
 

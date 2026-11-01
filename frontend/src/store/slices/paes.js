@@ -186,19 +186,81 @@ export const createPaesSlice = (set, get) => ({
       })
       const targetSubject = subjectCode || get().paesActiveSubject || "M1"
       const data = await api.paes.startStudySession("EXAM", null, questionCount, targetSubject)
+      const timeLimit = data.time_limit_minutes || (questionCount >= 60 ? 140 : questionCount >= 30 ? 65 : 32)
+      const subtopicDesc = `Simulacro Oficial (${data.subject_name || targetSubject} - ${questionCount} Preguntas)`
+      
+      const examSessionData = {
+        sessionId: data.session_id,
+        subtopic: subtopicDesc,
+        questions: data.questions,
+        currentIndex: 0,
+        activeQuestion: data.questions[0] || null,
+        timeLimitMinutes: timeLimit,
+        subjectCode: targetSubject,
+        startedAt: Date.now(),
+      }
+      try {
+        localStorage.setItem("peak_active_exam_state", JSON.stringify(examSessionData))
+      } catch {}
+
       set({
         paesExamActive: true,
         paesSessionId: data.session_id,
-        paesSubtopic: `Simulacro Oficial (${data.subject_name || targetSubject} - ${questionCount} Preguntas)`,
+        paesSubtopic: subtopicDesc,
         paesQuestions: data.questions,
         paesCurrentIndex: 0,
         paesActiveQuestion: data.questions[0] || null,
-        paesExamTimeLimitMinutes: data.time_limit_minutes || (questionCount >= 60 ? 140 : questionCount >= 30 ? 65 : 32),
+        paesExamTimeLimitMinutes: timeLimit,
         paesLoading: false,
       })
       return data
     } catch (err) {
       set({ paesError: err.message, paesLoading: false, paesExamActive: false })
+    }
+  },
+
+  restoreActiveExamSession: () => {
+    try {
+      const raw = localStorage.getItem("peak_active_exam_state")
+      if (!raw) return false
+      const exam = JSON.parse(raw)
+      if (!exam || !exam.sessionId || !exam.questions || exam.questions.length === 0) return false
+
+      const backupRaw = localStorage.getItem(`paes_exam_backup_${exam.sessionId}`)
+      let answers = {}
+      let flags = []
+      let secondsRemaining = (exam.timeLimitMinutes || 32) * 60
+      if (backupRaw) {
+        const backup = JSON.parse(backupRaw)
+        if (backup?.answers) answers = backup.answers
+        if (backup?.flags) flags = backup.flags
+        if (backup?.savedAt && backup?.secondsRemaining !== undefined) {
+          const elapsed = Math.floor((Date.now() - backup.savedAt) / 1000)
+          secondsRemaining = Math.max(0, backup.secondsRemaining - elapsed)
+        }
+      }
+
+      if (secondsRemaining <= 1) {
+        localStorage.removeItem("peak_active_exam_state")
+        localStorage.removeItem(`paes_exam_backup_${exam.sessionId}`)
+        return false
+      }
+
+      set({
+        paesExamActive: true,
+        paesSessionId: exam.sessionId,
+        paesSubtopic: exam.subtopic,
+        paesQuestions: exam.questions,
+        paesCurrentIndex: exam.currentIndex || 0,
+        paesActiveQuestion: exam.questions[exam.currentIndex || 0] || exam.questions[0],
+        paesExamTimeLimitMinutes: exam.timeLimitMinutes || 32,
+        paesExamAnswers: answers,
+        paesExamFlags: flags,
+        paesActiveSubject: exam.subjectCode || get().paesActiveSubject || "M1",
+      })
+      return true
+    } catch {
+      return false
     }
   },
 
@@ -227,13 +289,24 @@ export const createPaesSlice = (set, get) => ({
   },
 
   jumpToPaesQuestion: (idx) => {
-    const { paesQuestions } = get()
+    const { paesQuestions, paesExamActive } = get()
     if (idx >= 0 && idx < paesQuestions.length) {
       set({
         paesCurrentIndex: idx,
         paesActiveQuestion: paesQuestions[idx],
         paesSelectedOption: null,
       })
+      if (paesExamActive) {
+        try {
+          const raw = localStorage.getItem("peak_active_exam_state")
+          if (raw) {
+            const parsed = JSON.parse(raw)
+            parsed.currentIndex = idx
+            parsed.activeQuestion = paesQuestions[idx]
+            localStorage.setItem("peak_active_exam_state", JSON.stringify(parsed))
+          }
+        } catch {}
+      }
     }
   },
 
@@ -258,11 +331,12 @@ export const createPaesSlice = (set, get) => ({
         paesActiveSubject || "M1"
       )
 
-      if (paesSessionId) {
-        try {
+      try {
+        localStorage.removeItem("peak_active_exam_state")
+        if (paesSessionId) {
           localStorage.removeItem(`paes_exam_backup_${paesSessionId}`)
-        } catch {}
-      }
+        }
+      } catch {}
       set({
         paesExamResults: results,
         paesExamActive: false,
@@ -276,11 +350,12 @@ export const createPaesSlice = (set, get) => ({
 
   exitPaesExam: () => {
     const currentId = get().paesSessionId
-    if (currentId) {
-      try {
+    try {
+      localStorage.removeItem("peak_active_exam_state")
+      if (currentId) {
         localStorage.removeItem(`paes_exam_backup_${currentId}`)
-      } catch {}
-    }
+      }
+    } catch {}
     set({
       paesExamActive: false,
       paesExamResults: null,

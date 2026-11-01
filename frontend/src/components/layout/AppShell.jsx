@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+﻿import { useEffect } from "react"
 import { Outlet, NavLink, useNavigate } from "react-router"
 import { StatusIndicator } from "../StatusIndicator"
 import TopNavBar from "./TopNavBar"
@@ -15,7 +15,7 @@ const NAV_ITEMS = [
 
 export default function AppShell() {
   const navigate = useNavigate()
-  const { toggleCoach } = useStore()
+  const { toggleCoach, profile } = useStore()
 
   // Quick navigation shortcuts: keys 1 to 5 and Ctrl+J for Coach
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function AppShell() {
           className="w-11 h-11 rounded-2xl bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 flex items-center justify-center text-black font-black text-xl mb-4 shadow-xl shadow-green-500/20 hover:scale-105 transition-all group"
           title="Peak Practice · Inicio"
         >
-          <span>P</span>
+          <span>T</span>
         </NavLink>
 
         {/* Nav items */}
@@ -125,7 +125,7 @@ export default function AppShell() {
       <button
         type="button"
         onClick={toggleCoach}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-neutral-900/90 border border-emerald-500/40 text-neutral-100 hover:text-white hover:border-emerald-400 shadow-xl shadow-black/40 backdrop-blur-xl transition-all duration-200 hover:scale-105 group cursor-pointer"
+        className="fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-40 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-neutral-900/90 border border-emerald-500/40 text-neutral-100 hover:text-white hover:border-emerald-400 shadow-xl shadow-black/40 backdrop-blur-xl transition-all duration-200 hover:scale-105 group cursor-pointer"
         title="Abrir Coach Cognitivo (Ctrl + J)"
         aria-label="Abrir Coach Cognitivo"
       >

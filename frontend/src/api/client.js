@@ -7,16 +7,50 @@ export const setClientApiKey = (key) => {
   API_KEY = key
 }
 
+export function getActiveDeviceId() {
+  try {
+    let deviceId = localStorage.getItem("peak_device_id")
+    if (!deviceId || !deviceId.trim()) {
+      deviceId = "dev_" + (typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID().replace(/-/g, "") : Math.random().toString(36).substring(2) + Date.now().toString(36))
+      localStorage.setItem("peak_device_id", deviceId)
+    }
+    return deviceId
+  } catch {
+    return "dev_fallback"
+  }
+}
+
+export function getActiveUserName() {
+  try {
+    const direct = localStorage.getItem("peak_user_name")
+    if (direct && direct.trim()) return direct.trim()
+    const cached = localStorage.getItem("peak_profile")
+    if (cached) {
+      const parsed = JSON.parse(cached)
+      if (parsed?.name && parsed.name.trim()) {
+        localStorage.setItem("peak_user_name", parsed.name.trim())
+        return parsed.name.trim()
+      }
+    }
+  } catch {}
+  return null
+}
+
 async function request(path, options = {}) {
   const url = `${BASE_URL}${path}`
+  const userName = getActiveUserName()
+  const deviceId = getActiveDeviceId()
+  const { headers: customHeaders, ...restOptions } = options
   const headers = {
     "Content-Type": "application/json",
     ...(API_KEY ? { "X-API-Key": API_KEY } : {}),
-    ...options.headers,
+    ...(userName ? { "X-User-Name": userName } : {}),
+    ...(deviceId ? { "X-Device-Id": deviceId } : {}),
+    ...customHeaders,
   }
   const res = await fetch(url, {
+    ...restOptions,
     headers,
-    ...options,
   })
 
   if (!res.ok) {
@@ -168,8 +202,12 @@ export const api = {
       const url = `${BASE_URL}/profile/avatar`
       const formData = new FormData()
       formData.append("file", file)
+      const userName = getActiveUserName()
+      const deviceId = getActiveDeviceId()
       const headers = {
         ...(API_KEY ? { "X-API-Key": API_KEY } : {}),
+        ...(userName ? { "X-User-Name": userName } : {}),
+        ...(deviceId ? { "X-Device-Id": deviceId } : {}),
       }
       const res = await fetch(url, {
         method: "POST",

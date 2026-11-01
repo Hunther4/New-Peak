@@ -76,11 +76,11 @@ export function PaesQuestionCard({
 
       {/* Official DEMRE Question Image or Text Fallback */}
       {question.image_url ? (
-        <div className="mb-6 rounded-2xl overflow-hidden border border-white/10 bg-white p-3 md:p-5 shadow-2xl">
+        <div className="mb-6 rounded-2xl overflow-hidden border border-white/10 bg-neutral-900/90 p-2 md:p-3 shadow-2xl min-h-[140px] flex items-center justify-center">
           <img
             src={question.image_url}
             alt={`Pregunta ${question.id || ""}`}
-            className="w-full h-auto object-contain max-h-[550px] mx-auto rounded-lg select-none"
+            className="w-full h-auto object-contain max-h-[550px] mx-auto rounded-xl bg-white p-2.5 md:p-4 select-none"
             loading="lazy"
           />
         </div>
@@ -115,7 +115,7 @@ export function PaesQuestionCard({
               type="button"
               disabled={isSubmitted}
               onClick={() => handleOptionSelect(key)}
-              className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 ${optionStyle}`}
+              className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 min-h-[52px] active:scale-[0.99] touch-manipulation cursor-pointer ${optionStyle}`}
             >
               <div
                 className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${
@@ -145,13 +145,13 @@ export function PaesQuestionCard({
               Alimenta el cálculo de dominio FSRS y detección de descuidos.
             </div>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 w-full sm:w-auto">
             {[1, 2, 3, 4, 5].map((lvl) => (
               <button
                 key={lvl}
                 type="button"
                 onClick={() => onChangeConfidence(lvl)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`flex-1 sm:flex-none px-3.5 py-2.5 min-h-[44px] flex items-center justify-center rounded-xl text-xs font-bold transition-all touch-manipulation active:scale-95 ${
                   confidence === lvl
                     ? "bg-emerald-500 text-black shadow-sm"
                     : "bg-neutral-800 text-neutral-400 hover:text-white"

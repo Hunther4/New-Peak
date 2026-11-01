@@ -349,8 +349,22 @@ def start_study_session(request: Request, req: StartStudySessionRequest, princip
 
     subtopic = None
     if req.subtopic_slug:
-        subtopic = session.exec(select(PaesSubtopic).where(PaesSubtopic.slug == req.subtopic_slug)).first()
+        subtopic = session.exec(
+            select(PaesSubtopic)
+            .join(PaesTopic, PaesSubtopic.topic_id == PaesTopic.id)
+            .join(PaesEjeTematico, PaesTopic.eje_id == PaesEjeTematico.id)
+            .where(
+                PaesSubtopic.slug == req.subtopic_slug,
+                PaesEjeTematico.subject_id == subj.id,
+            )
+        ).first()
         if not subtopic:
+            existing = session.exec(select(PaesSubtopic).where(PaesSubtopic.slug == req.subtopic_slug)).first()
+            if existing:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"El subtema '{req.subtopic_slug}' no pertenece a la asignatura '{target_subject_code}'.",
+                )
             raise HTTPException(status_code=404, detail="Subtema no encontrado")
 
     session_id = f"paes-sess-{uuid.uuid4().hex[:12]}"
@@ -358,6 +372,7 @@ def start_study_session(request: Request, req: StartStudySessionRequest, princip
         id=session_id,
         user_id=user_id,
         session_mode=req.session_mode,
+        subject_id=subj.id,
         subtopic_id=subtopic.id if subtopic else None,
         is_completed=False,
     )
@@ -970,6 +985,7 @@ def submit_attempt(request: Request, req: SubmitAttemptRequest, principal: Princ
                 raise LookupError("skill 'math-thinking' no encontrada")
 
             stmt = select(ErrorPattern).where(
+                ErrorPattern.user_id == user_id,
                 ErrorPattern.skill_id == paes_skill.id,
                 ErrorPattern.error_type == error_type,
             )
@@ -977,13 +993,17 @@ def submit_attempt(request: Request, req: SubmitAttemptRequest, principal: Princ
             if existing_ep:
                 existing_ep.count += 1
                 total_errors = session.exec(
-                    select(func.sum(ErrorPattern.count)).where(ErrorPattern.skill_id == paes_skill.id)
+                    select(func.sum(ErrorPattern.count)).where(
+                        ErrorPattern.user_id == user_id,
+                        ErrorPattern.skill_id == paes_skill.id,
+                    )
                 ).one()
                 existing_ep.severity = min(existing_ep.count / max(total_errors or 1, 1), 1.0)
                 existing_ep.last_seen = datetime.now(timezone.utc)
                 session.add(existing_ep)
             else:
                 ep = ErrorPattern(
+                    user_id=user_id,
                     skill_id=paes_skill.id,
                     skill_type="paes_math",
                     error_type=error_type,
@@ -1030,8 +1050,23 @@ def get_parametric_question(request: Request, req: ParametricRequest):
 
 @router.post("/tutor/step")
 @limiter.limit(get_rate_limit_str())
-def socratic_tutor_step(request: Request, req: SocraticStepRequest, session: Session = Depends(get_session)):
+def socratic_tutor_step(
+    request: Request,
+    req: SocraticStepRequest,
+    principal: Principal = UserPrincipalDep,
+    session: Session = Depends(get_session),
+):
     """Ofrece pistas socráticas progresivas de nivel 1 a 6 sin revelar la solución."""
+    user_id = principal.user_id
+    study_session = session.exec(
+        select(PaesStudySession).where(
+            PaesStudySession.id == req.session_id,
+            PaesStudySession.user_id == user_id,
+        )
+    ).first()
+    if not study_session:
+        raise HTTPException(status_code=404, detail="Sesión de estudio no encontrada")
+
     question = session.get(PaesQuestion, req.question_id)
     if not question:
         raise HTTPException(status_code=404, detail="Pregunta no encontrada")
@@ -1050,7 +1085,7 @@ def socratic_tutor_step(request: Request, req: SocraticStepRequest, session: Ses
 
     step = PaesSocraticStep(
         id=f"soc-{uuid.uuid4().hex[:12]}",
-        session_id=req.session_id,
+        session_id=study_session.id,
         question_id=req.question_id,
         tutor_level=req.requested_level,
         hint_text=hint,

@@ -8,6 +8,15 @@ db_url = os.getenv("DATABASE_URL")
 if not db_url:
     DB_PATH = Path(__file__).parent.parent / "peak.db"
     db_url = f"sqlite:///{DB_PATH}"
+elif db_url.startswith("sqlite:///"):
+    sqlite_file = Path(db_url.replace("sqlite:///", ""))
+    if not sqlite_file.exists():
+        seed_db = Path(__file__).parent.parent / "peak.db"
+        if seed_db.exists():
+            import shutil
+
+            sqlite_file.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(seed_db, sqlite_file)
 
 engine = create_engine(
     db_url,
@@ -29,7 +38,19 @@ def _set_sqlite_pragma(dbapi_connection, connection_record):
 
 @event.listens_for(engine, "begin")
 def _do_begin_immediate(conn):
-    conn.exec_driver_sql("BEGIN IMMEDIATE")
+    """Execute BEGIN IMMEDIATE only for explicit write transactions.
+
+    Read-only auto-transactions remain deferred under SQLite WAL mode,
+    preventing concurrent readers from locking out writers or other readers.
+    """
+    opts = conn.get_execution_options()
+    is_write = (
+        conn.info.get("write", False)
+        or opts.get("write", False)
+        or opts.get("isolation_level") == "IMMEDIATE"
+    )
+    if is_write:
+        conn.exec_driver_sql("BEGIN IMMEDIATE")
 
 
 def create_db_and_tables():

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react"
+﻿import { useEffect, useCallback } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { useStore } from "./store/store"
 import { ToastProvider } from "./components/ui"
@@ -9,6 +9,7 @@ import Practice from "./pages/Practice"
 import PaesStudy from "./pages/PaesStudy"
 import MetacognitionLab from "./pages/MetacognitionLab"
 import Settings from "./pages/Settings"
+import Admin from "./pages/Admin"
 import NotFound from "./pages/NotFound"
 import WelcomeScreen from "./components/WelcomeScreen"
 
@@ -73,6 +74,7 @@ const router = createBrowserRouter(
         { path: "paes", element: <PaesStudy /> },
         { path: "lab", element: <MetacognitionLab /> },
         { path: "settings", element: <Settings /> },
+        { path: "admin", element: <Admin /> },
         { path: "*", element: <NotFound /> },
       ],
     },

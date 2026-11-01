@@ -12,6 +12,7 @@ from core.database import engine, get_session
 from core.limiter import get_rate_limit_str, limiter
 from core.mental import generate_challenge
 from core.tasks import background_executor
+from models import User
 from models.models import Challenge, MentalRep, Skill
 from models.models import Session as PracticeSession
 
@@ -248,7 +249,18 @@ def create_session(request: Request, data: SessionCreate, db: Session = Depends(
     ).all())
     onboarding = sessions_count < ONBOARDING_SESSION_THRESHOLD  # La sesión actual aún no está en DB
 
+    principal = getattr(request.state, "principal", None)
+    effective_user_id = principal.user_id if (principal and principal.user_id) else 1
+
+    if not db.get(User, effective_user_id):
+        try:
+            db.add(User(id=effective_user_id, email=f"user{effective_user_id}@peak.local"))
+            db.commit()
+        except Exception:
+            db.rollback()
+
     session = PracticeSession(
+        user_id=effective_user_id,
         skill_id=data.skill_id,
         duration_minutes=data.duration_minutes,
         what_i_practiced=data.what_i_practiced,

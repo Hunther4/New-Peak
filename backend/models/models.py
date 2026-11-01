@@ -2,13 +2,17 @@ import json
 from datetime import datetime, timezone
 from typing import Optional
 
-from sqlalchemy import UniqueConstraint
+from sqlalchemy import JSON, UniqueConstraint
 from sqlmodel import Field, Relationship, SQLModel
+
+# Canonical FSRS v4.5 default weights — single source of truth lives in the
+# engine; ``UserProfile.fsrs_weights`` defaults to a copy of it. No import
+# cycle: services.paes imports neither models nor core.database.
+from services.paes.learning_engine import FSRS_W
 
 
 class Skill(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="users.id", index=True)
     slug: str = Field(unique=True, index=True, max_length=200)
     name: str = Field(max_length=200)
     domain: str
@@ -27,6 +31,7 @@ class Skill(SQLModel, table=True):
 
 class Session(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     duration_minutes: int
     timer_elapsed_sec: Optional[int] = None
@@ -58,6 +63,7 @@ class Session(SQLModel, table=True):
 
 class Assessment(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     type: str  # "probe" | "formal"
     score: float
@@ -76,6 +82,7 @@ class Assessment(SQLModel, table=True):
 
 class MentalRep(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     description: str = Field(max_length=2000)
     version: int = Field(default=1)
@@ -88,6 +95,7 @@ class MentalRep(SQLModel, table=True):
 
 class Challenge(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     description: str
     difficulty_target: int = Field(ge=1, le=5)
@@ -124,15 +132,23 @@ class AppSetting(SQLModel, table=True):
 class UserProfile(SQLModel, table=True):
     """Simple user identity — no auth, just name + age for the welcome screen."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     name: str = Field(max_length=100)
     age: int = Field(ge=1, le=150)
     avatar_url: Optional[str] = None
+    #: Per-user FSRS v4.5 weight vector (JSON array of 17 floats). Defaults to
+    #: the engine's canonical ``FSRS_W``; ``None``/invalid values fall back to
+    #: the built-in defaults via ``services.paes.learning_engine.resolve_fsrs_weights``.
+    fsrs_weights: Optional[list] = Field(
+        default_factory=lambda: list(FSRS_W), sa_type=JSON
+    )
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class MemoryNumberSession(SQLModel, table=True):
     """Tracks a single game session for the Memory Number skill."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     phase: int = Field(default=1, ge=1, le=7)
     current_span: int = Field(default=4, ge=4)
@@ -151,6 +167,7 @@ class MemoryNumberSession(SQLModel, table=True):
 class MemoryNumberRound(SQLModel, table=True):
     """A single round in a Memory Number game session — one sequence to recall."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     game_session_id: int = Field(foreign_key="memorynumbersession.id", ondelete="CASCADE", index=True)
     phase: int = Field(ge=1, le=7)
     span: int = Field(ge=4)
@@ -167,6 +184,7 @@ class MemoryNumberRound(SQLModel, table=True):
 class MemoryNumberAttempt(SQLModel, table=True):
     """A user's recall attempt for a given round."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     round_id: int = Field(foreign_key="memorynumberround.id", ondelete="CASCADE", index=True)
     submitted_numbers_json: str  # JSON array of integers
     correct: bool
@@ -182,6 +200,7 @@ class MemoryNumberAttempt(SQLModel, table=True):
 class MathThinkingSession(SQLModel, table=True):
     """Tracks one game session for Math Thinking."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     level: int = Field(default=1, ge=1, le=10)
     consecutive_correct: int = Field(default=0, ge=0)
@@ -198,6 +217,7 @@ class MathThinkingSession(SQLModel, table=True):
 class MathThinkingRound(SQLModel, table=True):
     """A single problem in a Math Thinking session."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     session_id: int = Field(foreign_key="maththinkingsession.id", ondelete="CASCADE", index=True)
     level: int
     problem_text: str
@@ -212,6 +232,7 @@ class MathThinkingRound(SQLModel, table=True):
 class MathThinkingAttempt(SQLModel, table=True):
     """A user's answer submission for a Math Thinking round."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     round_id: int = Field(foreign_key="maththinkinground.id", ondelete="CASCADE", index=True)
     user_answer: float
     correct: bool
@@ -224,6 +245,7 @@ class MathThinkingAttempt(SQLModel, table=True):
 class IQPracticeSession(SQLModel, table=True):
     """Tracks one game session for IQ Practice."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     level: int = Field(default=1, ge=1, le=10)
     consecutive_correct: int = Field(default=0, ge=0)
@@ -240,6 +262,7 @@ class IQPracticeSession(SQLModel, table=True):
 class IQPracticeRound(SQLModel, table=True):
     """A single puzzle in an IQ Practice session."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     session_id: int = Field(foreign_key="iqpracticesession.id", ondelete="CASCADE", index=True)
     level: int
     puzzle_type: str  # number_sequence | verbal_analogy | logical | pattern
@@ -256,6 +279,7 @@ class IQPracticeRound(SQLModel, table=True):
 class IQPracticeAttempt(SQLModel, table=True):
     """A user's answer submission for an IQ Practice round."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     round_id: int = Field(foreign_key="iqpracticeround.id", ondelete="CASCADE", index=True)
     user_answer: str
     correct: bool
@@ -272,6 +296,7 @@ class IQPracticeAttempt(SQLModel, table=True):
 class LearningPattern(SQLModel, table=True):
     """Raw per-attempt error metadata. One row per incorrect attempt."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     skill_type: str  # "problem_set" | "iq_practice" | "memory_number"
     session_id: int = Field(index=True)  # game session ID (math/iq/memory)
@@ -286,6 +311,7 @@ class LearningPattern(SQLModel, table=True):
 class ErrorPattern(SQLModel, table=True):
     """Aggregated error counts per skill + error type. Updated on each attempt."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     skill_type: str  # "problem_set" | "iq_practice" | "memory_number"
     error_type: str  # "arithmetic" | "conceptual" | "timeout" | "careless"
@@ -302,6 +328,7 @@ class ErrorPattern(SQLModel, table=True):
 class SessionError(SQLModel, table=True):
     """Links a game session to its error patterns with confidence scores."""
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     session_id: int  # game session ID — discriminator (maththinking/memory/iq), no FK
     session_type: str  # "math_thinking" | "iq_practice" | "memory_number"
     error_pattern_id: int = Field(foreign_key="errorpattern.id", ondelete="CASCADE")
@@ -323,6 +350,7 @@ class SkillLevelHistory(SQLModel, table=True):
     the level before and after, and what triggered the evaluation.
     """
     id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="users.id", index=True)
     skill_id: int = Field(foreign_key="skill.id", ondelete="CASCADE", index=True)
     success: bool  # True = session was successful, False = failure
     level_before: float

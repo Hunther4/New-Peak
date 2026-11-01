@@ -1,7 +1,7 @@
 import uuid
 from pathlib import Path
 
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, File, HTTPException, Request, UploadFile
 from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
@@ -28,20 +28,36 @@ class ProfileRead(BaseModel):
 
 
 @router.get("/profile", response_model=ProfileRead | None)
-def get_profile():
-    """Get the user profile (single-user app — returns first/only profile)."""
+def get_profile(request: Request):
+    """Get the user profile (scoped to principal if present)."""
+    principal = getattr(request.state, "principal", None)
     with Session(engine) as db:
-        profile = db.exec(select(UserProfile)).first()
-        if not profile:
-            return None
-        return profile
+        if principal and principal.user_id:
+            profile = db.exec(select(UserProfile).where(UserProfile.user_id == principal.user_id)).first()
+            if profile:
+                return profile
+        return None
 
 
 @router.post("/profile", response_model=ProfileRead)
-def create_or_update_profile(data: ProfileCreate):
-    """Create or update the user profile (upsert — single-user)."""
+def create_or_update_profile(data: ProfileCreate, request: Request):
+    """Create or update the user profile (scoped to principal if present)."""
+    principal = getattr(request.state, "principal", None)
     with Session(engine) as db:
-        existing = db.exec(select(UserProfile)).first()
+        if principal and principal.user_id:
+            existing = db.exec(select(UserProfile).where(UserProfile.user_id == principal.user_id)).first()
+            if existing:
+                existing.name = data.name
+                existing.age = data.age
+                profile = existing
+            else:
+                profile = UserProfile(user_id=principal.user_id, name=data.name, age=data.age)
+                db.add(profile)
+            db.commit()
+            db.refresh(profile)
+            return profile
+
+        existing = db.exec(select(UserProfile).where(UserProfile.name == data.name)).first()
         if existing:
             existing.name = data.name
             existing.age = data.age
@@ -70,7 +86,7 @@ def _validate_image_magic_bytes(content: bytes) -> bool:
 
 
 @router.post("/profile/avatar")
-async def upload_avatar(file: UploadFile = File(...)):
+async def upload_avatar(request: Request, file: UploadFile = File(...)):
     if not file.content_type or not file.content_type.startswith("image/"):
         raise HTTPException(400, "Formato inválido: el archivo debe ser una imagen")
 
@@ -89,8 +105,12 @@ async def upload_avatar(file: UploadFile = File(...)):
     filepath.write_bytes(content)
 
     avatar_url = f"/uploads/avatars/{filename}"
+    principal = getattr(request.state, "principal", None)
     with Session(engine) as db:
-        profile = db.exec(select(UserProfile)).first()
+        if principal and principal.user_id:
+            profile = db.exec(select(UserProfile).where(UserProfile.user_id == principal.user_id)).first()
+        else:
+            profile = db.exec(select(UserProfile)).first()
         if profile:
             profile.avatar_url = avatar_url
             db.add(profile)

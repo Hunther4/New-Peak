@@ -454,6 +454,37 @@ FSRS_W = [
     0.2507, 2.9466                    # w15..w16: moduladores Hard/Easy
 ]
 
+
+def resolve_fsrs_weights(profile: Any = None) -> List[float]:
+    """Return the per-user FSRS weight vector, falling back to the defaults.
+
+    ``profile`` is any object carrying an optional ``fsrs_weights`` attribute
+    (normally a ``UserProfile`` row, whose column stores the 17-float vector
+    as JSON). The built-in ``FSRS_W`` is returned when the profile is absent,
+    the column is ``None``/empty, or the stored vector is malformed (not
+    exactly 17 finite numeric values) — a bad profile row must never take the
+    scheduler down.
+    """
+    if profile is None:
+        return FSRS_W
+    raw = getattr(profile, "fsrs_weights", None)
+    if not raw:
+        return FSRS_W
+    try:
+        weights = [float(x) for x in raw]
+    except (TypeError, ValueError):
+        return FSRS_W
+    if len(weights) != len(FSRS_W):
+        return FSRS_W
+    if any(not math.isfinite(x) for x in weights):
+        return FSRS_W
+    return weights
+
+
+def _weights(weights: Optional[List[float]] = None) -> List[float]:
+    """Normalize the optional per-call weight vector (None/empty → defaults)."""
+    return weights if weights else FSRS_W
+
 def calculate_retrievability(elapsed_days: float, stability: float) -> float:
     """R(t, S) = (1 + factor * (t / S))^(-1)"""
     if stability <= 0:
@@ -476,23 +507,27 @@ def infer_fsrs_grade(
         return 4
     return 3
 
-def initial_difficulty(grade: int) -> float:
-    val = FSRS_W[4] - math.exp(FSRS_W[5] * (grade - 1)) + 1.0
+def initial_difficulty(grade: int, weights: Optional[List[float]] = None) -> float:
+    w = _weights(weights)
+    val = w[4] - math.exp(w[5] * (grade - 1)) + 1.0
     return max(1.0, min(10.0, val))
 
-def next_difficulty(d: float, grade: int) -> float:
-    d_raw = d - FSRS_W[6] * (grade - 3)
-    d_0_good = initial_difficulty(3)
-    d_new = FSRS_W[7] * d_0_good + (1.0 - FSRS_W[7]) * d_raw
+def next_difficulty(d: float, grade: int, weights: Optional[List[float]] = None) -> float:
+    w = _weights(weights)
+    d_raw = d - w[6] * (grade - 3)
+    d_0_good = initial_difficulty(3, w)
+    d_new = w[7] * d_0_good + (1.0 - w[7]) * d_raw
     return max(1.0, min(10.0, d_new))
 
-def next_recall_stability(d: float, s: float, r: float, grade: int) -> float:
-    h_g = FSRS_W[15] if grade == 2 else (FSRS_W[16] if grade == 4 else 1.0)
-    exp_factor = math.exp(FSRS_W[8]) * (11.0 - d) * (s ** (-FSRS_W[9])) * (math.exp(FSRS_W[10] * (1.0 - r)) - 1.0) * h_g
+def next_recall_stability(d: float, s: float, r: float, grade: int, weights: Optional[List[float]] = None) -> float:
+    w = _weights(weights)
+    h_g = w[15] if grade == 2 else (w[16] if grade == 4 else 1.0)
+    exp_factor = math.exp(w[8]) * (11.0 - d) * (s ** (-w[9])) * (math.exp(w[10] * (1.0 - r)) - 1.0) * h_g
     return max(0.1, s * (1.0 + exp_factor))
 
-def next_lapse_stability(d: float, s: float, r: float) -> float:
-    exp_factor = FSRS_W[11] * (d ** (-FSRS_W[12])) * (((s + 1.0) ** FSRS_W[13]) - 1.0) * math.exp(FSRS_W[14] * (1.0 - r))
+def next_lapse_stability(d: float, s: float, r: float, weights: Optional[List[float]] = None) -> float:
+    w = _weights(weights)
+    exp_factor = w[11] * (d ** (-w[12])) * (((s + 1.0) ** w[13]) - 1.0) * math.exp(w[14] * (1.0 - r))
     s_new = min(s, exp_factor)
     return max(0.1, s_new)
 
@@ -536,25 +571,27 @@ def update_fsrs_state(
     time_spent_seconds: int,
     change_count: int = 0,
     now: Optional[datetime] = None,
-    target_r: float = 0.85
+    target_r: float = 0.85,
+    weights: Optional[List[float]] = None
 ) -> Tuple[FSRSState, int]:
     if now is None:
         now = datetime.now(timezone.utc)
 
+    w = _weights(weights)
     grade = infer_fsrs_grade(is_correct, confidence, time_spent_seconds, change_count)
 
     if current.last_review_at is None or current.reps == 0:
-        s_new = FSRS_W[grade - 1]
-        d_new = initial_difficulty(grade)
+        s_new = w[grade - 1]
+        d_new = initial_difficulty(grade, w)
         r_current = 1.0
     else:
         elapsed = elapsed_days_since(current.last_review_at, now)
         r_current = calculate_retrievability(elapsed, current.stability)
-        d_new = next_difficulty(current.difficulty, grade)
+        d_new = next_difficulty(current.difficulty, grade, w)
         if grade >= 2:
-            s_new = next_recall_stability(current.difficulty, current.stability, r_current, grade)
+            s_new = next_recall_stability(current.difficulty, current.stability, r_current, grade, w)
         else:
-            s_new = next_lapse_stability(current.difficulty, current.stability, r_current)
+            s_new = next_lapse_stability(current.difficulty, current.stability, r_current, w)
 
     new_reps = current.reps + 1
     new_lapses = current.lapses + (1 if not is_correct else 0)

@@ -57,6 +57,7 @@ export default function PaesStudy() {
     requestSocraticHint,
     resetPaesSession,
     exitPaesExam,
+    restoreActiveExamSession,
   } = useStore()
 
   // Derive initial tab from query params if available
@@ -76,6 +77,12 @@ export default function PaesStudy() {
   const [parametricEvaluated, setParametricEvaluated] = useState(false)
 
   useEffect(() => {
+    if (restoreActiveExamSession) {
+      restoreActiveExamSession()
+    }
+  }, [])
+
+  useEffect(() => {
     if (fetchPaesSubjects) fetchPaesSubjects()
     fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
     fetchPaesSubtopics(1, paesActiveSubject || "M1")
@@ -91,6 +98,10 @@ export default function PaesStudy() {
   }
 
   const handleStartGeneral = () => {
+    if (subtopicParam && subtopicParam !== "undefined" && subtopicParam !== "null") {
+      startPaesSession("PRACTICE", subtopicParam, 10, paesActiveSubject || "M1")
+      return
+    }
     const queue = paesFsrsStatus?.capped_review_queue
     const firstDue = Array.isArray(queue) ? (Array.isArray(queue[0]) ? queue[0][0] : queue[0]) : null
     if (firstDue?.slug) {

@@ -3,7 +3,7 @@ import { useStore } from '../store/store'
 import { Modal } from './ui'
 
 export default function ProfileAvatar() {
-  const { profile, saveProfile, uploadAvatar } = useStore()
+  const { profile, saveProfile, uploadAvatar, logoutProfile } = useStore()
   const [showProfile, setShowProfile] = useState(false)
   const [editing, setEditing] = useState(false)
   const [name, setName] = useState('')
@@ -104,6 +104,17 @@ export default function ProfileAvatar() {
             className="btn btn-ghost w-full text-xs"
           >
             Editar perfil
+          </button>
+
+          {/* Switch user */}
+          <button
+            onClick={() => {
+              setShowProfile(false)
+              if (logoutProfile) logoutProfile()
+            }}
+            className="w-full text-xs text-neutral-500 hover:text-neutral-300 py-2 transition-colors border-t border-white/[0.04]"
+          >
+            Cambiar de usuario
           </button>
         </div>
       </Modal>

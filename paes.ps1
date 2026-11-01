@@ -23,13 +23,17 @@
 .PARAMETER NoBrowser
     Do not open the browser once both services are ready. Useful for automated
     runs and for verification on non-default ports.
+
+.PARAMETER Stop
+    Stops any running Peak services on the configured backend and frontend ports.
 #>
 [CmdletBinding()]
 param(
     [ValidateRange(1, 65535)][int]$BackendPort = 8000,
     [ValidateRange(1, 65535)][int]$FrontendPort = 7700,
     [ValidateRange(5, 600)][int]$ReadyTimeoutSeconds = 90,
-    [switch]$NoBrowser
+    [switch]$NoBrowser,
+    [switch]$Stop
 )
 
 Set-StrictMode -Version 2.0
@@ -304,6 +308,24 @@ Write-Detail "pnpm              : $PnpmPath"
 
 $backendPortState = Get-PortState -Port $BackendPort -Role 'backend'
 $frontendPortState = Get-PortState -Port $FrontendPort -Role 'frontend'
+
+if ($Stop) {
+    Write-Peak "Deteniendo servicios de Peak..." 'Yellow'
+    $stoppedAny = $false
+    foreach ($item in @(@{ Name = 'Backend'; State = $backendPortState }, @{ Name = 'Frontend'; State = $frontendPortState })) {
+        if ($item.State.State -eq 'ours' -and $item.State.ProcessId -gt 0) {
+            Write-Peak "Cerrando $($item.Name) (PID $($item.State.ProcessId))..." 'Yellow'
+            & taskkill.exe /PID $item.State.ProcessId /T /F 2>&1 | Out-Null
+            $stoppedAny = $true
+        }
+    }
+    if ($stoppedAny) {
+        Write-Peak "Servicios detenidos y puertos liberados con éxito." 'Green'
+    } else {
+        Write-Peak "No se detectaron servicios activos en los puertos $BackendPort ni $FrontendPort." 'Green'
+    }
+    exit 0
+}
 
 if ($backendPortState.State -eq 'foreign') {
     Write-PortConflict -Port $BackendPort -Role 'backend' -Process $backendPortState.Process

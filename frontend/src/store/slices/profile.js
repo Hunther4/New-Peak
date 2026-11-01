@@ -12,15 +12,20 @@ export const createProfileSlice = (set, get) => ({
     if (cached) {
       try {
         const parsed = JSON.parse(cached)
+        if (parsed?.name) {
+          localStorage.setItem("peak_user_name", parsed.name.trim())
+        }
         set({ profile: parsed, profileLoading: false })
         // Sync with backend in background (don't await)
         api.profile.get().then(profile => {
           if (profile) {
             set({ profile })
             localStorage.setItem("peak_profile", JSON.stringify(profile))
+            localStorage.setItem("peak_user_name", profile.name.trim())
           } else {
             // Backend doesn't have a profile — clear stale cache
             localStorage.removeItem("peak_profile")
+            localStorage.removeItem("peak_user_name")
             set({ profile: null })
           }
         }).catch(() => {})
@@ -44,10 +49,17 @@ export const createProfileSlice = (set, get) => ({
   },
 
   saveProfile: async (name, age) => {
-    const profile = await api.profile.save({ name, age })
+    localStorage.setItem("peak_user_name", name.trim())
+    const profile = await api.profile.save({ name: name.trim(), age })
     set({ profile })
     localStorage.setItem("peak_profile", JSON.stringify(profile))
     return profile
+  },
+
+  logoutProfile: () => {
+    localStorage.removeItem("peak_profile")
+    localStorage.removeItem("peak_user_name")
+    set({ profile: null })
   },
 
   uploadAvatar: async (file) => {
