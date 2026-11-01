@@ -7,6 +7,7 @@ Parámetros 3PL:
 - c (adivinación): 0.25 para 4 opciones, 0.20 para 5 opciones
 - irt_status: 'CALIBRATED_HEURISTIC'
 """
+
 import argparse
 import json
 import logging
@@ -103,8 +104,18 @@ def calibrate_questions(db_path: Path | str) -> Dict[str, Any]:
     }
 
     logger.info("Calibración completada con éxito: %d preguntas calibradas.", len(updates))
-    logger.info("Métricas a (discriminación): min=%.4f, max=%.4f, mean=%.4f", metrics["irt_a"]["min"], metrics["irt_a"]["max"], metrics["irt_a"]["mean"])
-    logger.info("Métricas b (dificultad): min=%.4f, max=%.4f, mean=%.4f", metrics["irt_b"]["min"], metrics["irt_b"]["max"], metrics["irt_b"]["mean"])
+    logger.info(
+        "Métricas a (discriminación): min=%.4f, max=%.4f, mean=%.4f",
+        metrics["irt_a"]["min"],
+        metrics["irt_a"]["max"],
+        metrics["irt_a"]["mean"],
+    )
+    logger.info(
+        "Métricas b (dificultad): min=%.4f, max=%.4f, mean=%.4f",
+        metrics["irt_b"]["min"],
+        metrics["irt_b"]["max"],
+        metrics["irt_b"]["mean"],
+    )
     logger.info("Distribución c (adivinación): %s", metrics["irt_c"])
 
     return metrics

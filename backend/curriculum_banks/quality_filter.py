@@ -2,6 +2,7 @@
 Filtro de Calidad y Validación Pedagógica para Bancos de Preguntas PAES.
 Garantiza que ningún ítem entre a la base de datos sin cumplir los estándares DEMRE y KaTeX.
 """
+
 import re
 from typing import Any, Dict, List, Tuple
 
@@ -19,7 +20,7 @@ class QualityFilter:
             return True, "OK"
 
         # Contar signos $ que no estén escapados con barra invertida
-        unescaped_dollars = [m.start() for m in re.finditer(r'(?<!\\)\$', text)]
+        unescaped_dollars = [m.start() for m in re.finditer(r"(?<!\\)\$", text)]
 
         # Verificar paridad básica de delimitadores
         if len(unescaped_dollars) % 2 != 0:
@@ -28,7 +29,7 @@ class QualityFilter:
         # Verificar que no haya bloques vacíos tipo $$ sin contenido
         if "$$" in text:
             # Si hay $$, debe ser display math balanceado
-            double_dollars = [m.start() for m in re.finditer(r'(?<!\\)\$\$', text)]
+            double_dollars = [m.start() for m in re.finditer(r"(?<!\\)\$\$", text)]
             if len(double_dollars) % 2 != 0:
                 return False, "Bloques display math ($$) desbalanceados"
 

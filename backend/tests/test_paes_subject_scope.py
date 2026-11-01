@@ -9,6 +9,7 @@ The contract now is: fail closed with a 400 that names the unknown code and
 the available codes, and never mix the whole curriculum into a subject
 session.
 """
+
 import pytest
 from sqlmodel import Session, select
 

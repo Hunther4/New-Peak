@@ -6,6 +6,7 @@ Strict TDD: tests written BEFORE production code.
 We create a fresh TestClient inside the test so caplog captures
 the lifespan log emission.
 """
+
 import logging
 
 
@@ -19,6 +20,7 @@ class TestDisableAuthWarning:
         the lifespan log message.
         """
         import os
+
         os.environ["DISABLE_AUTH"] = "1"
 
         from fastapi.testclient import TestClient
@@ -32,8 +34,7 @@ class TestDisableAuthWarning:
 
         found = False
         for record in caplog.records:
-            if ("Authentication DISABLED" in record.getMessage()
-                    and "API is open" in record.getMessage()):
+            if "Authentication DISABLED" in record.getMessage() and "API is open" in record.getMessage():
                 found = True
                 break
         assert found, "Expected warning not found in caplog records"

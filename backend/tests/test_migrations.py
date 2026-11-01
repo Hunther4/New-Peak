@@ -16,6 +16,7 @@ from sqlalchemy import text
 # Fixtures
 # =============================================================================
 
+
 @pytest.fixture(autouse=True)
 def clean_schema_migrations_table(engine):
     """The schema_migrations table is NOT in SQLModel.metadata, so the conftest's
@@ -29,7 +30,7 @@ def clean_schema_migrations_table(engine):
         conn.execute(text("DROP TABLE IF EXISTS schema_migrations"))
 
 
-FAULTY_MIGRATION_SOURCE = '''\
+FAULTY_MIGRATION_SOURCE = """\
 def up(conn):
     raise RuntimeError("boom: migration failure")
 
@@ -38,7 +39,7 @@ MIGRATION = {
     "name": "faulty_test_migration",
     "up": up,
 }
-'''
+"""
 
 
 @pytest.fixture
@@ -92,12 +93,7 @@ def test_run_migrations_applies_pending(engine):
     run_migrations(engine)
 
     with engine.begin() as conn:
-        versions = sorted(
-            row[0]
-            for row in conn.execute(
-                text("SELECT version FROM schema_migrations")
-            ).fetchall()
-        )
+        versions = sorted(row[0] for row in conn.execute(text("SELECT version FROM schema_migrations")).fetchall())
 
     assert versions == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
@@ -110,9 +106,7 @@ def test_run_migrations_is_idempotent(engine):
     run_migrations(engine)  # second call must be a no-op
 
     with engine.begin() as conn:
-        count = conn.execute(
-            text("SELECT COUNT(*) FROM schema_migrations")
-        ).scalar()
+        count = conn.execute(text("SELECT COUNT(*) FROM schema_migrations")).scalar()
 
     assert count == 14
 
@@ -147,15 +141,13 @@ def test_migration_002_idempotent_guard(engine):
 
     # The guard must have prevented the ALTER
     alter_statements = [s for s in executed_statements if "ALTER TABLE cognitivesession" in s]
-    assert len(alter_statements) == 0, (
-        f"Migration 002's guard should have prevented the ALTER, but got: {alter_statements}"
-    )
+    assert (
+        len(alter_statements) == 0
+    ), f"Migration 002's guard should have prevented the ALTER, but got: {alter_statements}"
 
     # But migration 002 must still be recorded
     with engine.begin() as conn:
-        rows = conn.execute(
-            text("SELECT version, name FROM schema_migrations ORDER BY version")
-        ).fetchall()
+        rows = conn.execute(text("SELECT version, name FROM schema_migrations ORDER BY version")).fetchall()
 
     versions = [r[0] for r in rows]
     assert 2 in versions, f"Expected version 2 in {versions}"
@@ -171,9 +163,7 @@ def test_run_migrations_applies_in_ascending_order(engine):
     run_migrations(engine)
 
     with engine.begin() as conn:
-        rows = conn.execute(
-            text("SELECT version FROM schema_migrations ORDER BY version")
-        ).fetchall()
+        rows = conn.execute(text("SELECT version FROM schema_migrations ORDER BY version")).fetchall()
 
     versions = [r[0] for r in rows]
     assert versions == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
@@ -190,16 +180,9 @@ def test_migration_runner_fails_loud(engine, faulty_migration):
 
     # The failing version 999 must not be recorded in schema_migrations
     with engine.begin() as conn:
-        versions = [
-            row[0]
-            for row in conn.execute(
-                text("SELECT version FROM schema_migrations")
-            ).fetchall()
-        ]
+        versions = [row[0] for row in conn.execute(text("SELECT version FROM schema_migrations")).fetchall()]
 
-    assert 999 not in versions, (
-        f"Failing migration 999 should not be recorded, got {versions}"
-    )
+    assert 999 not in versions, f"Failing migration 999 should not be recorded, got {versions}"
 
 
 # =============================================================================
@@ -235,13 +218,13 @@ def test_main_app_loads():
 
 
 MALFORMED_MIGRATION_SOURCES = {
-    "missing_up": '''\
+    "missing_up": """\
 MIGRATION = {
     "version": 50,
     "name": "missing_up",
 }
-''',
-    "string_version": '''\
+""",
+    "string_version": """\
 def up(conn):
     pass
 
@@ -250,17 +233,17 @@ MIGRATION = {
     "name": "string_version",
     "up": up,
 }
-''',
-    "non_callable_up": '''\
+""",
+    "non_callable_up": """\
 MIGRATION = {
     "version": 51,
     "name": "non_callable_up",
     "up": "not a function",
 }
-''',
-    "not_a_dict": '''\
+""",
+    "not_a_dict": """\
 MIGRATION = "not a dict"
-''',
+""",
 }
 
 
@@ -277,6 +260,7 @@ def test_malformed_migration_raises_clear_error(engine, tmp_path, source_name):
     faulty_file.write_text(source)
 
     import migrations as migrations_pkg
+
     original_path = list(migrations_pkg.__path__)
     migrations_pkg.__path__.append(str(tmp_path))
     try:
@@ -294,19 +278,20 @@ def test_duplicate_version_detection(engine, tmp_path):
     from migrations.runner import _discover_migrations
 
     dup_a = tmp_path / "100_dup_a.py"
-    dup_a.write_text('''\
+    dup_a.write_text("""\
 def up(conn):
     pass
 MIGRATION = {"version": 100, "name": "dup_a", "up": up}
-''')
+""")
     dup_b = tmp_path / "101_dup_b.py"
-    dup_b.write_text('''\
+    dup_b.write_text("""\
 def up(conn):
     pass
 MIGRATION = {"version": 100, "name": "dup_b", "up": up}
-''')
+""")
 
     import migrations as migrations_pkg
+
     original_path = list(migrations_pkg.__path__)
     migrations_pkg.__path__.append(str(tmp_path))
     try:
@@ -326,25 +311,26 @@ def test_earlier_failure_prevents_later_application(engine, tmp_path):
 
     # Migration 050 succeeds, 051 fails, 052 should never be reached
     mid = tmp_path / "050_good.py"
-    mid.write_text('''\
+    mid.write_text("""\
 def up(conn):
     pass
 MIGRATION = {"version": 50, "name": "good_mid", "up": up}
-''')
+""")
     bad = tmp_path / "051_bad.py"
-    bad.write_text('''\
+    bad.write_text("""\
 def up(conn):
     raise RuntimeError("intentional mid-migration failure")
 MIGRATION = {"version": 51, "name": "bad_mid", "up": up}
-''')
+""")
     late = tmp_path / "052_late.py"
-    late.write_text('''\
+    late.write_text("""\
 def up(conn):
     pass
 MIGRATION = {"version": 52, "name": "late", "up": up}
-''')
+""")
 
     import migrations as migrations_pkg
+
     original_path = list(migrations_pkg.__path__)
     migrations_pkg.__path__.append(str(tmp_path))
     try:
@@ -358,12 +344,7 @@ MIGRATION = {"version": 52, "name": "late", "up": up}
     # 050 was already applied by the first real run; 051 (the failing one)
     # must NOT be recorded; 052 must NOT be recorded (never reached).
     with engine.begin() as conn:
-        versions = sorted(
-            row[0]
-            for row in conn.execute(
-                text("SELECT version FROM schema_migrations")
-            ).fetchall()
-        )
+        versions = sorted(row[0] for row in conn.execute(text("SELECT version FROM schema_migrations")).fetchall())
 
     assert 51 not in versions, f"Failing version 51 should not be recorded, got {versions}"
     assert 52 not in versions, f"Later version 52 should not be reached, got {versions}"

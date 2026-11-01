@@ -131,8 +131,11 @@ def save_session_meta(
     """Persist session-level strategy + self-reported difficulty + notes."""
     try:
         return memory_game_service.save_session_meta(
-            db, session_id, body.strategy_type,
-            body.self_reported_difficulty, body.notes,
+            db,
+            session_id,
+            body.strategy_type,
+            body.self_reported_difficulty,
+            body.notes,
         )
     except ValueError as e:
         raise HTTPException(400, str(e))

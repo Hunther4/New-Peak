@@ -72,7 +72,9 @@ def classify_error(
                 rel_diff = diff / denom
                 if rel_diff <= 0.10:  # within 10% → careless (slight miscalculation)
                     return "careless"
-                elif rel_diff >= 1.0 or (c_val * u_val < 0 and c_val != 0):  # off by 100%+ or opposite sign → conceptual
+                elif rel_diff >= 1.0 or (
+                    c_val * u_val < 0 and c_val != 0
+                ):  # off by 100%+ or opposite sign → conceptual
                     return "conceptual"
                 return "arithmetic"
             except (ValueError, TypeError):
@@ -99,7 +101,6 @@ def classify_error(
                 else:
                     return "pattern_mismatch"  # ni siquiera eligió una opción válida
         return "wrong_option"
-
 
     elif skill_type == "memory_number":
         # Memory: compare submitted length vs expected length
@@ -139,9 +140,12 @@ def record_error(
     Returns the created LearningPattern, or None if the attempt was correct.
     """
     error_type = classify_error(
-        skill_type, is_correct,
-        user_answer=user_answer, correct_answer=correct_answer,
-        puzzle_type=puzzle_type, response_time_ms=response_time_ms,
+        skill_type,
+        is_correct,
+        user_answer=user_answer,
+        correct_answer=correct_answer,
+        puzzle_type=puzzle_type,
+        response_time_ms=response_time_ms,
     )
     if error_type is None:
         return None
@@ -170,9 +174,7 @@ def record_error(
     if existing:
         existing.count += 1
         # Severity: ratio of this error type to total errors (capped at 1.0)
-        total_errors = db.exec(
-            select(func.sum(ErrorPattern.count)).where(ErrorPattern.skill_id == skill_id)
-        ).one()
+        total_errors = db.exec(select(func.sum(ErrorPattern.count)).where(ErrorPattern.skill_id == skill_id)).one()
         existing.severity = min(existing.count / max(total_errors or 1, 1), 1.0)
         existing.last_seen = datetime.now(timezone.utc)
         db.add(existing)
@@ -237,11 +239,7 @@ def get_error_summary(
 
     Returns error types sorted by severity (highest first).
     """
-    stmt = (
-        select(ErrorPattern)
-        .where(ErrorPattern.skill_id == skill_id)
-        .order_by(ErrorPattern.severity.desc())
-    )
+    stmt = select(ErrorPattern).where(ErrorPattern.skill_id == skill_id).order_by(ErrorPattern.severity.desc())
     patterns = db.exec(stmt).all()
 
     return [
@@ -270,16 +268,14 @@ def format_patterns_for_prompt(
 
     lines = ["Patrones de error del usuario (últimas sesiones):"]
     for item in summary[:5]:  # Top 5 error types
-        lines.append(
-            f"- {item['description']}: {item['count']} veces "
-            f"(severidad: {item['severity']})"
-        )
+        lines.append(f"- {item['description']}: {item['count']} veces " f"(severidad: {item['severity']})")
 
     # Add sliding window context
     window = get_sliding_window(db, skill_id, limit=10)
     if window:
         recent_types = [w["error_type"] for w in window]
         from collections import Counter
+
         most_common = Counter(recent_types).most_common(3)
         if most_common:
             lines.append("Errores más recientes:")

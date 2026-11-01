@@ -2,6 +2,7 @@
 Downloader and cataloger for official DEMRE PAES syllabus (temarios) and exams (pruebas oficiales).
 Processes years 2024 through 2027 for all test subjects with 100% verified URLs.
 """
+
 import json
 import time
 import urllib.request
@@ -24,7 +25,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M1",
         "filename": "temario_paes_2027_m1.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-m1.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-m1.pdf",
     },
     {
         "id": "temario_2027_m2",
@@ -32,7 +33,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M2",
         "filename": "temario_paes_2027_m2.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-m2.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-m2.pdf",
     },
     {
         "id": "temario_2027_lectura",
@@ -40,7 +41,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "LECTURA",
         "filename": "temario_paes_2027_competencia_lectora.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-competencia-lectora.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-competencia-lectora.pdf",
     },
     {
         "id": "temario_2027_ciencias",
@@ -48,7 +49,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "CIENCIAS",
         "filename": "temario_paes_2027_ciencias.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-ciencias.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-ciencias.pdf",
     },
     {
         "id": "temario_2027_historia",
@@ -56,9 +57,8 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "HISTORIA",
         "filename": "temario_paes_2027_historia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-historia.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2027-26-03-19-temario-paes-regular-historia.pdf",
     },
-
     # ==================== TEMARIOS 2026 ====================
     {
         "id": "temario_2026_m1",
@@ -66,7 +66,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M1",
         "filename": "temario_paes_2026_m1.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-m1.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-m1.pdf",
     },
     {
         "id": "temario_2026_m2",
@@ -74,7 +74,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M2",
         "filename": "temario_paes_2026_m2.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-m2.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-m2.pdf",
     },
     {
         "id": "temario_2026_lectura",
@@ -82,7 +82,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "LECTURA",
         "filename": "temario_paes_2026_competencia_lectora.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-competencia-lectora.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-competencia-lectora.pdf",
     },
     {
         "id": "temario_2026_ciencias",
@@ -90,7 +90,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "CIENCIAS",
         "filename": "temario_paes_2026_ciencias.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-ciencias.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-ciencias.pdf",
     },
     {
         "id": "temario_2026_historia",
@@ -98,9 +98,8 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "HISTORIA",
         "filename": "temario_paes_2026_historia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-historia.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-03-20-temario-paes-regular-historia.pdf",
     },
-
     # ==================== TEMARIOS 2025 ====================
     {
         "id": "temario_2025_m1",
@@ -108,7 +107,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M1",
         "filename": "temario_paes_2025_m1.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-m1.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-m1.pdf",
     },
     {
         "id": "temario_2025_m2",
@@ -116,7 +115,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M2",
         "filename": "temario_paes_2025_m2.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-m2.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-m2.pdf",
     },
     {
         "id": "temario_2025_lectura",
@@ -124,7 +123,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "LECTURA",
         "filename": "temario_paes_2025_competencia_lectora.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-competencia-lectora.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-competencia-lectora.pdf",
     },
     {
         "id": "temario_2025_ciencias",
@@ -132,7 +131,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "CIENCIAS",
         "filename": "temario_paes_2025_ciencias.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-ciencias.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-ciencias.pdf",
     },
     {
         "id": "temario_2025_historia",
@@ -140,9 +139,8 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "HISTORIA",
         "filename": "temario_paes_2025_historia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-historia.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-03-21-temario-paes-regular-historia.pdf",
     },
-
     # ==================== TEMARIOS 2024 ====================
     {
         "id": "temario_2024_m1",
@@ -150,7 +148,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M1",
         "filename": "temario_paes_2024_m1.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-m1.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-m1.pdf",
     },
     {
         "id": "temario_2024_m2",
@@ -158,7 +156,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "M2",
         "filename": "temario_paes_2024_m2.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-m2.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-m2.pdf",
     },
     {
         "id": "temario_2024_lectura",
@@ -166,7 +164,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "LECTURA",
         "filename": "temario_paes_2024_competencia_lectora.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-competencia-lectora.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-competencia-lectora.pdf",
     },
     {
         "id": "temario_2024_ciencias",
@@ -174,7 +172,7 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "CIENCIAS",
         "filename": "temario_paes_2024_ciencias.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-ciencias.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-ciencias.pdf",
     },
     {
         "id": "temario_2024_historia",
@@ -182,9 +180,8 @@ DEMRE_CATALOG = [
         "type": "temario",
         "subject": "HISTORIA",
         "filename": "temario_paes_2024_historia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-historia.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-03-23-temario-paes-regular-historia.pdf",
     },
-
     # ==================== PRUEBAS OFICIALES 2026 ====================
     {
         "id": "prueba_2026_m1",
@@ -192,7 +189,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "M1",
         "filename": "prueba_oficial_paes_2026_m1.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-03-paes-regular-matematica1-p2026.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-03-paes-regular-matematica1-p2026.pdf",
     },
     {
         "id": "prueba_2026_m2",
@@ -200,7 +197,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "M2",
         "filename": "prueba_oficial_paes_2026_m2.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-01-paes-regular-matematica2-p2026.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-01-paes-regular-matematica2-p2026.pdf",
     },
     {
         "id": "prueba_2026_lectura",
@@ -208,7 +205,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "LECTURA",
         "filename": "prueba_oficial_paes_2026_competencia_lectora.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-competencia-lectora-p2026.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-competencia-lectora-p2026.pdf",
     },
     {
         "id": "prueba_2026_historia",
@@ -216,7 +213,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "HISTORIA",
         "filename": "prueba_oficial_paes_2026_historia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-03-paes-regular-historia-p2026.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-03-paes-regular-historia-p2026.pdf",
     },
     {
         "id": "prueba_2026_ciencias_biologia",
@@ -224,7 +221,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_BIOLOGIA",
         "filename": "prueba_oficial_paes_2026_ciencias_biologia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-ciencias-biologia-p2026.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-ciencias-biologia-p2026.pdf",
     },
     {
         "id": "prueba_2026_ciencias_fisica",
@@ -232,7 +229,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_FISICA",
         "filename": "prueba_oficial_paes_2026_ciencias_fisica.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-ciencias-fisica-p2026.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-ciencias-fisica-p2026.pdf",
     },
     {
         "id": "prueba_2026_ciencias_quimica",
@@ -240,9 +237,8 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_QUIMICA",
         "filename": "prueba_oficial_paes_2026_ciencias_quimica.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-ciencias-quimica-p2026.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2026-25-12-02-paes-regular-ciencias-quimica-p2026.pdf",
     },
-
     # ==================== PRUEBAS OFICIALES 2025 ====================
     {
         "id": "prueba_2025_m1",
@@ -250,7 +246,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "M1",
         "filename": "prueba_oficial_paes_2025_m1.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-04-paes-regular-matematica1-p2025.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-04-paes-regular-matematica1-p2025.pdf",
     },
     {
         "id": "prueba_2025_m2",
@@ -258,7 +254,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "M2",
         "filename": "prueba_oficial_paes_2025_m2.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-02-paes-regular-matematica2-p2025.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-02-paes-regular-matematica2-p2025.pdf",
     },
     {
         "id": "prueba_2025_lectura",
@@ -266,7 +262,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "LECTURA",
         "filename": "prueba_oficial_paes_2025_competencia_lectora.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-competencia-lectora-p2025.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-competencia-lectora-p2025.pdf",
     },
     {
         "id": "prueba_2025_historia",
@@ -274,7 +270,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "HISTORIA",
         "filename": "prueba_oficial_paes_2025_historia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-04-paes-regular-historia-p2025.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-04-paes-regular-historia-p2025.pdf",
     },
     {
         "id": "prueba_2025_ciencias_biologia",
@@ -282,7 +278,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_BIOLOGIA",
         "filename": "prueba_oficial_paes_2025_ciencias_biologia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-ciencias-biologia-p2025.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-ciencias-biologia-p2025.pdf",
     },
     {
         "id": "prueba_2025_ciencias_fisica",
@@ -290,7 +286,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_FISICA",
         "filename": "prueba_oficial_paes_2025_ciencias_fisica.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-ciencias-fisica-p2025.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-ciencias-fisica-p2025.pdf",
     },
     {
         "id": "prueba_2025_ciencias_quimica",
@@ -298,9 +294,8 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_QUIMICA",
         "filename": "prueba_oficial_paes_2025_ciencias_quimica.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-ciencias-quimica-p2025.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2025-24-12-03-paes-regular-ciencias-quimica-p2025.pdf",
     },
-
     # ==================== PRUEBAS OFICIALES 2024 ====================
     {
         "id": "prueba_2024_m1",
@@ -308,7 +303,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "M1",
         "filename": "prueba_oficial_paes_2024_m1.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-29-paes-regular-oficial-matematica1-p2024.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-29-paes-regular-oficial-matematica1-p2024.pdf",
     },
     {
         "id": "prueba_2024_m2",
@@ -316,7 +311,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "M2",
         "filename": "prueba_oficial_paes_2024_m2.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-27-paes-regular-oficial-matematica2-p2024.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-27-paes-regular-oficial-matematica2-p2024.pdf",
     },
     {
         "id": "prueba_2024_lectura",
@@ -324,7 +319,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "LECTURA",
         "filename": "prueba_oficial_paes_2024_competencia_lectora.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-competencia-lectora-p2024.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-competencia-lectora-p2024.pdf",
     },
     {
         "id": "prueba_2024_historia",
@@ -332,7 +327,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "HISTORIA",
         "filename": "prueba_oficial_paes_2024_historia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-29-paes-regular-oficial-historia-p2024.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-29-paes-regular-oficial-historia-p2024.pdf",
     },
     {
         "id": "prueba_2024_ciencias_biologia",
@@ -340,7 +335,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_BIOLOGIA",
         "filename": "prueba_oficial_paes_2024_ciencias_biologia.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-ciencias-biologia-p2024.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-ciencias-biologia-p2024.pdf",
     },
     {
         "id": "prueba_2024_ciencias_fisica",
@@ -348,7 +343,7 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_FISICA",
         "filename": "prueba_oficial_paes_2024_ciencias_fisica.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-ciencias-fisica-p2024.pdf"
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-ciencias-fisica-p2024.pdf",
     },
     {
         "id": "prueba_2024_ciencias_quimica",
@@ -356,8 +351,8 @@ DEMRE_CATALOG = [
         "type": "prueba_oficial",
         "subject": "CIENCIAS_QUIMICA",
         "filename": "prueba_oficial_paes_2024_ciencias_quimica.pdf",
-        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-ciencias-quimica-p2024.pdf"
-    }
+        "url": "https://demre.cl/publicaciones/pdf/2024-23-11-28-paes-regular-oficial-ciencias-quimica-p2024.pdf",
+    },
 ]
 
 
@@ -399,7 +394,9 @@ def main():
         dest_file = dest_folder / item["filename"]
         rel_path = dest_file.relative_to(BASE_DIR)
 
-        print(f"[{idx:02d}/{len(DEMRE_CATALOG):02d}] {item['type'].upper()} {item['year']} - {item['subject']} ({item['filename']})...")
+        print(
+            f"[{idx:02d}/{len(DEMRE_CATALOG):02d}] {item['type'].upper()} {item['year']} - {item['subject']} ({item['filename']})..."
+        )
 
         # Check if already downloaded and valid
         downloaded_ok = False
@@ -423,30 +420,34 @@ def main():
         if downloaded_ok:
             success_count += 1
             file_size = dest_file.stat().st_size
-            manifest_records.append({
-                "id": item["id"],
-                "year": item["year"],
-                "type": item["type"],
-                "subject": item["subject"],
-                "filename": item["filename"],
-                "path": str(rel_path).replace("\\", "/"),
-                "size_bytes": file_size,
-                "url": item["url"],
-                "valid_pdf": True
-            })
+            manifest_records.append(
+                {
+                    "id": item["id"],
+                    "year": item["year"],
+                    "type": item["type"],
+                    "subject": item["subject"],
+                    "filename": item["filename"],
+                    "path": str(rel_path).replace("\\", "/"),
+                    "size_bytes": file_size,
+                    "url": item["url"],
+                    "valid_pdf": True,
+                }
+            )
         else:
             failure_count += 1
-            manifest_records.append({
-                "id": item["id"],
-                "year": item["year"],
-                "type": item["type"],
-                "subject": item["subject"],
-                "filename": item["filename"],
-                "path": None,
-                "size_bytes": 0,
-                "url": item["url"],
-                "valid_pdf": False
-            })
+            manifest_records.append(
+                {
+                    "id": item["id"],
+                    "year": item["year"],
+                    "type": item["type"],
+                    "subject": item["subject"],
+                    "filename": item["filename"],
+                    "path": None,
+                    "size_bytes": 0,
+                    "url": item["url"],
+                    "valid_pdf": False,
+                }
+            )
 
     # Save manifest
     manifest_path = TARGET_DIR / "manifest.json"
@@ -455,7 +456,7 @@ def main():
         "total_documents": len(DEMRE_CATALOG),
         "successful_downloads": success_count,
         "failed_downloads": failure_count,
-        "documents": manifest_records
+        "documents": manifest_records,
     }
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest_data, f, indent=2, ensure_ascii=False)

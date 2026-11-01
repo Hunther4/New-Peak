@@ -32,7 +32,6 @@ class BoundedExecutor:
             self._semaphore.release()
             raise
 
-
     def _run_and_release(self, fn: Callable, /, *args: Any, **kwargs: Any):
         """Run the callable, then release the semaphore slot."""
         try:

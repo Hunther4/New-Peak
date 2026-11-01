@@ -32,6 +32,7 @@ def test_3pl_probability_properties():
     # For theta -> +inf, P -> 1.0
     assert abs(prob_3pl(15.0, a, b, c) - 1.0) < 1e-3
 
+
 def test_information_and_standard_error():
     items = [
         ItemParameters("i1", a=1.0, b=-1.0, c=0.20),
@@ -44,6 +45,7 @@ def test_information_and_standard_error():
     se_0 = float(standard_error(0.0, items))
     assert abs(se_0 - (1.0 / np.sqrt(info_0))) < 1e-4
 
+
 def test_theta_to_demre_scale():
     score, p_min, p_max = theta_to_demre_score(0.0, se=0.3)
     assert score == 500
@@ -54,6 +56,7 @@ def test_theta_to_demre_scale():
 
     score_high, _, _ = theta_to_demre_score(4.0, se=0.2)
     assert score_high <= 1000
+
 
 def test_eap_robustness():
     items = [ItemParameters(f"q_{i}", a=1.0, b=(i - 5) * 0.4, c=0.20) for i in range(10)]
@@ -72,6 +75,7 @@ def test_eap_robustness():
     est_mid = estimate_theta_eap(responses_mid, items)
     assert -0.8 < est_mid.theta < 0.8
     assert 100 <= est_mid.paes_score <= 1000
+
 
 def test_mle_and_hybrid():
     items = [ItemParameters(f"q_{i}", a=1.2, b=(i - 5) * 0.3, c=0.20) for i in range(10)]
@@ -99,6 +103,7 @@ def test_mle_and_hybrid():
     hyb_mixed = estimate_theta_hybrid(responses, items)
     assert hyb_mixed.method == "MLE"
 
+
 def test_cat_adaptive_selection():
     candidate_items = [
         ItemParameters("easy", a=1.5, b=-2.0, c=0.20),
@@ -116,6 +121,7 @@ def test_cat_adaptive_selection():
     # Excludes already administered items
     selected_next = select_next_adaptive_item(1.9, candidate_items, administered_ids=["hard"])
     assert selected_next.item_id != "hard"
+
 
 def test_mmle_em_calibration():
     # 20 examinees x 5 items

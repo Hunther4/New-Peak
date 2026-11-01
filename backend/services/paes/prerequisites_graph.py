@@ -4,12 +4,14 @@ from uuid import UUID
 
 class PrerequisiteCycleError(Exception):
     """Lanzada cuando la adición de un prerrequisito generaría un ciclo en el grafo curricular."""
+
     pass
 
+
 def check_no_cycles(
-    existing_edges: List[tuple[UUID, UUID]], # Lista de (subtopic_id, prerequisite_id)
+    existing_edges: List[tuple[UUID, UUID]],  # Lista de (subtopic_id, prerequisite_id)
     new_subtopic_id: UUID,
-    new_prerequisite_id: UUID
+    new_prerequisite_id: UUID,
 ) -> None:
     """
     Verifica que la adición de la arista (new_subtopic_id -> new_prerequisite_id)
@@ -21,7 +23,9 @@ def check_no_cycles(
     Se generaría un ciclo si ya existe un camino desde B hacia A.
     """
     if new_subtopic_id == new_prerequisite_id:
-        raise PrerequisiteCycleError(f"Auto-dependencia no permitida: {new_subtopic_id} no puede ser su propio prerrequisito.")
+        raise PrerequisiteCycleError(
+            f"Auto-dependencia no permitida: {new_subtopic_id} no puede ser su propio prerrequisito."
+        )
 
     # Construir grafo de adyacencia existente: origen -> destinos (A depende de B => A -> B)
     adj: Dict[UUID, List[UUID]] = {}
@@ -48,7 +52,7 @@ def check_no_cycles(
                 if dfs(neighbor):
                     return True
             elif neighbor in recursion_stack:
-                return True # Ciclo detectado
+                return True  # Ciclo detectado
 
         recursion_stack.remove(node)
         return False

@@ -3,6 +3,7 @@ Tests for MIME whitelist validation on /uploads/ paths (T-03).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import pytest
 
 

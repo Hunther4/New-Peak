@@ -1,4 +1,5 @@
 """Shared utilities for game services."""
+
 from typing import Any
 
 

@@ -85,8 +85,13 @@ def apply_staircase(
     # else: maintain level
 
     _record_history(
-        db, skill, session_success, trigger, session_id,
-        old_level, skill.current_level,
+        db,
+        skill,
+        session_success,
+        trigger,
+        session_id,
+        old_level,
+        skill.current_level,
     )
 
 
@@ -185,7 +190,7 @@ def determine_session_success(db: Session, game_session, skill=None) -> bool | N
 
     if skill is None:
         # Fallback: look up from game_session.skill_id
-        skill_id = getattr(game_session, 'skill_id', None)
+        skill_id = getattr(game_session, "skill_id", None)
         if skill_id is None:
             return None
         skill = db.get(Skill, skill_id)
@@ -193,7 +198,7 @@ def determine_session_success(db: Session, game_session, skill=None) -> bool | N
         return None
 
     # 1. Evaluate games with rounds and attempts (aggregate accuracy)
-    if hasattr(game_session, 'total_rounds') and getattr(game_session, 'total_rounds', 0) > 0:
+    if hasattr(game_session, "total_rounds") and getattr(game_session, "total_rounds", 0) > 0:
         from models.models import (
             IQPracticeAttempt,
             IQPracticeRound,
@@ -202,6 +207,7 @@ def determine_session_success(db: Session, game_session, skill=None) -> bool | N
             MemoryNumberAttempt,
             MemoryNumberRound,
         )
+
         total_attempts = 0
         correct_attempts = 0
 
@@ -215,9 +221,7 @@ def determine_session_success(db: Session, game_session, skill=None) -> bool | N
             correct_attempts = sum(1 for a in attempts if a.correct)
         elif skill.skill_type == "iq_practice":
             attempts = db.exec(
-                select(IQPracticeAttempt)
-                .join(IQPracticeRound)
-                .where(IQPracticeRound.session_id == game_session.id)
+                select(IQPracticeAttempt).join(IQPracticeRound).where(IQPracticeRound.session_id == game_session.id)
             ).all()
             total_attempts = len(attempts)
             correct_attempts = sum(1 for a in attempts if a.correct)
@@ -239,7 +243,7 @@ def determine_session_success(db: Session, game_session, skill=None) -> bool | N
             return None
 
     # Fallback: games or tests where attempts aren't loaded, use consecutive counters
-    if hasattr(game_session, 'consecutive_correct'):
+    if hasattr(game_session, "consecutive_correct"):
         cc = game_session.consecutive_correct
         ci = game_session.consecutive_incorrect
 
@@ -265,7 +269,7 @@ def determine_session_success(db: Session, game_session, skill=None) -> bool | N
             return None
 
     # DualNBack uses tasa_precision (NOT accuracy)
-    if hasattr(game_session, 'tasa_precision'):
+    if hasattr(game_session, "tasa_precision"):
         if game_session.tasa_precision >= 0.60:
             return True
         elif game_session.tasa_precision < 0.40:
@@ -273,4 +277,3 @@ def determine_session_success(db: Session, game_session, skill=None) -> bool | N
         return None
 
     return None
-

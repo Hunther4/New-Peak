@@ -4,6 +4,7 @@ por key (GET/PUT /api/models/keys, GET /api/models/available-for-key).
 
 Toda la HTTP de providers se mockea: sin red en tests.
 """
+
 from unittest.mock import MagicMock, patch
 
 import httpx
@@ -31,6 +32,7 @@ def _scrub_env(monkeypatch):
 # ---------------------------------------------------------------------------
 # Resolución de keys: DB primero, fallback env
 # ---------------------------------------------------------------------------
+
 
 def test_resolve_key_prefers_db_over_env(session, monkeypatch):
     """La key de DB gana sobre la variable de entorno."""
@@ -103,6 +105,7 @@ def test_clear_key_cache_picks_up_new_db_value(session, monkeypatch):
 # mask_key
 # ---------------------------------------------------------------------------
 
+
 def test_mask_key_returns_first4_last4():
     masked = mask_key("gsk_abcdefghijklmnop")
     assert masked == "gsk_…mnop"
@@ -123,6 +126,7 @@ def test_mask_key_short_key_does_not_expose_full_value():
 # ---------------------------------------------------------------------------
 # GET /api/models/keys
 # ---------------------------------------------------------------------------
+
 
 def test_get_keys_all_unconfigured(client, monkeypatch):
     _scrub_env(monkeypatch)
@@ -156,6 +160,7 @@ def test_get_keys_reflects_env_configured_key(client, monkeypatch):
 # ---------------------------------------------------------------------------
 # PUT /api/models/keys/{provider}
 # ---------------------------------------------------------------------------
+
 
 def test_put_key_saves_and_returns_masked(client, monkeypatch):
     _scrub_env(monkeypatch)
@@ -200,6 +205,7 @@ def test_put_key_missing_body_422(client):
 # GET /api/models/available-for-key
 # ---------------------------------------------------------------------------
 
+
 def _mock_provider_models_response(payload, status_code=200):
     resp = MagicMock()
     resp.status_code = status_code
@@ -224,8 +230,7 @@ def test_available_for_key_success_openai_shape(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("groq", "gsk_test-key-000111222")
     payload = {"data": [{"id": "llama-3.1-8b-instant"}, {"id": "qwen/qwen3-32b", "name": "Qwen3 32B"}]}
-    with patch("api.routes.models.httpx.get",
-               return_value=_mock_provider_models_response(payload)) as mock_get:
+    with patch("api.routes.models.httpx.get", return_value=_mock_provider_models_response(payload)) as mock_get:
         resp = client.get("/api/models/available-for-key?provider=groq")
 
     assert resp.status_code == 200
@@ -246,8 +251,7 @@ def test_available_for_key_generalcompute_uses_gc_base_url(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("generalcompute", "gc-key-abcdef123456")
     payload = {"data": [{"id": "deepseek-v3.2"}]}
-    with patch("api.routes.models.httpx.get",
-               return_value=_mock_provider_models_response(payload)) as mock_get:
+    with patch("api.routes.models.httpx.get", return_value=_mock_provider_models_response(payload)) as mock_get:
         resp = client.get("/api/models/available-for-key?provider=generalcompute")
 
     assert resp.status_code == 200
@@ -259,8 +263,7 @@ def test_available_for_key_generalcompute_uses_gc_base_url(client, monkeypatch):
 def test_available_for_key_provider_rejects_key_402(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("openrouter", "sk-or-v1-bad-key-000000")
-    with patch("api.routes.models.httpx.get",
-               return_value=_mock_provider_models_response({}, status_code=401)):
+    with patch("api.routes.models.httpx.get", return_value=_mock_provider_models_response({}, status_code=401)):
         resp = client.get("/api/models/available-for-key?provider=openrouter")
 
     assert resp.status_code == 402
@@ -271,8 +274,7 @@ def test_available_for_key_provider_rejects_key_402(client, monkeypatch):
 def test_available_for_key_provider_error_502(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("groq", "gsk_key-000111222333")
-    with patch("api.routes.models.httpx.get",
-               return_value=_mock_provider_models_response({}, status_code=500)):
+    with patch("api.routes.models.httpx.get", return_value=_mock_provider_models_response({}, status_code=500)):
         resp = client.get("/api/models/available-for-key?provider=groq")
     assert resp.status_code == 502
     assert "500" in resp.json()["detail"]
@@ -281,8 +283,7 @@ def test_available_for_key_provider_error_502(client, monkeypatch):
 def test_available_for_key_timeout_502(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("groq", "gsk_key-000111222333")
-    with patch("api.routes.models.httpx.get",
-               side_effect=httpx.TimeoutException("timed out")):
+    with patch("api.routes.models.httpx.get", side_effect=httpx.TimeoutException("timed out")):
         resp = client.get("/api/models/available-for-key?provider=groq")
     assert resp.status_code == 502
     assert "timeout" in resp.json()["detail"].lower()
@@ -291,8 +292,7 @@ def test_available_for_key_timeout_502(client, monkeypatch):
 def test_available_for_key_connection_error_502(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("groq", "gsk_key-000111222333")
-    with patch("api.routes.models.httpx.get",
-               side_effect=httpx.ConnectError("refused")):
+    with patch("api.routes.models.httpx.get", side_effect=httpx.ConnectError("refused")):
         resp = client.get("/api/models/available-for-key?provider=groq")
     assert resp.status_code == 502
 
@@ -312,8 +312,7 @@ def test_available_for_key_skips_items_without_id(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("groq", "gsk_key-000111222333")
     payload = {"data": [{"id": "ok-model"}, {"name": "sin-id"}, "nope"]}
-    with patch("api.routes.models.httpx.get",
-               return_value=_mock_provider_models_response(payload)):
+    with patch("api.routes.models.httpx.get", return_value=_mock_provider_models_response(payload)):
         resp = client.get("/api/models/available-for-key?provider=groq")
     assert resp.status_code == 200
     assert resp.json() == [{"model_id": "ok-model", "name": "ok-model"}]
@@ -322,8 +321,7 @@ def test_available_for_key_skips_items_without_id(client, monkeypatch):
 def test_available_for_key_payload_without_data_returns_empty(client, monkeypatch):
     _scrub_env(monkeypatch)
     save_provider_key("groq", "gsk_key-000111222333")
-    with patch("api.routes.models.httpx.get",
-               return_value=_mock_provider_models_response({"object": "list"})):
+    with patch("api.routes.models.httpx.get", return_value=_mock_provider_models_response({"object": "list"})):
         resp = client.get("/api/models/available-for-key?provider=groq")
     assert resp.status_code == 200
     assert resp.json() == []

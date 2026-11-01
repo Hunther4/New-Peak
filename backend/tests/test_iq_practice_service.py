@@ -4,6 +4,7 @@ Direct service-layer tests for iq_practice_service.
 Bypasses the FastAPI HTTP layer to validate the service functions in
 isolation.
 """
+
 import json
 from unittest.mock import patch
 

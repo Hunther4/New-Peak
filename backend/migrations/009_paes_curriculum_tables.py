@@ -1,4 +1,4 @@
-﻿"""009 — PAES Adaptive Curriculum, Questions, FSRS State, and Study Sessions.
+"""009 — PAES Adaptive Curriculum, Questions, FSRS State, and Study Sessions.
 
 Creates tables for the PAES M1 unified integration:
 - paes_curriculum_versions
@@ -22,11 +22,13 @@ from sqlalchemy import text
 
 logger = logging.getLogger(__name__)
 
+
 def up(conn):
     """Create paes_* tables and associated performance indexes."""
     logger.info("Applying migration 009: Creating paes_* curriculum and telemetry tables")
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_curriculum_versions (
             id TEXT PRIMARY KEY,
             code TEXT NOT NULL UNIQUE,
@@ -35,9 +37,11 @@ def up(conn):
             is_active BOOLEAN NOT NULL DEFAULT 1,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_subjects (
             id TEXT PRIMARY KEY,
             curriculum_version_id TEXT NOT NULL REFERENCES paes_curriculum_versions(id) ON DELETE CASCADE,
@@ -49,36 +53,44 @@ def up(conn):
             pilot_questions INTEGER NOT NULL DEFAULT 5,
             duration_minutes INTEGER NOT NULL DEFAULT 140
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_competencies (
             id TEXT PRIMARY KEY,
             code TEXT NOT NULL UNIQUE,
             name TEXT NOT NULL,
             description TEXT
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_ejes_tematicos (
             id TEXT PRIMARY KEY,
             subject_id TEXT NOT NULL REFERENCES paes_subjects(id) ON DELETE CASCADE,
             name TEXT NOT NULL,
             order_index INTEGER NOT NULL DEFAULT 0
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_topics (
             id TEXT PRIMARY KEY,
             eje_id TEXT NOT NULL REFERENCES paes_ejes_tematicos(id) ON DELETE CASCADE,
             name TEXT NOT NULL,
             order_index INTEGER NOT NULL DEFAULT 0
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_subtopics (
             id TEXT PRIMARY KEY,
             topic_id TEXT NOT NULL REFERENCES paes_topics(id) ON DELETE CASCADE,
@@ -87,9 +99,11 @@ def up(conn):
             description TEXT,
             order_index INTEGER NOT NULL DEFAULT 0
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_subtopic_prerequisites (
             id TEXT PRIMARY KEY,
             subtopic_id TEXT NOT NULL REFERENCES paes_subtopics(id) ON DELETE CASCADE,
@@ -98,9 +112,11 @@ def up(conn):
             minimum_mastery_required REAL NOT NULL DEFAULT 0.60,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_questions (
             id TEXT PRIMARY KEY,
             subtopic_id TEXT NOT NULL REFERENCES paes_subtopics(id) ON DELETE RESTRICT,
@@ -120,9 +136,11 @@ def up(conn):
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_learning_states (
             id TEXT PRIMARY KEY,
             user_id INTEGER NOT NULL,
@@ -138,9 +156,11 @@ def up(conn):
             total_successes INTEGER NOT NULL DEFAULT 0,
             last_practiced_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_assessment_states (
             id TEXT PRIMARY KEY,
             user_id INTEGER NOT NULL,
@@ -154,9 +174,11 @@ def up(conn):
             total_scored_items_answered INTEGER NOT NULL DEFAULT 0,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_study_sessions (
             id TEXT PRIMARY KEY,
             user_id INTEGER NOT NULL,
@@ -170,9 +192,11 @@ def up(conn):
             started_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             completed_at TIMESTAMP
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_question_attempts (
             id TEXT PRIMARY KEY,
             session_id TEXT NOT NULL REFERENCES paes_study_sessions(id) ON DELETE CASCADE,
@@ -186,9 +210,11 @@ def up(conn):
             diagnostic_source TEXT,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS paes_socratic_steps (
             id TEXT PRIMARY KEY,
             session_id TEXT NOT NULL,
@@ -199,7 +225,8 @@ def up(conn):
             student_understanding TEXT,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
     # Indexes
     conn.execute(text("CREATE INDEX IF NOT EXISTS ix_paes_subtopics_slug ON paes_subtopics(slug)"))
@@ -208,6 +235,7 @@ def up(conn):
     conn.execute(text("CREATE INDEX IF NOT EXISTS ix_paes_attempts_session ON paes_question_attempts(session_id)"))
 
     logger.info("Migration 009 complete.")
+
 
 MIGRATION = {
     "version": 9,

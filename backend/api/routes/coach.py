@@ -2,6 +2,7 @@
 Endpoints del Coach Cognitivo / Instructor Socrático.
 Registrado en main.py como: prefix="/api/coach", tags=["Coach"]
 """
+
 import json
 import logging
 import os
@@ -21,6 +22,7 @@ router = APIRouter()
 
 # --- Pydantic Models ---
 
+
 class CoachChatMessage(BaseModel):
     role: str = Field(..., description="'user' o 'assistant'")
     content: str = Field(..., max_length=4000)
@@ -30,16 +32,13 @@ class CoachChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2500, description="Consulta del estudiante")
     context_type: str = Field(default="general", description="'paes' | 'gym' | 'dashboard' | 'general'")
     active_question: Optional[Dict[str, Any]] = Field(
-        default=None,
-        description="Pregunta activa (enunciado, eje, subtema, opciones - sin la alternativa correcta)"
+        default=None, description="Pregunta activa (enunciado, eje, subtema, opciones - sin la alternativa correcta)"
     )
     game_context: Optional[Dict[str, Any]] = Field(
-        default=None,
-        description="Contexto del juego cognitivo activo (tipo de juego, nivel N, métricas)"
+        default=None, description="Contexto del juego cognitivo activo (tipo de juego, nivel N, métricas)"
     )
     history: List[CoachChatMessage] = Field(
-        default_factory=list,
-        description="Historial previo de la conversación en el drawer"
+        default_factory=list, description="Historial previo de la conversación en el drawer"
     )
 
 
@@ -47,16 +46,15 @@ class CoachChatResponse(BaseModel):
     reply: str = Field(..., description="Respuesta socrática del coach en Markdown y KaTeX ($..$)")
     concept_highlight: Optional[str] = Field(
         default=None,
-        description="Concepto clave o principio involucrado (ej: 'Propiedad distributiva', 'Working memory span')"
+        description="Concepto clave o principio involucrado (ej: 'Propiedad distributiva', 'Working memory span')",
     )
     suggested_action: Optional[str] = Field(
-        default=None,
-        description="Próximo paso de razonamiento sugerido al estudiante"
+        default=None, description="Próximo paso de razonamiento sugerido al estudiante"
     )
     consulted_document: Optional[str] = Field(
-        default=None,
-        description="Documento o criterio oficial consultado del DEMRE si la herramienta fue invocada"
+        default=None, description="Documento o criterio oficial consultado del DEMRE si la herramienta fue invocada"
     )
+
 
 def _get_coach_system_prompt() -> str:
     now = datetime.now()
@@ -106,12 +104,12 @@ DEMRE_TOOLS = [
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "Término o tema curricular a verificar (ej: 'homotecia', 'función cuadrática', 'comprensión lectora')"
+                        "description": "Término o tema curricular a verificar (ej: 'homotecia', 'función cuadrática', 'comprensión lectora')",
                     }
                 },
-                "required": ["query"]
-            }
-        }
+                "required": ["query"],
+            },
+        },
     }
 ]
 
@@ -123,6 +121,7 @@ def _execute_demre_tool(query: str) -> tuple[str, str]:
     """
     try:
         from services.paes.learning_engine import search_demre_curriculum
+
         chunks = search_demre_curriculum(query, top_k=2)
         if not chunks:
             return "No se encontraron documentos oficiales específicos para esa consulta.", ""
@@ -161,7 +160,9 @@ def _build_coach_user_prompt(request: CoachChatRequest) -> str:
 
         q_text = f"CONTEXTO DE EJERCICIO ACTIVO (PAES {subject} - {subtopic}):\nEnunciado: {stem}"
         if options:
-            opts_str = "\n".join([f"- {opt.get('key', '')}: {opt.get('text', '')}" for opt in options if isinstance(opt, dict)])
+            opts_str = "\n".join(
+                [f"- {opt.get('key', '')}: {opt.get('text', '')}" for opt in options if isinstance(opt, dict)]
+            )
             if opts_str:
                 q_text += f"\nOpciones disponibles:\n{opts_str}"
         sections.append(q_text)
@@ -171,7 +172,9 @@ def _build_coach_user_prompt(request: CoachChatRequest) -> str:
         game_name = g.get("game", "Juego Cognitivo")
         level = g.get("level") or g.get("n") or "N/A"
         accuracy = g.get("accuracy", "N/A")
-        sections.append(f"CONTEXTO DE GIMNASIO COGNITIVO:\nJuego: {game_name}\nNivel/N: {level}\nPrecisión/Score: {accuracy}")
+        sections.append(
+            f"CONTEXTO DE GIMNASIO COGNITIVO:\nJuego: {game_name}\nNivel/N: {level}\nPrecisión/Score: {accuracy}"
+        )
 
     elif request.context_type == "dashboard":
         sections.append("CONTEXTO: El estudiante está en su Dashboard analizando su progreso general y debilidades.")
@@ -190,7 +193,9 @@ def _build_coach_user_prompt(request: CoachChatRequest) -> str:
     return "\n\n---\n\n".join(sections)
 
 
-def _execute_coach_with_tools(payload: CoachChatRequest, user_prompt: str, system_prompt: str) -> Optional[CoachChatResponse]:
+def _execute_coach_with_tools(
+    payload: CoachChatRequest, user_prompt: str, system_prompt: str
+) -> Optional[CoachChatResponse]:
     """
     Intenta ejecutar la consulta con el cliente local soportando la herramienta DEMRE.
     Retorna CoachChatResponse si tuvo éxito, o None para delegar a execute_with_router.
@@ -205,10 +210,7 @@ def _execute_coach_with_tools(payload: CoachChatRequest, user_prompt: str, syste
         client = get_client()
         active_model = _get_active_lm_model(client)
 
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ]
+        messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
 
         # Turno 1: el modelo decide libremente si responder o invocar la herramienta
         completion = client.chat.completions.create(
@@ -235,20 +237,18 @@ def _execute_coach_with_tools(payload: CoachChatRequest, user_prompt: str, syste
                     tool_context, citation = _execute_demre_tool(query)
                     if citation:
                         consulted_doc = citation
-                    messages.append({
-                        "role": "tool",
-                        "tool_call_id": tc.id,
-                        "content": tool_context
-                    })
+                    messages.append({"role": "tool", "tool_call_id": tc.id, "content": tool_context})
 
             # Turno 2: síntesis final estructurada guiada
-            messages.append({
-                "role": "user",
-                "content": "Sintetiza la respuesta final pedagógica para el estudiante en formato JSON válido con las claves: "
-                           "\"reply\", \"concept_highlight\" y \"suggested_action\". Si el contenido consultado no aparece en "
-                           "los criterios oficiales de M1, explica con rigor pedagógico que está excluido de M1 y pertenece a M2. "
-                           "Usa Markdown limpio y KaTeX ($...$ inline) para expresiones matemáticas."
-            })
+            messages.append(
+                {
+                    "role": "user",
+                    "content": "Sintetiza la respuesta final pedagógica para el estudiante en formato JSON válido con las claves: "
+                    '"reply", "concept_highlight" y "suggested_action". Si el contenido consultado no aparece en '
+                    "los criterios oficiales de M1, explica con rigor pedagógico que está excluido de M1 y pertenece a M2. "
+                    "Usa Markdown limpio y KaTeX ($...$ inline) para expresiones matemáticas.",
+                }
+            )
 
             turn2_completion = client.chat.completions.create(
                 model=active_model,
@@ -275,6 +275,7 @@ def _execute_coach_with_tools(payload: CoachChatRequest, user_prompt: str, syste
 
 
 # --- Endpoint ---
+
 
 @router.post("/chat", response_model=CoachChatResponse)
 @limiter.limit("30/minute")
@@ -308,13 +309,10 @@ def chat_with_coach(payload: CoachChatRequest, request: Request):
         logger.warning("Router de IA no devolvió un objeto CoachChatResponse válido; aplicando fallback.")
         return CoachChatResponse(
             reply="Estoy teniendo dificultades para conectar con el motor de razonamiento en este momento. "
-                  "Reflexiona: ¿cuál es el concepto o variable clave que te pide el problema y qué datos tienes disponibles?",
+            "Reflexiona: ¿cuál es el concepto o variable clave que te pide el problema y qué datos tienes disponibles?",
             concept_highlight="Identificación de incógnitas y datos",
-            suggested_action="Escribe los datos conocidos y la incógnita del ejercicio."
+            suggested_action="Escribe los datos conocidos y la incógnita del ejercicio.",
         )
     except Exception as e:
         logger.exception("Error al procesar consulta en coach/chat: %s", e)
-        raise HTTPException(
-            status_code=500,
-            detail="Error interno al comunicarse con el coach cognitivo."
-        )
+        raise HTTPException(status_code=500, detail="Error interno al comunicarse con el coach cognitivo.")

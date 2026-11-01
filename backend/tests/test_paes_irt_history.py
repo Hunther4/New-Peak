@@ -8,6 +8,7 @@ been estimated from 65 scored items.
 The estimate is now computed over every scored response the user has for that
 subject.
 """
+
 import pytest
 from sqlmodel import Session, select
 

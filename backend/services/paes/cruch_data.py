@@ -35,15 +35,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.35,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 928.55,
-            "2025": 930.8,
-            "2026": 931.15
-        },
+        "cutoffs": {"2024": 928.55, "2025": 930.8, "2026": 931.15},
         "requires_m2": False,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "medicina-puc",
@@ -63,15 +59,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.25,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 954.2,
-            "2025": 956.8,
-            "2026": 958.4
-        },
+        "cutoffs": {"2024": 954.2, "2025": 956.8, "2026": 958.4},
         "requires_m2": False,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "ing-civil-uch",
@@ -91,15 +83,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.2,
             "ciencias": 0.05,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 826.4,
-            "2025": 830.1,
-            "2026": 833.85
-        },
+        "cutoffs": {"2024": 826.4, "2025": 830.1, "2026": 833.85},
         "requires_m2": True,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "ing-civil-puc",
@@ -119,15 +107,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 880.5,
-            "2025": 884.2,
-            "2026": 887.3
-        },
+        "cutoffs": {"2024": 880.5, "2025": 884.2, "2026": 887.3},
         "requires_m2": True,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "ing-civil-usach",
@@ -147,15 +131,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 755.2,
-            "2025": 758.9,
-            "2026": 762.4
-        },
+        "cutoffs": {"2024": 755.2, "2025": 758.9, "2026": 762.4},
         "requires_m2": True,
-        "min_weighted_score": 550.0
+        "min_weighted_score": 550.0,
     },
     {
         "id": "ing-civil-utfsm",
@@ -175,15 +155,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 810.3,
-            "2025": 814.0,
-            "2026": 817.65
-        },
+        "cutoffs": {"2024": 810.3, "2025": 814.0, "2026": 817.65},
         "requires_m2": True,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "derecho-uch",
@@ -203,15 +179,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.2,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 845.2,
-            "2025": 848.7,
-            "2026": 851.3
-        },
+        "cutoffs": {"2024": 845.2, "2025": 848.7, "2026": 851.3},
         "requires_m2": False,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "derecho-puc",
@@ -231,15 +203,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.25,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 875.3,
-            "2025": 879.1,
-            "2026": 882.0
-        },
+        "cutoffs": {"2024": 875.3, "2025": 879.1, "2026": 882.0},
         "requires_m2": False,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "psicologia-puc",
@@ -259,15 +227,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.15,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 840.1,
-            "2025": 843.5,
-            "2026": 846.2
-        },
+        "cutoffs": {"2024": 840.1, "2025": 843.5, "2026": 846.2},
         "requires_m2": False,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "psicologia-usach",
@@ -287,15 +251,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.15,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 795.3,
-            "2025": 798.9,
-            "2026": 802.1
-        },
+        "cutoffs": {"2024": 795.3, "2025": 798.9, "2026": 802.1},
         "requires_m2": False,
-        "min_weighted_score": 550.0
+        "min_weighted_score": 550.0,
     },
     {
         "id": "enfermeria-uch",
@@ -315,15 +275,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.35,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 772.3,
-            "2025": 778.0,
-            "2026": 781.4
-        },
+        "cutoffs": {"2024": 772.3, "2025": 778.0, "2026": 781.4},
         "requires_m2": False,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "enfermeria-usach",
@@ -343,15 +299,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.25,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 780.2,
-            "2025": 784.0,
-            "2026": 786.5
-        },
+        "cutoffs": {"2024": 780.2, "2025": 784.0, "2026": 786.5},
         "requires_m2": False,
-        "min_weighted_score": 550.0
+        "min_weighted_score": 550.0,
     },
     {
         "id": "administracion-publica-y-ciencia-politica-udec",
@@ -372,15 +324,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.3,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "agronomia-chillan-udec",
@@ -401,15 +349,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "agronomia-udec",
@@ -430,15 +374,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "antropologia-udec",
@@ -459,15 +399,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 507.0,
-            "2025": 520.9,
-            "2026": 505.8
-        },
+        "cutoffs": {"2024": 507.0, "2025": 520.9, "2026": 505.8},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "arquitectura-udec",
@@ -488,15 +424,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 755.35,
-            "2025": 755.05,
-            "2026": 747.85
-        },
+        "cutoffs": {"2024": 755.35, "2025": 755.05, "2026": 747.85},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "artes-visuales-udec",
@@ -517,15 +449,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.2,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 653.0,
-            "2025": 617.3,
-            "2026": 634.95
-        },
+        "cutoffs": {"2024": 653.0, "2025": 617.3, "2026": 634.95},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "astronomia-udec",
@@ -546,15 +474,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 787.4,
-            "2025": 759.95,
-            "2026": 770.8
-        },
+        "cutoffs": {"2024": 787.4, "2025": 759.95, "2026": 770.8},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "auditoria-udec",
@@ -575,15 +499,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "auditoria-diurna-los-angeles-udec",
@@ -604,15 +524,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "bachillerato-en-ciencias-e-innovacion-udec",
@@ -633,15 +549,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.2,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 609.1,
-            "2025": 613.1,
-            "2026": 617.6
-        },
+        "cutoffs": {"2024": 609.1, "2025": 613.1, "2026": 617.6},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "bachillerato-en-humanidades-udec",
@@ -662,15 +574,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.25,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 529.0,
-            "2025": 512.15,
-            "2026": 508.85
-        },
+        "cutoffs": {"2024": 529.0, "2025": 512.15, "2026": 508.85},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "bioingenieria-udec",
@@ -691,15 +599,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 668.25,
-            "2025": 671.9,
-            "2026": 707.45
-        },
+        "cutoffs": {"2024": 668.25, "2025": 671.9, "2026": 707.45},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "biologia-udec",
@@ -720,15 +624,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 679.1,
-            "2025": 672.25,
-            "2026": 686.2
-        },
+        "cutoffs": {"2024": 679.1, "2025": 672.25, "2026": 686.2},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "biologia-marina-udec",
@@ -749,15 +649,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 706.75,
-            "2025": 749.95,
-            "2026": 735.7
-        },
+        "cutoffs": {"2024": 706.75, "2025": 749.95, "2026": 735.7},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "bioquimica-udec",
@@ -778,15 +674,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 780.55,
-            "2025": 817.15,
-            "2026": 815.7
-        },
+        "cutoffs": {"2024": 780.55, "2025": 817.15, "2026": 815.7},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ciencias-fisicas-udec",
@@ -807,15 +699,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 701.9,
-            "2025": 605.0,
-            "2026": 600.4
-        },
+        "cutoffs": {"2024": 701.9, "2025": 605.0, "2026": 600.4},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "derecho-udec",
@@ -836,15 +724,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 796.2,
-            "2025": 800.1,
-            "2026": 803.15
-        },
+        "cutoffs": {"2024": 796.2, "2025": 800.1, "2026": 803.15},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "derecho-chillan-udec",
@@ -865,15 +749,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "educacion-basica-udec",
@@ -894,15 +774,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "educacion-basica-los-angeles-udec",
@@ -923,15 +799,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "educacion-diferencial-udec",
@@ -952,15 +824,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "educacion-diferencial-los-angeles-udec",
@@ -981,15 +849,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "educacion-parvularia-udec",
@@ -1010,15 +874,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 610.65,
-            "2025": 625.95,
-            "2026": 642.7
-        },
+        "cutoffs": {"2024": 610.65, "2025": 625.95, "2026": 642.7},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "enfermeria-chillan-udec",
@@ -1039,15 +899,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "enfermeria-udec",
@@ -1068,15 +924,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 772.9,
-            "2025": 765.65,
-            "2026": 755.55
-        },
+        "cutoffs": {"2024": 772.9, "2025": 765.65, "2026": 755.55},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "enfermeria-los-angeles-udec",
@@ -1097,15 +949,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "fonoaudiologia-udec",
@@ -1126,15 +974,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 635.45,
-            "2025": 646.9,
-            "2026": 654.45
-        },
+        "cutoffs": {"2024": 635.45, "2025": 646.9, "2026": 654.45},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "geofisica-udec",
@@ -1155,15 +999,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 584.6,
-            "2025": 513.6,
-            "2026": 551.1
-        },
+        "cutoffs": {"2024": 584.6, "2025": 513.6, "2026": 551.1},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "geografia-udec",
@@ -1184,15 +1024,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 509.25,
-            "2025": 524.1,
-            "2026": 505.8
-        },
+        "cutoffs": {"2024": 509.25, "2025": 524.1, "2026": 505.8},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "geologia-udec",
@@ -1213,15 +1049,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 834.15,
-            "2025": 835.5,
-            "2026": 825.55
-        },
+        "cutoffs": {"2024": 834.15, "2025": 835.5, "2026": 825.55},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-ambiental-udec",
@@ -1242,15 +1074,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 540.65,
-            "2025": 500.1,
-            "2026": 504.6
-        },
+        "cutoffs": {"2024": 540.65, "2025": 500.1, "2026": 504.6},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-ambiental-chillan-udec",
@@ -1271,15 +1099,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 522.45,
-            "2025": 504.55,
-            "2026": 547.85
-        },
+        "cutoffs": {"2024": 522.45, "2025": 504.55, "2026": 547.85},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ing-civil-udec",
@@ -1300,15 +1124,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 712.1,
-            "2025": 716.4,
-            "2026": 721.45
-        },
+        "cutoffs": {"2024": 712.1, "2025": 716.4, "2026": 721.45},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-aeroespacial-udec",
@@ -1329,15 +1149,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 862.8,
-            "2025": 853.9,
-            "2026": 875.05
-        },
+        "cutoffs": {"2024": 862.8, "2025": 853.9, "2026": 875.05},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-agricola-chillan-udec",
@@ -1358,15 +1174,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 517.35,
-            "2025": 578.05,
-            "2026": 605.25
-        },
+        "cutoffs": {"2024": 517.35, "2025": 578.05, "2026": 605.25},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-biomedicas-udec",
@@ -1387,15 +1199,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 742.95,
-            "2025": 780.45,
-            "2026": 779.55
-        },
+        "cutoffs": {"2024": 742.95, "2025": 780.45, "2026": 779.55},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-de-minas-udec",
@@ -1416,15 +1224,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 702.5,
-            "2025": 735.4,
-            "2026": 756.65
-        },
+        "cutoffs": {"2024": 702.5, "2025": 735.4, "2026": 756.65},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-electrica-udec",
@@ -1445,15 +1249,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 732.7,
-            "2025": 767.85,
-            "2026": 786.5
-        },
+        "cutoffs": {"2024": 732.7, "2025": 767.85, "2026": 786.5},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-electronica-udec",
@@ -1474,15 +1274,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 671.65,
-            "2025": 692.65,
-            "2026": 714.65
-        },
+        "cutoffs": {"2024": 671.65, "2025": 692.65, "2026": 714.65},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-en-telecomunicaciones-udec",
@@ -1503,15 +1299,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 539.9,
-            "2025": 629.85,
-            "2026": 685.55
-        },
+        "cutoffs": {"2024": 539.9, "2025": 629.85, "2026": 685.55},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-industrial-udec",
@@ -1532,15 +1324,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 787.85,
-            "2025": 804.55,
-            "2026": 800.1
-        },
+        "cutoffs": {"2024": 787.85, "2025": 804.55, "2026": 800.1},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-informatica-udec",
@@ -1561,15 +1349,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 785.55,
-            "2025": 806.5,
-            "2026": 804.75
-        },
+        "cutoffs": {"2024": 785.55, "2025": 806.5, "2026": 804.75},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-matematica-udec",
@@ -1590,15 +1374,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 687.25,
-            "2025": 727.9,
-            "2026": 741.85
-        },
+        "cutoffs": {"2024": 687.25, "2025": 727.9, "2026": 741.85},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-mecanica-udec",
@@ -1619,15 +1399,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 720.6,
-            "2025": 745.6,
-            "2026": 781.65
-        },
+        "cutoffs": {"2024": 720.6, "2025": 745.6, "2026": 781.65},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-metalurgica-udec",
@@ -1648,15 +1424,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 651.95,
-            "2025": 670.85,
-            "2026": 707.3
-        },
+        "cutoffs": {"2024": 651.95, "2025": 670.85, "2026": 707.3},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-quimica-udec",
@@ -1677,15 +1449,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 751.45,
-            "2025": 776.95,
-            "2026": 780.65
-        },
+        "cutoffs": {"2024": 751.45, "2025": 776.95, "2026": 780.65},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-civil-primer-ano-comun-udec",
@@ -1706,15 +1474,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.15,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 642.0,
-            "2025": 688.3,
-            "2026": 700.25
-        },
+        "cutoffs": {"2024": 642.0, "2025": 688.3, "2026": 700.25},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-comercial-chillan-udec",
@@ -1735,15 +1499,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-comercial-udec",
@@ -1764,15 +1524,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 681.2,
-            "2025": 692.25,
-            "2026": 705.15
-        },
+        "cutoffs": {"2024": 681.2, "2025": 692.25, "2026": 705.15},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-comercial-los-angeles-udec",
@@ -1793,15 +1549,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-en-biotecnologia-marina-y-acuicultura-udec",
@@ -1822,15 +1574,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 512.5,
-            "2025": 507.25,
-            "2026": 568.2
-        },
+        "cutoffs": {"2024": 512.5, "2025": 507.25, "2026": 568.2},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-en-biotecnologia-vegetal-los-angeles-udec",
@@ -1851,15 +1599,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-en-biotecnologia-vegetal-udec",
@@ -1880,15 +1624,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-en-conservacion-de-recursos-naturales-udec",
@@ -1909,15 +1649,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 514.5,
-            "2025": 540.15,
-            "2026": 580.7
-        },
+        "cutoffs": {"2024": 514.5, "2025": 540.15, "2026": 580.7},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-estadistica-udec",
@@ -1938,15 +1674,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 565.5,
-            "2025": 599.2,
-            "2026": 716.95
-        },
+        "cutoffs": {"2024": 565.5, "2025": 599.2, "2026": 716.95},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-forestal-udec",
@@ -1967,15 +1699,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 515.95,
-            "2025": 515.65,
-            "2026": 574.0
-        },
+        "cutoffs": {"2024": 515.95, "2025": 515.65, "2026": 574.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "ingenieria-geomatica-los-angeles-udec",
@@ -1996,15 +1724,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 521.95,
-            "2025": 526.0,
-            "2026": 547.1
-        },
+        "cutoffs": {"2024": 521.95, "2025": 526.0, "2026": 547.1},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "kinesiologia-udec",
@@ -2025,15 +1749,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 743.7,
-            "2025": 738.95,
-            "2026": 735.85
-        },
+        "cutoffs": {"2024": 743.7, "2025": 738.95, "2026": 735.85},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "licenciatura-en-historia-udec",
@@ -2054,15 +1774,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.3,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 622.35,
-            "2025": 596.5,
-            "2026": 552.9
-        },
+        "cutoffs": {"2024": 622.35, "2025": 596.5, "2026": 552.9},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "licenciatura-en-matematica-udec",
@@ -2083,15 +1799,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.2,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 531.95,
-            "2025": 592.7,
-            "2026": 538.65
-        },
+        "cutoffs": {"2024": 531.95, "2025": 592.7, "2026": 538.65},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "licenciatura-en-quimica-quimico-udec",
@@ -2112,15 +1824,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.2,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 648.35,
-            "2025": 653.2,
-            "2026": 697.7
-        },
+        "cutoffs": {"2024": 648.35, "2025": 653.2, "2026": 697.7},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "medicina-udec",
@@ -2141,15 +1849,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 944.3,
-            "2025": 948.35,
-            "2026": 953.2
-        },
+        "cutoffs": {"2024": 944.3, "2025": 948.35, "2026": 953.2},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "medicina-veterinaria-chillan-udec",
@@ -2170,15 +1874,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "medicina-veterinaria-udec",
@@ -2199,15 +1899,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "nutricion-y-dietetica-udec",
@@ -2228,15 +1924,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 681.1,
-            "2025": 671.05,
-            "2026": 643.4
-        },
+        "cutoffs": {"2024": 681.1, "2025": 671.05, "2026": 643.4},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "obstetricia-udec",
@@ -2257,15 +1949,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 781.15,
-            "2025": 759.05,
-            "2026": 743.45
-        },
+        "cutoffs": {"2024": 781.15, "2025": 759.05, "2026": 743.45},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "odontologia-udec",
@@ -2286,15 +1974,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 818.2,
-            "2025": 838.5,
-            "2026": 819.25
-        },
+        "cutoffs": {"2024": 818.2, "2025": 838.5, "2026": 819.25},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-artes-visuales-udec",
@@ -2315,15 +1999,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.15,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 657.45,
-            "2025": 658.25,
-            "2026": 669.0
-        },
+        "cutoffs": {"2024": 657.45, "2025": 658.25, "2026": 669.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-ciencias-naturales-y-biologia-udec",
@@ -2344,15 +2024,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-ciencias-naturales-y-fisica-udec",
@@ -2373,15 +2049,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 552.6,
-            "2025": 521.0,
-            "2026": 567.2
-        },
+        "cutoffs": {"2024": 552.6, "2025": 521.0, "2026": 567.2},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-cs-naturales-y-biologia-los-angeles-udec",
@@ -2402,15 +2074,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-cs-naturales-y-quimica-udec",
@@ -2431,15 +2099,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 523.0,
-            "2025": 525.55,
-            "2026": 599.35
-        },
+        "cutoffs": {"2024": 523.0, "2025": 525.55, "2026": 599.35},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-educacion-fisica-udec",
@@ -2460,15 +2124,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 613.7,
-            "2025": 598.95,
-            "2026": 623.9
-        },
+        "cutoffs": {"2024": 613.7, "2025": 598.95, "2026": 623.9},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-educacion-musical-udec",
@@ -2489,15 +2149,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.2,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 652.85,
-            "2025": 685.0,
-            "2026": 701.85
-        },
+        "cutoffs": {"2024": 652.85, "2025": 685.0, "2026": 701.85},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-espanol-udec",
@@ -2518,15 +2174,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 668.35,
-            "2025": 681.65,
-            "2026": 665.35
-        },
+        "cutoffs": {"2024": 668.35, "2025": 681.65, "2026": 665.35},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-espanol-los-angeles-udec",
@@ -2547,15 +2199,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-filosofia-udec",
@@ -2576,15 +2224,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.25,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 516.75,
-            "2025": 540.05,
-            "2026": 501.65
-        },
+        "cutoffs": {"2024": 516.75, "2025": 540.05, "2026": 501.65},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-historia-y-geografia-udec",
@@ -2605,15 +2249,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.3,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 646.0,
-            "2025": 676.2,
-            "2026": 643.5
-        },
+        "cutoffs": {"2024": 646.0, "2025": 676.2, "2026": 643.5},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-ingles-udec",
@@ -2634,15 +2274,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-ingles-los-angeles-udec",
@@ -2663,15 +2299,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-matematica-udec",
@@ -2692,15 +2324,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "pedagogia-en-matematica-los-angeles-udec",
@@ -2721,15 +2349,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 496.5,
-            "2025": 500.5,
-            "2026": 505.0
-        },
+        "cutoffs": {"2024": 496.5, "2025": 500.5, "2026": 505.0},
         "requires_m2": True,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "periodismo-udec",
@@ -2750,15 +2374,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.15,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 703.45,
-            "2025": 622.85,
-            "2026": 665.2
-        },
+        "cutoffs": {"2024": 703.45, "2025": 622.85, "2026": 665.2},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "psicologia-udec",
@@ -2779,15 +2399,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 834.15,
-            "2025": 801.65,
-            "2026": 789.1
-        },
+        "cutoffs": {"2024": 834.15, "2025": 801.65, "2026": 789.1},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "quimica-y-farmacia-udec",
@@ -2808,15 +2424,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 833.35,
-            "2025": 857.2,
-            "2026": 875.2
-        },
+        "cutoffs": {"2024": 833.35, "2025": 857.2, "2026": 875.2},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "quimico-analista-udec",
@@ -2837,15 +2449,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 638.35,
-            "2025": 647.1,
-            "2026": 664.3
-        },
+        "cutoffs": {"2024": 638.35, "2025": 647.1, "2026": 664.3},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "sociologia-udec",
@@ -2866,15 +2474,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.2,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 639.25,
-            "2025": 507.0,
-            "2026": 529.4
-        },
+        "cutoffs": {"2024": 639.25, "2025": 507.0, "2026": 529.4},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "teatro-udec",
@@ -2895,15 +2499,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.2,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 639.25,
-            "2025": 570.0,
-            "2026": 529.95
-        },
+        "cutoffs": {"2024": 639.25, "2025": 570.0, "2026": 529.95},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "tecnologia-medica-udec",
@@ -2924,15 +2524,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 819.25,
-            "2025": 803.75,
-            "2026": 805.6
-        },
+        "cutoffs": {"2024": 819.25, "2025": 803.75, "2026": 805.6},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "trabajo-social-udec",
@@ -2953,15 +2549,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 634.05,
-            "2025": 618.85,
-            "2026": 619.95
-        },
+        "cutoffs": {"2024": 634.05, "2025": 618.85, "2026": 619.95},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "traduccioninterpretacion-en-idiomas-extranjeros-udec",
@@ -2982,15 +2574,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 737.15,
-            "2025": 711.55,
-            "2026": 653.4
-        },
+        "cutoffs": {"2024": 737.15, "2025": 711.55, "2026": 653.4},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "arquitectura-ubb",
@@ -3011,15 +2599,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 698.4,
-            "2025": 704.1,
-            "2026": 709.7
-        },
+        "cutoffs": {"2024": 698.4, "2025": 704.1, "2026": 709.7},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "bachillerato-en-ciencias-ubb",
@@ -3040,15 +2624,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "bachillerato-en-ciencias-chillán-ubb",
@@ -3069,15 +2649,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "contador-publico-y-auditor-ubb",
@@ -3098,15 +2674,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "contador-publico-y-auditor-chillán-ubb",
@@ -3127,15 +2699,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "derecho-ubb",
@@ -3156,15 +2724,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.15,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 500.0
+        "min_weighted_score": 500.0,
     },
     {
         "id": "diseno-grafico-chillán-ubb",
@@ -3185,15 +2749,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.0,
             "historia": 0.1,
-            "elective_rule": "HISTORIA"
+            "elective_rule": "HISTORIA",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "diseno-industrial-ubb",
@@ -3214,15 +2774,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 745.3,
-            "2025": 751.2,
-            "2026": 756.95
-        },
+        "cutoffs": {"2024": 745.3, "2025": 751.2, "2026": 756.95},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "enfermeria-chillán-ubb",
@@ -3243,15 +2799,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.3,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 755.2,
-            "2025": 760.1,
-            "2026": 765.4
-        },
+        "cutoffs": {"2024": 755.2, "2025": 760.1, "2026": 765.4},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "fonoaudiologia-chillán-ubb",
@@ -3272,15 +2824,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-ubb",
@@ -3301,15 +2849,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 665.1,
-            "2025": 672.3,
-            "2026": 644.1
-        },
+        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 644.1},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-electrica-ubb",
@@ -3330,15 +2874,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 665.1,
-            "2025": 672.3,
-            "2026": 711.65
-        },
+        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 711.65},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-en-automatizacion-ubb",
@@ -3359,15 +2899,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 665.1,
-            "2025": 672.3,
-            "2026": 606.75
-        },
+        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 606.75},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-en-informatica-ubb",
@@ -3388,15 +2924,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 665.1,
-            "2025": 672.3,
-            "2026": 708.6
-        },
+        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 708.6},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-en-informatica-chillán-ubb",
@@ -3417,15 +2949,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 665.1,
-            "2025": 672.3,
-            "2026": 721.6
-        },
+        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 721.6},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-industrial-ubb",
@@ -3446,15 +2974,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 745.3,
-            "2025": 751.2,
-            "2026": 756.95
-        },
+        "cutoffs": {"2024": 745.3, "2025": 751.2, "2026": 756.95},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-mecanica-ubb",
@@ -3475,15 +2999,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 665.1,
-            "2025": 672.3,
-            "2026": 671.65
-        },
+        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 671.65},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-quimica-ubb",
@@ -3504,15 +3024,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 665.1,
-            "2025": 672.3,
-            "2026": 680.5
-        },
+        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 680.5},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-comercial-ubb",
@@ -3533,15 +3049,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 650.0,
-            "2025": 655.1,
-            "2026": 627.85
-        },
+        "cutoffs": {"2024": 650.0, "2025": 655.1, "2026": 627.85},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-comercial-chillán-ubb",
@@ -3562,15 +3074,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 650.0,
-            "2025": 655.1,
-            "2026": 660.4
-        },
+        "cutoffs": {"2024": 650.0, "2025": 655.1, "2026": 660.4},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-de-ejecucion-en-computacion-e-informatica-ubb",
@@ -3591,15 +3099,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 541.4
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 541.4},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-electrica-ubb",
@@ -3620,15 +3124,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 667.9
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 667.9},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-electronica-ubb",
@@ -3649,15 +3149,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-en-alimentos-chillán-ubb",
@@ -3678,15 +3174,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-en-construccion-ubb",
@@ -3707,15 +3199,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 481.05
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 481.05},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-en-recursos-naturales-chillán-ubb",
@@ -3736,15 +3224,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-estadistica-ubb",
@@ -3765,15 +3249,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 513.4
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 513.4},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-mecanica-ubb",
@@ -3794,15 +3274,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "medicina-chillán-ubb",
@@ -3823,15 +3299,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.2,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 622.0,
-            "2025": 626.0,
-            "2026": 630.0
-        },
+        "cutoffs": {"2024": 622.0, "2025": 626.0, "2026": 630.0},
         "requires_m2": False,
-        "min_weighted_score": 600.0
+        "min_weighted_score": 600.0,
     },
     {
         "id": "nutricion-y-dietetica-chillán-ubb",
@@ -3852,15 +3324,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.2,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 0.0
+        "min_weighted_score": 0.0,
     },
     {
         "id": "pedagogia-en-castellano-y-comunicacion-chillán-ubb",
@@ -3881,15 +3349,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-ciencias-naturales-mencion-biologia-mencion-fisica-mencion-quimica-chillán-ubb",
@@ -3910,15 +3374,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-especial-con-mencion-en-dificultades-especificas-del-aprendizaje-chillán-ubb",
@@ -3939,15 +3399,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-fisica-chillán-ubb",
@@ -3968,15 +3424,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-general-basica-con-mencion-en-lenguaje-y-comunicacion-o-educacion-matematica-chillán-ubb",
@@ -3997,15 +3449,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-matematica-chillán-ubb",
@@ -4026,15 +3474,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.1,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-parvularia-mencion-didactica-en-primera-infancia-chillán-ubb",
@@ -4055,15 +3499,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-historia-y-geografia-chillán-ubb",
@@ -4084,15 +3524,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.25,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-ingles-chillán-ubb",
@@ -4113,15 +3549,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "psicologia-chillán-ubb",
@@ -4142,15 +3574,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 725.0,
-            "2025": 730.2,
-            "2026": 735.6
-        },
+        "cutoffs": {"2024": 725.0, "2025": 730.2, "2026": 735.6},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "quimica-y-farmacia-chillán-ubb",
@@ -4171,15 +3599,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "trabajo-social-ubb",
@@ -4200,15 +3624,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "trabajo-social-chillán-ubb",
@@ -4229,15 +3649,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 522.0,
-            "2025": 526.0,
-            "2026": 530.0
-        },
+        "cutoffs": {"2024": 522.0, "2025": 526.0, "2026": 530.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "arquitectura-ucsc",
@@ -4258,15 +3674,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "bachillerato-en-ciencias-y-humanidades-ucsc",
@@ -4287,15 +3699,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "biologia-marina-ucsc",
@@ -4316,15 +3724,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "contador-auditor-ucsc",
@@ -4345,15 +3749,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "derecho-ucsc",
@@ -4374,15 +3774,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.2,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 746.1,
-            "2025": 752.0,
-            "2026": 757.55
-        },
+        "cutoffs": {"2024": 746.1, "2025": 752.0, "2026": 757.55},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "direccion-audiovisual-y-multimedia-ucsc",
@@ -4403,15 +3799,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "educacion-de-parvulos-ucsc",
@@ -4432,15 +3824,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "enfermeria-ucsc",
@@ -4461,15 +3849,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 758.4,
-            "2025": 764.1,
-            "2026": 768.7
-        },
+        "cutoffs": {"2024": 758.4, "2025": 764.1, "2026": 768.7},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-ucsc",
@@ -4490,15 +3874,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 642.0,
-            "2025": 646.5,
-            "2026": 649.15
-        },
+        "cutoffs": {"2024": 642.0, "2025": 646.5, "2026": 649.15},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-electrica-ucsc",
@@ -4519,15 +3899,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 670.0,
-            "2025": 676.0,
-            "2026": 681.45
-        },
+        "cutoffs": {"2024": 670.0, "2025": 676.0, "2026": 681.45},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-geologica-ucsc",
@@ -4548,15 +3924,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 575.0,
-            "2025": 582.0,
-            "2026": 588.10
-        },
+        "cutoffs": {"2024": 575.0, "2025": 582.0, "2026": 588.10},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-industrial-ucsc",
@@ -4577,15 +3949,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 710.2,
-            "2025": 718.5,
-            "2026": 725.35
-        },
+        "cutoffs": {"2024": 710.2, "2025": 718.5, "2026": 725.35},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-civil-informatica-ucsc",
@@ -4606,15 +3974,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 680.5,
-            "2025": 688.0,
-            "2026": 695.65
-        },
+        "cutoffs": {"2024": 680.5, "2025": 688.0, "2026": 695.65},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-comercial-ucsc",
@@ -4635,15 +3999,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 625.0,
-            "2025": 630.1,
-            "2026": 635.4
-        },
+        "cutoffs": {"2024": 625.0, "2025": 630.1, "2026": 635.4},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "ingenieria-en-informacion-y-control-de-gestion-ucsc",
@@ -4664,15 +4024,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "kinesiologia-ucsc",
@@ -4693,15 +4049,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 715.4,
-            "2025": 722.1,
-            "2026": 728.3
-        },
+        "cutoffs": {"2024": 715.4, "2025": 722.1, "2026": 728.3},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "licenciatura-en-ciencias-religiosas-y-estudios-teologicos-ucsc",
@@ -4722,15 +4074,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "licenciatura-en-filosofia-ucsc",
@@ -4751,15 +4099,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "licenciatura-en-historia-ucsc",
@@ -4780,15 +4124,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "medicina-ucsc",
@@ -4809,15 +4149,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.25,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 898.3,
-            "2025": 903.4,
-            "2026": 907.55
-        },
+        "cutoffs": {"2024": 898.3, "2025": 903.4, "2026": 907.55},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "nutricion-y-dietetica-ucsc",
@@ -4838,15 +4174,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "odontologia-ucsc",
@@ -4867,15 +4199,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 784.6,
-            "2025": 790.2,
-            "2026": 795.4
-        },
+        "cutoffs": {"2024": 784.6, "2025": 790.2, "2026": 795.4},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-basica-ucsc",
@@ -4896,15 +4224,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-diferencial-ucsc",
@@ -4925,15 +4249,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-fisica-ucsc",
@@ -4954,15 +4274,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-media-en-biologia-y-ciencias-naturales-ucsc",
@@ -4983,15 +4299,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-media-en-ingles-ucsc",
@@ -5012,15 +4324,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-media-en-lenguaje-y-comunicacion-ucsc",
@@ -5041,15 +4349,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "pedagogia-en-educacion-media-en-matematica-ucsc",
@@ -5070,15 +4374,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.05,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": True,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "periodismo-ucsc",
@@ -5099,15 +4399,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "psicologia-ucsc",
@@ -5128,15 +4424,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 718.2,
-            "2025": 725.0,
-            "2026": 730.5
-        },
+        "cutoffs": {"2024": 718.2, "2025": 725.0, "2026": 730.5},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "quimica-ambiental-ucsc",
@@ -5157,15 +4449,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "quimica-y-farmacia-ucsc",
@@ -5186,15 +4474,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.2,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "tecnologia-medica-ucsc",
@@ -5215,15 +4499,11 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.15,
             "historia": 0.0,
-            "elective_rule": "CIENCIAS"
+            "elective_rule": "CIENCIAS",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
+        "min_weighted_score": 458.0,
     },
     {
         "id": "trabajo-social-ucsc",
@@ -5244,16 +4524,12 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m2": 0.0,
             "ciencias": 0.1,
             "historia": 0.0,
-            "elective_rule": "MAX"
+            "elective_rule": "MAX",
         },
-        "cutoffs": {
-            "2024": 512.0,
-            "2025": 516.0,
-            "2026": 520.0
-        },
+        "cutoffs": {"2024": 512.0, "2025": 516.0, "2026": 520.0},
         "requires_m2": False,
-        "min_weighted_score": 458.0
-    }
+        "min_weighted_score": 458.0,
+    },
 ]
 
 
@@ -5389,7 +4665,7 @@ def estimate_irt_standard_error(score: float, subject_code: str = "M1") -> float
     }.get(subject_code.upper(), 16.0)
 
     # Leve incremento en extremos debido a la curvatura de información 3PL
-    se = base_se + 1.2 * min(9.0, theta ** 2)
+    se = base_se + 1.2 * min(9.0, theta**2)
     return float(np.clip(se, 12.0, 26.0))
 
 
@@ -5448,7 +4724,7 @@ def calculate_career_chances(
     cutoff_std = float(max(3.0, np.std(cutoff_history)))
 
     # Desviación típica total combinada (postulante + fluctuación de corte)
-    total_std = float(math.sqrt((se_weighted ** 2) + (cutoff_std ** 2)))
+    total_std = float(math.sqrt((se_weighted**2) + (cutoff_std**2)))
 
     # 2. Aproximación Analítica (Distribución Normal Acumulada)
     z_score = (weighted_score - cutoff_2026) / max(total_std, 1e-6)
@@ -5480,15 +4756,21 @@ def calculate_career_chances(
     if prob_percent >= 85.0:
         category = "Segura"
         color = "green"
-        status_message = "Tu puntaje proyectado supera holgadamente el último convocado histórico. Alta certeza de selección."
+        status_message = (
+            "Tu puntaje proyectado supera holgadamente el último convocado histórico. Alta certeza de selección."
+        )
     elif prob_percent >= 50.0:
         category = "Competitiva"
         color = "amber"
-        status_message = "Estás en zona de disputa directa del corte. Un incremento marginal de aciertos asegura tu cupo."
+        status_message = (
+            "Estás en zona de disputa directa del corte. Un incremento marginal de aciertos asegura tu cupo."
+        )
     else:
         category = "Riesgosa"
         color = "red"
-        status_message = "Puntaje por debajo del corte histórico de convocatoria. Se requiere estrategia de mejora de aciertos."
+        status_message = (
+            "Puntaje por debajo del corte histórico de convocatoria. Se requiere estrategia de mejora de aciertos."
+        )
 
     if m2_missing_warning:
         status_message += " [ADVERTENCIA DEMRE: Esta carrera exige rendir obligatoriamente la prueba M2]."
@@ -5571,15 +4853,17 @@ def calculate_career_chances(
             target_raw_b = paes_score_to_raw_items(target_balanced, subj_code)
             add_correct_b = max(0, target_raw_b - curr_raw)
 
-            balanced_plan.append({
-                "subject_code": subj_code,
-                "subject_name": subj_name,
-                "weight_percent": int(round(weight * 100)),
-                "current_score": int(round(curr_score)),
-                "recommended_target_score": target_balanced,
-                "net_points_gain": max(0, target_balanced - int(round(curr_score))),
-                "additional_correct_needed": add_correct_b,
-            })
+            balanced_plan.append(
+                {
+                    "subject_code": subj_code,
+                    "subject_name": subj_name,
+                    "weight_percent": int(round(weight * 100)),
+                    "current_score": int(round(curr_score)),
+                    "recommended_target_score": target_balanced,
+                    "net_points_gain": max(0, target_balanced - int(round(curr_score))),
+                    "additional_correct_needed": add_correct_b,
+                }
+            )
 
     return {
         "career_id": career["id"],
@@ -5685,18 +4969,20 @@ def calculate_admission_chances(
         else:
             cat = "Riesgosa"
 
-        all_summaries.append({
-            "career_id": c["id"],
-            "career_name": c["name"],
-            "university": c["university"],
-            "university_short": c["university_short"],
-            "area": c.get("area", ""),
-            "weighted_score": w_score,
-            "target_cutoff": c_cutoff,
-            "gap": round(c_cutoff - w_score, 2),
-            "probability": prob,
-            "category": cat,
-        })
+        all_summaries.append(
+            {
+                "career_id": c["id"],
+                "career_name": c["name"],
+                "university": c["university"],
+                "university_short": c["university_short"],
+                "area": c.get("area", ""),
+                "weighted_score": w_score,
+                "target_cutoff": c_cutoff,
+                "gap": round(c_cutoff - w_score, 2),
+                "probability": prob,
+                "category": cat,
+            }
+        )
 
     # Ordenar por probabilidad descendente
     all_summaries.sort(key=lambda x: x["probability"], reverse=True)

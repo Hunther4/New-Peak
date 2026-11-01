@@ -31,6 +31,7 @@ def client(disable_auth):
 
 # --- 1. Pruebas de Catálogo y Datos CRUCH ---
 
+
 def test_cruch_careers_catalog():
     careers = get_cruch_careers()
     assert len(careers) >= 10, "El catálogo debe tener al menos 10 carreras de alta demanda"
@@ -107,6 +108,7 @@ def test_paes_score_to_raw_items():
 
 
 # --- 2. Pruebas del Motor Psicométrico IRT y Clasificación de Admisión ---
+
 
 def test_calculate_admission_chances_safe():
     # Puntajes excepcionales para Medicina UCH (corte ~953)
@@ -233,6 +235,7 @@ def test_all_careers_summary_populated():
 
 # --- 3. Pruebas de Endpoints HTTP FastAPI ---
 
+
 def test_api_get_careers(client: TestClient):
     response = client.get("/api/paes/admission/careers")
     assert response.status_code == 200
@@ -337,6 +340,7 @@ def test_calculate_admission_chances_elective_max_sciences_chosen():
 
 # --- 4. TDD Edge-Case Tests (Requisitos Obligatorios y Validaciones Límite) ---
 
+
 def test_career_requires_m2_disqualification_flag():
     """
     TDD: Si una carrera exige M2 (requires_m2=True, como Plan Común Beauchef o PUC)
@@ -375,4 +379,3 @@ def test_normalize_nem_ranking_edge_cases():
     assert normalize_nem_ranking(7.5) == 1000.0
     assert normalize_nem_ranking(1050.0) == 1000.0
     assert normalize_nem_ranking(-50.0) == 100.0
-

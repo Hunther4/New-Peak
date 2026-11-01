@@ -13,12 +13,12 @@ class TestSanitizePrompt:
 
     def test_strips_control_characters(self):
         """Control characters (\\x00-\\x1f except \\t\\n\\r) MUST be stripped."""
-        text = "hello\x00world\x01test\x1Fend"
+        text = "hello\x00world\x01test\x1fend"
         result = sanitize_prompt(text)
         assert result == "helloworldtestend"
         assert "\x00" not in result
         assert "\x01" not in result
-        assert "\x1F" not in result
+        assert "\x1f" not in result
 
     def test_preserves_tab_newline_carriage_return(self):
         """Tab, newline, and carriage return MUST be preserved."""
@@ -31,7 +31,7 @@ class TestSanitizePrompt:
 
     def test_strips_mixed_control_and_valid_chars(self):
         """Mixture of control chars and valid chars — only controls stripped."""
-        text = "a\x00b\nc\x01d\te\x1Ff"
+        text = "a\x00b\nc\x01d\te\x1ff"
         result = sanitize_prompt(text)
         assert result == "ab\ncd\tef"
 
@@ -71,7 +71,7 @@ class TestSanitizePrompt:
 
     def test_only_control_chars(self):
         """String consisting only of control chars MUST return empty string."""
-        text = "\x00\x01\x02\x1E\x1F"
+        text = "\x00\x01\x02\x1e\x1f"
         result = sanitize_prompt(text)
         assert result == ""
 
@@ -82,5 +82,6 @@ class TestSanitizePrompt:
     def test_default_max_len_is_2000(self):
         """Default max_len parameter MUST be 2000."""
         import inspect
+
         sig = inspect.signature(sanitize_prompt)
         assert sig.parameters["max_len"].default == 2000

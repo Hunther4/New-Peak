@@ -100,50 +100,45 @@ class TestPoolDataIntegrity:
         """
         # Marker -> expected correct answer (float).
         answer_by_marker = {
-            "3 cosas: una remera": 150.0,           # vuelto
-            "4 paquetes de yerba": 1_000.0,         # empaque
-            "pizza cuesta $1.200": 150.0,          # porción de pizza
-            "sin propina": 500.0,                   # cuenta dividida
-            "3,5 kilogramos": 3_500.0,             # kilo a gramo
-            "1.800 para comprarte": 9.0,            # ahorro mensual
-            "30% en comida": 2_500.0,              # presupuesto
-            "25% de descuento": 900.0,             # compra con descuento
-            "12 huevos": 7.0,                       # huevos en heladera
-            "8:15 y tarda 45": 900.0,              # bondi (9:00 como número)
-            "2 litros de leche": 1_950.0,           # compra supermercado
-            "64 GB": 19.0,                          # almacenamiento libre
-            "8 metros de largo": 20.0,              # pared m²
-            "3.000 pasos": 5_625.0,                 # actividad física metros
-            "10.000 para la semana": 5_000.0,       # presupuesto semanal
-            "2,5 tazas de harina": 5.0,             # receta doble
+            "3 cosas: una remera": 150.0,  # vuelto
+            "4 paquetes de yerba": 1_000.0,  # empaque
+            "pizza cuesta $1.200": 150.0,  # porción de pizza
+            "sin propina": 500.0,  # cuenta dividida
+            "3,5 kilogramos": 3_500.0,  # kilo a gramo
+            "1.800 para comprarte": 9.0,  # ahorro mensual
+            "30% en comida": 2_500.0,  # presupuesto
+            "25% de descuento": 900.0,  # compra con descuento
+            "12 huevos": 7.0,  # huevos en heladera
+            "8:15 y tarda 45": 900.0,  # bondi (9:00 como número)
+            "2 litros de leche": 1_950.0,  # compra supermercado
+            "64 GB": 19.0,  # almacenamiento libre
+            "8 metros de largo": 20.0,  # pared m²
+            "3.000 pasos": 5_625.0,  # actividad física metros
+            "10.000 para la semana": 5_000.0,  # presupuesto semanal
+            "2,5 tazas de harina": 5.0,  # receta doble
         }
         # Every entry must match exactly one marker and yield the expected answer.
         for entry in PUZZLE_POOLS["problem_set"][1]:
-            matches = [
-                (m, a) for m, a in answer_by_marker.items()
-                if m in entry["question"]
-            ]
+            matches = [(m, a) for m, a in answer_by_marker.items() if m in entry["question"]]
             assert len(matches) == 1, (
-                f"expected exactly 1 marker match, got {matches} "
-                f"for question: {entry['question']!r}"
+                f"expected exactly 1 marker match, got {matches} " f"for question: {entry['question']!r}"
             )
             marker, expected_answer = matches[0]
             assert entry["correct_answer"] == expected_answer, (
-                f"question matching {marker!r} returned "
-                f"{entry['correct_answer']!r} instead of {expected_answer!r}"
+                f"question matching {marker!r} returned " f"{entry['correct_answer']!r} instead of {expected_answer!r}"
             )
 
     def test_iq_known_fact_answers_present(self):
         """Spot-check the IQ answers against the known facts in the spec."""
         expected_answers = {
-            "40",                          # animales más rápidos
-            "8.46 (Makalu)",               # montañas más altas
-            "48",                          # progresión ×2
-            "2.71828",                     # constante de Euler
-            "información",                 # ADN : código genético
-            "oración",                     # molécula : célula
-            "tejido",                      # galaxia : universo
-            "memoria",                     # hipotálamo : temperatura
+            "40",  # animales más rápidos
+            "8.46 (Makalu)",  # montañas más altas
+            "48",  # progresión ×2
+            "2.71828",  # constante de Euler
+            "información",  # ADN : código genético
+            "oración",  # molécula : célula
+            "tejido",  # galaxia : universo
+            "memoria",  # hipotálamo : temperatura
         }
         actual_answers = {e["correct_answer"] for e in PUZZLE_POOLS["iq_practice"][1]}
         assert expected_answers == actual_answers
@@ -185,19 +180,14 @@ class TestPoolRotation:
         seen_questions = set()
         for _ in range(8):
             puzzle = get_pool_puzzle("iq_practice", 1, session_id=session_id)
-            assert puzzle["question"] not in seen_questions, (
-                "Puzzle repeated within a single session"
-            )
+            assert puzzle["question"] not in seen_questions, "Puzzle repeated within a single session"
             seen_questions.add(puzzle["question"])
         assert len(seen_questions) == 8
 
     def test_pool_cycles_after_all_seen(self):
         """After 8 unique puzzles, the seen-set resets and a new round begins."""
         session_id = 202
-        first_pass = {
-            get_pool_puzzle("iq_practice", 1, session_id=session_id)["question"]
-            for _ in range(8)
-        }
+        first_pass = {get_pool_puzzle("iq_practice", 1, session_id=session_id)["question"] for _ in range(8)}
         assert len(first_pass) == 8
 
         # 9th call must still return a valid pool entry (the seen-set was
@@ -208,10 +198,7 @@ class TestPoolRotation:
         assert len(_seen_puzzles[session_id]) == 1
 
         # And the next 7 calls must all be unique (cycling restarted cleanly).
-        next_seven = {
-            get_pool_puzzle("iq_practice", 1, session_id=session_id)["question"]
-            for _ in range(7)
-        }
+        next_seven = {get_pool_puzzle("iq_practice", 1, session_id=session_id)["question"] for _ in range(7)}
         assert len(next_seven) == 7
 
     def test_different_sessions_track_independently(self):
@@ -237,10 +224,7 @@ class TestPoolRotation:
             get_pool_puzzle("iq_practice", 1, session_id=session_id)
         reset_session_puzzles(session_id)
         # No AssertionError: we can pull all 8 puzzles again.
-        questions = {
-            get_pool_puzzle("iq_practice", 1, session_id=session_id)["question"]
-            for _ in range(8)
-        }
+        questions = {get_pool_puzzle("iq_practice", 1, session_id=session_id)["question"] for _ in range(8)}
         assert len(questions) == 8
 
     def test_bounded_session_tracker(self):
@@ -279,6 +263,7 @@ class TestGenerateUsesPool:
 
     def test_generate_puzzle_uses_pool_for_level_1(self):
         """Level 1 should never call the AI router."""
+
         def router_should_not_be_called(*args, **kwargs):
             raise AssertionError("Router must not be called for level 1 (pool used)")
 
@@ -290,6 +275,7 @@ class TestGenerateUsesPool:
 
     def test_generate_problem_uses_pool_for_level_1(self):
         """Level 1 should never call the AI router."""
+
         def router_should_not_be_called(*args, **kwargs):
             raise AssertionError("Router must not be called for level 1 (pool used)")
 
@@ -325,6 +311,7 @@ class TestGenerateUsesPool:
 
     def test_generate_puzzle_rotates_within_session(self):
         """Two calls with the same session_id return different puzzles."""
+
         def explode(*args, **kwargs):
             raise AssertionError("Should not be called")
 
@@ -335,6 +322,7 @@ class TestGenerateUsesPool:
 
     def test_generate_puzzle_none_session_id_still_uses_pool(self):
         """When session_id is None, level 1 still uses the pool (no rotation)."""
+
         def explode(*args, **kwargs):
             raise AssertionError("Should not be called")
 

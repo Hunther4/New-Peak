@@ -5,6 +5,7 @@ Usage:
   python demre_batch_importer.py --dry-run
   python demre_batch_importer.py --import
 """
+
 import argparse
 import json
 import re
@@ -17,9 +18,9 @@ from typing import Dict, List
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BACKEND_DIR))
 
-if hasattr(sys.stdout, 'reconfigure'):
+if hasattr(sys.stdout, "reconfigure"):
     try:
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     except Exception:
         pass
 
@@ -56,19 +57,19 @@ def get_subtopic_id_for_question(subject: str, q_num: int, subtopics_by_subject:
         if q_num <= 17:
             # Números (subtopics 0, 1, 2)
             idx = (q_num - 1) % 3
-            return available[min(idx, len(available)-1)]
+            return available[min(idx, len(available) - 1)]
         elif q_num <= 36:
             # Álgebra y funciones (subtopics 3, 4, 5, 6)
             idx = 3 + ((q_num - 18) % 4)
-            return available[min(idx, len(available)-1)]
+            return available[min(idx, len(available) - 1)]
         elif q_num <= 50:
             # Geometría (subtopics 7, 8, 9)
             idx = 7 + ((q_num - 37) % 3)
-            return available[min(idx, len(available)-1)]
+            return available[min(idx, len(available) - 1)]
         else:
             # Probabilidad y estadística (subtopics 10, 11, 12)
             idx = 10 + ((q_num - 51) % 3)
-            return available[min(idx, len(available)-1)]
+            return available[min(idx, len(available) - 1)]
 
     elif subj == "M2":
         # 10 subtopics
@@ -80,7 +81,7 @@ def get_subtopic_id_for_question(subject: str, q_num: int, subtopics_by_subject:
             idx = 5 + ((q_num - 29) % 2)
         else:
             idx = 7 + ((q_num - 41) % 3)
-        return available[min(idx, len(available)-1)]
+        return available[min(idx, len(available) - 1)]
 
     elif subj == "LECTURA":
         idx = (q_num - 1) % len(available)
@@ -92,7 +93,11 @@ def get_subtopic_id_for_question(subject: str, q_num: int, subtopics_by_subject:
         return pool[(q_num - 1) % len(pool)]
 
     elif "FISICA" in subj:
-        fis_subs = [s for s in available if "fis" in s.lower() or "mecanica" in s.lower() or "electricidad" in s.lower() or "termo" in s.lower()]
+        fis_subs = [
+            s
+            for s in available
+            if "fis" in s.lower() or "mecanica" in s.lower() or "electricidad" in s.lower() or "termo" in s.lower()
+        ]
         pool = fis_subs if fis_subs else available
         return pool[(q_num - 1) % len(pool)]
 
@@ -111,13 +116,13 @@ def sanitize_currency_katex(text: str) -> str:
     """Escapes lone currency dollars into \\$ so KaTeX parser doesn't break."""
     if not text:
         return ""
-    unescaped = [m.start() for m in re.finditer(r'(?<!\\)\$', text)]
+    unescaped = [m.start() for m in re.finditer(r"(?<!\\)\$", text)]
     if len(unescaped) % 2 != 0:
         # If there are no LaTeX backslash commands (e.g. text is '000 254 $'), all dollars are currency
-        if not re.search(r'\\[a-zA-Z]+', text):
-            return re.sub(r'(?<!\\)\$', r'\\$', text)
+        if not re.search(r"\\[a-zA-Z]+", text):
+            return re.sub(r"(?<!\\)\$", r"\\$", text)
     # Also escape dollars adjacent to digits
-    return re.sub(r'(?<!\\)\$(?=\s*\d)', r'\\$', text)
+    return re.sub(r"(?<!\\)\$(?=\s*\d)", r"\\$", text)
 
 
 def run_batch_import(dry_run: bool = True):
@@ -185,7 +190,7 @@ def run_batch_import(dry_run: bool = True):
                 if not q.get("explanation"):
                     q["explanation"] = {
                         "correct_solution": f"La alternativa correcta según la pauta oficial del DEMRE es la opción {correct_key}.",
-                        "skill_evaluated": "Aplicación y resolución de problemas según temario oficial DEMRE."
+                        "skill_evaluated": "Aplicación y resolución de problemas según temario oficial DEMRE.",
                     }
 
                 # Sanitizar signos $ de moneda chilena para compatibilidad KaTeX
@@ -262,10 +267,7 @@ def run_batch_import(dry_run: bool = True):
             # Asegurar LearningState para user 1
             sub_id = q_data["subtopic_id"]
             ls = session.exec(
-                select(PaesLearningState).where(
-                    PaesLearningState.user_id == 1,
-                    PaesLearningState.subtopic_id == sub_id
-                )
+                select(PaesLearningState).where(PaesLearningState.user_id == 1, PaesLearningState.subtopic_id == sub_id)
             ).first()
             if not ls:
                 new_ls = PaesLearningState(

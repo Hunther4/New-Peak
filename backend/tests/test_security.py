@@ -10,6 +10,7 @@ Covers T-18 from the security-hardening change:
 
 Deps: T-03 (auth_headers fixture), T-06 (sanitize_prompt), T-11 (slowapi)
 """
+
 from unittest.mock import patch
 
 import pytest
@@ -123,6 +124,7 @@ class TestAuthOnAllEndpoints:
 # 2. Rate limiting
 # ============================================================================
 
+
 class TestRateLimiting:
     """Verify slowapi rate limiting: burst 61 POSTs → 429, GET/health unlimited.
 
@@ -155,9 +157,7 @@ class TestRateLimiting:
 
             # 61st in the same minute window → 429
             resp = isolated.put("/test", json={})
-            assert resp.status_code == 429, (
-                f"Expected 429, got {resp.status_code}: {resp.text}"
-            )
+            assert resp.status_code == 429, f"Expected 429, got {resp.status_code}: {resp.text}"
             body = resp.json()
             # slowapi 0.1.9 returns error body on 429
             assert "error" in body or "detail" in body
@@ -184,6 +184,7 @@ class TestRateLimiting:
 # 3. Input sanitization
 # ============================================================================
 
+
 class TestInputSanitization:
     """Verify input sanitization through the API and core.utils."""
 
@@ -191,7 +192,7 @@ class TestInputSanitization:
         """GIVEN control chars WHEN sanitize_prompt THEN stripped."""
         from core.utils import sanitize_prompt
 
-        result = sanitize_prompt("a\x00b\x01c\x1Fd")
+        result = sanitize_prompt("a\x00b\x01c\x1fd")
         assert result == "abcd", f"Control chars not stripped: {result!r}"
 
     def test_sanitize_prompt_preserves_whitespace(self):
@@ -221,53 +222,60 @@ class TestInputSanitization:
     def test_control_chars_in_session_input(self, client, skill_factory, auth_headers):
         """GIVEN control chars in what_i_practiced WHEN POST THEN accepted."""
         skill = skill_factory()
-        resp = client.post("/api/sessions/", json={
-            "skill_id": skill.id,
-            "duration_minutes": 15,
-            "what_i_practiced": "normal text \x00\x01\x1F with control chars",
-            "difficulty": 3,
-            "micro_error_found": "error with \x00 byte",
-            "correction_applied": "fixed it",
-        }, headers=auth_headers)
+        resp = client.post(
+            "/api/sessions/",
+            json={
+                "skill_id": skill.id,
+                "duration_minutes": 15,
+                "what_i_practiced": "normal text \x00\x01\x1f with control chars",
+                "difficulty": 3,
+                "micro_error_found": "error with \x00 byte",
+                "correction_applied": "fixed it",
+            },
+            headers=auth_headers,
+        )
         # The API accepts control chars; sanitization happens internally
         # before AI prompt interpolation.
-        assert resp.status_code == 201, (
-            f"Control-char POST failed: {resp.status_code} {resp.text}"
-        )
+        assert resp.status_code == 201, f"Control-char POST failed: {resp.status_code} {resp.text}"
 
     def test_max_length_exceeded_returns_422(self, client, auth_headers):
         """GIVEN what_i_practiced > 2000 chars WHEN POST THEN 422."""
-        resp = client.post("/api/sessions/", json={
-            "skill_id": 1,
-            "duration_minutes": 15,
-            "what_i_practiced": "X" * 2001,
-            "difficulty": 3,
-            "micro_error_found": "test error",
-        }, headers=auth_headers)
-        # FastAPI raises 422 for Pydantic max_length violations
-        assert resp.status_code == 422, (
-            f"Expected 422, got {resp.status_code}: {resp.text[:200]}"
+        resp = client.post(
+            "/api/sessions/",
+            json={
+                "skill_id": 1,
+                "duration_minutes": 15,
+                "what_i_practiced": "X" * 2001,
+                "difficulty": 3,
+                "micro_error_found": "test error",
+            },
+            headers=auth_headers,
         )
+        # FastAPI raises 422 for Pydantic max_length violations
+        assert resp.status_code == 422, f"Expected 422, got {resp.status_code}: {resp.text[:200]}"
 
     def test_max_length_boundary_accepted(self, client, skill_factory, auth_headers):
         """GIVEN what_i_practiced at exactly 2000 chars WHEN POST THEN 200."""
         skill = skill_factory()
         text = "X" * 2000
-        resp = client.post("/api/sessions/", json={
-            "skill_id": skill.id,
-            "duration_minutes": 15,
-            "what_i_practiced": text,
-            "difficulty": 3,
-            "micro_error_found": "test error",
-        }, headers=auth_headers)
-        assert resp.status_code == 201, (
-            f"Boundary POST failed: {resp.status_code} {resp.text[:200]}"
+        resp = client.post(
+            "/api/sessions/",
+            json={
+                "skill_id": skill.id,
+                "duration_minutes": 15,
+                "what_i_practiced": text,
+                "difficulty": 3,
+                "micro_error_found": "test error",
+            },
+            headers=auth_headers,
         )
+        assert resp.status_code == 201, f"Boundary POST failed: {resp.status_code} {resp.text[:200]}"
 
 
 # ============================================================================
 # 4. Security headers
 # ============================================================================
+
 
 class TestSecurityHeaders:
     """Every response includes all 4 standard security headers."""
@@ -282,9 +290,7 @@ class TestSecurityHeaders:
     def _assert_headers(self, resp):
         for header, expected in self.EXPECTED.items():
             actual = resp.headers.get(header)
-            assert actual == expected, (
-                f"Header {header!r}: expected {expected!r}, got {actual!r}"
-            )
+            assert actual == expected, f"Header {header!r}: expected {expected!r}, got {actual!r}"
 
     def test_health_response(self, client):
         """GIVEN /api/health WHEN response THEN 4 security headers present."""
@@ -312,26 +318,34 @@ class TestSecurityHeaders:
 
     def test_422_response(self, client, auth_headers):
         """GIVEN 422 validation error WHEN response THEN 4 security headers."""
-        resp = client.post("/api/sessions/", json={
-            "skill_id": 1,
-            "duration_minutes": 15,
-            "what_i_practiced": "X" * 2001,  # triggers max_length 422
-            "difficulty": 3,
-            "micro_error_found": "error",
-        }, headers=auth_headers)
+        resp = client.post(
+            "/api/sessions/",
+            json={
+                "skill_id": 1,
+                "duration_minutes": 15,
+                "what_i_practiced": "X" * 2001,  # triggers max_length 422
+                "difficulty": 3,
+                "micro_error_found": "error",
+            },
+            headers=auth_headers,
+        )
         assert resp.status_code == 422
         self._assert_headers(resp)
 
     def test_post_201_response(self, client, skill_factory, auth_headers):
         """GIVEN POST 201 WHEN response THEN 4 security headers present."""
         skill = skill_factory()
-        resp = client.post("/api/sessions/", json={
-            "skill_id": skill.id,
-            "duration_minutes": 15,
-            "what_i_practiced": "test security headers on POST response",
-            "difficulty": 3,
-            "micro_error_found": "an error",
-        }, headers=auth_headers)
+        resp = client.post(
+            "/api/sessions/",
+            json={
+                "skill_id": skill.id,
+                "duration_minutes": 15,
+                "what_i_practiced": "test security headers on POST response",
+                "difficulty": 3,
+                "micro_error_found": "an error",
+            },
+            headers=auth_headers,
+        )
         assert resp.status_code == 201
         self._assert_headers(resp)
 
@@ -339,6 +353,7 @@ class TestSecurityHeaders:
 # ============================================================================
 # 5. Lock error path
 # ============================================================================
+
 
 class TestLockErrorPath:
     """Index lock is released when background_executor.submit() fails.
@@ -360,17 +375,14 @@ class TestLockErrorPath:
             patch("api.routes.books.has_pdf_files", return_value=True),
             patch("api.routes.books.try_acquire_index_lock", return_value=True),
             patch("api.routes.books.release_index_lock") as mock_release,
-            patch("api.routes.books.background_executor.submit",
-                  side_effect=RuntimeError("executor full")),
+            patch("api.routes.books.background_executor.submit", side_effect=RuntimeError("executor full")),
         ):
             resp = client.post(
                 "/api/books/index",
                 json={"force": False},
                 headers=auth_headers,
             )
-            assert resp.status_code == 500, (
-                f"Expected 500 on submit failure, got {resp.status_code}: {resp.text}"
-            )
+            assert resp.status_code == 500, f"Expected 500 on submit failure, got {resp.status_code}: {resp.text}"
             assert "No se pudo iniciar" in resp.json()["detail"]
 
         # Assert release_index_lock was called on the error path

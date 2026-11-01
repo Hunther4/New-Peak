@@ -3,6 +3,7 @@ Tests para api/routes/mental.py
 
 Endpoints de MentalReps y Challenges — probados contra TestClient con DB en memoria.
 """
+
 from unittest.mock import patch
 
 from core.mental import ChallengeResult, MentalRepResult
@@ -141,7 +142,7 @@ def test_generate_mental_rep_success(mock_gen, client, auth_headers, skill_facto
         description="Antes veía X, ahora veo Y",
         is_real_shift=True,
         reasoning="Porque mejoró la comprensión",
-        key_insight="Nuevo enfoque"
+        key_insight="Nuevo enfoque",
     )
     mock_gen.return_value = mock_result
 
@@ -180,16 +181,13 @@ def test_generate_challenge_success(mock_gen, client, auth_headers, skill_factor
     skill = skill_factory()
     session_factory(skill_id=skill.id)
     mock_result = ChallengeResult(
-        description="Practica compás 14-16 a 80bpm",
-        difficulty_target=3,
-        rationale="Para mejorar precisión"
+        description="Practica compás 14-16 a 80bpm", difficulty_target=3, rationale="Para mejorar precisión"
     )
     mock_gen.return_value = mock_result
 
-    resp = client.post("/api/mental/challenges/generate", json={
-        "skill_id": skill.id,
-        "difficulty_override": 4
-    }, headers=auth_headers)
+    resp = client.post(
+        "/api/mental/challenges/generate", json={"skill_id": skill.id, "difficulty_override": 4}, headers=auth_headers
+    )
     assert resp.status_code == 200
     data = resp.json()
     assert data["generated"] is True
@@ -295,9 +293,7 @@ def test_complete_challenge_success(client, auth_headers, session, skill_factory
 
 def test_accept_mental_rep_requires_skill_id(client, auth_headers):
     """POST /reps/{id}/accept sin skill_id y sin rep anterior retorna 400."""
-    resp = client.post("/api/mental/reps/0/accept", json={
-        "description": "Nuevo rep"
-    }, headers=auth_headers)
+    resp = client.post("/api/mental/reps/0/accept", json={"description": "Nuevo rep"}, headers=auth_headers)
     assert resp.status_code == 400
     assert "skill_id" in resp.json()["detail"]
 
@@ -374,7 +370,9 @@ def test_next_challenge_success(client, auth_headers, session, skill_factory):
 
 
 @patch("api.routes.mental.generate_challenge")
-def test_generate_challenge_difficulty_override_too_high(mock_gen, client, auth_headers, skill_factory, session_factory):
+def test_generate_challenge_difficulty_override_too_high(
+    mock_gen, client, auth_headers, skill_factory, session_factory
+):
     """POST /challenges/generate con difficulty_override > 5 retorna 422."""
     skill = skill_factory()
     session_factory(skill_id=skill.id)
@@ -387,7 +385,9 @@ def test_generate_challenge_difficulty_override_too_high(mock_gen, client, auth_
 
 
 @patch("api.routes.mental.generate_challenge")
-def test_generate_challenge_difficulty_override_below_one(mock_gen, client, auth_headers, skill_factory, session_factory):
+def test_generate_challenge_difficulty_override_below_one(
+    mock_gen, client, auth_headers, skill_factory, session_factory
+):
     """POST /challenges/generate con difficulty_override < 1 retorna 422."""
     skill = skill_factory()
     session_factory(skill_id=skill.id)

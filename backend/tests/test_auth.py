@@ -3,6 +3,7 @@ Tests for core/auth.py — API Key authentication middleware and manager.
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import pytest
 
 
@@ -67,9 +68,7 @@ class TestLazyAPIKeyManager:
 
         assert result is None  # not newly generated
         assert manager._cached_hash is not None
-        setting = session.exec(
-            select(AppSetting).where(AppSetting.key == "api_key_hash")
-        ).first()
+        setting = session.exec(select(AppSetting).where(AppSetting.key == "api_key_hash")).first()
         assert setting is not None
         assert setting.value == manager._cached_hash
         assert manager.verify("from-env") is True
@@ -77,6 +76,7 @@ class TestLazyAPIKeyManager:
     def test_initialize_generates_key_when_no_env_no_db(self, monkeypatch):
         """GIVEN no env and no DB WHEN initialize THEN generates 32-char hex key."""
         from core.auth import LazyAPIKeyManager
+
         monkeypatch.delenv("PEAK_API_KEY", raising=False)
 
         manager = LazyAPIKeyManager()
@@ -117,6 +117,7 @@ class TestLazyAPIKeyManager:
     def test_initialize_twice_is_idempotent(self, monkeypatch):
         """GIVEN initialized manager WHEN initialize() is called again THEN no error."""
         from core.auth import LazyAPIKeyManager
+
         monkeypatch.delenv("PEAK_API_KEY", raising=False)
 
         manager = LazyAPIKeyManager()
@@ -132,6 +133,7 @@ class TestLazyAPIKeyManager:
     def test_initialize_uses_existing_db_key(self, session, monkeypatch):
         """GIVEN key in DB and no env WHEN initialize THEN loads existing key."""
         from core.auth import LazyAPIKeyManager
+
         monkeypatch.delenv("PEAK_API_KEY", raising=False)
         import bcrypt
 

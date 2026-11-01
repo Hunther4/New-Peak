@@ -7,6 +7,7 @@ provides. Every item therefore fell back to ``stability=1.0`` /
 ``sorted()`` call was a no-op and the "5 most forgotten" queue was plain
 database order.
 """
+
 from datetime import datetime, timedelta, timezone
 
 import pytest
@@ -131,9 +132,9 @@ def test_fsrs_status_returns_the_review_queue_ordered_by_retention(client, enrol
     # Three due subtopics with very different projected retentions. They belong
     # to the calling principal.
     profiles = [
-        ("a", 1.0, 30),   # forgotten: low stability, long time since practice
+        ("a", 1.0, 30),  # forgotten: low stability, long time since practice
         ("b", 4.0, 10),
-        ("c", 20.0, 1),   # fresh: high stability, recent practice
+        ("c", 20.0, 1),  # fresh: high stability, recent practice
     ]
     for letter, stability, days_ago in profiles:
         subtopic = PaesSubtopic(

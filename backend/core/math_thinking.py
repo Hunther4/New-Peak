@@ -15,12 +15,8 @@ class MathProblem(BaseModel):
     """Pydantic model for AI structured output of a math problem."""
 
     question: str = Field(..., description="El problema matemático en español")
-    correct_answer: float = Field(
-        ..., description="La respuesta correcta como número finito"
-    )
-    solution_steps: list[str] = Field(
-        ..., description="Pasos detallados para resolver el problema"
-    )
+    correct_answer: float = Field(..., description="La respuesta correcta como número finito")
+    solution_steps: list[str] = Field(..., description="Pasos detallados para resolver el problema")
     source: Optional[str] = Field(
         default=None,
         description="Fuente verificada del dato (presente en pools estáticos)",
@@ -68,10 +64,9 @@ def generate_problem(
     # Level 1 should never reach here (pool always has problems).
     # If it does, return a hardcoded fallback — level 1 MUST be static.
     if level <= 1:
-        logger.warning(
-            "generate_problem: pool returned None for level %d — using hardcoded fallback", level
-        )
+        logger.warning("generate_problem: pool returned None for level %d — using hardcoded fallback", level)
         import random
+
         _L1_FALLBACKS = [
             {"q": "¿Cuánto es 15 + 27?", "a": 42.0, "s": ["15 + 27 = 42"]},
             {"q": "¿Cuánto es 100 - 38?", "a": 62.0, "s": ["100 - 38 = 62"]},
@@ -86,20 +81,16 @@ def generate_problem(
     level_config = difficulties.get(level, difficulties.get(1, {}))
 
     topics: list[str] = level_config.get("topics", ["suma", "resta"])
-    problem_types: list[str] = level_config.get(
-        "problem_types", ["cálculo directo"]
-    )
+    problem_types: list[str] = level_config.get("problem_types", ["cálculo directo"])
     label: str = level_config.get("label", "básico")
 
     topic_str = ", ".join(topics) if topics else "suma y resta"
-    problem_type_str = (
-        ", ".join(problem_types) if problem_types else "cálculo directo"
-    )
+    problem_type_str = ", ".join(problem_types) if problem_types else "cálculo directo"
 
     system_prompt = (
         f"Eres un generador de problemas matemáticos. Generá UN problema "
         f"de nivel {level} (nivel {label}). "
-        'Respondé ÚNICAMENTE en formato JSON válido con los campos: '
+        "Respondé ÚNICAMENTE en formato JSON válido con los campos: "
         '"question", "correct_answer" (número), '
         '"solution_steps" (lista de strings). '
         "NO incluyas texto fuera del JSON. NO uses markdown."
@@ -114,6 +105,7 @@ def generate_problem(
     if db and skill_id:
         try:
             from services.learning_patterns_service import format_patterns_for_prompt
+
             patterns_text = format_patterns_for_prompt(db, skill_id, "problem_set")
             if patterns_text:
                 user_prompt += f"\n\n{patterns_text}\n\nAdaptá el problema para reforzar las áreas donde el usuario tiene más errores."
@@ -133,9 +125,7 @@ def generate_problem(
                 "Incluí los pasos de solución detallados."
             )
             if last_error:
-                user_prompt += (
-                    f"\n\n⚠ Error previo: {last_error}. Corregí el formato."
-                )
+                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corregí el formato."
 
         result = router_fn(
             task_type="math_problem",
@@ -154,12 +144,7 @@ def generate_problem(
 
         answer = result.correct_answer
 
-        if (
-            answer is None
-            or not isinstance(answer, (int, float))
-            or math.isnan(answer)
-            or math.isinf(answer)
-        ):
+        if answer is None or not isinstance(answer, (int, float)) or math.isnan(answer) or math.isinf(answer):
             last_error = f"correct_answer inválido: {answer!r}"
             logger.warning(
                 "generate_problem attempt %d/3: %s",
@@ -177,9 +162,7 @@ def generate_problem(
         }
 
     # All retries exhausted — fallback
-    logger.error(
-        "generate_problem failed after 3 attempts — using fallback problem"
-    )
+    logger.error("generate_problem failed after 3 attempts — using fallback problem")
     return {
         "question": "¿Cuánto es 2 + 2?",
         "correct_answer": 4.0,
@@ -215,4 +198,5 @@ def calculate_staircase(
     5 to advance, 3 to retreat, UX protection when no correct yet).
     """
     from core.staircase import calculate_staircase as _impl
+
     return _impl(level, was_correct, consecutive_correct, consecutive_incorrect)

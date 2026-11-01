@@ -1,10 +1,11 @@
-﻿"""011 — Add stimulus_title and stimulus_text to paes_questions table.
-"""
+"""011 — Add stimulus_title and stimulus_text to paes_questions table."""
+
 import logging
 
 from sqlalchemy import text
 
 logger = logging.getLogger(__name__)
+
 
 def up(conn):
     """Add stimulus_title and stimulus_text columns to paes_questions if missing."""
@@ -15,6 +16,7 @@ def up(conn):
         conn.execute(text("ALTER TABLE paes_questions ADD COLUMN stimulus_title TEXT"))
     if "stimulus_text" not in col_names:
         conn.execute(text("ALTER TABLE paes_questions ADD COLUMN stimulus_text TEXT"))
+
 
 MIGRATION = {
     "version": 11,

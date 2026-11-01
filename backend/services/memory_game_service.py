@@ -155,10 +155,7 @@ def consolidar_sesion(db: Session, session_id: int, elapsed_seconds: Optional[in
     round_ids = [r.id for r in rounds]
     attempts_by_round = {}
     if round_ids:
-        all_attempts = db.exec(
-            select(MemoryNumberAttempt)
-            .where(MemoryNumberAttempt.round_id.in_(round_ids))
-        ).all()
+        all_attempts = db.exec(select(MemoryNumberAttempt).where(MemoryNumberAttempt.round_id.in_(round_ids))).all()
         for a in all_attempts:
             attempts_by_round[a.round_id] = a
 
@@ -182,9 +179,7 @@ def consolidar_sesion(db: Session, session_id: int, elapsed_seconds: Optional[in
         elif accuracy >= 0.8:
             strong_spans.append(f"Span {span}: {stats['correct']}/{stats['total']} correctos")
 
-    coaching_message = _generate_coaching(
-        weak_spans, strong_spans, game_session.best_span, game_session.best_phase
-    )
+    coaching_message = _generate_coaching(weak_spans, strong_spans, game_session.best_span, game_session.best_phase)
 
     def build_session_data(gs):
         data = {
@@ -210,8 +205,13 @@ def consolidar_sesion(db: Session, session_id: int, elapsed_seconds: Optional[in
         }
 
     practice_session, gs = consolidar_sesion_base(
-        db, MemoryNumberSession, session_id, elapsed_seconds,
-        "Memory", build_session_data, build_practice_fields,
+        db,
+        MemoryNumberSession,
+        session_id,
+        elapsed_seconds,
+        "Memory",
+        build_session_data,
+        build_practice_fields,
     )
 
     return {
@@ -254,11 +254,7 @@ def _generate_coaching(weak_spans: list, strong_spans: list, best_span: int, bes
         "- Si no hay weak_spans: felicitá + proponé siguiente reto.\n"
         "- Respondé SOLO el texto, sin formato adicional."
     )
-    user_prompt = (
-        f"Mejor span: {best_span}. Fase: {best_phase}.\n"
-        f"{performance_summary}\n"
-        "Consejo accionable:"
-    )
+    user_prompt = f"Mejor span: {best_span}. Fase: {best_phase}.\n" f"{performance_summary}\n" "Consejo accionable:"
 
     try:
         result = core_router.execute_with_router(
@@ -285,9 +281,7 @@ def log_round_strategy(db: Session, round_id: int, strategy_used: str) -> dict:
     if not round_obj:
         raise ValueError("Round not found")
 
-    attempts = db.exec(
-        select(MemoryNumberAttempt).where(MemoryNumberAttempt.round_id == round_id)
-    ).all()
+    attempts = db.exec(select(MemoryNumberAttempt).where(MemoryNumberAttempt.round_id == round_id)).all()
     effective = any(a.correct and a.correct_positions == a.total_positions for a in attempts)
 
     log = MemoryStrategyLog(

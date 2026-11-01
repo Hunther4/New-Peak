@@ -40,7 +40,8 @@ def reset_client() -> None:
         _client_fingerprint = None
     clear_lm_model_cache()
 
-T = TypeVar('T', bound=BaseModel)
+
+T = TypeVar("T", bound=BaseModel)
 
 
 def get_client() -> OpenAI:
@@ -120,6 +121,7 @@ def get_preferred_lm_model_id() -> Optional[str]:
     """
     try:
         from core.settings import get_setting
+
         raw = get_setting("selected_model", "")
         if not raw:
             return None
@@ -148,6 +150,7 @@ def _fetch_loaded_lm_models(client: OpenAI) -> list:
             return list(_lm_models_cache[1])
     try:
         from core.router import _is_lm_studio_reachable
+
         if not _is_lm_studio_reachable():
             return []
         models = client.models.list()
@@ -158,7 +161,6 @@ def _fetch_loaded_lm_models(client: OpenAI) -> list:
     with _lm_models_lock:
         _lm_models_cache = (time.monotonic(), tuple(chat_models))
     return chat_models
-
 
 
 # Backward-compatible module-level attribute for existing code and mock patches.
@@ -175,7 +177,14 @@ class QuickLogCompletion(BaseModel):
     hypothesis_tomorrow: str
 
 
-def generate_structured_json(system_prompt: str, user_prompt: str, response_model: Type[T], max_retries: int = 1, force_local: bool = False, task_type: str = "audit") -> Optional[T]:
+def generate_structured_json(
+    system_prompt: str,
+    user_prompt: str,
+    response_model: Type[T],
+    max_retries: int = 1,
+    force_local: bool = False,
+    task_type: str = "audit",
+) -> Optional[T]:
     """
     Llama a la IA pidiendo JSON estructurado.
     Si force_local=True, saltea el router y ejecuta directo en LM Studio.
@@ -190,21 +199,20 @@ def generate_structured_json(system_prompt: str, user_prompt: str, response_mode
     """
     if not force_local:
         from core.router import execute_with_router
+
         return execute_with_router(task_type, system_prompt, user_prompt, response_model)
 
     for attempt in range(max_retries + 1):
         try:
             from core.router import _build_augmented_system
+
             augmented_system = _build_augmented_system(system_prompt, response_model)
 
             client = get_client()
             active_model = _get_active_lm_model(client)
             response = client.chat.completions.create(
                 model=active_model,
-                messages=[
-                    {"role": "system", "content": augmented_system},
-                    {"role": "user", "content": user_prompt}
-                ],
+                messages=[{"role": "system", "content": augmented_system}, {"role": "user", "content": user_prompt}],
                 temperature=0.3,
             )
 
@@ -260,11 +268,14 @@ def generate_quick_log_completions(what_i_practiced: str, micro_error_found: str
     )
 
     from core.router import get_ai_mode
+
     if get_ai_mode() == "api":
         from core.router import execute_with_router
+
         result = execute_with_router("quick_log", system_prompt, user_prompt, QuickLogCompletion)
     else:
         from core.router import _build_augmented_system
+
         augmented = _build_augmented_system(system_prompt, QuickLogCompletion)
         result = generate_structured_json(augmented, user_prompt, QuickLogCompletion, task_type="quick_log")
 
@@ -272,5 +283,5 @@ def generate_quick_log_completions(what_i_practiced: str, micro_error_found: str
         return result.model_dump()
     return {
         "correction_applied": "No se pudo autogenerar — LM Studio/Router no respondió.",
-        "hypothesis_tomorrow": "Revisar sesión manualmente en la UI."
+        "hypothesis_tomorrow": "Revisar sesión manualmente en la UI.",
     }

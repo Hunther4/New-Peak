@@ -53,10 +53,7 @@ def _format_history_round(round_obj, attempts):
         "puzzle_type": round_obj.puzzle_type,
         "question": round_obj.question,
         "correct": any(a.correct for a in attempts) if attempts else None,
-        "attempts": [
-            {"correct": a.correct, "user_answer": a.user_answer}
-            for a in attempts
-        ],
+        "attempts": [{"correct": a.correct, "user_answer": a.user_answer} for a in attempts],
     }
 
 

@@ -23,6 +23,7 @@ Error semantics:
     A failure on migration N prevents any migration N+1 from being applied,
     and no row is recorded for the failing version.
 """
+
 import importlib
 import logging
 import pkgutil
@@ -56,10 +57,7 @@ def _get_applied_versions(conn) -> set:
 
 def _record_migration(conn, version: int, name: str) -> None:
     conn.execute(
-        text(
-            "INSERT OR IGNORE INTO schema_migrations "
-            "(version, name, applied_at) VALUES (:v, :n, :t)"
-        ),
+        text("INSERT OR IGNORE INTO schema_migrations " "(version, name, applied_at) VALUES (:v, :n, :t)"),
         {
             "v": version,
             "n": name,
@@ -74,29 +72,21 @@ def _validate_migration(mod_name: str, migration) -> None:
     up:callable.
     """
     if not isinstance(migration, dict):
-        raise ValueError(
-            f"{mod_name}: MIGRATION must be a dict, got {type(migration).__name__}"
-        )
+        raise ValueError(f"{mod_name}: MIGRATION must be a dict, got {type(migration).__name__}")
     if "version" not in migration:
         raise ValueError(f"{mod_name}: MIGRATION missing required key 'version'")
     version = migration["version"]
     if not isinstance(version, int) or isinstance(version, bool) or version < 1:
-        raise ValueError(
-            f"{mod_name}: MIGRATION['version'] must be a positive int, got {version!r}"
-        )
+        raise ValueError(f"{mod_name}: MIGRATION['version'] must be a positive int, got {version!r}")
     if "name" not in migration:
         raise ValueError(f"{mod_name}: MIGRATION missing required key 'name'")
     name = migration["name"]
     if not isinstance(name, str) or not name:
-        raise ValueError(
-            f"{mod_name}: MIGRATION['name'] must be a non-empty str, got {name!r}"
-        )
+        raise ValueError(f"{mod_name}: MIGRATION['name'] must be a non-empty str, got {name!r}")
     if "up" not in migration:
         raise ValueError(f"{mod_name}: MIGRATION missing required key 'up'")
     if not callable(migration["up"]):
-        raise ValueError(
-            f"{mod_name}: MIGRATION['up'] must be callable, got {type(migration['up']).__name__}"
-        )
+        raise ValueError(f"{mod_name}: MIGRATION['up'] must be callable, got {type(migration['up']).__name__}")
 
 
 def _discover_migrations() -> list:
@@ -121,9 +111,7 @@ def _discover_migrations() -> list:
         mod = importlib.import_module(f"migrations.{name}")
         migration = getattr(mod, "MIGRATION", None)
         if migration is None:
-            logger.warning(
-                "Module %s has no MIGRATION dict — skipping", mod.__name__
-            )
+            logger.warning("Module %s has no MIGRATION dict — skipping", mod.__name__)
             continue
         _validate_migration(mod.__name__, migration)
         discovered.append(migration)
@@ -133,10 +121,10 @@ def _discover_migrations() -> list:
     versions = [m["version"] for m in discovered]
     if len(versions) != len(set(versions)):
         from collections import Counter
+
         dupes = [v for v, c in Counter(versions).items() if c > 1]
         raise ValueError(
-            f"Duplicate migration versions detected: {dupes}. "
-            f"Each migration must have a unique version number."
+            f"Duplicate migration versions detected: {dupes}. " f"Each migration must have a unique version number."
         )
 
     return discovered
@@ -158,9 +146,7 @@ def run_migrations(engine: Engine) -> None:
         version = migration["version"]
         name = migration["name"]
         if version in applied:
-            logger.info(
-                "Migration %03d (%s) already applied — skipping", version, name
-            )
+            logger.info("Migration %03d (%s) already applied — skipping", version, name)
             continue
         logger.info("Applying migration %03d (%s)", version, name)
         with engine.begin() as conn:

@@ -11,6 +11,7 @@ def test_set_get_roundtrip(session):
 
     assert result == value
 
+
 def test_get_nonexistent_returns_default():
     """T-10: nonexistent key returns default"""
     key = "nonexistent_key"

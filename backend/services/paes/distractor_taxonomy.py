@@ -12,6 +12,7 @@ normalizes every observed raw value into it. Unknown values land in the
 documented catch-all bucket ``NO_CLASIFICADO`` — never silently in
 ``CONCEPTUAL``.
 """
+
 from typing import Dict, Optional, Tuple
 
 __all__ = [

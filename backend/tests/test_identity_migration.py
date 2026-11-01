@@ -14,6 +14,7 @@ were imported when it runs, so a model that is not registered in
 ``models/__init__.py`` is silently never created and only fails at the first
 query. These tests are the guard for that hazard.
 """
+
 import inspect
 import re
 from pathlib import Path
@@ -81,10 +82,7 @@ def _column_signature(table) -> dict:
     Server-side DEFAULT clauses are not compared: SQLModel applies most of its
     defaults in Python, and only the migration carries the SQL-level defaults.
     """
-    return {
-        column.name: (str(column.type), column.nullable, column.primary_key)
-        for column in table.columns
-    }
+    return {column.name: (str(column.type), column.nullable, column.primary_key) for column in table.columns}
 
 
 def _unique_signatures(table) -> set:
@@ -107,9 +105,7 @@ def _foreign_key_signatures(table) -> set:
     signatures = set()
     for column in table.columns:
         for foreign_key in column.foreign_keys:
-            signatures.add(
-                (column.name, foreign_key.ondelete, foreign_key.target_fullname)
-            )
+            signatures.add((column.name, foreign_key.ondelete, foreign_key.target_fullname))
     return signatures
 
 
@@ -130,12 +126,7 @@ def test_migration_013_declares_the_expected_descriptor():
 def test_migration_013_creates_the_four_identity_tables(migrated_engine):
     """ID-17-S1: applying the migration creates the four identity tables."""
     with migrated_engine.begin() as conn:
-        names = {
-            row[0]
-            for row in conn.execute(
-                text("SELECT name FROM sqlite_master WHERE type = 'table'")
-            )
-        }
+        names = {row[0] for row in conn.execute(text("SELECT name FROM sqlite_master WHERE type = 'table'"))}
 
     assert set(IDENTITY_TABLES) <= names
 
@@ -143,12 +134,7 @@ def test_migration_013_creates_the_four_identity_tables(migrated_engine):
 def test_migration_013_creates_the_expected_indexes(migrated_engine):
     """The lookup indexes the design declares exist after the migration."""
     with migrated_engine.begin() as conn:
-        names = {
-            row[0]
-            for row in conn.execute(
-                text("SELECT name FROM sqlite_master WHERE type = 'index'")
-            )
-        }
+        names = {row[0] for row in conn.execute(text("SELECT name FROM sqlite_master WHERE type = 'index'"))}
 
     assert {
         "ix_user_devices_user_revoked",
@@ -160,13 +146,9 @@ def test_migration_013_creates_the_expected_indexes(migrated_engine):
 def test_migration_013_is_idempotent(migrated_engine):
     """ID-17-S2: applying it twice is a no-op and leaves the schema unchanged."""
     with migrated_engine.begin() as conn:
-        before = conn.execute(
-            text("SELECT type, name, tbl_name, sql FROM sqlite_master ORDER BY name")
-        ).fetchall()
+        before = conn.execute(text("SELECT type, name, tbl_name, sql FROM sqlite_master ORDER BY name")).fetchall()
         _migration_013()["up"](conn)
-        after = conn.execute(
-            text("SELECT type, name, tbl_name, sql FROM sqlite_master ORDER BY name")
-        ).fetchall()
+        after = conn.execute(text("SELECT type, name, tbl_name, sql FROM sqlite_master ORDER BY name")).fetchall()
 
     assert before == after
 
@@ -187,9 +169,7 @@ def test_migration_013_fails_loud_when_a_table_has_the_wrong_shape(migrated_engi
 def test_migration_013_does_not_declare_a_users_status_column(migrated_engine):
     """D-8 removed the LEGACY_CLAIMABLE lifecycle state: no status column."""
     with migrated_engine.begin() as conn:
-        columns = {
-            row[1] for row in conn.execute(text("PRAGMA table_info(users)")).fetchall()
-        }
+        columns = {row[1] for row in conn.execute(text("PRAGMA table_info(users)")).fetchall()}
 
     assert "status" not in columns
     assert columns == {"id", "email", "created_at", "updated_at"}
@@ -259,9 +239,7 @@ def test_create_db_and_tables_registers_the_models_before_create_all():
 
     assert import_line is not None, "create_db_and_tables must import the models package"
     assert create_all_line is not None, "create_db_and_tables must call create_all"
-    assert import_line < create_all_line, (
-        "the models package must be imported before SQLModel.metadata.create_all"
-    )
+    assert import_line < create_all_line, "the models package must be imported before SQLModel.metadata.create_all"
 
 
 def test_identity_tables_exist_after_the_standard_bootstrap(engine):
@@ -271,12 +249,7 @@ def test_identity_tables_exist_after_the_standard_bootstrap(engine):
     create_db_and_tables()
 
     with engine.begin() as conn:
-        names = {
-            row[0]
-            for row in conn.execute(
-                text("SELECT name FROM sqlite_master WHERE type = 'table'")
-            )
-        }
+        names = {row[0] for row in conn.execute(text("SELECT name FROM sqlite_master WHERE type = 'table'"))}
 
     assert set(IDENTITY_TABLES) <= names
 
@@ -287,9 +260,9 @@ def test_the_test_harness_imports_the_models_package():
     """
     conftest_source = (Path(__file__).parent / "conftest.py").read_text(encoding="utf-8")
 
-    assert re.search(r"^\s*import models\s*(#.*)?$", conftest_source, re.MULTILINE), (
-        "conftest.py must import the models package"
-    )
+    assert re.search(
+        r"^\s*import models\s*(#.*)?$", conftest_source, re.MULTILINE
+    ), "conftest.py must import the models package"
     assert "import models.models" not in conftest_source
 
 

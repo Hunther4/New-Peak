@@ -1,4 +1,4 @@
-﻿"""
+"""
 FSRS v4.5 -- Strict TDD Verification Suite
 ==========================================
 
@@ -32,7 +32,7 @@ Reference constants (FSRS v4.5, open-spaced-repetition/FSRS):
 import math
 import sys
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import pytest
 
@@ -41,8 +41,10 @@ from services.paes.learning_engine import (
     FACTOR,
     FSRS_W,
     FSRSState,
-    calculate_retrievability,
+    _weights,
+    apply_review_capping,
     calculate_next_interval,
+    calculate_retrievability,
     infer_fsrs_grade,
     initial_difficulty,
     next_difficulty,
@@ -50,10 +52,7 @@ from services.paes.learning_engine import (
     next_recall_stability,
     resolve_fsrs_weights,
     update_fsrs_state,
-    apply_review_capping,
-    _weights,
 )
-
 
 # ---------------------------------------------------------------------------
 # Oracle values -- hand-computed from FSRS v4.5 paper equations
@@ -61,6 +60,7 @@ from services.paes.learning_engine import (
 
 # FACTOR canonical
 assert math.isclose(FACTOR, 19.0 / 81.0, rel_tol=1e-12)
+
 
 # initial_difficulty(G) = w4 - exp(w5*(G-1)) + 1, clamped [1,10]
 # w4=7.2102, w5=0.5316
@@ -86,9 +86,7 @@ _w11, _w12, _w13, _w14 = FSRS_W[11], FSRS_W[12], FSRS_W[13], FSRS_W[14]
 
 
 def _lapse_oracle(d: float, s: float, r: float) -> float:
-    exp_f = (
-        _w11 * (d ** (-_w12)) * (((s + 1.0) ** _w13) - 1.0) * math.exp(_w14 * (1.0 - r))
-    )
+    exp_f = _w11 * (d ** (-_w12)) * (((s + 1.0) ** _w13) - 1.0) * math.exp(_w14 * (1.0 - r))
     return max(0.1, min(s, exp_f))
 
 
@@ -122,13 +120,14 @@ def _mutant_killed(probe, mutate_method: str, test_fn: Any) -> bool:
         test_fn(mod)
         return False  # mutant survived -- test didn't catch it
     except AssertionError:
-        return True   # mutant killed -- test caught it
+        return True  # mutant killed -- test caught it
 
 
 # ---------------------------------------------------------------------------
 # Test: calculate_retrievability
 # RED evidence: FACTOR=1.0 mutant kills half-life test
 # ---------------------------------------------------------------------------
+
 
 class TestRetrievability:
     """R(t, S) = 1 / (1 + FACTOR * t/S),  FACTOR = 19/81"""
@@ -210,6 +209,7 @@ class TestRetrievability:
 # RED evidence: boundary mutants kill these tests
 # ---------------------------------------------------------------------------
 
+
 class TestInferFsrsGrade:
     """Maps (is_correct, confidence, time_spent, change_count) -> {1,2,3,4}"""
 
@@ -282,6 +282,7 @@ class TestInferFsrsGrade:
 # RED evidence: sign-flip and offset-drop mutants
 # ---------------------------------------------------------------------------
 
+
 class TestInitialDifficulty:
     """D(G) = clamp(w4 - exp(w5*(G-1)) + 1, 1, 10)"""
 
@@ -320,6 +321,7 @@ class TestInitialDifficulty:
 # RED evidence: no-reversion mutant, swap-coeff mutant, clamp removal
 # ---------------------------------------------------------------------------
 
+
 class TestNextDifficulty:
     """D' = clamp(w7*D0_good + (1-w7)*D_raw, 1, 10)"""
 
@@ -352,8 +354,7 @@ class TestNextDifficulty:
         expected = _W7 * d0_good + (1.0 - _W7) * 9.0
         d_new = next_difficulty(9.0, 3)
         assert math.isclose(d_new, expected, rel_tol=1e-8), (
-            f"next_difficulty(9, 3)={d_new:.6f}, expected {expected:.6f}. "
-            f"Swap-coeff mutant gives ~5.50."
+            f"next_difficulty(9, 3)={d_new:.6f}, expected {expected:.6f}. " f"Swap-coeff mutant gives ~5.50."
         )
 
     def test_hard_increases_difficulty(self):
@@ -376,8 +377,7 @@ class TestNextDifficulty:
             for d_in in [0.0, 0.1, 15.0, 20.0]:
                 d_out = next_difficulty(d_in, grade)
                 assert 1.0 <= d_out <= 10.0, (
-                    f"next_difficulty({d_in}, {grade})={d_out} out of [1,10] -- "
-                    f"kills clamp-removal mutant"
+                    f"next_difficulty({d_in}, {grade})={d_out} out of [1,10] -- " f"kills clamp-removal mutant"
                 )
 
     def test_d0_good_reversion_center(self):
@@ -392,15 +392,16 @@ class TestNextDifficulty:
         d0_good = _id_oracle(3)
         # Only grade=3 (Good) has no shift: d_raw = d - w[6]*0 = d
         d_new = next_difficulty(d0_good, 3)
-        assert math.isclose(d_new, d0_good, rel_tol=1e-8), (
-            f"next_difficulty(D0_good={d0_good}, 3)={d_new} should be D0_good"
-        )
+        assert math.isclose(
+            d_new, d0_good, rel_tol=1e-8
+        ), f"next_difficulty(D0_good={d0_good}, 3)={d_new} should be D0_good"
 
 
 # ---------------------------------------------------------------------------
 # Test: next_recall_stability
 # RED evidence: linearize exp(w10*(1-r)), drop hard-easy, clamp removal, w8/w9/w10 zero
 # ---------------------------------------------------------------------------
+
 
 class TestNextRecallStability:
     # FSRS recall stability update formula:
@@ -447,10 +448,7 @@ class TestNextRecallStability:
         d = 5.0
         s_low_r = next_recall_stability(d, s_initial, r=0.3, grade=3)
         s_high_r = next_recall_stability(d, s_initial, r=0.9, grade=3)
-        assert s_low_r > s_high_r, (
-            f"Lower R should give bigger boost: "
-            f"s_low_r={s_low_r} <= s_high_r={s_high_r}"
-        )
+        assert s_low_r > s_high_r, f"Lower R should give bigger boost: " f"s_low_r={s_low_r} <= s_high_r={s_high_r}"
 
     def test_high_difficulty_reduces_boost(self):
         """Harder items gain less stability per review."""
@@ -474,9 +472,9 @@ class TestNextRecallStability:
         exp_factor = math.exp(w8) * (11.0 - d) * (s ** (-w9)) * exp_inner
         expected_s = max(0.1, s * (1.0 + exp_factor))
         actual = next_recall_stability(d, s, r, grade=3)
-        assert math.isclose(actual, expected_s, rel_tol=1e-8), (
-            f"next_recall_stability(5,5,0.8,3)={actual}, expected {expected_s}"
-        )
+        assert math.isclose(
+            actual, expected_s, rel_tol=1e-8
+        ), f"next_recall_stability(5,5,0.8,3)={actual}, expected {expected_s}"
 
     def test_w9_pinned_effect(self):
         """
@@ -501,7 +499,7 @@ class TestNextRecallStability:
         d, s, r = 5.0, 5.0, 0.8
         w8, w9, w10 = FSRS_W[8], FSRS_W[9], FSRS_W[10]
         exp_inner = math.exp(w10 * (1.0 - r)) - 1.0  # canonical: ~0.243
-        linearized = w10 * (1.0 - r)                   # mutant: ~0.216
+        linearized = w10 * (1.0 - r)  # mutant: ~0.216
         assert abs(exp_inner - linearized) > 0.01, "Oracle values too close to distinguish"
         exp_factor = math.exp(w8) * (11.0 - d) * (s ** (-w9)) * exp_inner
         expected_s = max(0.1, s * (1.0 + exp_factor))
@@ -516,6 +514,7 @@ class TestNextRecallStability:
 # Test: next_lapse_stability  (ZERO coverage before this rewrite)
 # RED evidence: swap min/max, drop w11, clamp removal
 # ---------------------------------------------------------------------------
+
 
 class TestNextLapseStability:
     """
@@ -532,8 +531,7 @@ class TestNextLapseStability:
         r = 0.8
         s_new = next_lapse_stability(d, s_initial, r)
         assert s_new < s_initial, (
-            f"Lapse should decrease stability: {s_new} >= {s_initial}. "
-            f"swap-min-max mutant would pass this!"
+            f"Lapse should decrease stability: {s_new} >= {s_initial}. " f"swap-min-max mutant would pass this!"
         )
 
     def test_lapse_stability_bounded_by_original(self):
@@ -588,10 +586,9 @@ class TestNextLapseStability:
         """
         d, s = 5.0, 5.0
         s_r_high = next_lapse_stability(d, s, r=0.9)  # barely forgotten
-        s_r_low = next_lapse_stability(d, s, r=0.1)   # deeply forgotten
+        s_r_low = next_lapse_stability(d, s, r=0.1)  # deeply forgotten
         assert s_r_high < s_r_low, (
-            f"Lapse at high R should reduce stability more: "
-            f"s_r_high={s_r_high} >= s_r_low={s_r_low}"
+            f"Lapse at high R should reduce stability more: " f"s_r_high={s_r_high} >= s_r_low={s_r_low}"
         )
 
 
@@ -599,6 +596,7 @@ class TestNextLapseStability:
 # Test: calculate_next_interval  (ZERO coverage before this rewrite)
 # RED evidence: off-by-one, remove max(1), invert target_r
 # ---------------------------------------------------------------------------
+
 
 class TestCalculateNextInterval:
     """ivl = max(1, round((S/FACTOR)*((1/target_r)-1)))"""
@@ -645,7 +643,7 @@ class TestCalculateNextInterval:
         """Higher target_r -> shorter interval (harder to reach)."""
         ivl_85 = calculate_next_interval(10.0, 0.85)
         ivl_95 = calculate_next_interval(10.0, 0.95)
-        assert ivl_95 < ivl_85, f"Higher target_r should give shorter interval"
+        assert ivl_95 < ivl_85, "Higher target_r should give shorter interval"
 
     def test_interval_floor_is_1(self):
         """Very low stability still gives interval of at least 1 day."""
@@ -659,23 +657,22 @@ class TestCalculateNextInterval:
             (1.0, 0.85, 1),
             (5.0, 0.85, 4),
             (10.0, 0.85, 8),
-            (20.0, 0.85, 15),   # round(20/0.2345679*0.17647) = round(15.05) = 15
+            (20.0, 0.85, 15),  # round(20/0.2345679*0.17647) = round(15.05) = 15
             (10.0, 0.50, 43),
-            (10.0, 0.90, 5),    # round(10/0.2345679*0.1111) = round(4.73) = 5
+            (10.0, 0.90, 5),  # round(10/0.2345679*0.1111) = round(4.73) = 5
             (10.0, 0.95, 2),
             (50.0, 0.85, 38),
         ]
         for S, r, expected in table:
             actual = calculate_next_interval(S, r)
-            assert actual == expected, (
-                f"calculate_next_interval({S}, {r})={actual}, expected {expected}"
-            )
+            assert actual == expected, f"calculate_next_interval({S}, {r})={actual}, expected {expected}"
 
 
 # ---------------------------------------------------------------------------
 # Test: resolve_fsrs_weights
 # RED evidence: raise-instead-of-fallback mutant
 # ---------------------------------------------------------------------------
+
 
 class TestResolveFsrsWeights:
     """Per-user FSRS weight vector with safe fallback to FSRS_W."""
@@ -687,38 +684,48 @@ class TestResolveFsrsWeights:
 
     def test_profile_without_attribute_returns_default(self):
         """Missing fsrs_weights attribute -> fallback to FSRS_W."""
+
         class EmptyProfile:
             pass
+
         result = resolve_fsrs_weights(EmptyProfile())
         assert result == FSRS_W
 
     def test_empty_fsrs_weights_returns_default(self):
         """Empty list/None column -> fallback to FSRS_W."""
+
         class EmptyWeightsProfile:
             fsrs_weights = None
+
         result = resolve_fsrs_weights(EmptyWeightsProfile())
         assert result == FSRS_W
 
     def test_valid_custom_weights_used(self):
         """Valid 17-element list replaces defaults."""
+
         class CustomProfile:
             fsrs_weights = [0.5] * 17
+
         result = resolve_fsrs_weights(CustomProfile())
         assert result == [0.5] * 17
 
     def test_wrong_length_returns_default(self):
         """16 or 18 elements -> fallback (malformed)."""
+
         class BadLenProfile:
             fsrs_weights = [1.0] * 16
+
         result = resolve_fsrs_weights(BadLenProfile())
         assert result == FSRS_W
 
     def test_non_finite_returns_default(self):
         """NaN or Inf in any weight -> fallback."""
         bad = [1.0] * 17
-        bad[5] = float('nan')
+        bad[5] = float("nan")
+
         class NanProfile:
             fsrs_weights = bad
+
         result = resolve_fsrs_weights(NanProfile())
         assert result == FSRS_W
 
@@ -730,6 +737,7 @@ class TestResolveFsrsWeights:
 # ---------------------------------------------------------------------------
 # Test: FSRSState
 # ---------------------------------------------------------------------------
+
 
 class TestFSRSState:
     """FSRSState dataclass and its to_dict method."""
@@ -761,6 +769,7 @@ class TestFSRSState:
 # Test: update_fsrs_state
 # ---------------------------------------------------------------------------
 
+
 class TestUpdateFSRSState:
     """Full state transition through one review."""
 
@@ -772,8 +781,7 @@ class TestUpdateFSRSState:
         state = FSRSState()
         now = datetime.now(timezone.utc)
         new_state, interval = update_fsrs_state(
-            state, is_correct=True, confidence=4,
-            time_spent_seconds=30, change_count=0, now=now
+            state, is_correct=True, confidence=4, time_spent_seconds=30, change_count=0, now=now
         )
         # Grade 4 (Easy): w[3] = FSRS_W[3] = 15.4722
         assert new_state.stability == pytest.approx(FSRS_W[3], rel=1e-6)
@@ -785,19 +793,13 @@ class TestUpdateFSRSState:
     def test_incorrect_review_increments_lapses(self):
         """Grade 1 (incorrect) increments the lapse counter."""
         state = FSRSState(reps=3)
-        new_state, _ = update_fsrs_state(
-            state, is_correct=False, confidence=1,
-            time_spent_seconds=10, change_count=0
-        )
+        new_state, _ = update_fsrs_state(state, is_correct=False, confidence=1, time_spent_seconds=10, change_count=0)
         assert new_state.lapses == state.lapses + 1
 
     def test_interval_uses_new_stability(self):
         """The returned interval is computed from the new stability."""
         state = FSRSState(stability=10.0, last_review_at=datetime.now(timezone.utc))
-        _, interval = update_fsrs_state(
-            state, is_correct=True, confidence=4,
-            time_spent_seconds=30, change_count=0
-        )
+        _, interval = update_fsrs_state(state, is_correct=True, confidence=4, time_spent_seconds=30, change_count=0)
         # Grade 4 (Easy) first review: new stability = w[3] = 15.4722
         new_s = FSRS_W[3]
         expected = _interval_oracle(new_s, 0.85)
@@ -809,8 +811,7 @@ class TestUpdateFSRSState:
         now = datetime.now(timezone.utc)
         state = FSRSState(stability=10.0, last_review_at=now)
         new_state, interval = update_fsrs_state(
-            state, is_correct=True, confidence=4,
-            time_spent_seconds=30, change_count=0, now=now
+            state, is_correct=True, confidence=4, time_spent_seconds=30, change_count=0, now=now
         )
         expected_next = now + timedelta(days=interval)
         assert new_state.next_review_at == expected_next
@@ -819,6 +820,7 @@ class TestUpdateFSRSState:
 # ---------------------------------------------------------------------------
 # Test: apply_review_capping
 # ---------------------------------------------------------------------------
+
 
 class TestApplyReviewCapping:
     """Daily review queue: sort by projected retention, cap at max_daily_reviews."""
@@ -863,6 +865,7 @@ class TestApplyReviewCapping:
 # ---------------------------------------------------------------------------
 # Test: FSRS weight vector integrity
 # ---------------------------------------------------------------------------
+
 
 class TestFSRSWeightIntegrity:
     """All 17 FSRS_W values are pinned to their canonical literals."""
@@ -923,6 +926,7 @@ class TestFSRSWeightIntegrity:
 # ---------------------------------------------------------------------------
 # Test: _weights helper
 # ---------------------------------------------------------------------------
+
 
 class Test_weights:
     """_weights() normalizes the optional per-call weight vector."""

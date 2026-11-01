@@ -4,6 +4,7 @@ Each game service (memory, math, iq) follows the same pattern for
 iniciar_sesion and consolidar_sesion. This module extracts that common
 logic so each service only provides game-specific callbacks.
 """
+
 import json
 from typing import Any, Callable, Optional
 
@@ -111,4 +112,3 @@ def consolidar_sesion_base(
     db.refresh(game_session)
 
     return practice_session, game_session
-

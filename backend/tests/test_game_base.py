@@ -4,6 +4,7 @@ Direct tests for game_base shared functions.
 Tests the common session initialization and consolidation logic
 used by memory, math, and IQ game services.
 """
+
 import json
 from unittest.mock import ANY, patch
 
@@ -90,8 +91,11 @@ class TestConsolidarSesionBase:
 
         with pytest.raises(ValueError, match="Minimum 3 rounds required"):
             consolidar_sesion_base(
-                session, MemoryNumberSession, game_session.id,
-                elapsed_seconds=60, game_name="Test",
+                session,
+                MemoryNumberSession,
+                game_session.id,
+                elapsed_seconds=60,
+                game_name="Test",
                 build_session_data=self._build_session_data,
                 build_practice_fields=self._build_practice_fields,
             )
@@ -106,8 +110,11 @@ class TestConsolidarSesionBase:
 
         with pytest.raises(ValueError, match="Need at least 5 test rounds"):
             consolidar_sesion_base(
-                session, MemoryNumberSession, game_session.id,
-                elapsed_seconds=60, game_name="Test",
+                session,
+                MemoryNumberSession,
+                game_session.id,
+                elapsed_seconds=60,
+                game_name="Test",
                 build_session_data=self._build_session_data,
                 build_practice_fields=self._build_practice_fields,
                 min_rounds=5,
@@ -118,8 +125,11 @@ class TestConsolidarSesionBase:
         """Raises ValueError for bad session_id."""
         with pytest.raises(ValueError, match="Test session not found"):
             consolidar_sesion_base(
-                session, MemoryNumberSession, 99999,
-                elapsed_seconds=60, game_name="Test",
+                session,
+                MemoryNumberSession,
+                99999,
+                elapsed_seconds=60,
+                game_name="Test",
                 build_session_data=self._build_session_data,
                 build_practice_fields=self._build_practice_fields,
             )
@@ -134,14 +144,19 @@ class TestConsolidarSesionBase:
 
         with pytest.raises(ValueError, match="already consolidated"):
             consolidar_sesion_base(
-                session, MemoryNumberSession, game_session.id,
-                elapsed_seconds=60, game_name="Test",
+                session,
+                MemoryNumberSession,
+                game_session.id,
+                elapsed_seconds=60,
+                game_name="Test",
                 build_session_data=self._build_session_data,
                 build_practice_fields=self._build_practice_fields,
             )
 
     def test_consolidar_sesion_base_creates_practice_session(
-        self, session, skill_factory,
+        self,
+        session,
+        skill_factory,
     ):
         """Verify PracticeSession created and game session linked."""
         skill = skill_factory(skill_type="memory_number")
@@ -151,8 +166,11 @@ class TestConsolidarSesionBase:
         session.commit()
 
         practice_session, gs = consolidar_sesion_base(
-            session, MemoryNumberSession, game_session.id,
-            elapsed_seconds=120, game_name="Test",
+            session,
+            MemoryNumberSession,
+            game_session.id,
+            elapsed_seconds=120,
+            game_name="Test",
             build_session_data=self._build_session_data,
             build_practice_fields=self._build_practice_fields,
         )
@@ -171,7 +189,9 @@ class TestConsolidarSesionBase:
         assert gs.consolidated_session_id == practice_session.id
 
     def test_consolidar_sesion_base_no_elapsed_seconds(
-        self, session, skill_factory,
+        self,
+        session,
+        skill_factory,
     ):
         """Elapsed seconds not included when None."""
         skill = skill_factory(skill_type="memory_number")
@@ -181,8 +201,11 @@ class TestConsolidarSesionBase:
         session.commit()
 
         practice_session, gs = consolidar_sesion_base(
-            session, MemoryNumberSession, game_session.id,
-            elapsed_seconds=None, game_name="Test",
+            session,
+            MemoryNumberSession,
+            game_session.id,
+            elapsed_seconds=None,
+            game_name="Test",
             build_session_data=self._build_session_data,
             build_practice_fields=self._build_practice_fields,
         )
@@ -191,7 +214,9 @@ class TestConsolidarSesionBase:
         assert "elapsed_seconds" not in session_data
 
     def test_consolidar_sesion_base_applies_staircase(
-        self, session, skill_factory,
+        self,
+        session,
+        skill_factory,
     ):
         """Verify staircase is applied during consolidation."""
         skill = skill_factory(skill_type="memory_number")
@@ -205,14 +230,19 @@ class TestConsolidarSesionBase:
 
         with patch("services.staircase.apply_staircase") as mock_apply:
             practice_session, gs = consolidar_sesion_base(
-                session, MemoryNumberSession, game_session.id,
-                elapsed_seconds=60, game_name="Test",
+                session,
+                MemoryNumberSession,
+                game_session.id,
+                elapsed_seconds=60,
+                game_name="Test",
                 build_session_data=self._build_session_data,
                 build_practice_fields=self._build_practice_fields,
             )
 
             mock_apply.assert_called_once_with(
-                ANY, skill, True,
+                ANY,
+                skill,
+                True,
                 trigger="session_consolidation",
                 session_id=practice_session.id,
             )

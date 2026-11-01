@@ -117,4 +117,3 @@ async def upload_avatar(request: Request, file: UploadFile = File(...)):
             db.commit()
 
     return {"avatar_url": avatar_url}
-

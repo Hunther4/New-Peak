@@ -165,9 +165,7 @@ def pre014(tmp_path):
 def _migration_014() -> dict:
     """The 014 descriptor as the runner discovers it."""
     matches = [m for m in _discover_migrations() if m["version"] == 14]
-    assert len(matches) == 1, (
-        "backend/migrations/014_data_ownership.py does not exist yet — S7.2 is still RED"
-    )
+    assert len(matches) == 1, "backend/migrations/014_data_ownership.py does not exist yet — S7.2 is still RED"
     return matches[0]
 
 
@@ -186,14 +184,10 @@ def _write_verified_dump(engine, tmp_path, *, sha256_override=None):
         table_names = [
             row[0]
             for row in connection.execute(
-                "SELECT name FROM sqlite_master WHERE type='table' "
-                "AND name NOT LIKE 'sqlite_%'"
+                "SELECT name FROM sqlite_master WHERE type='table' " "AND name NOT LIKE 'sqlite_%'"
             )
         ]
-        counts = {
-            name: connection.execute(f'SELECT COUNT(*) FROM "{name}"').fetchone()[0]
-            for name in table_names
-        }
+        counts = {name: connection.execute(f'SELECT COUNT(*) FROM "{name}"').fetchone()[0] for name in table_names}
         dump_sql = "\n".join(connection.iterdump())
     finally:
         connection.close()
@@ -248,10 +242,7 @@ def _schema_snapshot(engine) -> dict:
         return {
             row[0]: row[1]
             for row in conn.execute(
-                text(
-                    "SELECT name, sql FROM sqlite_master "
-                    "WHERE sql IS NOT NULL AND type IN ('table', 'index')"
-                )
+                text("SELECT name, sql FROM sqlite_master " "WHERE sql IS NOT NULL AND type IN ('table', 'index')")
             )
         }
 
@@ -259,16 +250,10 @@ def _schema_snapshot(engine) -> dict:
 def _seed_subtopic_chain(db: DBSession, subtopic_id: str = "sub-own", slug: str = "own-sub") -> str:
     """A minimal curriculum chain down to one subtopic. Returns its id."""
     db.add(PaesCurriculumVersion(id="cv-own", code="DEMRE-OWN", name="Own", year=2026))
-    db.add(
-        PaesSubject(id="subj-own", curriculum_version_id="cv-own", code="M1", name="M1")
-    )
+    db.add(PaesSubject(id="subj-own", curriculum_version_id="cv-own", code="M1", name="M1"))
     db.add(PaesEjeTematico(id="eje-own", subject_id="subj-own", name="Números", order_index=1))
     db.add(PaesTopic(id="top-own", eje_id="eje-own", name="Tema", order_index=1))
-    db.add(
-        PaesSubtopic(
-            id=subtopic_id, topic_id="top-own", name="Subtema", slug=slug, order_index=1
-        )
-    )
+    db.add(PaesSubtopic(id=subtopic_id, topic_id="top-own", name="Subtema", slug=slug, order_index=1))
     db.commit()
     return subtopic_id
 
@@ -332,9 +317,7 @@ def test_every_user_scoped_table_carries_an_owner_foreign_key(pre014, tmp_path, 
             columns = _columns(conn, table)
             assert "user_id" in columns, f"{table}: no user_id column"
             assert columns["user_id"][3] == 1, f"{table}.user_id is nullable"
-            assert "users" in _referenced_tables(conn, table), (
-                f"{table}.user_id does not reference users(id)"
-            )
+            assert "users" in _referenced_tables(conn, table), f"{table}.user_id does not reference users(id)"
 
 
 def test_a_row_without_an_owner_is_rejected(pre014, tmp_path, monkeypatch):
@@ -347,12 +330,7 @@ def test_a_row_without_an_owner_is_rejected(pre014, tmp_path, monkeypatch):
 
     with pytest.raises(IntegrityError):
         with pre014.begin() as conn:
-            conn.execute(
-                text(
-                    "INSERT INTO userprofile (user_id, name, age) "
-                    "VALUES (999999, 'ghost', 20)"
-                )
-            )
+            conn.execute(text("INSERT INTO userprofile (user_id, name, age) " "VALUES (999999, 'ghost', 20)"))
 
 
 def test_the_catalog_stays_shared(pre014, tmp_path, monkeypatch):
@@ -361,9 +339,9 @@ def test_the_catalog_stays_shared(pre014, tmp_path, monkeypatch):
 
     with pre014.connect() as conn:
         for table in CATALOG_TABLES:
-            assert "user_id" not in _columns(conn, table), (
-                f"{table} is a shared catalog table but carries a user_id column"
-            )
+            assert "user_id" not in _columns(
+                conn, table
+            ), f"{table} is a shared catalog table but carries a user_id column"
 
 
 # =============================================================================
@@ -389,9 +367,7 @@ def test_a_duplicate_user_subtopic_learning_state_is_rejected(pre014, tmp_path, 
             conn.execute(_learning_state_insert("ls-a2"), {"user": user_a})
 
 
-def test_the_error_pattern_rebuild_keeps_session_error_references_resolvable(
-    pre014, tmp_path, monkeypatch
-):
+def test_the_error_pattern_rebuild_keeps_session_error_references_resolvable(pre014, tmp_path, monkeypatch):
     """DO-05-S2 — the rebuild keeps ``sessionerror.error_pattern_id`` intact.
 
     D-8 discards every pre-014 row, so what the rebuild must preserve is the
@@ -426,9 +402,9 @@ def test_the_error_pattern_rebuild_keeps_session_error_references_resolvable(
     with pre014.connect() as conn:
         columns = _columns(conn, "sessionerror")
         assert "error_pattern_id" in columns, "the rebuild dropped sessionerror.error_pattern_id"
-        assert "errorpattern" in _referenced_tables(conn, "sessionerror"), (
-            "sessionerror.error_pattern_id lost its foreign key to errorpattern"
-        )
+        assert "errorpattern" in _referenced_tables(
+            conn, "sessionerror"
+        ), "sessionerror.error_pattern_id lost its foreign key to errorpattern"
         # D-8: the pre-migration pair is gone …
         assert _count(conn, "sessionerror") == 0
         assert _count(conn, "errorpattern") == 0
@@ -502,13 +478,13 @@ def test_both_side_tables_exist_with_per_user_uniqueness(pre014, tmp_path, monke
 
     with pre014.connect() as conn:
         skill_state = _columns(conn, "user_skill_states")
-        assert {"user_id", "skill_id", "current_level", "practice_level"} <= set(skill_state), (
-            f"user_skill_states is missing columns: {sorted(skill_state)}"
-        )
+        assert {"user_id", "skill_id", "current_level", "practice_level"} <= set(
+            skill_state
+        ), f"user_skill_states is missing columns: {sorted(skill_state)}"
         cognitive_state = _columns(conn, "user_cognitive_skill_states")
-        assert {"user_id", "cognitive_skill_id", "nivel_n_actual"} <= set(cognitive_state), (
-            f"user_cognitive_skill_states is missing columns: {sorted(cognitive_state)}"
-        )
+        assert {"user_id", "cognitive_skill_id", "nivel_n_actual"} <= set(
+            cognitive_state
+        ), f"user_cognitive_skill_states is missing columns: {sorted(cognitive_state)}"
 
     with DBSession(pre014) as db:
         user_a, user_b = _make_users(db, "side-a@example.com", "side-b@example.com")
@@ -516,8 +492,10 @@ def test_both_side_tables_exist_with_per_user_uniqueness(pre014, tmp_path, monke
 
     with pre014.begin() as conn:
         conn.execute(
-            text("INSERT INTO cognitiveskill (nombre, descripcion, fase_iq_base, "
-                 "nivel_n_actual) VALUES ('Memoria', 'desc', 100, 4)")
+            text(
+                "INSERT INTO cognitiveskill (nombre, descripcion, fase_iq_base, "
+                "nivel_n_actual) VALUES ('Memoria', 'desc', 100, 4)"
+            )
         )
         conn.execute(
             text(
@@ -573,9 +551,7 @@ def test_both_side_tables_exist_with_per_user_uniqueness(pre014, tmp_path, monke
 # =============================================================================
 
 
-def test_pre_existing_rows_are_discarded_and_no_legacy_user_appears(
-    pre014, tmp_path, monkeypatch
-):
+def test_pre_existing_rows_are_discarded_and_no_legacy_user_appears(pre014, tmp_path, monkeypatch):
     """DO-09-S1/S2 — every user-scoped row is deleted, no owner is invented,
     and the shared catalog survives untouched.
     """
@@ -630,9 +606,7 @@ def test_pre_existing_rows_are_discarded_and_no_legacy_user_appears(
 
     with pre014.connect() as conn:
         for table in USER_SCOPED_TABLES:
-            assert _count(conn, table) == 0, (
-                f"{table}: pre-existing rows survived the D-8 discard"
-            )
+            assert _count(conn, table) == 0, f"{table}: pre-existing rows survived the D-8 discard"
         # DO-09-S2 — no claimable legacy user was created …
         assert _count(conn, "users") == 0, "the migration invented an owner"
         # … and the shared catalog was not discarded with the learner data.
@@ -640,9 +614,7 @@ def test_pre_existing_rows_are_discarded_and_no_legacy_user_appears(
         assert _count(conn, "cognitivesession") == 1
 
 
-def test_the_migration_refuses_to_run_without_a_verified_dump(
-    pre014, tmp_path, monkeypatch
-):
+def test_the_migration_refuses_to_run_without_a_verified_dump(pre014, tmp_path, monkeypatch):
     """DO-09-S4 — no dump, no migration: rows still present, schema unchanged."""
     monkeypatch.delenv(DUMP_ENV_VAR, raising=False)
     migration = _migration_014()
@@ -655,19 +627,13 @@ def test_the_migration_refuses_to_run_without_a_verified_dump(
         with pre014.begin() as conn:
             migration["up"](conn)
 
-    assert DUMP_ENV_VAR in str(excinfo.value), (
-        "the operator must be told which dump checks are missing"
-    )
+    assert DUMP_ENV_VAR in str(excinfo.value), "the operator must be told which dump checks are missing"
     with pre014.connect() as conn:
         assert _count(conn, "userprofile") == 1, "rows changed before the gate passed"
-        assert "user_id" not in _columns(conn, "session"), (
-            "the schema changed before the gate passed"
-        )
+        assert "user_id" not in _columns(conn, "session"), "the schema changed before the gate passed"
 
 
-def test_the_migration_refuses_a_receipt_that_does_not_match_the_dump(
-    pre014, tmp_path, monkeypatch
-):
+def test_the_migration_refuses_a_receipt_that_does_not_match_the_dump(pre014, tmp_path, monkeypatch):
     """DO-09-S4 — a tampered dump or a stale receipt aborts before any ALTER."""
     migration = _migration_014()
     dump = _write_verified_dump(pre014, tmp_path, sha256_override="0" * 64)
@@ -678,9 +644,7 @@ def test_the_migration_refuses_a_receipt_that_does_not_match_the_dump(
             migration["up"](conn)
 
     with pre014.connect() as conn:
-        assert "user_id" not in _columns(conn, "session"), (
-            "the schema changed despite a mismatching receipt"
-        )
+        assert "user_id" not in _columns(conn, "session"), "the schema changed despite a mismatching receipt"
 
 
 def test_the_migration_proceeds_with_a_matching_receipt(pre014, tmp_path, monkeypatch):
@@ -688,9 +652,7 @@ def test_the_migration_proceeds_with_a_matching_receipt(pre014, tmp_path, monkey
     _apply_014(pre014, tmp_path, monkeypatch)
 
     with pre014.connect() as conn:
-        assert "user_id" in _columns(conn, "session"), (
-            "a verified dump did not unblock the migration"
-        )
+        assert "user_id" in _columns(conn, "session"), "a verified dump did not unblock the migration"
 
 
 # =============================================================================
@@ -709,9 +671,7 @@ def test_running_the_migration_twice_is_a_no_op(pre014, tmp_path, monkeypatch):
     assert after_first == after_second, "the second run altered the schema"
 
 
-def test_the_orm_and_the_migrated_schema_declare_the_same_columns(
-    pre014, tmp_path, monkeypatch
-):
+def test_the_orm_and_the_migrated_schema_declare_the_same_columns(pre014, tmp_path, monkeypatch):
     """DO-10-S3 — every user-scoped table and both side tables agree."""
     _apply_014(pre014, tmp_path, monkeypatch)
 
@@ -725,9 +685,9 @@ def test_the_orm_and_the_migrated_schema_declare_the_same_columns(
         assert "user_id" in orm_columns, f"{table}: the ORM has no user_id column (S7.3)"
         with pre014.connect() as conn:
             migrated_columns = set(_columns(conn, table))
-        assert orm_columns == migrated_columns, (
-            f"{table}: ORM {sorted(orm_columns)} != migrated {sorted(migrated_columns)}"
-        )
+        assert (
+            orm_columns == migrated_columns
+        ), f"{table}: ORM {sorted(orm_columns)} != migrated {sorted(migrated_columns)}"
         assert not orm_table.c.user_id.nullable, f"{table}.user_id is nullable in the ORM"
 
 
@@ -760,9 +720,7 @@ def test_the_multidisciplinary_seed_creates_no_learning_state_row(pre014):
     with DBSession(pre014) as db:
         seed_multidisciplinary(db)
         count = _scalar(db, "SELECT COUNT(*) FROM paes_learning_states")
-        fixed_user_rows = _scalar(
-            db, "SELECT COUNT(*) FROM paes_learning_states WHERE user_id = 1"
-        )
+        fixed_user_rows = _scalar(db, "SELECT COUNT(*) FROM paes_learning_states WHERE user_id = 1")
 
     assert count == 0, "the seed created learning-state rows for a fixed user"
     assert fixed_user_rows == 0

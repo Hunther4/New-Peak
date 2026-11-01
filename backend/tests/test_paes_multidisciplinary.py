@@ -12,11 +12,13 @@ def client(enrolled_user):
     """Real principal enrolled through the production services (conftest)."""
     return enrolled_user.client
 
+
 @pytest.fixture
 def seeded_multidisciplinary(session: Session):
     seed_paes_data()
     seed_multidisciplinary(session)
     seed_questions(session)
+
 
 def test_demre_scales_all_subjects():
     """Verify that all 5 official PAES subjects produce valid DEMRE 100..1000 conversions."""
@@ -38,6 +40,7 @@ def test_demre_scales_all_subjects():
         mid_res = raw_score_to_paes(max_scored // 2, total_valid=max_scored, subject_code=subject)
         assert 400 <= mid_res["base_paes_score"] <= 850
 
+
 def test_get_subjects_endpoint(client, seeded_multidisciplinary):
     """GET /api/paes/subjects returns all 5 PAES subjects."""
     resp = client.get("/api/paes/subjects")
@@ -48,6 +51,7 @@ def test_get_subjects_endpoint(client, seeded_multidisciplinary):
     for expected in ["M1", "LECTURA", "M2", "CIENCIAS", "HISTORIA"]:
         assert expected in codes
 
+
 def test_get_curriculum_subtopics_filter(client, seeded_multidisciplinary):
     """GET /api/paes/curriculum/subtopics?subject_code=LECTURA filters subtopics."""
     resp = client.get("/api/paes/curriculum/subtopics?subject_code=LECTURA")
@@ -57,13 +61,12 @@ def test_get_curriculum_subtopics_filter(client, seeded_multidisciplinary):
     for sub in data["subtopics"]:
         assert sub["subject_code"] == "LECTURA"
 
+
 def test_start_and_finalize_exam_lectura(client, seeded_multidisciplinary):
     """Start an exam session for LECTURA and finalize with DEMRE conversion."""
-    resp_start = client.post("/api/paes/study/session/start", json={
-        "session_mode": "EXAM",
-        "question_count": 5,
-        "subject_code": "LECTURA"
-    })
+    resp_start = client.post(
+        "/api/paes/study/session/start", json={"session_mode": "EXAM", "question_count": 5, "subject_code": "LECTURA"}
+    )
     assert resp_start.status_code == 200
     session_data = resp_start.json()
     assert session_data["subject_code"] == "LECTURA"
@@ -76,11 +79,12 @@ def test_start_and_finalize_exam_lectura(client, seeded_multidisciplinary):
 
     # Finalize exam
     session_id = session_data["session_id"]
-    answers = [{"question_id": q["id"], "selected_option": "A", "time_spent_seconds": 25} for q in session_data["questions"]]
-    resp_final = client.post(f"/api/paes/study/session/{session_id}/finalize_exam", json={
-        "answers": answers,
-        "subject_code": "LECTURA"
-    })
+    answers = [
+        {"question_id": q["id"], "selected_option": "A", "time_spent_seconds": 25} for q in session_data["questions"]
+    ]
+    resp_final = client.post(
+        f"/api/paes/study/session/{session_id}/finalize_exam", json={"answers": answers, "subject_code": "LECTURA"}
+    )
     assert resp_final.status_code == 200
     result = resp_final.json()
     assert "demre" in result

@@ -1,4 +1,5 @@
 """Tests for game_utils — shared utility functions for game services."""
+
 from services.game_utils import consolidation_response
 
 

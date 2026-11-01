@@ -2,6 +2,7 @@
 Seed oficial PAES M1 para Peak.
 Puebla el currículum oficial DEMRE M1 2026 y las 65 preguntas verificadas en SQLite.
 """
+
 import json
 import logging
 import random
@@ -25,6 +26,7 @@ from services.paes.seed_m1 import SEED_DATA
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("seed_paes")
+
 
 def seed_paes_data():
     with Session(engine) as session:
@@ -173,8 +175,7 @@ def seed_paes_data():
         for subtopic in SEED_DATA.get("subtopics", []):
             existing_state = session.exec(
                 select(PaesLearningState).where(
-                    PaesLearningState.user_id == 1,
-                    PaesLearningState.subtopic_id == subtopic["id"]
+                    PaesLearningState.user_id == 1, PaesLearningState.subtopic_id == subtopic["id"]
                 )
             ).first()
             if not existing_state:
@@ -203,7 +204,9 @@ def seed_paes_data():
         session.commit()
         logger.info("PAES M1 dataset seeded successfully into SQLite (65 items, 13 subtopics).")
 
+
 if __name__ == "__main__":
     from core.database import create_db_and_tables
+
     create_db_and_tables()
     seed_paes_data()

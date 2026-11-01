@@ -3,6 +3,7 @@ DEMRE PDF Question Extractor and Cataloger.
 Extracts questions, reading stimuli, options (A-D/E), and matches them with official Clavijero answers.
 Outputs structured JSON validated for the Peak question engine.
 """
+
 import json
 import re
 from pathlib import Path
@@ -29,7 +30,7 @@ def parse_clavijero(pdf_path: Path) -> Dict[int, str]:
             text += page_text + "\n"
 
     # Match pairs like "1\nB" or "24*\nC" across multi-column tables
-    matches = re.findall(r'(\b\d{1,2}\*?)\s*\n\s*([A-E])\b', text)
+    matches = re.findall(r"(\b\d{1,2}\*?)\s*\n\s*([A-E])\b", text)
     answers = {}
     for q_str, key in matches:
         q_num = int(q_str.replace("*", ""))
@@ -39,7 +40,7 @@ def parse_clavijero(pdf_path: Path) -> Dict[int, str]:
 
 def extract_reading_passages(full_text: str) -> List[Dict[str, Any]]:
     """Detect reading passages like 'Lectura 2: preguntas 10 a 19' and their text."""
-    matches = list(re.finditer(r'(?:^|\n)\s*Lectura\s+(\d+):\s*preguntas\s+(\d+)\s+a\s+(\d+)', full_text, re.I))
+    matches = list(re.finditer(r"(?:^|\n)\s*Lectura\s+(\d+):\s*preguntas\s+(\d+)\s+a\s+(\d+)", full_text, re.I))
     passages = []
 
     for idx, match in enumerate(matches):
@@ -50,7 +51,7 @@ def extract_reading_passages(full_text: str) -> List[Dict[str, Any]]:
         # Passage text is between this marker and the start of the first question (or next passage)
         start_pos = match.end()
         # Find first question number after this point
-        q_match = re.search(r'(?:^|\n)\s*' + str(start_q) + r'\.\s+', full_text[start_pos:])
+        q_match = re.search(r"(?:^|\n)\s*" + str(start_q) + r"\.\s+", full_text[start_pos:])
         if q_match:
             end_pos = start_pos + q_match.start()
         else:
@@ -58,14 +59,9 @@ def extract_reading_passages(full_text: str) -> List[Dict[str, Any]]:
 
         passage_text = full_text[start_pos:end_pos].strip()
         # Clean extra whitespace
-        passage_text = re.sub(r'\n{3,}', '\n\n', passage_text)
+        passage_text = re.sub(r"\n{3,}", "\n\n", passage_text)
 
-        passages.append({
-            "lectura_num": lec_num,
-            "start_q": start_q,
-            "end_q": end_q,
-            "text": passage_text
-        })
+        passages.append({"lectura_num": lec_num, "start_q": start_q, "end_q": end_q, "text": passage_text})
     return passages
 
 
@@ -78,18 +74,20 @@ def clean_pdf_text(doc: pymupdf.Document) -> str:
         clean_lines = []
         for line in lines:
             # Skip DEMRE header lines like 'FORMA 113 – 2026' or page markers like '- 3 -'
-            if re.match(r'^\s*FORMA\s+\d+', line, re.I):
+            if re.match(r"^\s*FORMA\s+\d+", line, re.I):
                 continue
-            if re.match(r'^\s*-\s*\d+\s*-\s*$', line):
+            if re.match(r"^\s*-\s*\d+\s*-\s*$", line):
                 continue
-            if re.match(r'^\s*•\s*\d+\s*•\s*$', line):
+            if re.match(r"^\s*•\s*\d+\s*•\s*$", line):
                 continue
             clean_lines.append(line)
         full_text += "\n" + "\n".join(clean_lines)
     return full_text
 
 
-def extract_questions_from_text(full_text: str, subject: str, year: int, answers: Dict[int, str]) -> List[Dict[str, Any]]:
+def extract_questions_from_text(
+    full_text: str, subject: str, year: int, answers: Dict[int, str]
+) -> List[Dict[str, Any]]:
     """Parse question blocks with stem and options A-D/E."""
     passages = extract_reading_passages(full_text) if "LECTURA" in subject.upper() else []
 
@@ -105,12 +103,12 @@ def extract_questions_from_text(full_text: str, subject: str, year: int, answers
         q_body = full_text[start:end].strip()
 
         # Options detection (A, B, C, D, and optionally E)
-        opt_matches = list(re.finditer(r'(?:^|\n)\s*([A-E])\)\s*', q_body))
+        opt_matches = list(re.finditer(r"(?:^|\n)\s*([A-E])\)\s*", q_body))
         if len(opt_matches) < 4:
             continue
 
-        stem = q_body[:opt_matches[0].start()].strip()
-        stem = re.sub(r'\s+', ' ', stem)
+        stem = q_body[: opt_matches[0].start()].strip()
+        stem = re.sub(r"\s+", " ", stem)
 
         # Determine matching reading passage if any
         matching_stimulus = None
@@ -127,27 +125,31 @@ def extract_questions_from_text(full_text: str, subject: str, year: int, answers
             opt_start = opt_matches[o_idx].end()
             opt_end = opt_matches[o_idx + 1].start() if o_idx + 1 < len(opt_matches) else len(q_body)
             opt_text = q_body[opt_start:opt_end].strip()
-            opt_text = re.sub(r'\s+', ' ', opt_text)
+            opt_text = re.sub(r"\s+", " ", opt_text)
 
             is_correct = (key == correct_key) if correct_key else False
-            options.append({
-                "key": key,
-                "text": opt_text,
-                "is_correct": is_correct,
-                "distractor_type": "CORRECT" if is_correct else "DISTRACTOR"
-            })
+            options.append(
+                {
+                    "key": key,
+                    "text": opt_text,
+                    "is_correct": is_correct,
+                    "distractor_type": "CORRECT" if is_correct else "DISTRACTOR",
+                }
+            )
 
-        parsed_questions.append({
-            "id": f"paes-{year}-{subject.lower()}-q{q_num:02d}",
-            "year": year,
-            "subject": subject,
-            "question_number": q_num,
-            "stimulus": matching_stimulus,
-            "stem": stem,
-            "options": options,
-            "correct_answer": correct_key,
-            "official_status": "PILOT" if (correct_key is None and q_num in answers) else "SCORED"
-        })
+        parsed_questions.append(
+            {
+                "id": f"paes-{year}-{subject.lower()}-q{q_num:02d}",
+                "year": year,
+                "subject": subject,
+                "question_number": q_num,
+                "stimulus": matching_stimulus,
+                "stem": stem,
+                "options": options,
+                "correct_answer": correct_key,
+                "official_status": "PILOT" if (correct_key is None and q_num in answers) else "SCORED",
+            }
+        )
 
     return parsed_questions
 
@@ -180,9 +182,9 @@ def extract_test(year: int, subject: str, test_filename: str, clavijero_filename
             "test_filename": test_filename,
             "clavijero_filename": clavijero_filename,
             "total_extracted": len(questions),
-            "matched_keys": with_correct
+            "matched_keys": with_correct,
         },
-        "questions": questions
+        "questions": questions,
     }
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -201,29 +203,87 @@ def main():
         # --- 2026 ---
         (2026, "M1", "prueba_oficial_paes_2026_m1.pdf", "clavijero_paes_2026_m1.pdf"),
         (2026, "M2", "prueba_oficial_paes_2026_m2.pdf", "clavijero_paes_2026_m2.pdf"),
-        (2026, "LECTURA", "prueba_oficial_paes_2026_competencia_lectora.pdf", "clavijero_paes_2026_competencia_lectora.pdf"),
+        (
+            2026,
+            "LECTURA",
+            "prueba_oficial_paes_2026_competencia_lectora.pdf",
+            "clavijero_paes_2026_competencia_lectora.pdf",
+        ),
         (2026, "HISTORIA", "prueba_oficial_paes_2026_historia.pdf", "clavijero_paes_2026_historia.pdf"),
-        (2026, "CIENCIAS_BIOLOGIA", "prueba_oficial_paes_2026_ciencias_biologia.pdf", "clavijero_paes_2026_ciencias_biologia.pdf"),
-        (2026, "CIENCIAS_FISICA", "prueba_oficial_paes_2026_ciencias_fisica.pdf", "clavijero_paes_2026_ciencias_fisica.pdf"),
-        (2026, "CIENCIAS_QUIMICA", "prueba_oficial_paes_2026_ciencias_quimica.pdf", "clavijero_paes_2026_ciencias_quimica.pdf"),
-
+        (
+            2026,
+            "CIENCIAS_BIOLOGIA",
+            "prueba_oficial_paes_2026_ciencias_biologia.pdf",
+            "clavijero_paes_2026_ciencias_biologia.pdf",
+        ),
+        (
+            2026,
+            "CIENCIAS_FISICA",
+            "prueba_oficial_paes_2026_ciencias_fisica.pdf",
+            "clavijero_paes_2026_ciencias_fisica.pdf",
+        ),
+        (
+            2026,
+            "CIENCIAS_QUIMICA",
+            "prueba_oficial_paes_2026_ciencias_quimica.pdf",
+            "clavijero_paes_2026_ciencias_quimica.pdf",
+        ),
         # --- 2025 ---
         (2025, "M1", "prueba_oficial_paes_2025_m1.pdf", "clavijero_paes_2025_m1.pdf"),
         (2025, "M2", "prueba_oficial_paes_2025_m2.pdf", "clavijero_paes_2025_m2.pdf"),
-        (2025, "LECTURA", "prueba_oficial_paes_2025_competencia_lectora.pdf", "clavijero_paes_2025_competencia_lectora.pdf"),
+        (
+            2025,
+            "LECTURA",
+            "prueba_oficial_paes_2025_competencia_lectora.pdf",
+            "clavijero_paes_2025_competencia_lectora.pdf",
+        ),
         (2025, "HISTORIA", "prueba_oficial_paes_2025_historia.pdf", "clavijero_paes_2025_historia.pdf"),
-        (2025, "CIENCIAS_BIOLOGIA", "prueba_oficial_paes_2025_ciencias_biologia.pdf", "clavijero_paes_2025_ciencias_biologia.pdf"),
-        (2025, "CIENCIAS_FISICA", "prueba_oficial_paes_2025_ciencias_fisica.pdf", "clavijero_paes_2025_ciencias_fisica.pdf"),
-        (2025, "CIENCIAS_QUIMICA", "prueba_oficial_paes_2025_ciencias_quimica.pdf", "clavijero_paes_2025_ciencias_quimica.pdf"),
-
+        (
+            2025,
+            "CIENCIAS_BIOLOGIA",
+            "prueba_oficial_paes_2025_ciencias_biologia.pdf",
+            "clavijero_paes_2025_ciencias_biologia.pdf",
+        ),
+        (
+            2025,
+            "CIENCIAS_FISICA",
+            "prueba_oficial_paes_2025_ciencias_fisica.pdf",
+            "clavijero_paes_2025_ciencias_fisica.pdf",
+        ),
+        (
+            2025,
+            "CIENCIAS_QUIMICA",
+            "prueba_oficial_paes_2025_ciencias_quimica.pdf",
+            "clavijero_paes_2025_ciencias_quimica.pdf",
+        ),
         # --- 2024 ---
         (2024, "M1", "prueba_oficial_paes_2024_m1.pdf", "clavijero_paes_2024_m1.pdf"),
         (2024, "M2", "prueba_oficial_paes_2024_m2.pdf", "clavijero_paes_2024_m2.pdf"),
-        (2024, "LECTURA", "prueba_oficial_paes_2024_competencia_lectora.pdf", "clavijero_paes_2024_competencia_lectora.pdf"),
+        (
+            2024,
+            "LECTURA",
+            "prueba_oficial_paes_2024_competencia_lectora.pdf",
+            "clavijero_paes_2024_competencia_lectora.pdf",
+        ),
         (2024, "HISTORIA", "prueba_oficial_paes_2024_historia.pdf", "clavijero_paes_2024_historia.pdf"),
-        (2024, "CIENCIAS_BIOLOGIA", "prueba_oficial_paes_2024_ciencias_biologia.pdf", "clavijero_paes_2024_ciencias_biologia.pdf"),
-        (2024, "CIENCIAS_FISICA", "prueba_oficial_paes_2024_ciencias_fisica.pdf", "clavijero_paes_2024_ciencias_fisica.pdf"),
-        (2024, "CIENCIAS_QUIMICA", "prueba_oficial_paes_2024_ciencias_quimica.pdf", "clavijero_paes_2024_ciencias_quimica.pdf"),
+        (
+            2024,
+            "CIENCIAS_BIOLOGIA",
+            "prueba_oficial_paes_2024_ciencias_biologia.pdf",
+            "clavijero_paes_2024_ciencias_biologia.pdf",
+        ),
+        (
+            2024,
+            "CIENCIAS_FISICA",
+            "prueba_oficial_paes_2024_ciencias_fisica.pdf",
+            "clavijero_paes_2024_ciencias_fisica.pdf",
+        ),
+        (
+            2024,
+            "CIENCIAS_QUIMICA",
+            "prueba_oficial_paes_2024_ciencias_quimica.pdf",
+            "clavijero_paes_2024_ciencias_quimica.pdf",
+        ),
     ]
 
     total_q = 0

@@ -14,18 +14,10 @@ class IQPuzzle(BaseModel):
     """Pydantic model for AI structured output of an IQ puzzle."""
 
     question: str = Field(..., description="El enunciado del puzzle en español")
-    options: list[str] = Field(
-        ..., description="Lista de 4 opciones de respuesta (A, B, C, D)"
-    )
-    correct_answer: str = Field(
-        ..., description="El texto exacto de la opción correcta"
-    )
-    explanation: str = Field(
-        ..., description="Explicación breve de por qué la opción correcta es la respuesta"
-    )
-    puzzle_type: str = Field(
-        ..., description="Tipo: number_sequence, verbal_analogy, logical, o pattern"
-    )
+    options: list[str] = Field(..., description="Lista de 4 opciones de respuesta (A, B, C, D)")
+    correct_answer: str = Field(..., description="El texto exacto de la opción correcta")
+    explanation: str = Field(..., description="Explicación breve de por qué la opción correcta es la respuesta")
+    puzzle_type: str = Field(..., description="Tipo: number_sequence, verbal_analogy, logical, o pattern")
     source: Optional[str] = Field(
         default=None,
         description="Fuente verificada del dato o estudio (presente en pools estáticos)",
@@ -109,17 +101,16 @@ def generate_puzzle(
 
     # Pick a random puzzle type from the available types for this level
     import random
+
     puzzle_type = random.choice(types)
-    type_prompt = PUZZLE_TYPE_PROMPTS.get(
-        puzzle_type, PUZZLE_TYPE_PROMPTS["number_sequence"]
-    )
+    type_prompt = PUZZLE_TYPE_PROMPTS.get(puzzle_type, PUZZLE_TYPE_PROMPTS["number_sequence"])
     type_label = PUZZLE_TYPE_LABELS.get(puzzle_type, puzzle_type)
 
     system_prompt = (
         f"Eres un generador de puzzles de inteligencia (IQ). Generá UN puzzle "
         f"de nivel {level} (nivel {label}, dificultad {difficulty}). "
         f"Tipo: {type_label}. "
-        'Respondé ÚNICAMENTE en formato JSON válido con los campos: '
+        "Respondé ÚNICAMENTE en formato JSON válido con los campos: "
         '"question", "options" (lista de 4 strings), '
         '"correct_answer" (el texto exacto de la opción correcta), '
         '"explanation" (string), '
@@ -137,6 +128,7 @@ def generate_puzzle(
     if db and skill_id:
         try:
             from services.learning_patterns_service import format_patterns_for_prompt
+
             patterns_text = format_patterns_for_prompt(db, skill_id, "iq_practice")
             if patterns_text:
                 user_prompt += f"\n\n{patterns_text}\n\nAdaptá el puzzle para reforzar las áreas donde el usuario tiene más errores."
@@ -219,4 +211,5 @@ def calculate_staircase(
     5 to advance, 3 to retreat, UX protection when no correct yet).
     """
     from core.staircase import calculate_staircase as _impl
+
     return _impl(level, was_correct, consecutive_correct, consecutive_incorrect)

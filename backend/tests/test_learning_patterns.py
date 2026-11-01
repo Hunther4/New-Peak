@@ -76,9 +76,7 @@ class TestRecordError:
         assert result.error_detail == "Said 15 instead of 10"
 
         # Verify it is actually persisted
-        rows = session.exec(
-            select(LearningPattern).where(LearningPattern.skill_id == skill_id)
-        ).all()
+        rows = session.exec(select(LearningPattern).where(LearningPattern.skill_id == skill_id)).all()
         assert len(rows) == 1
 
     def test_record_error_returns_none_for_correct(self, session):
@@ -99,9 +97,7 @@ class TestRecordError:
         assert result is None
 
         # Nothing should be persisted
-        rows = session.exec(
-            select(LearningPattern).where(LearningPattern.skill_id == skill_id)
-        ).all()
+        rows = session.exec(select(LearningPattern).where(LearningPattern.skill_id == skill_id)).all()
         assert rows == []
 
 
@@ -182,9 +178,7 @@ class TestErrorPatternUpsert:
         )
         session.commit()
 
-        rows = session.exec(
-            select(ErrorPattern).where(ErrorPattern.skill_id == skill_id)
-        ).all()
+        rows = session.exec(select(ErrorPattern).where(ErrorPattern.skill_id == skill_id)).all()
         assert len(rows) == 1
         assert rows[0].error_type == "wrong_option"
         assert rows[0].count == 1
@@ -215,15 +209,11 @@ class TestErrorPatternUpsert:
         )
         session.commit()
 
-        rows = session.exec(
-            select(ErrorPattern).where(ErrorPattern.skill_id == skill_id)
-        ).all()
+        rows = session.exec(select(ErrorPattern).where(ErrorPattern.skill_id == skill_id)).all()
         assert len(rows) == 1, "expected a single aggregated row, not duplicates"
         assert rows[0].count == 2
         # Only one SessionError link per record_error call
-        links = session.exec(
-            select(SessionError).where(SessionError.session_id == 1)
-        ).all()
+        links = session.exec(select(SessionError).where(SessionError.session_id == 1)).all()
         assert len(links) == 2
 
     def test_error_pattern_severity_calculation(self, session):
@@ -263,8 +253,7 @@ class TestErrorPatternUpsert:
         session.commit()
 
         rows = session.exec(
-            select(ErrorPattern).where(ErrorPattern.skill_id == skill_id)
-            .order_by(ErrorPattern.error_type)
+            select(ErrorPattern).where(ErrorPattern.skill_id == skill_id).order_by(ErrorPattern.error_type)
         ).all()
         by_type = {r.error_type: r for r in rows}
 
@@ -308,11 +297,7 @@ class TestSlidingWindow:
             assert entry["error_type"] == "wrong_option"
 
         # Verify total is 30 but window caps at 25
-        total = session.exec(
-            select(func.count(LearningPattern.id)).where(
-                LearningPattern.skill_id == skill_id
-            )
-        ).one()
+        total = session.exec(select(func.count(LearningPattern.id)).where(LearningPattern.skill_id == skill_id)).one()
         assert total == 30
 
     def test_sliding_window_empty(self, session):

@@ -75,10 +75,7 @@ def calculate_staircase(
                     "new_consecutive_correct": 0,
                     "new_consecutive_incorrect": 0,
                     "level_changed": False,
-                    "message": (
-                        "¡En el nivel máximo! "
-                        "Probá con problemas más complejos."
-                    ),
+                    "message": ("¡En el nivel máximo! " "Probá con problemas más complejos."),
                 }
             return {
                 "new_level": new_level,
@@ -93,9 +90,7 @@ def calculate_staircase(
             "new_consecutive_correct": new_cc,
             "new_consecutive_incorrect": new_ci,
             "level_changed": False,
-            "message": (
-                f"¡Correcto! ({new_cc}/{CORRECT_THRESHOLD} para subir)"
-            ),
+            "message": (f"¡Correcto! ({new_cc}/{CORRECT_THRESHOLD} para subir)"),
         }
 
     # --- Incorrect ---
@@ -139,8 +134,5 @@ def calculate_staircase(
         "new_consecutive_correct": new_cc,
         "new_consecutive_incorrect": new_ci,
         "level_changed": False,
-        "message": (
-            f"Incorrecto. ({new_ci}/{INCORRECT_THRESHOLD} errores, "
-            f"-1 correcta)"
-        ),
+        "message": (f"Incorrecto. ({new_ci}/{INCORRECT_THRESHOLD} errores, " f"-1 correcta)"),
     }

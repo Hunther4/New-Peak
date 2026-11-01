@@ -3,6 +3,7 @@ Tests for MAX_TRIALS_PER_REQUEST=500 validator (T-06).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import pytest
 
 
@@ -16,8 +17,13 @@ class TestMaxTrialsValidator:
         session_id = session_resp.json()["id"]
 
         trials = [
-            {"estimulo": f"S{i}", "respuesta_esperada": "A", "respuesta_usuario": "A",
-             "es_correcto": True, "tiempo_reaccion_ms": 300}
+            {
+                "estimulo": f"S{i}",
+                "respuesta_esperada": "A",
+                "respuesta_usuario": "A",
+                "es_correcto": True,
+                "tiempo_reaccion_ms": 300,
+            }
             for i in range(10)
         ]
         resp = client.post("/api/cognitive/trials/", json={"session_id": session_id, "trials": trials})
@@ -30,8 +36,13 @@ class TestMaxTrialsValidator:
         session_id = session_resp.json()["id"]
 
         trials = [
-            {"estimulo": f"S{i}", "respuesta_esperada": "A", "respuesta_usuario": "A",
-             "es_correcto": True, "tiempo_reaccion_ms": 300}
+            {
+                "estimulo": f"S{i}",
+                "respuesta_esperada": "A",
+                "respuesta_usuario": "A",
+                "es_correcto": True,
+                "tiempo_reaccion_ms": 300,
+            }
             for i in range(500)
         ]
         resp = client.post("/api/cognitive/trials/", json={"session_id": session_id, "trials": trials})
@@ -44,8 +55,13 @@ class TestMaxTrialsValidator:
         session_id = session_resp.json()["id"]
 
         trials = [
-            {"estimulo": f"S{i}", "respuesta_esperada": "A", "respuesta_usuario": "A",
-             "es_correcto": True, "tiempo_reaccion_ms": 300}
+            {
+                "estimulo": f"S{i}",
+                "respuesta_esperada": "A",
+                "respuesta_usuario": "A",
+                "es_correcto": True,
+                "tiempo_reaccion_ms": 300,
+            }
             for i in range(501)
         ]
         resp = client.post("/api/cognitive/trials/", json={"session_id": session_id, "trials": trials})
@@ -65,11 +81,8 @@ class TestMaxTrialsValidator:
 def cog_skill(session):
     """Fixture that creates a CognitiveSkill base."""
     from models.cognitive_models import CognitiveSkill
-    skill = CognitiveSkill(
-        nombre="Test Skill",
-        descripcion="Test",
-        fase_iq_base=100
-    )
+
+    skill = CognitiveSkill(nombre="Test Skill", descripcion="Test", fase_iq_base=100)
     session.add(skill)
     session.commit()
     session.refresh(skill)

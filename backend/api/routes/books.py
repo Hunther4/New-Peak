@@ -2,6 +2,7 @@
 Endpoints de gestión de libros RAG.
 Registrado en main.py como: prefix="/api/books", tags=["Books"]
 """
+
 import logging
 
 from fastapi import APIRouter, HTTPException, Query, Request

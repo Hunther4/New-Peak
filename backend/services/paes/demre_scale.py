@@ -68,7 +68,7 @@ M1_DEMRE_TABLE_2026: Dict[int, int] = {
     57: 923,
     58: 948,
     59: 975,
-    60: 1000
+    60: 1000,
 }
 
 import json
@@ -102,67 +102,181 @@ SUBJECT_METADATA: Dict[str, Dict[str, Any]] = {
         "median": 24.5,
         "steepness": 0.11,
         "table": _m1_table if _m1_table else M1_DEMRE_TABLE_2026,
-        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-m1"
+        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-m1",
     },
     "LECTURA": {
         "name": "Competencia Lectora",
         "total_scored": 60,
         "median": 28.0,
         "steepness": 0.10,
-        "table": _lectura_table if len(_lectura_table) >= 60 else {
-            0: 100, 1: 150, 2: 175, 3: 198, 4: 218, 5: 236, 6: 254, 7: 270, 8: 285, 9: 300,
-            10: 315, 11: 330, 12: 345, 13: 360, 14: 375, 15: 390, 16: 405, 17: 420, 18: 435, 19: 450,
-            20: 465, 21: 480, 22: 495, 23: 510, 24: 525, 25: 540, 26: 555, 27: 570, 28: 585, 29: 600,
-            30: 615, 31: 630, 32: 645, 33: 660, 34: 675, 35: 690, 36: 705, 37: 720, 38: 735, 39: 750,
-            40: 765, 41: 780, 42: 795, 43: 810, 44: 825, 45: 840, 46: 855, 47: 870, 48: 885, 49: 900,
-            50: 915, 51: 930, 52: 945, 53: 958, 54: 970, 55: 980, 56: 988, 57: 993, 58: 997, 59: 999,
-            60: 1000
+        "table": _lectura_table
+        if len(_lectura_table) >= 60
+        else {
+            0: 100,
+            1: 150,
+            2: 175,
+            3: 198,
+            4: 218,
+            5: 236,
+            6: 254,
+            7: 270,
+            8: 285,
+            9: 300,
+            10: 315,
+            11: 330,
+            12: 345,
+            13: 360,
+            14: 375,
+            15: 390,
+            16: 405,
+            17: 420,
+            18: 435,
+            19: 450,
+            20: 465,
+            21: 480,
+            22: 495,
+            23: 510,
+            24: 525,
+            25: 540,
+            26: 555,
+            27: 570,
+            28: 585,
+            29: 600,
+            30: 615,
+            31: 630,
+            32: 645,
+            33: 660,
+            34: 675,
+            35: 690,
+            36: 705,
+            37: 720,
+            38: 735,
+            39: 750,
+            40: 765,
+            41: 780,
+            42: 795,
+            43: 810,
+            44: 825,
+            45: 840,
+            46: 855,
+            47: 870,
+            48: 885,
+            49: 900,
+            50: 915,
+            51: 930,
+            52: 945,
+            53: 958,
+            54: 970,
+            55: 980,
+            56: 988,
+            57: 993,
+            58: 997,
+            59: 999,
+            60: 1000,
         },
-        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-cl"
+        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-cl",
     },
     "M2": {
         "name": "Competencia Matemática 2",
         "total_scored": 50,
         "median": 18.0,
         "steepness": 0.12,
-        "table": _m2_table if len(_m2_table) >= 49 else {
-            0: 100, 1: 160, 2: 190, 3: 215, 4: 240, 5: 265, 6: 290, 7: 315, 8: 340, 9: 365,
-            10: 390, 11: 415, 12: 440, 13: 465, 14: 490, 15: 515, 16: 540, 17: 565, 18: 590, 19: 615,
-            20: 640, 21: 665, 22: 690, 23: 715, 24: 740, 25: 765, 26: 790, 27: 815, 28: 838, 29: 860,
-            30: 880, 31: 900, 32: 918, 33: 934, 34: 948, 35: 960, 36: 970, 37: 978, 38: 985, 39: 990,
-            40: 994, 41: 996, 42: 998, 43: 999, 44: 999, 45: 1000, 46: 1000, 47: 1000, 48: 1000, 49: 1000,
-            50: 1000
+        "table": _m2_table
+        if len(_m2_table) >= 49
+        else {
+            0: 100,
+            1: 160,
+            2: 190,
+            3: 215,
+            4: 240,
+            5: 265,
+            6: 290,
+            7: 315,
+            8: 340,
+            9: 365,
+            10: 390,
+            11: 415,
+            12: 440,
+            13: 465,
+            14: 490,
+            15: 515,
+            16: 540,
+            17: 565,
+            18: 590,
+            19: 615,
+            20: 640,
+            21: 665,
+            22: 690,
+            23: 715,
+            24: 740,
+            25: 765,
+            26: 790,
+            27: 815,
+            28: 838,
+            29: 860,
+            30: 880,
+            31: 900,
+            32: 918,
+            33: 934,
+            34: 948,
+            35: 960,
+            36: 970,
+            37: 978,
+            38: 985,
+            39: 990,
+            40: 994,
+            41: 996,
+            42: 998,
+            43: 999,
+            44: 999,
+            45: 1000,
+            46: 1000,
+            47: 1000,
+            48: 1000,
+            49: 1000,
+            50: 1000,
         },
-        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-m2"
+        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-m2",
     },
     "CIENCIAS": {
         "name": "Ciencias (Módulo Común + Electivo)",
         "total_scored": 75,
         "median": 32.0,
         "steepness": 0.09,
-        "table": _ciencias_table if len(_ciencias_table) >= 75 else {
+        "table": _ciencias_table
+        if len(_ciencias_table) >= 75
+        else {
             0: 100,
-            **{i: max(100, min(1000, round(100 + (900.0 / (1.0 + pow(2.71828, -0.09 * (i - 32.0))))))) for i in range(1, 75)},
-            75: 1000
+            **{
+                i: max(100, min(1000, round(100 + (900.0 / (1.0 + pow(2.71828, -0.09 * (i - 32.0)))))))
+                for i in range(1, 75)
+            },
+            75: 1000,
         },
-        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-ciencias"
+        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-ciencias",
     },
     "HISTORIA": {
         "name": "Historia y Ciencias Sociales",
         "total_scored": 60,
         "median": 26.0,
         "steepness": 0.10,
-        "table": _historia_table if len(_historia_table) >= 60 else {
+        "table": _historia_table
+        if len(_historia_table) >= 60
+        else {
             0: 100,
-            **{i: max(100, min(1000, round(100 + (900.0 / (1.0 + pow(2.71828, -0.10 * (i - 26.0))))))) for i in range(1, 60)},
-            60: 1000
+            **{
+                i: max(100, min(1000, round(100 + (900.0 / (1.0 + pow(2.71828, -0.10 * (i - 26.0)))))))
+                for i in range(1, 60)
+            },
+            60: 1000,
         },
-        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-historia"
-    }
+        "url": "https://demre.cl/paes/factores-seleccion/tabla-transformacion-puntajes-paes-regular-p2026-historia",
+    },
 }
 
 # Alias para compatibilidad
 DEMRE_M1_CONVERSION_TABLE = M1_DEMRE_TABLE_2026
+
 
 def _estimate_percentile(raw_score: int, median: float = 24.5, steepness: float = 0.11, max_items: int = 60) -> float:
     if raw_score <= 0:
@@ -171,6 +285,7 @@ def _estimate_percentile(raw_score: int, median: float = 24.5, steepness: float 
         return 99.9
     pct = 100.0 / (1.0 + pow(2.71828, -steepness * (raw_score - median)))
     return round(max(1.0, min(99.9, pct)), 1)
+
 
 def raw_score_to_paes(raw_score: int, total_valid: int = 60, subject_code: str = "M1") -> Dict[str, Any]:
     """
@@ -190,10 +305,7 @@ def raw_score_to_paes(raw_score: int, total_valid: int = 60, subject_code: str =
     score_max = min(1000, score + margin)
 
     percentile = _estimate_percentile(
-        clamped_raw,
-        median=meta["median"],
-        steepness=meta["steepness"],
-        max_items=max_items
+        clamped_raw, median=meta["median"], steepness=meta["steepness"], max_items=max_items
     )
 
     return {
@@ -210,5 +322,5 @@ def raw_score_to_paes(raw_score: int, total_valid: int = 60, subject_code: str =
         "confidence_level": "ALTA" if max_items >= 40 else "MEDIA",
         "percentile_approx": percentile,
         "official_source": f"DEMRE - Tabla de Transformación PAES Regular Proceso 2026 ({meta['name']})",
-        "source_url": meta["url"]
+        "source_url": meta["url"],
     }

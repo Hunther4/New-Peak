@@ -21,6 +21,7 @@ from core.math_thinking import (
 # Helpers
 # =============================================================================
 
+
 def _make_mock_problem(
     question="¿Cuánto es 5 + 3?",
     correct_answer=8.0,
@@ -53,6 +54,7 @@ MINIMAL_CONFIG = {
 # =============================================================================
 # Unit Tests — evaluate_attempt()
 # =============================================================================
+
 
 class TestEvaluateAttempt:
     """Numeric comparison with tolerance of 0.01."""
@@ -108,6 +110,7 @@ class TestEvaluateAttempt:
 # Unit Tests — calculate_staircase()
 # =============================================================================
 
+
 class TestCalculateStaircase:
     """Redistribution staircase: 5 correct -> up, 3 errors -> down.
 
@@ -122,8 +125,10 @@ class TestCalculateStaircase:
     def test_five_correct_levels_up(self):
         """5th correct (4 cc + 1) at level 5 -> level up to 6, counters reset."""
         result = calculate_staircase(
-            level=5, was_correct=True,
-            consecutive_correct=4, consecutive_incorrect=0,
+            level=5,
+            was_correct=True,
+            consecutive_correct=4,
+            consecutive_incorrect=0,
         )
         assert result["new_level"] == 6
         assert result["new_consecutive_correct"] == 0
@@ -134,8 +139,10 @@ class TestCalculateStaircase:
     def test_three_redistributions_levels_down(self):
         """3rd redistribution (cc=3,ci=2 + incorrect) at level 5 -> level down to 4."""
         result = calculate_staircase(
-            level=5, was_correct=False,
-            consecutive_correct=3, consecutive_incorrect=2,
+            level=5,
+            was_correct=False,
+            consecutive_correct=3,
+            consecutive_incorrect=2,
         )
         assert result["new_level"] == 4
         assert result["new_consecutive_correct"] == 0
@@ -146,8 +153,10 @@ class TestCalculateStaircase:
     def test_one_correct_from_fresh(self):
         """1 correct starting fresh -> cc=1, no level change."""
         result = calculate_staircase(
-            level=5, was_correct=True,
-            consecutive_correct=0, consecutive_incorrect=0,
+            level=5,
+            was_correct=True,
+            consecutive_correct=0,
+            consecutive_incorrect=0,
         )
         assert result["new_level"] == 5
         assert result["new_consecutive_correct"] == 1
@@ -162,8 +171,10 @@ class TestCalculateStaircase:
         message on the very first attempt.
         """
         result = calculate_staircase(
-            level=5, was_correct=False,
-            consecutive_correct=0, consecutive_incorrect=0,
+            level=5,
+            was_correct=False,
+            consecutive_correct=0,
+            consecutive_incorrect=0,
         )
         assert result["new_level"] == 5
         assert result["new_consecutive_correct"] == 0
@@ -173,8 +184,10 @@ class TestCalculateStaircase:
     def test_two_corrects_from_one(self):
         """2nd correct (cc=1) -> cc=2, no level change."""
         result = calculate_staircase(
-            level=5, was_correct=True,
-            consecutive_correct=1, consecutive_incorrect=0,
+            level=5,
+            was_correct=True,
+            consecutive_correct=1,
+            consecutive_incorrect=0,
         )
         assert result["new_level"] == 5
         assert result["new_consecutive_correct"] == 2
@@ -188,8 +201,10 @@ class TestCalculateStaircase:
         model moves exactly one unit.
         """
         result = calculate_staircase(
-            level=5, was_correct=False,
-            consecutive_correct=2, consecutive_incorrect=0,
+            level=5,
+            was_correct=False,
+            consecutive_correct=2,
+            consecutive_incorrect=0,
         )
         assert result["new_level"] == 5
         assert result["new_consecutive_correct"] == 1
@@ -199,8 +214,10 @@ class TestCalculateStaircase:
     def test_correct_decreases_incorrect(self):
         """Correct with ci=2 -> cc=1, ci decreases to 1."""
         result = calculate_staircase(
-            level=5, was_correct=True,
-            consecutive_correct=0, consecutive_incorrect=2,
+            level=5,
+            was_correct=True,
+            consecutive_correct=0,
+            consecutive_incorrect=2,
         )
         assert result["new_level"] == 5
         assert result["new_consecutive_correct"] == 1
@@ -216,8 +233,10 @@ class TestCalculateStaircase:
         would make ci=3 and try to go to level 0, capped at 1).
         """
         result = calculate_staircase(
-            level=1, was_correct=False,
-            consecutive_correct=0, consecutive_incorrect=2,
+            level=1,
+            was_correct=False,
+            consecutive_correct=0,
+            consecutive_incorrect=2,
         )
         assert result["new_level"] == 1
         assert result["new_consecutive_correct"] == 0
@@ -232,8 +251,10 @@ class TestCalculateStaircase:
         drop the level to 0, but the floor keeps it at 1.
         """
         result = calculate_staircase(
-            level=1, was_correct=False,
-            consecutive_correct=3, consecutive_incorrect=2,
+            level=1,
+            was_correct=False,
+            consecutive_correct=3,
+            consecutive_incorrect=2,
         )
         assert result["new_level"] == 1
         assert result["level_changed"] is False
@@ -242,8 +263,10 @@ class TestCalculateStaircase:
     def test_ceiling_at_level_10(self):
         """5th correct at level 10 -> stays at 10, ceiling message."""
         result = calculate_staircase(
-            level=10, was_correct=True,
-            consecutive_correct=4, consecutive_incorrect=0,
+            level=10,
+            was_correct=True,
+            consecutive_correct=4,
+            consecutive_incorrect=0,
         )
         assert result["new_level"] == 10
         assert result["new_consecutive_correct"] == 0
@@ -254,8 +277,10 @@ class TestCalculateStaircase:
     def test_message_on_partial_correct(self):
         """Partial correct shows '1/5 para subir' in message."""
         result = calculate_staircase(
-            level=5, was_correct=True,
-            consecutive_correct=0, consecutive_incorrect=0,
+            level=5,
+            was_correct=True,
+            consecutive_correct=0,
+            consecutive_incorrect=0,
         )
         assert "1/5" in result["message"]
         assert "Correcto" in result["message"]
@@ -263,8 +288,10 @@ class TestCalculateStaircase:
     def test_message_on_redistribution(self):
         """Redistribution shows progress in both counters in message."""
         result = calculate_staircase(
-            level=5, was_correct=False,
-            consecutive_correct=2, consecutive_incorrect=0,
+            level=5,
+            was_correct=False,
+            consecutive_correct=2,
+            consecutive_incorrect=0,
         )
         assert "1/3" in result["message"]
         assert "Incorrecto" in result["message"]
@@ -272,8 +299,10 @@ class TestCalculateStaircase:
     def test_message_on_absorbed_failure(self):
         """Absorbed failure (cc=0) shows friendly message, no counter."""
         result = calculate_staircase(
-            level=5, was_correct=False,
-            consecutive_correct=0, consecutive_incorrect=0,
+            level=5,
+            was_correct=False,
+            consecutive_correct=0,
+            consecutive_incorrect=0,
         )
         assert "Incorrecto" in result["message"]
         assert "1/3" not in result["message"]  # no counter shown
@@ -289,8 +318,10 @@ class TestCalculateStaircase:
         state = (0, 0)
         for _ in range(3):
             r = calculate_staircase(
-                level=5, was_correct=False,
-                consecutive_correct=state[0], consecutive_incorrect=state[1],
+                level=5,
+                was_correct=False,
+                consecutive_correct=state[0],
+                consecutive_incorrect=state[1],
             )
             state = (r["new_consecutive_correct"], r["new_consecutive_incorrect"])
         assert state == (0, 0)  # nothing was redistributed
@@ -300,11 +331,13 @@ class TestCalculateStaircase:
 # Unit Tests — generate_problem()
 # =============================================================================
 
+
 class TestGenerateProblem:
     """AI problem generation: prompt building, retry logic, fallback."""
 
     def test_valid_response(self):
         """Valid AI response returns question, answer, and steps."""
+
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return _make_mock_problem(
                 question="¿Cuánto es 5 + 3?",
@@ -349,14 +382,16 @@ class TestGenerateProblem:
 
     def test_none_response_triggers_retry(self):
         """Router returns None first, then valid on retry."""
-        responses = iter([
-            None,
-            _make_mock_problem(
-                question="Retry question",
-                correct_answer=99.0,
-                solution_steps=["Step 1"],
-            ),
-        ])
+        responses = iter(
+            [
+                None,
+                _make_mock_problem(
+                    question="Retry question",
+                    correct_answer=99.0,
+                    solution_steps=["Step 1"],
+                ),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return next(responses)
@@ -367,10 +402,12 @@ class TestGenerateProblem:
 
     def test_none_answer_triggers_retry(self):
         """Answer is None -> retry with stricter prompt."""
-        responses = iter([
-            _make_mock_problem(correct_answer=None),
-            _make_mock_problem(correct_answer=42.0),
-        ])
+        responses = iter(
+            [
+                _make_mock_problem(correct_answer=None),
+                _make_mock_problem(correct_answer=42.0),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return next(responses)
@@ -380,10 +417,12 @@ class TestGenerateProblem:
 
     def test_nan_answer_triggers_retry(self):
         """Answer is NaN -> retry with stricter prompt."""
-        responses = iter([
-            _make_mock_problem(correct_answer=float("nan")),
-            _make_mock_problem(correct_answer=42.0),
-        ])
+        responses = iter(
+            [
+                _make_mock_problem(correct_answer=float("nan")),
+                _make_mock_problem(correct_answer=42.0),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return next(responses)
@@ -393,10 +432,12 @@ class TestGenerateProblem:
 
     def test_inf_answer_triggers_retry(self):
         """Answer is inf -> retry with stricter prompt."""
-        responses = iter([
-            _make_mock_problem(correct_answer=float("inf")),
-            _make_mock_problem(correct_answer=42.0),
-        ])
+        responses = iter(
+            [
+                _make_mock_problem(correct_answer=float("inf")),
+                _make_mock_problem(correct_answer=42.0),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return next(responses)
@@ -406,10 +447,12 @@ class TestGenerateProblem:
 
     def test_string_answer_triggers_retry(self):
         """Answer is a non-numeric string -> retry."""
-        responses = iter([
-            _make_mock_problem(correct_answer="not a number"),
-            _make_mock_problem(correct_answer=42.0),
-        ])
+        responses = iter(
+            [
+                _make_mock_problem(correct_answer="not a number"),
+                _make_mock_problem(correct_answer=42.0),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return next(responses)
@@ -435,10 +478,12 @@ class TestGenerateProblem:
     def test_retry_prompt_includes_error_context(self):
         """Retry prompt mentions the previous error."""
         prompts = []
-        responses = iter([
-            None,
-            _make_mock_problem(),
-        ])
+        responses = iter(
+            [
+                None,
+                _make_mock_problem(),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             prompts.append(user_prompt)
@@ -451,11 +496,13 @@ class TestGenerateProblem:
 
     def test_mixed_invalid_then_valid_at_last_attempt(self):
         """Succeeds on the 3rd and final retry."""
-        responses = iter([
-            None,
-            None,
-            _make_mock_problem(correct_answer=7.0),
-        ])
+        responses = iter(
+            [
+                None,
+                None,
+                _make_mock_problem(correct_answer=7.0),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return next(responses)
@@ -465,11 +512,13 @@ class TestGenerateProblem:
 
     def test_all_invalid_types_exhaust_retries(self):
         """Different invalid types across all 3 attempts -> fallback."""
-        responses = iter([
-            None,
-            _make_mock_problem(correct_answer=float("nan")),
-            _make_mock_problem(correct_answer=float("inf")),
-        ])
+        responses = iter(
+            [
+                None,
+                _make_mock_problem(correct_answer=float("nan")),
+                _make_mock_problem(correct_answer=float("inf")),
+            ]
+        )
 
         def mock_router(task_type, system_prompt, user_prompt, response_model):
             return next(responses)
@@ -524,9 +573,7 @@ class TestCreateSession:
     def test_creates_session_with_correct_structure(self, client, skill_factory):
         """Creates a math thinking session with default values."""
         skill = skill_factory(skill_type="problem_set")
-        response = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        response = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         assert response.status_code == 200
         data = response.json()
         assert data["level"] == 1
@@ -535,9 +582,7 @@ class TestCreateSession:
 
     def test_returns_404_for_invalid_skill_id(self, client):
         """Non-existent skill_id returns 404."""
-        response = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": 99999}
-        )
+        response = client.post("/api/math-thinking/sessions", json={"skill_id": 99999})
         assert response.status_code == 404
 
 
@@ -552,14 +597,10 @@ class TestCreateRound:
     def test_creates_round_with_problem_and_level(self, client, skill_factory):
         """Creates a round with AI-generated problem at session level."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
-        response = client.post(
-            f"/api/math-thinking/sessions/{session_id}/rounds"
-        )
+        response = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
         assert response.status_code == 200
         data = response.json()
         assert "id" in data
@@ -574,9 +615,7 @@ class TestCreateRound:
     def test_returns_400_for_inactive_session(self, client, skill_factory):
         """Consolidated (inactive) session returns 400."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         # Create 3 rounds
@@ -587,9 +626,7 @@ class TestCreateRound:
         client.post(f"/api/math-thinking/sessions/{session_id}/consolidate")
 
         # Now try to add a round
-        response = client.post(
-            f"/api/math-thinking/sessions/{session_id}/rounds"
-        )
+        response = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
         assert response.status_code == 400
         assert "closed" in response.json()["detail"].lower()
 
@@ -605,13 +642,9 @@ class TestSubmitAttempt:
     def test_correct_answer_submission(self, client, skill_factory):
         """Correct answer returns correct=True."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
-        round_resp = client.post(
-            f"/api/math-thinking/sessions/{session_id}/rounds"
-        )
+        round_resp = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
         round_id = round_resp.json()["id"]
 
         response = client.post(
@@ -626,13 +659,9 @@ class TestSubmitAttempt:
     def test_wrong_answer_submission(self, client, skill_factory):
         """Wrong answer returns correct=False with solution steps."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
-        round_resp = client.post(
-            f"/api/math-thinking/sessions/{session_id}/rounds"
-        )
+        round_resp = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
         round_id = round_resp.json()["id"]
 
         response = client.post(
@@ -652,9 +681,7 @@ class TestSubmitAttempt:
         correct_answer=8.0 to make the test deterministic.
         """
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         mock_problem = {
@@ -667,9 +694,7 @@ class TestSubmitAttempt:
         with patch("core.math_thinking.get_pool_puzzle", return_value=mock_problem):
             # Submit 5 correct attempts (adaptive staircase: 5 for levels 1-2)
             for _ in range(5):
-                round_resp = client.post(
-                    f"/api/math-thinking/sessions/{session_id}/rounds"
-                )
+                round_resp = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
                 round_id = round_resp.json()["id"]
                 client.post(
                     f"/api/math-thinking/rounds/{round_id}/attempts",
@@ -677,9 +702,7 @@ class TestSubmitAttempt:
                 )
 
         # Check session state — level should have increased
-        state_resp = client.get(
-            f"/api/math-thinking/sessions/{session_id}/state"
-        )
+        state_resp = client.get(f"/api/math-thinking/sessions/{session_id}/state")
         state = state_resp.json()
         assert state["level"] >= 2, "Expected level increase after 5 correct"
         assert state["consecutive_correct"] == 0  # reset after level change
@@ -695,25 +718,19 @@ class TestSubmitAttempt:
         without accumulating a frustrating failure counter.
         """
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         # Submit 2 wrong attempts from fresh state (cc=0)
         for _ in range(2):
-            round_resp = client.post(
-                f"/api/math-thinking/sessions/{session_id}/rounds"
-            )
+            round_resp = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
             round_id = round_resp.json()["id"]
             client.post(
                 f"/api/math-thinking/rounds/{round_id}/attempts",
                 json={"user_answer": 999.0},
             )
 
-        state_resp = client.get(
-            f"/api/math-thinking/sessions/{session_id}/state"
-        )
+        state_resp = client.get(f"/api/math-thinking/sessions/{session_id}/state")
         state = state_resp.json()
         # Both failures absorbed — ci stays at 0
         assert state["consecutive_incorrect"] == 0
@@ -722,9 +739,7 @@ class TestSubmitAttempt:
     def test_wrong_after_correct_redistributes(self, client, skill_factory):
         """Wrong after correct counts via redistribution (cc-1, ci+1)."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         mock_problem = {
@@ -737,9 +752,7 @@ class TestSubmitAttempt:
         with patch("core.math_thinking.get_pool_puzzle", return_value=mock_problem):
             # First: 2 correct (build up cc=2)
             for _ in range(2):
-                round_resp = client.post(
-                    f"/api/math-thinking/sessions/{session_id}/rounds"
-                )
+                round_resp = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
                 round_id = round_resp.json()["id"]
                 client.post(
                     f"/api/math-thinking/rounds/{round_id}/attempts",
@@ -748,18 +761,14 @@ class TestSubmitAttempt:
             # Then: 2 wrong — first redistributes (cc=1, ci=1),
             #       second redistributes (cc=0, ci=2)
             for _ in range(2):
-                round_resp = client.post(
-                    f"/api/math-thinking/sessions/{session_id}/rounds"
-                )
+                round_resp = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
                 round_id = round_resp.json()["id"]
                 client.post(
                     f"/api/math-thinking/rounds/{round_id}/attempts",
                     json={"user_answer": 999.0},
                 )
 
-        state_resp = client.get(
-            f"/api/math-thinking/sessions/{session_id}/state"
-        )
+        state_resp = client.get(f"/api/math-thinking/sessions/{session_id}/state")
         state = state_resp.json()
         assert state["consecutive_incorrect"] == 2
         assert state["consecutive_correct"] == 0
@@ -784,37 +793,27 @@ class TestConsolidateSession:
     def test_returns_400_if_less_than_3_rounds(self, client, skill_factory):
         """Consolidation requires at least 3 rounds."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         # Only 1 round
         client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
 
-        response = client.post(
-            f"/api/math-thinking/sessions/{session_id}/consolidate"
-        )
+        response = client.post(f"/api/math-thinking/sessions/{session_id}/consolidate")
         assert response.status_code == 400
         assert "Minimum 3" in response.json()["detail"]
 
-    def test_consolidates_and_creates_practice_session(
-        self, client, skill_factory
-    ):
+    def test_consolidates_and_creates_practice_session(self, client, skill_factory):
         """Successful consolidation creates a PracticeSession."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         # Create 3 rounds
         for _ in range(3):
             client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
 
-        response = client.post(
-            f"/api/math-thinking/sessions/{session_id}/consolidate"
-        )
+        response = client.post(f"/api/math-thinking/sessions/{session_id}/consolidate")
         assert response.status_code == 200
         data = response.json()
         assert data["status"] == "consolidated"
@@ -836,9 +835,7 @@ class TestConsolidateSession:
     def test_returns_400_if_already_consolidated(self, client, skill_factory):
         """Already consolidated session returns 400."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         # Create 3 rounds and consolidate
@@ -847,17 +844,13 @@ class TestConsolidateSession:
         client.post(f"/api/math-thinking/sessions/{session_id}/consolidate")
 
         # Try again
-        response = client.post(
-            f"/api/math-thinking/sessions/{session_id}/consolidate"
-        )
+        response = client.post(f"/api/math-thinking/sessions/{session_id}/consolidate")
         assert response.status_code == 400
         assert "already" in response.json()["detail"].lower()
 
     def test_returns_400_for_nonexistent_session(self, client):
         """Non-existent session returns 400 (ValueError)."""
-        response = client.post(
-            "/api/math-thinking/sessions/99999/consolidate"
-        )
+        response = client.post("/api/math-thinking/sessions/99999/consolidate")
         assert response.status_code == 400
 
 
@@ -869,19 +862,13 @@ class TestConsolidateSession:
 class TestGetState:
     """GET /api/math-thinking/sessions/{id}/state"""
 
-    def test_returns_session_state_with_correct_structure(
-        self, client, skill_factory
-    ):
+    def test_returns_session_state_with_correct_structure(self, client, skill_factory):
         """Returns current session state with expected fields."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
-        response = client.get(
-            f"/api/math-thinking/sessions/{session_id}/state"
-        )
+        response = client.get(f"/api/math-thinking/sessions/{session_id}/state")
         assert response.status_code == 200
         data = response.json()
         assert data["level"] == 1
@@ -908,24 +895,18 @@ class TestGetHistory:
     def test_returns_rounds_with_attempt_data(self, client, skill_factory):
         """Returns rounds with attempt data."""
         skill = skill_factory(skill_type="problem_set")
-        session_resp = client.post(
-            "/api/math-thinking/sessions", json={"skill_id": skill.id}
-        )
+        session_resp = client.post("/api/math-thinking/sessions", json={"skill_id": skill.id})
         session_id = session_resp.json()["id"]
 
         # Create a round and submit an attempt
-        round_resp = client.post(
-            f"/api/math-thinking/sessions/{session_id}/rounds"
-        )
+        round_resp = client.post(f"/api/math-thinking/sessions/{session_id}/rounds")
         round_data = round_resp.json()
         client.post(
             f"/api/math-thinking/rounds/{round_data['id']}/attempts",
             json={"user_answer": 8.0},
         )
 
-        response = client.get(
-            f"/api/math-thinking/sessions/{session_id}/history"
-        )
+        response = client.get(f"/api/math-thinking/sessions/{session_id}/history")
         assert response.status_code == 200
         data = response.json()
         assert data["total"] == 1

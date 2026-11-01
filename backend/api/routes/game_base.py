@@ -6,6 +6,7 @@ Each game (memory, math, iq) has identical patterns for:
 GameRouter generates these endpoints given a service module and model classes.
 Game-specific extras (hints, strategy-log, meta) are added separately.
 """
+
 from collections import defaultdict
 from typing import Any, Callable, Optional, Type
 

@@ -15,6 +15,7 @@ A signature that is neither 64 bytes nor a parseable DER encoding is refused
 with a typed error naming the byte count, so the caller can answer 400 instead
 of leaking a 500.
 """
+
 import base64
 import binascii
 
@@ -113,23 +114,14 @@ def load_p256_public_key(spki_der: bytes) -> ec.EllipticCurvePublicKey:
     try:
         key = serialization.load_der_public_key(spki_der)
     except (ValueError, TypeError) as exc:
-        raise InvalidPublicKey(
-            f"public key is not a valid SPKI DER blob: {exc}"
-        ) from exc
+        raise InvalidPublicKey(f"public key is not a valid SPKI DER blob: {exc}") from exc
 
     if not isinstance(key, ec.EllipticCurvePublicKey):
-        raise InvalidPublicKey(
-            f"public key must be an ECDSA P-256 key, got {type(key).__name__}"
-        )
+        raise InvalidPublicKey(f"public key must be an ECDSA P-256 key, got {type(key).__name__}")
     if key.curve.name != REQUIRED_CURVE_NAME:
-        raise InvalidPublicKey(
-            f"public key must use the {REQUIRED_CURVE_NAME} curve, "
-            f"got {key.curve.name}"
-        )
+        raise InvalidPublicKey(f"public key must use the {REQUIRED_CURVE_NAME} curve, " f"got {key.curve.name}")
     if key.key_size != 256:
-        raise InvalidPublicKey(
-            f"public key must be 256-bit, got {key.key_size} bits"
-        )
+        raise InvalidPublicKey(f"public key must be 256-bit, got {key.key_size} bits")
     return key
 
 
@@ -149,12 +141,7 @@ def canonical_message(
     another.
     """
     return (
-        f"{PROTOCOL_VERSION}\n"
-        f"{challenge_id}\n"
-        f"{nonce}\n"
-        f"{email}\n"
-        f"{origin}\n"
-        f"{deployment_id}\n"
+        f"{PROTOCOL_VERSION}\n" f"{challenge_id}\n" f"{nonce}\n" f"{email}\n" f"{origin}\n" f"{deployment_id}\n"
     ).encode("utf-8")
 
 

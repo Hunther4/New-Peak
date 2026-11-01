@@ -15,16 +15,15 @@ def get_setting(key: str, default: str = "") -> str:
             return setting.value
         return default
 
+
 def set_setting(key: str, value: str) -> None:
     """Guarda o actualiza un setting de manera atómica (UPSERT)."""
     now = datetime.now(timezone.utc)
-    stmt = sqlite_insert(AppSetting).values(
-        key=key, value=value, updated_at=now
-    ).on_conflict_do_update(
-        index_elements=[AppSetting.key],
-        set_={"value": value, "updated_at": now}
+    stmt = (
+        sqlite_insert(AppSetting)
+        .values(key=key, value=value, updated_at=now)
+        .on_conflict_do_update(index_elements=[AppSetting.key], set_={"value": value, "updated_at": now})
     )
     with Session(engine) as session:
         session.exec(stmt)
         session.commit()
-

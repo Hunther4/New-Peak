@@ -8,6 +8,7 @@ Genera ítems psicométricamente calibrados para PAES (M1, M2, LECTURA, CIENCIAS
 - Deduplicador en memoria y contra base de datos peak.db.
 - Inserción transaccional segura en peak.db.
 """
+
 import argparse
 import json
 import logging
@@ -16,9 +17,9 @@ import random
 import sys
 from pathlib import Path
 
-if hasattr(sys.stdout, 'reconfigure'):
+if hasattr(sys.stdout, "reconfigure"):
     try:
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     except Exception:
         pass
 import uuid
@@ -92,26 +93,30 @@ class AutoContentGenerator:
                 )
                 results = self.session.exec(query).all()
                 for s, t, e, subj in results:
-                    subtopics_list.append({
-                        "id": s.id,
-                        "name": s.name,
-                        "slug": s.slug,
-                        "topic_name": t.name,
-                        "eje_name": e.name,
-                        "subject_code": subj.code,
-                    })
+                    subtopics_list.append(
+                        {
+                            "id": s.id,
+                            "name": s.name,
+                            "slug": s.slug,
+                            "topic_name": t.name,
+                            "eje_name": e.name,
+                            "subject_code": subj.code,
+                        }
+                    )
             except Exception as ex:
                 logger.warning(f"Error cargando subtemas de DB para {subj_upper}: {ex}")
 
         if not subtopics_list:
-            subtopics_list = [{
-                "id": f"sub-{subj_upper.lower()}-base",
-                "name": f"Subtema General {subj_upper}",
-                "slug": f"sub-{subj_upper.lower()}-base",
-                "topic_name": "General",
-                "eje_name": "General",
-                "subject_code": subj_upper,
-            }]
+            subtopics_list = [
+                {
+                    "id": f"sub-{subj_upper.lower()}-base",
+                    "name": f"Subtema General {subj_upper}",
+                    "slug": f"sub-{subj_upper.lower()}-base",
+                    "topic_name": "General",
+                    "eje_name": "General",
+                    "subject_code": subj_upper,
+                }
+            ]
 
         self._subtopics_cache[subj_upper] = subtopics_list
         return subtopics_list
@@ -136,15 +141,34 @@ class AutoContentGenerator:
 
         candidates = [
             {"val": sol, "is_correct": True, "type": "CORRECT", "desc": "Despeje algebraico riguroso"},
-            {"val": d1, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Error de signo al trasponer el término independiente"},
-            {"val": d2, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Omisión de la división por el coeficiente"},
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Error de signo al trasponer el término independiente",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Omisión de la división por el coeficiente",
+            },
             {"val": d3, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Aproximación aritmética incorrecta"},
         ]
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.40, (
-            f"1. Restamos o sumamos el término libre: ${a}x = {c} {'-' if b > 0 else '+'} {abs(b)} = {c - b}$.\n"
-            f"2. Dividimos por ${a}$: $x = \\frac{{{c - b}}}{{{a}}} = {sol}$."
-        ), "Olvidar cambiar el signo al trasponer términos de un miembro al otro.")
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.40,
+            (
+                f"1. Restamos o sumamos el término libre: ${a}x = {c} {'-' if b > 0 else '+'} {abs(b)} = {c - b}$.\n"
+                f"2. Dividimos por ${a}$: $x = \\frac{{{c - b}}}{{{a}}} = {sol}$."
+            ),
+            "Olvidar cambiar el signo al trasponer términos de un miembro al otro.",
+        )
 
     def _gen_linear_system(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Sistema de ecuaciones lineales 2x2."""
@@ -173,16 +197,40 @@ class AutoContentGenerator:
         d3 = sol + rng.choice([-4, -2, 2, 4])
 
         candidates = [
-            {"val": sol, "is_correct": True, "type": "CORRECT", "desc": "Resolución exacta del sistema y producto $x \\cdot y$"},
-            {"val": d1, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Calculó la suma $x + y$ en vez del producto solicitado"},
-            {"val": d2, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Calculó la diferencia entre las variables"},
+            {
+                "val": sol,
+                "is_correct": True,
+                "type": "CORRECT",
+                "desc": "Resolución exacta del sistema y producto $x \\cdot y$",
+            },
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Calculó la suma $x + y$ en vez del producto solicitado",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "HEURISTIC_TRAP",
+                "desc": "Calculó la diferencia entre las variables",
+            },
             {"val": d3, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Error aritmético en la sustitución"},
         ]
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.58, (
-            f"Resolviendo el sistema por reducción o sustitución se obtiene $x = {x_val}$ e $y = {y_val}$.\n"
-            f"El producto pedido es $x \\cdot y = {x_val} \\cdot {y_val} = {sol}$."
-        ), "Confundir la operación final pedida (producto vs suma de las soluciones).")
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.58,
+            (
+                f"Resolviendo el sistema por reducción o sustitución se obtiene $x = {x_val}$ e $y = {y_val}$.\n"
+                f"El producto pedido es $x \\cdot y = {x_val} \\cdot {y_val} = {sol}$."
+            ),
+            "Confundir la operación final pedida (producto vs suma de las soluciones).",
+        )
 
     def _gen_percentage_problem(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Problema contextual de porcentajes y finanzas."""
@@ -190,7 +238,13 @@ class AutoContentGenerator:
         pct = rng.choice([10, 15, 20, 25, 30, 40, 50])
         mode = rng.choice(["descuento", "aumento"])
 
-        items = ["un computador portátil", "una bicicleta de montaña", "un teléfono móvil", "un telescopio astronómico", "una guitarra electroacústica"]
+        items = [
+            "un computador portátil",
+            "una bicicleta de montaña",
+            "un teléfono móvil",
+            "un telescopio astronómico",
+            "una guitarra electroacústica",
+        ]
         chosen_item = rng.choice(items)
 
         if mode == "descuento":
@@ -219,28 +273,69 @@ class AutoContentGenerator:
         candidates = [
             {"val": final_p, "is_correct": True, "type": "CORRECT", "desc": "Cálculo porcentual exacto"},
             {"val": d1, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": reason_d1},
-            {"val": d2, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Operación inversa (restó en vez de sumar o viceversa)"},
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Operación inversa (restó en vez de sumar o viceversa)",
+            },
             {"val": d3, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Error dimensional con el porcentaje"},
         ]
 
         def fmt(v):
             return f"\\${v:,}".replace(",", ".")
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.45, (
-            f"El valor base es \\${price:,}. Operando con el factor multiplicador correspondiente:\n"
-            f"$$\\text{{Total}} = {price:,} \\times \\left(1 {'-' if mode == 'descuento' else '+'} \\frac{{{pct}}}{{100}}\\right) = \\${final_p:,}$$."
-        ).replace(",", "."), "Marcar la cuantía del porcentaje en lugar del valor final de la transacción.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.45,
+            (
+                f"El valor base es \\${price:,}. Operando con el factor multiplicador correspondiente:\n"
+                f"$$\\text{{Total}} = {price:,} \\times \\left(1 {'-' if mode == 'descuento' else '+'} \\frac{{{pct}}}{{100}}\\right) = \\${final_p:,}$$."
+            ).replace(",", "."),
+            "Marcar la cuantía del porcentaje en lugar del valor final de la transacción.",
+            fmt_fn=fmt,
+        )
 
     def _gen_pythagoras_problem(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Teorema de Pitágoras con ternas pitagóricas enteras."""
-        triples = [(3, 4, 5), (6, 8, 10), (5, 12, 13), (9, 12, 15), (8, 15, 17), (12, 16, 20), (7, 24, 25), (10, 24, 26), (15, 20, 25), (20, 21, 29)]
+        triples = [
+            (3, 4, 5),
+            (6, 8, 10),
+            (5, 12, 13),
+            (9, 12, 15),
+            (8, 15, 17),
+            (12, 16, 20),
+            (7, 24, 25),
+            (10, 24, 26),
+            (15, 20, 25),
+            (20, 21, 29),
+        ]
         cat1, cat2, hyp = rng.choice(triples)
         ask_hyp = rng.choice([True, False])
 
         contexts = [
-            ("una escalera apoyada en una pared vertical", "la distancia de la base de la pared al pie de la escalera", "la altura alcanzada en la pared", "la longitud de la escalera"),
-            ("un poste telefónico sujetado por un cable tensor", "la distancia desde el poste hasta el anclaje en el suelo", "la altura del poste donde se fija el cable", "el largo del cable tensor"),
-            ("un parque rectangular atravesado por un sendero diagonal", "el ancho del parque", "el largo del parque", "la longitud del sendero diagonal"),
+            (
+                "una escalera apoyada en una pared vertical",
+                "la distancia de la base de la pared al pie de la escalera",
+                "la altura alcanzada en la pared",
+                "la longitud de la escalera",
+            ),
+            (
+                "un poste telefónico sujetado por un cable tensor",
+                "la distancia desde el poste hasta el anclaje en el suelo",
+                "la altura del poste donde se fija el cable",
+                "el largo del cable tensor",
+            ),
+            (
+                "un parque rectangular atravesado por un sendero diagonal",
+                "el ancho del parque",
+                "el largo del parque",
+                "la longitud del sendero diagonal",
+            ),
         ]
         ctx = rng.choice(contexts)
 
@@ -259,18 +354,38 @@ class AutoContentGenerator:
 
         candidates = [
             {"val": sol, "is_correct": True, "type": "CORRECT", "desc": "Aplicación del Teorema de Pitágoras"},
-            {"val": d1, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Suma o resta lineal sin elevar al cuadrado"},
-            {"val": d2, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Error en el signo de la relación métrica"},
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Suma o resta lineal sin elevar al cuadrado",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Error en el signo de la relación métrica",
+            },
             {"val": d3, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Aproximación numérica errónea"},
         ]
 
         def fmt(v):
             return f"${v}\\text{{ m}}$"
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.48, (
-            f"Por el Teorema de Pitágoras ($a^2 + b^2 = c^2$):\n"
-            f"El valor pedido resulta ser exactamente ${sol}\\text{{ m}}$."
-        ), "Sumar o restar directamente las medidas sin considerar la suma de los cuadrados.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.48,
+            (
+                f"Por el Teorema de Pitágoras ($a^2 + b^2 = c^2$):\n"
+                f"El valor pedido resulta ser exactamente ${sol}\\text{{ m}}$."
+            ),
+            "Sumar o restar directamente las medidas sin considerar la suma de los cuadrados.",
+            fmt_fn=fmt,
+        )
 
     def _gen_powers_roots(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Propiedades de potencias y raíces en los racionales."""
@@ -281,23 +396,47 @@ class AutoContentGenerator:
 
         stem = f"¿A qué valor equivale la expresión numérica $\\frac{{{base}^{{{p1}}} \\cdot {base}^{{{p2}}}}}{{{base}^{{{p3}}}}}$?"
         exp_final = p1 + p2 - p3
-        sol = base ** exp_final
+        sol = base**exp_final
         d1 = base ** (p1 + p2 + p3)  # Sumar en el denominador
         d2 = base ** (p1 * p2 - p3)  # Multiplicar exponentes en el producto
         d3 = (base * 2) ** exp_final  # Multiplicar la base
 
         candidates = [
-            {"val": sol, "is_correct": True, "type": "CORRECT", "desc": "Aplicación de propiedades de potencias de igual base"},
-            {"val": d1, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Sumó el exponente del divisor en vez de restarlo"},
-            {"val": d2, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Multiplicó los exponentes en la multiplicación de igual base"},
+            {
+                "val": sol,
+                "is_correct": True,
+                "type": "CORRECT",
+                "desc": "Aplicación de propiedades de potencias de igual base",
+            },
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Sumó el exponente del divisor en vez de restarlo",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "HEURISTIC_TRAP",
+                "desc": "Multiplicó los exponentes en la multiplicación de igual base",
+            },
             {"val": d3, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Alteró la base al operar potencias"},
         ]
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.44, (
-            f"Aplicando propiedades de potencias de igual base:\n"
-            f"1. Numerador: ${base}^{{{p1}}} \\cdot {base}^{{{p2}}} = {base}^{{{p1} + {p2}}} = {base}^{{{p1 + p2}}}$.\n"
-            f"2. División: $\\frac{{{base}^{{{p1 + p2}}}}}{{{base}^{{{p3}}}}} = {base}^{{{p1 + p2} - {p3}}} = {base}^{{{exp_final}}} = {sol}$."
-        ), "Multiplicar los exponentes al multiplicar potencias de igual base en vez de sumarlos.")
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.44,
+            (
+                f"Aplicando propiedades de potencias de igual base:\n"
+                f"1. Numerador: ${base}^{{{p1}}} \\cdot {base}^{{{p2}}} = {base}^{{{p1} + {p2}}} = {base}^{{{p1 + p2}}}$.\n"
+                f"2. División: $\\frac{{{base}^{{{p1 + p2}}}}}{{{base}^{{{p3}}}}} = {base}^{{{p1 + p2} - {p3}}} = {base}^{{{exp_final}}} = {sol}$."
+            ),
+            "Multiplicar los exponentes al multiplicar potencias de igual base en vez de sumarlos.",
+        )
 
     def _gen_quadratic_problem(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Ecuación cuadrática y sus raíces reales."""
@@ -328,9 +467,17 @@ class AutoContentGenerator:
         sign_r1 = f"- {r1}" if r1 > 0 else f"+ {abs(r1)}"
         sign_r2 = f"- {r2}" if r2 > 0 else f"+ {abs(r2)}"
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.62, (
-            f"Factorizamos $(x {sign_r1})(x {sign_r2}) = 0$, obteniendo las raíces $x_1 = {r1}$ y $x_2 = {r2}$."
-        ), "Olvidar cambiar el signo al igualar cada factor a cero.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.62,
+            (f"Factorizamos $(x {sign_r1})(x {sign_r2}) = 0$, obteniendo las raíces $x_1 = {r1}$ y $x_2 = {r2}$."),
+            "Olvidar cambiar el signo al igualar cada factor a cero.",
+            fmt_fn=fmt,
+        )
 
     def _gen_probability_laplace(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Probabilidad clásica con regla de Laplace."""
@@ -356,20 +503,50 @@ class AutoContentGenerator:
         d3 = f"\\frac{{{fav + 1}}}{{{total}}}"
 
         candidates = [
-            {"val": f"${sol_str}$", "is_correct": True, "type": "CORRECT", "desc": "Regla de Laplace: casos favorables / casos posibles"},
-            {"val": f"${d1}$", "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Calculó la probabilidad del evento complementario"},
-            {"val": f"${d2}$", "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Comparó favorables contra desfavorables (odds) en vez de espacio muestral"},
-            {"val": f"${d3}$", "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Error en el conteo de casos favorables"},
+            {
+                "val": f"${sol_str}$",
+                "is_correct": True,
+                "type": "CORRECT",
+                "desc": "Regla de Laplace: casos favorables / casos posibles",
+            },
+            {
+                "val": f"${d1}$",
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Calculó la probabilidad del evento complementario",
+            },
+            {
+                "val": f"${d2}$",
+                "is_correct": False,
+                "type": "HEURISTIC_TRAP",
+                "desc": "Comparó favorables contra desfavorables (odds) en vez de espacio muestral",
+            },
+            {
+                "val": f"${d3}$",
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Error en el conteo de casos favorables",
+            },
         ]
 
         def fmt(v):
             return str(v)
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.42, (
-            f"El espacio muestral total tiene $N = {red} + {blue} + {green} = {total}$ fichas.\n"
-            f"Los casos favorables para ficha {target_color} son ${fav}$.\n"
-            f"Por la Regla de Laplace: $P = \\frac{{{fav}}}{{{total}}} = {sol_str}$."
-        ), "Confundir la probabilidad clásica con la razón de casos favorables a desfavorables.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.42,
+            (
+                f"El espacio muestral total tiene $N = {red} + {blue} + {green} = {total}$ fichas.\n"
+                f"Los casos favorables para ficha {target_color} son ${fav}$.\n"
+                f"Por la Regla de Laplace: $P = \\frac{{{fav}}}{{{total}}} = {sol_str}$."
+            ),
+            "Confundir la probabilidad clásica con la razón de casos favorables a desfavorables.",
+            fmt_fn=fmt,
+        )
 
     def _build_math_item(
         self,
@@ -397,7 +574,9 @@ class AutoContentGenerator:
             extra_val = rng.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
             if str(extra_val) not in seen:
                 seen.add(str(extra_val))
-                unique.append({"val": extra_val, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Distractor numérico"})
+                unique.append(
+                    {"val": extra_val, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Distractor numérico"}
+                )
 
         rng.shuffle(unique)
         keys = ["A", "B", "C", "D"]
@@ -407,13 +586,15 @@ class AutoContentGenerator:
 
         for k, opt in zip(keys, unique):
             text_val = fmt_fn(opt["val"]) if fmt_fn else f"${opt['val']}$"
-            options.append({
-                "id": k,
-                "key": k,
-                "text": text_val,
-                "is_correct": opt["is_correct"],
-                "distractor_type": opt["type"],
-            })
+            options.append(
+                {
+                    "id": k,
+                    "key": k,
+                    "text": text_val,
+                    "is_correct": opt["is_correct"],
+                    "distractor_type": opt["type"],
+                }
+            )
             if opt["is_correct"]:
                 correct_key = k
             else:
@@ -447,9 +628,21 @@ class AutoContentGenerator:
         f_val = m * a
 
         contexts = [
-            ("Un automóvil de masa", "se desplaza en línea recta sobre una pista horizontal y acelera a razón de", "la magnitud de la fuerza neta constante aplicada sobre el vehículo"),
-            ("Un montacargas de masa", "asciende verticalmente con una aceleración constante de", "la magnitud de la fuerza neta que actúa sobre el sistema"),
-            ("Un trineo de carga de masa", "es empujado sobre una superficie sin roce con aceleración de", "la fuerza neta horizontal que lo impulsa"),
+            (
+                "Un automóvil de masa",
+                "se desplaza en línea recta sobre una pista horizontal y acelera a razón de",
+                "la magnitud de la fuerza neta constante aplicada sobre el vehículo",
+            ),
+            (
+                "Un montacargas de masa",
+                "asciende verticalmente con una aceleración constante de",
+                "la magnitud de la fuerza neta que actúa sobre el sistema",
+            ),
+            (
+                "Un trineo de carga de masa",
+                "es empujado sobre una superficie sin roce con aceleración de",
+                "la fuerza neta horizontal que lo impulsa",
+            ),
         ]
         ctx = rng.choice(contexts)
         stem = f"{ctx[0]} $m = {m}\\text{{ kg}}$ {ctx[1]} $a = {a}\\text{{ m/s}}^2$. ¿Cuál es {ctx[2]} según la Segunda Ley de Newton?"
@@ -460,18 +653,38 @@ class AutoContentGenerator:
 
         candidates = [
             {"val": f_val, "is_correct": True, "type": "CORRECT", "desc": "Segunda Ley de Newton $F = m \\cdot a$"},
-            {"val": d1, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Dividió la masa entre la aceleración en lugar de multiplicarlas"},
-            {"val": d2, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Sumó magnitudes incompatibles dimensionalmente"},
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Dividió la masa entre la aceleración en lugar de multiplicarlas",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Sumó magnitudes incompatibles dimensionalmente",
+            },
             {"val": d3, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Aproximación aritmética incorrecta"},
         ]
 
         def fmt(v):
             return f"${v}\\text{{ N}}$"
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.42, (
-            f"Por la Segunda Ley de Newton: $F = m \\cdot a$.\n"
-            f"Sustituyendo los valores dados: $F = {m}\\text{{ kg}} \\times {a}\\text{{ m/s}}^2 = {f_val}\\text{{ N}}$."
-        ), "Dividir la masa por la aceleración en vez de calcular su producto.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.42,
+            (
+                f"Por la Segunda Ley de Newton: $F = m \\cdot a$.\n"
+                f"Sustituyendo los valores dados: $F = {m}\\text{{ kg}} \\times {a}\\text{{ m/s}}^2 = {f_val}\\text{{ N}}$."
+            ),
+            "Dividir la masa por la aceleración en vez de calcular su producto.",
+            fmt_fn=fmt,
+        )
 
     def _gen_wave_speed(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Problema de rapidez de propagación de ondas v = lambda * f."""
@@ -490,18 +703,38 @@ class AutoContentGenerator:
 
         candidates = [
             {"val": v, "is_correct": True, "type": "CORRECT", "desc": "Relación de onda $v = \\lambda \\cdot f$"},
-            {"val": d1, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Dividió la frecuencia por la longitud de onda"},
-            {"val": d2, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Dividió la longitud de onda por la frecuencia"},
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Dividió la frecuencia por la longitud de onda",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Dividió la longitud de onda por la frecuencia",
+            },
             {"val": d3, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Desplazamiento numérico"},
         ]
 
         def fmt(v):
             return f"${v}\\text{{ m/s}}$"
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.44, (
-            f"La relación fundamental de propagación de ondas establece:\n"
-            f"$$v = \\lambda \\cdot f = {lam}\\text{{ m}} \\times {f}\\text{{ Hz}} = {v}\\text{{ m/s}}$$.\n"
-        ), "Invertir la ecuación dividiendo longitud de onda por frecuencia.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.44,
+            (
+                f"La relación fundamental de propagación de ondas establece:\n"
+                f"$$v = \\lambda \\cdot f = {lam}\\text{{ m}} \\times {f}\\text{{ Hz}} = {v}\\text{{ m/s}}$$.\n"
+            ),
+            "Invertir la ecuación dividiendo longitud de onda por frecuencia.",
+            fmt_fn=fmt,
+        )
 
     def _gen_ohm_law(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Problema de Ley de Ohm V = I * R."""
@@ -521,23 +754,41 @@ class AutoContentGenerator:
 
         candidates = [
             {"val": v, "is_correct": True, "type": "CORRECT", "desc": "Ley de Ohm $V = I \\cdot R$"},
-            {"val": d1, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Dividió la resistencia por la intensidad"},
-            {"val": d2, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Dividió la intensidad por la resistencia"},
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Dividió la resistencia por la intensidad",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Dividió la intensidad por la resistencia",
+            },
             {"val": d3, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Error aritmético"},
         ]
 
         def fmt(v):
             return f"${v}\\text{{ V}}$"
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.40, (
-            f"Por la Ley de Ohm: $V = I \\cdot R = {i}\\text{{ A}} \\times {r}\\ \\Omega = {v}\\text{{ V}}$."
-        ), "Dividir en lugar de multiplicar la corriente por la resistencia.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.40,
+            (f"Por la Ley de Ohm: $V = I \\cdot R = {i}\\text{{ A}} \\times {r}\\ \\Omega = {v}\\text{{ V}}$."),
+            "Dividir en lugar de multiplicar la corriente por la resistencia.",
+            fmt_fn=fmt,
+        )
 
     def _gen_kinetic_energy(self, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
         """Problema de energía cinética Ec = 1/2 * m * v^2."""
         m = rng.choice([2, 4, 6, 8, 10, 12, 16, 20, 30])
         v = rng.choice([2, 3, 4, 5, 6, 8, 10])
-        ec = int(0.5 * m * (v ** 2))
+        ec = int(0.5 * m * (v**2))
 
         stem = (
             f"Un objeto de masa $m = {m}\\text{{ kg}}$ se mueve en línea recta sobre una superficie horizontal "
@@ -545,23 +796,43 @@ class AutoContentGenerator:
         )
 
         d1 = m * v  # Momento lineal en vez de energía
-        d2 = m * (v ** 2)  # Olvidar el 1/2
+        d2 = m * (v**2)  # Olvidar el 1/2
         d3 = ec + rng.choice([-20, -10, 10, 20])
 
         candidates = [
             {"val": ec, "is_correct": True, "type": "CORRECT", "desc": "Energía cinética $E_c = \\frac{1}{2}m v^2$"},
-            {"val": d1, "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": "Confundió energía cinética con cantidad de movimiento ($p = m \\cdot v$)"},
-            {"val": d2, "is_correct": False, "type": "CALCULATION_ERROR", "desc": "Omitió el factor $\\frac{1}{2}$ en la fórmula"},
+            {
+                "val": d1,
+                "is_correct": False,
+                "type": "CONCEPTUAL_CONFUSION",
+                "desc": "Confundió energía cinética con cantidad de movimiento ($p = m \\cdot v$)",
+            },
+            {
+                "val": d2,
+                "is_correct": False,
+                "type": "CALCULATION_ERROR",
+                "desc": "Omitió el factor $\\frac{1}{2}$ en la fórmula",
+            },
             {"val": d3, "is_correct": False, "type": "HEURISTIC_TRAP", "desc": "Aproximación numérica"},
         ]
 
         def fmt(v):
             return f"${v}\\text{{ J}}$"
 
-        return self._build_math_item(stem, candidates, subtopic_id, skill_id, rng, 0.46, (
-            f"La energía cinética viene dada por $E_c = \\frac{{1}}{{2}} m v^2$.\n"
-            f"Sustituyendo: $E_c = \\frac{{1}}{{2}} ({m}\\text{{ kg}}) ({v}\\text{{ m/s}})^2 = \\frac{{1}}{{2}} \\times {m} \\times {v**2} = {ec}\\text{{ J}}$."
-        ), "Confundir la energía cinética con el momento lineal o olvidar elevar la rapidez al cuadrado.", fmt_fn=fmt)
+        return self._build_math_item(
+            stem,
+            candidates,
+            subtopic_id,
+            skill_id,
+            rng,
+            0.46,
+            (
+                f"La energía cinética viene dada por $E_c = \\frac{{1}}{{2}} m v^2$.\n"
+                f"Sustituyendo: $E_c = \\frac{{1}}{{2}} ({m}\\text{{ kg}}) ({v}\\text{{ m/s}})^2 = \\frac{{1}}{{2}} \\times {m} \\times {v**2} = {ec}\\text{{ J}}$."
+            ),
+            "Confundir la energía cinética con el momento lineal o olvidar elevar la rapidez al cuadrado.",
+            fmt_fn=fmt,
+        )
 
     # ==========================================
     # 3. GENERADORES CURRICULARES CONTEXTUALES (CIENCIAS, HISTORIA, LECTURA)
@@ -784,13 +1055,20 @@ class AutoContentGenerator:
                 },
             ]
 
-    def _gen_catalog_question(self, subject: str, subtopic_id: str, skill_id: str, rng: random.Random) -> Dict[str, Any]:
+    def _gen_catalog_question(
+        self, subject: str, subtopic_id: str, skill_id: str, rng: random.Random
+    ) -> Dict[str, Any]:
         """Selecciona y empaqueta un ítem del catálogo temático oficial."""
         catalog = self._get_catalog_items(subject)
         item = rng.choice(catalog)
 
         candidates = [
-            {"text": item["correct"], "is_correct": True, "type": "CORRECT", "desc": item.get("correct_desc", "Respuesta fundamentada")},
+            {
+                "text": item["correct"],
+                "is_correct": True,
+                "type": "CORRECT",
+                "desc": item.get("correct_desc", "Respuesta fundamentada"),
+            },
             {"text": item["d1"], "is_correct": False, "type": "CONCEPTUAL_CONFUSION", "desc": item["d1_desc"]},
             {"text": item["d2"], "is_correct": False, "type": "HEURISTIC_TRAP", "desc": item["d2_desc"]},
             {"text": item["d3"], "is_correct": False, "type": "CONTRADICTION", "desc": item["d3_desc"]},
@@ -803,13 +1081,15 @@ class AutoContentGenerator:
         distractor_analysis = {}
 
         for k, opt in zip(keys, candidates):
-            options.append({
-                "id": k,
-                "key": k,
-                "text": opt["text"],
-                "is_correct": opt["is_correct"],
-                "distractor_type": opt["type"],
-            })
+            options.append(
+                {
+                    "id": k,
+                    "key": k,
+                    "text": opt["text"],
+                    "is_correct": opt["is_correct"],
+                    "distractor_type": opt["type"],
+                }
+            )
             if opt["is_correct"]:
                 correct_key = k
             else:
@@ -842,39 +1122,47 @@ class AutoContentGenerator:
     # 3. DISPATCHER Y GENERACIÓN EN LOTE
     # ==========================================
 
-    def generate_single_item(self, subject_code: str, subtopic_id: str, skill_id: str, rng: Optional[random.Random] = None) -> Dict[str, Any]:
+    def generate_single_item(
+        self, subject_code: str, subtopic_id: str, skill_id: str, rng: Optional[random.Random] = None
+    ) -> Dict[str, Any]:
         """Despacha al generador correspondiente según la materia."""
         rng = rng or random.Random()
         subj = subject_code.upper()
 
         if subj == "M1":
-            gen_fn = rng.choice([
-                self._gen_linear_equation,
-                self._gen_percentage_problem,
-                self._gen_pythagoras_problem,
-                self._gen_powers_roots,
-                self._gen_probability_laplace,
-                self._gen_linear_system,
-            ])
+            gen_fn = rng.choice(
+                [
+                    self._gen_linear_equation,
+                    self._gen_percentage_problem,
+                    self._gen_pythagoras_problem,
+                    self._gen_powers_roots,
+                    self._gen_probability_laplace,
+                    self._gen_linear_system,
+                ]
+            )
             return gen_fn(subtopic_id, skill_id, rng)
         elif subj == "M2":
-            gen_fn = rng.choice([
-                self._gen_quadratic_problem,
-                self._gen_linear_system,
-                self._gen_pythagoras_problem,
-                self._gen_powers_roots,
-                self._gen_probability_laplace,
-                self._gen_linear_equation,
-            ])
+            gen_fn = rng.choice(
+                [
+                    self._gen_quadratic_problem,
+                    self._gen_linear_system,
+                    self._gen_pythagoras_problem,
+                    self._gen_powers_roots,
+                    self._gen_probability_laplace,
+                    self._gen_linear_equation,
+                ]
+            )
             return gen_fn(subtopic_id, skill_id, rng)
         elif subj == "CIENCIAS":
-            gen_fn = rng.choice([
-                self._gen_newton_law,
-                self._gen_wave_speed,
-                self._gen_ohm_law,
-                self._gen_kinetic_energy,
-                self._gen_catalog_question,
-            ])
+            gen_fn = rng.choice(
+                [
+                    self._gen_newton_law,
+                    self._gen_wave_speed,
+                    self._gen_ohm_law,
+                    self._gen_kinetic_energy,
+                    self._gen_catalog_question,
+                ]
+            )
             if gen_fn == self._gen_catalog_question:
                 return self._gen_catalog_question(subj, subtopic_id, skill_id, rng)
             return gen_fn(subtopic_id, skill_id, rng)
@@ -974,13 +1262,19 @@ def main():
     parser.add_argument("--count", type=int, default=5, help="Cantidad de preguntas a generar por materia")
     parser.add_argument("--save", action="store_true", help="Guardar directamente en SQLite peak.db")
     parser.add_argument("--dry-run", action="store_true", help="Solo generar y validar en memoria sin persistir")
-    parser.add_argument("--output", type=str, default=None, help="Ruta opcional para exportar JSON con las preguntas generadas")
+    parser.add_argument(
+        "--output", type=str, default=None, help="Ruta opcional para exportar JSON con las preguntas generadas"
+    )
 
     args = parser.parse_args()
 
     with Session(engine) as session:
         generator = AutoContentGenerator(db_session=session)
-        subjects = ["M1", "M2", "LECTURA", "CIENCIAS", "HISTORIA"] if args.all else ([args.subject] if args.subject else ["M1"])
+        subjects = (
+            ["M1", "M2", "LECTURA", "CIENCIAS", "HISTORIA"]
+            if args.all
+            else ([args.subject] if args.subject else ["M1"])
+        )
 
         all_generated = []
         print("=======================================================")
@@ -994,7 +1288,9 @@ def main():
                 save_to_db=args.save and not args.dry_run,
             )
             all_generated.extend(items)
-            print(f"\n[{subj}] Generadas y Calibradas: {len(items)} preguntas (Descartes por duplicado/filtro: {len(rejections)})")
+            print(
+                f"\n[{subj}] Generadas y Calibradas: {len(items)} preguntas (Descartes por duplicado/filtro: {len(rejections)})"
+            )
             for idx, it in enumerate(items[:2], 1):
                 print(f"  ({idx}) {it['stem'][:70]}... -> IRT (a={it['irt_a']}, b={it['irt_b']}, c={it['irt_c']})")
 

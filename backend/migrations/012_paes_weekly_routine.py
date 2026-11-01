@@ -7,6 +7,7 @@ uvicorn with ``--reload``) wiped the configuration of every user.
 This migration creates the table that stores the routine (user id + the
 day -> subject mapping) so the configuration is persistent.
 """
+
 import logging
 
 from sqlalchemy import text
@@ -23,10 +24,7 @@ CREATE TABLE IF NOT EXISTS paes_weekly_routines (
 )
 """
 
-INDEX_DDL = (
-    "CREATE UNIQUE INDEX IF NOT EXISTS ix_paes_weekly_routines_user_id "
-    "ON paes_weekly_routines (user_id)"
-)
+INDEX_DDL = "CREATE UNIQUE INDEX IF NOT EXISTS ix_paes_weekly_routines_user_id " "ON paes_weekly_routines (user_id)"
 
 
 def up(conn):

@@ -30,12 +30,14 @@ questions_router = APIRouter(tags=["PAES Questions"])
 
 # --- Schemas ---
 
+
 class RevengeSessionRequest(BaseModel):
     subject_code: Optional[str] = "M1"
     question_count: int = Field(default=10, ge=1, le=65)
 
 
 # --- Helper Functions ---
+
 
 def _get_unmastered_data(session: Session, user_id: int = 1, subject_code: Optional[str] = None):
     attempts = session.exec(
@@ -59,7 +61,9 @@ def _get_unmastered_data(session: Session, user_id: int = 1, subject_code: Optio
 
     questions = session.exec(select(PaesQuestion).where(PaesQuestion.id.in_(unmastered_qids))).all()
     subtopic_ids = {q.subtopic_id for q in questions if q.subtopic_id}
-    subtopics = session.exec(select(PaesSubtopic).where(PaesSubtopic.id.in_(list(subtopic_ids)))).all() if subtopic_ids else []
+    subtopics = (
+        session.exec(select(PaesSubtopic).where(PaesSubtopic.id.in_(list(subtopic_ids)))).all() if subtopic_ids else []
+    )
     sub_map = {s.id: s for s in subtopics}
 
     topic_ids = {s.topic_id for s in subtopics if s.topic_id}
@@ -135,7 +139,9 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
     stem_lower = (question.stem or "").lower()
 
     # 1. Ecuaciones lineales de 1er grado
-    if "ecuaciones-lineales" in slug or ("ecuación" in stem_lower and "x" in stem_lower and "sistema" not in stem_lower):
+    if "ecuaciones-lineales" in slug or (
+        "ecuación" in stem_lower and "x" in stem_lower and "sistema" not in stem_lower
+    ):
         sp.Symbol("x")
         sol = rng.choice([-8, -7, -6, -5, -4, -3, -2, 2, 3, 4, 5, 6, 7, 8])
         a = rng.choice([2, 3, 4, 5, 6])
@@ -156,9 +162,27 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
 
         options = [
             {"id": "A", "content": f"$x = {sol}$", "text": f"$x = {sol}$", "is_correct": True, "distractor_type": None},
-            {"id": "B", "content": f"$x = {d1}$", "text": f"$x = {d1}$", "is_correct": False, "distractor_type": "CALCULO"},
-            {"id": "C", "content": f"$x = {d2}$", "text": f"$x = {d2}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"},
-            {"id": "D", "content": f"$x = {d3}$", "text": f"$x = {d3}$", "is_correct": False, "distractor_type": "TRAMPA_HEURISTICA"},
+            {
+                "id": "B",
+                "content": f"$x = {d1}$",
+                "text": f"$x = {d1}$",
+                "is_correct": False,
+                "distractor_type": "CALCULO",
+            },
+            {
+                "id": "C",
+                "content": f"$x = {d2}$",
+                "text": f"$x = {d2}$",
+                "is_correct": False,
+                "distractor_type": "PROCEDIMENTAL",
+            },
+            {
+                "id": "D",
+                "content": f"$x = {d3}$",
+                "text": f"$x = {d3}$",
+                "is_correct": False,
+                "distractor_type": "TRAMPA_HEURISTICA",
+            },
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -173,7 +197,7 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
                 "short_summary": f"Despejando x se obtiene exactamente x = {sol}.",
                 "step_by_step": f"1. Transponer término constante: {a}x = {c} - ({b}) = {c - b}.\n2. Dividir por el coeficiente lineal {a}: x = {c - b} / {a} = {sol}.",
                 "key_concept": "Resolución de ecuaciones lineales de primer grado mediante propiedades de la igualdad.",
-                "frequent_mistake": "Olvidar invertir el signo al trasponer términos al otro lado de la igualdad."
+                "frequent_mistake": "Olvidar invertir el signo al trasponer términos al otro lado de la igualdad.",
             },
             "subtopic_id": question.subtopic_id,
             "subtopic_name": subtopic.name if subtopic else "Ecuaciones lineales",
@@ -204,9 +228,27 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
 
         options = [
             {"id": "A", "content": f"$x = {x0}$", "text": f"$x = {x0}$", "is_correct": True, "distractor_type": None},
-            {"id": "B", "content": f"$x = {d1}$", "text": f"$x = {d1}$", "is_correct": False, "distractor_type": "TRAMPA_HEURISTICA"},
-            {"id": "C", "content": f"$x = {d2}$", "text": f"$x = {d2}$", "is_correct": False, "distractor_type": "CALCULO"},
-            {"id": "D", "content": f"$x = {d3}$", "text": f"$x = {d3}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"},
+            {
+                "id": "B",
+                "content": f"$x = {d1}$",
+                "text": f"$x = {d1}$",
+                "is_correct": False,
+                "distractor_type": "TRAMPA_HEURISTICA",
+            },
+            {
+                "id": "C",
+                "content": f"$x = {d2}$",
+                "text": f"$x = {d2}$",
+                "is_correct": False,
+                "distractor_type": "CALCULO",
+            },
+            {
+                "id": "D",
+                "content": f"$x = {d3}$",
+                "text": f"$x = {d3}$",
+                "is_correct": False,
+                "distractor_type": "PROCEDIMENTAL",
+            },
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -221,7 +263,7 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
                 "short_summary": f"La solución del sistema para x es {x0}.",
                 "step_by_step": f"Despejando y = {c1} - x e introduciendo en la 2° ecuación: {a2}x + ({b2_sign.replace(' ', '')})({c1} - x) = {c2}, despejando se obtiene x = {x0} e y = {y0}.",
                 "key_concept": "Sistemas de ecuaciones lineales 2x2 por método de sustitución o reducción.",
-                "frequent_mistake": "Entregar como respuesta el valor de y en lugar de la incógnita solicitada x."
+                "frequent_mistake": "Entregar como respuesta el valor de y en lugar de la incógnita solicitada x.",
             },
             "subtopic_id": question.subtopic_id,
             "subtopic_name": subtopic.name if subtopic else "Sistemas de ecuaciones 2x2",
@@ -249,10 +291,34 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
             d3 = c1 + c2
 
         options = [
-            {"id": "A", "content": f"${hip}\\text{{ cm}}$", "text": f"${hip}\\text{{ cm}}$", "is_correct": True, "distractor_type": None},
-            {"id": "B", "content": f"${d1}\\text{{ cm}}$", "text": f"${d1}\\text{{ cm}}$", "is_correct": False, "distractor_type": "CONCEPTUAL"},
-            {"id": "C", "content": f"${d2}\\text{{ cm}}$", "text": f"${d2}\\text{{ cm}}$", "is_correct": False, "distractor_type": "CALCULO"},
-            {"id": "D", "content": f"${d3}\\text{{ cm}}$", "text": f"${d3}\\text{{ cm}}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"},
+            {
+                "id": "A",
+                "content": f"${hip}\\text{{ cm}}$",
+                "text": f"${hip}\\text{{ cm}}$",
+                "is_correct": True,
+                "distractor_type": None,
+            },
+            {
+                "id": "B",
+                "content": f"${d1}\\text{{ cm}}$",
+                "text": f"${d1}\\text{{ cm}}$",
+                "is_correct": False,
+                "distractor_type": "CONCEPTUAL",
+            },
+            {
+                "id": "C",
+                "content": f"${d2}\\text{{ cm}}$",
+                "text": f"${d2}\\text{{ cm}}$",
+                "is_correct": False,
+                "distractor_type": "CALCULO",
+            },
+            {
+                "id": "D",
+                "content": f"${d3}\\text{{ cm}}$",
+                "text": f"${d3}\\text{{ cm}}$",
+                "is_correct": False,
+                "distractor_type": "PROCEDIMENTAL",
+            },
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -267,7 +333,7 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
                 "short_summary": f"La hipotenusa mide {hip} cm.",
                 "step_by_step": f"Aplicando Teorema de Pitágoras: c^2 = {c1}^2 + {c2}^2 = {c1**2} + {c2**2} = {hip**2} ==> c = {hip} cm.",
                 "key_concept": "Teorema de Pitágoras en triángulos rectángulos: c = sqrt(a^2 + b^2).",
-                "frequent_mistake": "Sumar los catetos directamente sin elevarlos al cuadrado."
+                "frequent_mistake": "Sumar los catetos directamente sin elevarlos al cuadrado.",
             },
             "subtopic_id": question.subtopic_id,
             "subtopic_name": subtopic.name if subtopic else "Teorema de Pitágoras",
@@ -302,10 +368,34 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
         stem = f"¿Cuál es el resultado de resolver la operación $\\frac{{{n1}}}{{{d1}}} - \\frac{{{n2}}}{{{d2}}} \\cdot \\frac{{{n3}}}{{{d3}}}$?"
 
         options = [
-            {"id": "A", "content": fmt_frac(sol_exact), "text": fmt_frac(sol_exact), "is_correct": True, "distractor_type": None},
-            {"id": "B", "content": fmt_frac(d1_exact), "text": fmt_frac(d1_exact), "is_correct": False, "distractor_type": "PROCEDIMENTAL"},
-            {"id": "C", "content": fmt_frac(d2_exact), "text": fmt_frac(d2_exact), "is_correct": False, "distractor_type": "CALCULO"},
-            {"id": "D", "content": fmt_frac(d3_exact), "text": fmt_frac(d3_exact), "is_correct": False, "distractor_type": "TRAMPA_HEURISTICA"},
+            {
+                "id": "A",
+                "content": fmt_frac(sol_exact),
+                "text": fmt_frac(sol_exact),
+                "is_correct": True,
+                "distractor_type": None,
+            },
+            {
+                "id": "B",
+                "content": fmt_frac(d1_exact),
+                "text": fmt_frac(d1_exact),
+                "is_correct": False,
+                "distractor_type": "PROCEDIMENTAL",
+            },
+            {
+                "id": "C",
+                "content": fmt_frac(d2_exact),
+                "text": fmt_frac(d2_exact),
+                "is_correct": False,
+                "distractor_type": "CALCULO",
+            },
+            {
+                "id": "D",
+                "content": fmt_frac(d3_exact),
+                "text": fmt_frac(d3_exact),
+                "is_correct": False,
+                "distractor_type": "TRAMPA_HEURISTICA",
+            },
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -320,7 +410,7 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
                 "short_summary": f"El resultado simplificado es {fmt_frac(sol_exact)}.",
                 "step_by_step": f"1. Prioridad: calcular primero la multiplicación: ({n2}/{d2}) * ({n3}/{d3}) = {q_n2 * q_n3}.\n2. Realizar la sustracción: {q_n1} - {q_n2 * q_n3} = {sol_exact}.",
                 "key_concept": "Prioridad de las operaciones aritméticas en el conjunto de los racionales (Q).",
-                "frequent_mistake": "Efectuar la resta antes de la multiplicación violando la jerarquía de las operaciones."
+                "frequent_mistake": "Efectuar la resta antes de la multiplicación violando la jerarquía de las operaciones.",
             },
             "subtopic_id": question.subtopic_id,
             "subtopic_name": subtopic.name if subtopic else "Operaciones en racionales",
@@ -344,10 +434,34 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
         d3 = final_price - int(total * 0.05)
 
         options = [
-            {"id": "A", "content": f"${final_price:,}\\text{{ pesos}}$".replace(",", "."), "text": f"${final_price:,}\\text{{ pesos}}$".replace(",", "."), "is_correct": True, "distractor_type": None},
-            {"id": "B", "content": f"${d1:,}\\text{{ pesos}}$".replace(",", "."), "text": f"${d1:,}\\text{{ pesos}}$".replace(",", "."), "is_correct": False, "distractor_type": "TRAMPA_HEURISTICA"},
-            {"id": "C", "content": f"${d2:,}\\text{{ pesos}}$".replace(",", "."), "text": f"${d2:,}\\text{{ pesos}}$".replace(",", "."), "is_correct": False, "distractor_type": "CONCEPTUAL"},
-            {"id": "D", "content": f"${d3:,}\\text{{ pesos}}$".replace(",", "."), "text": f"${d3:,}\\text{{ pesos}}$".replace(",", "."), "is_correct": False, "distractor_type": "CALCULO"},
+            {
+                "id": "A",
+                "content": f"${final_price:,}\\text{{ pesos}}$".replace(",", "."),
+                "text": f"${final_price:,}\\text{{ pesos}}$".replace(",", "."),
+                "is_correct": True,
+                "distractor_type": None,
+            },
+            {
+                "id": "B",
+                "content": f"${d1:,}\\text{{ pesos}}$".replace(",", "."),
+                "text": f"${d1:,}\\text{{ pesos}}$".replace(",", "."),
+                "is_correct": False,
+                "distractor_type": "TRAMPA_HEURISTICA",
+            },
+            {
+                "id": "C",
+                "content": f"${d2:,}\\text{{ pesos}}$".replace(",", "."),
+                "text": f"${d2:,}\\text{{ pesos}}$".replace(",", "."),
+                "is_correct": False,
+                "distractor_type": "CONCEPTUAL",
+            },
+            {
+                "id": "D",
+                "content": f"${d3:,}\\text{{ pesos}}$".replace(",", "."),
+                "text": f"${d3:,}\\text{{ pesos}}$".replace(",", "."),
+                "is_correct": False,
+                "distractor_type": "CALCULO",
+            },
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -362,7 +476,7 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
                 "short_summary": f"El precio final a pagar es ${final_price:,} pesos.".replace(",", "."),
                 "step_by_step": f"1. Calcular monto del descuento: {total} * ({pct}/100) = {rebaja}.\n2. Restar del total: {total} - {rebaja} = {final_price}.",
                 "key_concept": "Cálculo de variaciones porcentuales y descuentos en contextos financieros reales.",
-                "frequent_mistake": "Marcar el valor del descuento en vez del precio final cancelado."
+                "frequent_mistake": "Marcar el valor del descuento en vez del precio final cancelado.",
             },
             "subtopic_id": question.subtopic_id,
             "subtopic_name": subtopic.name if subtopic else "Porcentajes",
@@ -383,30 +497,36 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
     # Shuffled clone options with distractor markers
     opts = []
     if correct_opt:
-        opts.append({
-            "id": "A",
-            "content": correct_opt.get("content") or correct_opt.get("text") or "Opción Correcta",
-            "text": correct_opt.get("content") or correct_opt.get("text") or "Opción Correcta",
-            "is_correct": True,
-            "distractor_type": None,
-        })
+        opts.append(
+            {
+                "id": "A",
+                "content": correct_opt.get("content") or correct_opt.get("text") or "Opción Correcta",
+                "text": correct_opt.get("content") or correct_opt.get("text") or "Opción Correcta",
+                "is_correct": True,
+                "distractor_type": None,
+            }
+        )
     for idx, d in enumerate(distractors[:3]):
-        opts.append({
-            "id": chr(66 + idx),
-            "content": d.get("content") or d.get("text") or f"Distractor {idx+1}",
-            "text": d.get("content") or d.get("text") or f"Distractor {idx+1}",
-            "is_correct": False,
-            "distractor_type": d.get("distractor_type") or "CONCEPTUAL",
-        })
+        opts.append(
+            {
+                "id": chr(66 + idx),
+                "content": d.get("content") or d.get("text") or f"Distractor {idx+1}",
+                "text": d.get("content") or d.get("text") or f"Distractor {idx+1}",
+                "is_correct": False,
+                "distractor_type": d.get("distractor_type") or "CONCEPTUAL",
+            }
+        )
 
     while len(opts) < 4:
-        opts.append({
-            "id": chr(65 + len(opts)),
-            "content": f"Alternativa alternativa {len(opts)+1}",
-            "text": f"Alternativa alternativa {len(opts)+1}",
-            "is_correct": False,
-            "distractor_type": "TRAMPA_HEURISTICA",
-        })
+        opts.append(
+            {
+                "id": chr(65 + len(opts)),
+                "content": f"Alternativa alternativa {len(opts)+1}",
+                "text": f"Alternativa alternativa {len(opts)+1}",
+                "is_correct": False,
+                "distractor_type": "TRAMPA_HEURISTICA",
+            }
+        )
 
     rng.shuffle(opts)
     for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -417,11 +537,12 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
         "variant_id": f"var-{question.id[:8]}-{uuid.uuid4().hex[:6]}",
         "stem": twin_stem,
         "options": opts,
-        "explanation": question.explanation or {
+        "explanation": question.explanation
+        or {
             "short_summary": "Revisión conceptual basada en el temario oficial.",
             "step_by_step": "Aplica los principios matemáticos oficiales para aislar y verificar la solución.",
             "key_concept": "Metacognición y análisis del distractor oficial.",
-            "frequent_mistake": "Caer en la trampa heurística seleccionada anteriormente."
+            "frequent_mistake": "Caer en la trampa heurística seleccionada anteriormente.",
         },
         "subtopic_id": question.subtopic_id,
         "subtopic_name": subtopic.name if subtopic else "General",
@@ -432,6 +553,7 @@ def generate_twin_variant(question: PaesQuestion, session: Session, seed: Option
 
 
 # --- Endpoints ---
+
 
 @router.get("/vault")
 @limiter.limit(get_rate_limit_str())
@@ -498,12 +620,12 @@ def create_revenge_session(
         if not items:
             raise HTTPException(
                 status_code=400,
-                detail="No tienes preguntas pendientes en el Cuaderno de Errores para iniciar una sesión de revancha."
+                detail="No tienes preguntas pendientes en el Cuaderno de Errores para iniciar una sesión de revancha.",
             )
 
     # Shuffled selection up to requested count
     random.shuffle(items)
-    selected_items = items[:req.question_count]
+    selected_items = items[: req.question_count]
 
     session_id = f"paes-sess-{uuid.uuid4().hex[:12]}"
     subj_code = (req.subject_code or "M1").upper()
@@ -528,21 +650,23 @@ def create_revenge_session(
             {"id": opt.get("id") or opt.get("key"), "content": opt.get("content") or opt.get("text")}
             for opt in q.options
         ]
-        frontend_questions.append({
-            "id": q.id,
-            "subtopic_id": q.subtopic_id,
-            "stem": q.stem,
-            "stimulus_title": q.stimulus_title,
-            "stimulus_text": q.stimulus_text,
-            "options": opts,
-            "difficulty_estimate": q.difficulty_estimate,
-            "provenance_type": q.provenance_type,
-            "is_pilot": q.is_pilot,
-            "image_url": q.image_url,
-            "distractor_cause": it["distractor_type"],
-            "canonical_distractor_cause": it.get("canonical_distractor_type"),
-            "failed_attempts_count": it["failed_attempts_count"],
-        })
+        frontend_questions.append(
+            {
+                "id": q.id,
+                "subtopic_id": q.subtopic_id,
+                "stem": q.stem,
+                "stimulus_title": q.stimulus_title,
+                "stimulus_text": q.stimulus_text,
+                "options": opts,
+                "difficulty_estimate": q.difficulty_estimate,
+                "provenance_type": q.provenance_type,
+                "is_pilot": q.is_pilot,
+                "image_url": q.image_url,
+                "distractor_cause": it["distractor_type"],
+                "canonical_distractor_cause": it.get("canonical_distractor_type"),
+                "failed_attempts_count": it["failed_attempts_count"],
+            }
+        )
 
     return {
         "session_id": session_id,

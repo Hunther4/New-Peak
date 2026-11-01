@@ -11,6 +11,7 @@ in an M1-only database the frontend offered a routine that could never start.
 ``quick_start_today`` also used the UTC weekday, which selects the wrong day
 between 21:00 and 24:00 in Chile.
 """
+
 from datetime import datetime, timezone
 
 import pytest
@@ -109,6 +110,7 @@ def m1_and_m2(session: Session):
 # BUG-3 — persistence
 # ---------------------------------------------------------------------------
 
+
 def test_update_routine_is_persisted_in_the_database(client, enrolled_user, m1_only, session: Session):
     """The routine must be stored in the database, not in process memory."""
     from models.paes_models import PaesWeeklyRoutine
@@ -187,16 +189,8 @@ def test_migration_012_creates_the_routine_table_and_is_idempotent(engine):
         migration.MIGRATION["up"](conn)  # second run is a no-op
 
     with engine.begin() as conn:
-        tables = {
-            row[0]
-            for row in conn.execute(
-                text("SELECT name FROM sqlite_master WHERE type='table'")
-            ).fetchall()
-        }
-        columns = {
-            row[1]
-            for row in conn.execute(text("PRAGMA table_info(paes_weekly_routines)")).fetchall()
-        }
+        tables = {row[0] for row in conn.execute(text("SELECT name FROM sqlite_master WHERE type='table'")).fetchall()}
+        columns = {row[1] for row in conn.execute(text("PRAGMA table_info(paes_weekly_routines)")).fetchall()}
 
     assert "paes_weekly_routines" in tables
     assert {"id", "user_id", "routine_json", "updated_at"} <= columns
@@ -215,6 +209,7 @@ def test_default_routine_uses_the_existing_subject_when_one_is_missing(client, m
 # ---------------------------------------------------------------------------
 # BUG-5 — Santiago weekday
 # ---------------------------------------------------------------------------
+
 
 def test_santiago_weekday_key_uses_the_santiago_local_date():
     """2026-01-05T02:00Z is Monday in UTC but Sunday 23:00 in Santiago."""

@@ -3,6 +3,7 @@ Tests for nonce-based CSP in SecurityHeadersMiddleware (T-07).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import re
 
 

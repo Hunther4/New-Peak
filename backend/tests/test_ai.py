@@ -10,6 +10,7 @@ Estrategia:
 - _get_active_lm_model se prueba con un cliente simulado y con
   _is_lm_studio_reachable mockeado (sin red).
 """
+
 import logging
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
@@ -40,6 +41,7 @@ class _TestNestedModel(BaseModel):
 # generate_structured_json — Modo Local (force_local=True)
 # ---------------------------------------------------------------------------
 
+
 def _make_mock_response(content: str, choices_count: int = 1):
     """Construye un objeto simulando la respuesta de OpenAI."""
     choices = []
@@ -57,10 +59,7 @@ def test_local_success_returns_parsed_model(mock_create):
     """Cuando LM Studio responde con JSON válido, retorna el modelo parseado."""
     mock_create.return_value = _make_mock_response('{"name": "foo", "value": 42}')
 
-    result = generate_structured_json(
-        "system prompt", "user prompt", _TestModel,
-        force_local=True
-    )
+    result = generate_structured_json("system prompt", "user prompt", _TestModel, force_local=True)
 
     assert result is not None
     assert isinstance(result, _TestModel)
@@ -73,9 +72,7 @@ def test_local_choices_empty_returns_none(mock_create):
     """Cuando choices viene vacío, retorna None."""
     mock_create.return_value = _make_mock_response("", choices_count=0)
 
-    result = generate_structured_json(
-        "system", "user", _TestModel, force_local=True
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True)
 
     assert result is None
 
@@ -90,9 +87,7 @@ def test_local_empty_content_returns_none(mock_create):
     mock_response.choices = [choice]
     mock_create.return_value = mock_response
 
-    result = generate_structured_json(
-        "system", "user", _TestModel, force_local=True
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True)
 
     assert result is None
 
@@ -102,9 +97,7 @@ def test_local_invalid_json_returns_none(mock_create):
     """Cuando la respuesta no es JSON válido, retorna None."""
     mock_create.return_value = _make_mock_response("esto no es json")
 
-    result = generate_structured_json(
-        "system", "user", _TestModel, force_local=True
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True)
 
     assert result is None
 
@@ -114,9 +107,7 @@ def test_local_wrong_schema_returns_none(mock_create):
     """Cuando el JSON no matchea el esquema del modelo, retorna None."""
     mock_create.return_value = _make_mock_response('{"wrong": "data"}')
 
-    result = generate_structured_json(
-        "system", "user", _TestModel, force_local=True
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True)
 
     assert result is None
 
@@ -126,9 +117,7 @@ def test_local_exception_returns_none(mock_create):
     """Cuando la llamada a LM Studio lanza excepción, retorna None."""
     mock_create.side_effect = Exception("Connection refused")
 
-    result = generate_structured_json(
-        "system", "user", _TestModel, force_local=True
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True)
 
     assert result is None
 
@@ -141,10 +130,7 @@ def test_local_retries_on_failure(mock_create):
         _make_mock_response('{"name": "ok", "value": 1}'),
     ]
 
-    result = generate_structured_json(
-        "system", "user", _TestModel,
-        force_local=True, max_retries=2
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True, max_retries=2)
 
     assert result is not None
     assert result.name == "ok"
@@ -156,10 +142,7 @@ def test_local_all_retries_fail_returns_none(mock_create):
     """Todos los reintentos fallan, retorna None."""
     mock_create.side_effect = Exception("Always fails")
 
-    result = generate_structured_json(
-        "system", "user", _TestModel,
-        force_local=True, max_retries=3
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True, max_retries=3)
 
     assert result is None
     assert mock_create.call_count == 4  # max_retries + 1
@@ -168,13 +151,9 @@ def test_local_all_retries_fail_returns_none(mock_create):
 @patch("core.ai.client.chat.completions.create")
 def test_local_parses_cleaned_json(mock_create):
     """Responde con markdown wrapper y se limpia correctamente."""
-    mock_create.return_value = _make_mock_response(
-        '```json\n{"name": "test", "value": 99}\n```'
-    )
+    mock_create.return_value = _make_mock_response('```json\n{"name": "test", "value": 99}\n```')
 
-    result = generate_structured_json(
-        "system", "user", _TestModel, force_local=True
-    )
+    result = generate_structured_json("system", "user", _TestModel, force_local=True)
 
     assert result is not None
     assert result.name == "test"
@@ -184,13 +163,9 @@ def test_local_parses_cleaned_json(mock_create):
 @patch("core.ai.client.chat.completions.create")
 def test_local_nested_model(mock_create):
     """Funciona con modelos Pydantic anidados."""
-    mock_create.return_value = _make_mock_response(
-        '{"title": "List", "items": [1, 2, 3]}'
-    )
+    mock_create.return_value = _make_mock_response('{"title": "List", "items": [1, 2, 3]}')
 
-    result = generate_structured_json(
-        "system", "user", _TestNestedModel, force_local=True
-    )
+    result = generate_structured_json("system", "user", _TestNestedModel, force_local=True)
 
     assert result is not None
     assert result.title == "List"
@@ -201,6 +176,7 @@ def test_local_nested_model(mock_create):
 # generate_structured_json — Modo API (router delegado)
 # ---------------------------------------------------------------------------
 
+
 @patch("core.router.execute_with_router")
 @patch("core.router.get_ai_mode")
 def test_api_delegates_to_router(mock_get_mode, mock_execute):
@@ -209,15 +185,10 @@ def test_api_delegates_to_router(mock_get_mode, mock_execute):
     expected = _TestModel(name="from_router", value=7)
     mock_execute.return_value = expected
 
-    result = generate_structured_json(
-        "system", "user", _TestModel,
-        task_type="assessment"
-    )
+    result = generate_structured_json("system", "user", _TestModel, task_type="assessment")
 
     assert result is expected
-    mock_execute.assert_called_once_with(
-        "assessment", "system", "user", _TestModel
-    )
+    mock_execute.assert_called_once_with("assessment", "system", "user", _TestModel)
 
 
 @patch("core.router.execute_with_router")
@@ -228,14 +199,10 @@ def test_api_default_task_type(mock_get_mode, mock_execute):
     expected = _TestModel(name="audit", value=0)
     mock_execute.return_value = expected
 
-    result = generate_structured_json(
-        "system", "user", _TestModel
-    )
+    result = generate_structured_json("system", "user", _TestModel)
 
     assert result is expected
-    mock_execute.assert_called_once_with(
-        "audit", "system", "user", _TestModel
-    )
+    mock_execute.assert_called_once_with("audit", "system", "user", _TestModel)
 
 
 @patch("core.router.execute_with_router")
@@ -246,9 +213,7 @@ def test_force_local_skips_router(mock_get_mode, mock_execute):
 
     with patch("core.ai.client.chat.completions.create") as mock_create:
         mock_create.return_value = _make_mock_response('{"name": "x", "value": 1}')
-        result = generate_structured_json(
-            "system", "user", _TestModel, force_local=True
-        )
+        result = generate_structured_json("system", "user", _TestModel, force_local=True)
 
     assert result is not None
     mock_execute.assert_not_called()
@@ -258,19 +223,17 @@ def test_force_local_skips_router(mock_get_mode, mock_execute):
 # generate_quick_log_completions
 # ---------------------------------------------------------------------------
 
+
 @patch("core.ai.generate_structured_json")
 @patch("core.router.get_ai_mode")
 def test_quick_log_local_mode(mock_get_mode, mock_generate):
     """En modo local, llama a generate_structured_json."""
     mock_get_mode.return_value = "local"
     mock_generate.return_value = QuickLogCompletion(
-        correction_applied="Fixed posture",
-        hypothesis_tomorrow="Keep shoulders down"
+        correction_applied="Fixed posture", hypothesis_tomorrow="Keep shoulders down"
     )
 
-    result = generate_quick_log_completions(
-        "Scales", "Tension in shoulders", "guitar"
-    )
+    result = generate_quick_log_completions("Scales", "Tension in shoulders", "guitar")
 
     assert result["correction_applied"] == "Fixed posture"
     assert result["hypothesis_tomorrow"] == "Keep shoulders down"
@@ -282,14 +245,9 @@ def test_quick_log_local_mode(mock_get_mode, mock_generate):
 def test_quick_log_api_mode(mock_get_mode, mock_execute):
     """En modo api, llama a execute_with_router con task_type quick_log."""
     mock_get_mode.return_value = "api"
-    mock_execute.return_value = QuickLogCompletion(
-        correction_applied="API fix",
-        hypothesis_tomorrow="API tomorrow"
-    )
+    mock_execute.return_value = QuickLogCompletion(correction_applied="API fix", hypothesis_tomorrow="API tomorrow")
 
-    result = generate_quick_log_completions(
-        "Practice", "Error", "domain"
-    )
+    result = generate_quick_log_completions("Practice", "Error", "domain")
 
     assert result["correction_applied"] == "API fix"
     mock_execute.assert_called_once()
@@ -302,9 +260,7 @@ def test_quick_log_fallback_on_failure(mock_get_mode, mock_generate):
     mock_get_mode.return_value = "local"
     mock_generate.return_value = None
 
-    result = generate_quick_log_completions(
-        "X", "Y", "domain"
-    )
+    result = generate_quick_log_completions("X", "Y", "domain")
 
     assert "No se pudo autogenerar" in result["correction_applied"]
     assert "Revisar sesión manualmente" in result["hypothesis_tomorrow"]
@@ -314,9 +270,11 @@ def test_quick_log_fallback_on_failure(mock_get_mode, mock_generate):
 # get_client — recreación ante cambio de entorno (WU-F)
 # ---------------------------------------------------------------------------
 
+
 def test_get_client_refreshes_on_base_url_change(monkeypatch):
     """Cambiar LM_STUDIO_BASE_URL invalida el singleton cacheado."""
     from core.ai import get_client, reset_client
+
     reset_client()
     try:
         monkeypatch.setenv("LM_STUDIO_BASE_URL", "http://127.0.0.1:1234/v1")
@@ -338,6 +296,7 @@ def test_get_client_refreshes_on_base_url_change(monkeypatch):
 # _get_active_lm_model — orden de preferencia en el momento de la llamada
 # ---------------------------------------------------------------------------
 
+
 def _lm_studio_client(model_ids):
     """Cliente simulado cuyo models.list() devuelve los ids dados."""
     client = MagicMock()
@@ -350,12 +309,14 @@ def _lm_studio_client(model_ids):
 def test_active_model_prefers_first_chat_model_loaded():
     """Con varios modelos se usa el primer modelo de chat cargado (sin hardcodear '9b')."""
     clear_lm_model_cache()
-    client = _lm_studio_client([
-        "text-embedding-nomic-embed-text",
-        "llama-3.3-70b-versatile",
-        "gemma-2-9b-it",
-        "qwen2.5-9b-instruct",
-    ])
+    client = _lm_studio_client(
+        [
+            "text-embedding-nomic-embed-text",
+            "llama-3.3-70b-versatile",
+            "gemma-2-9b-it",
+            "qwen2.5-9b-instruct",
+        ]
+    )
     with patch("core.router._is_lm_studio_reachable", return_value=True):
         assert _get_active_lm_model(client) == "llama-3.3-70b-versatile"
 
@@ -371,9 +332,12 @@ def test_active_model_uses_first_available_model():
 def test_active_model_honors_stored_selection_when_loaded():
     """La selección manual almacenada gana sobre el primer modelo cargado."""
     from core.settings import set_setting
+
     clear_lm_model_cache()
-    set_setting("selected_model", '{"auto": false, "provider": "lm_studio",'
-                                  ' "model_id": "llama-3.1-8b-instruct", "model_name": "Llama"}')
+    set_setting(
+        "selected_model",
+        '{"auto": false, "provider": "lm_studio",' ' "model_id": "llama-3.1-8b-instruct", "model_name": "Llama"}',
+    )
     client = _lm_studio_client(["gemma-2-9b-it", "llama-3.1-8b-instruct"])
     with patch("core.router._is_lm_studio_reachable", return_value=True):
         assert _get_active_lm_model(client) == "llama-3.1-8b-instruct"
@@ -382,9 +346,12 @@ def test_active_model_honors_stored_selection_when_loaded():
 def test_active_model_warns_and_falls_back_when_selection_not_loaded(caplog):
     """Selección manual no cargada → warning visible + fallback al primer modelo cargado."""
     from core.settings import set_setting
+
     clear_lm_model_cache()
-    set_setting("selected_model", '{"auto": false, "provider": "lm_studio",'
-                                  ' "model_id": "model-that-was-unloaded", "model_name": "Gone"}')
+    set_setting(
+        "selected_model",
+        '{"auto": false, "provider": "lm_studio",' ' "model_id": "model-that-was-unloaded", "model_name": "Gone"}',
+    )
     client = _lm_studio_client(["gpt-oss-20b", "qwen2.5-9b-instruct"])
     with caplog.at_level(logging.WARNING, logger="core.ai"):
         with patch("core.router._is_lm_studio_reachable", return_value=True):
@@ -396,9 +363,12 @@ def test_active_model_warns_and_falls_back_when_selection_not_loaded(caplog):
 def test_active_model_placeholder_selection_is_not_a_real_preference():
     """Seleccionar el placeholder 'local-model' no es preferencia real (sin warning)."""
     from core.settings import set_setting
+
     clear_lm_model_cache()
-    set_setting("selected_model", '{"auto": false, "provider": "lm_studio",'
-                                  ' "model_id": "local-model", "model_name": "Local"}')
+    set_setting(
+        "selected_model",
+        '{"auto": false, "provider": "lm_studio",' ' "model_id": "local-model", "model_name": "Local"}',
+    )
     client = _lm_studio_client(["llama-3.1-8b", "gemma-2-9b-it"])
     with patch("core.router._is_lm_studio_reachable", return_value=True):
         assert _get_active_lm_model(client) == "llama-3.1-8b"
@@ -474,8 +444,10 @@ def test_active_model_failures_are_not_cached():
 # get_preferred_lm_model_id — lectura de la selección manual almacenada
 # ---------------------------------------------------------------------------
 
+
 def test_get_preferred_ignores_auto_and_missing():
     from core.settings import set_setting
+
     set_setting("selected_model", '{"auto": true}')
     assert get_preferred_lm_model_id() is None
     set_setting("selected_model", "")
@@ -485,12 +457,16 @@ def test_get_preferred_ignores_auto_and_missing():
 def test_get_preferred_ignores_other_providers():
     """Una selección manual de un provider cloud no es preferencia LM Studio."""
     from core.settings import set_setting
-    set_setting("selected_model", '{"auto": false, "provider": "groq",'
-                                  ' "model_id": "llama-3.1-8b-instant", "model_name": "Llama"}')
+
+    set_setting(
+        "selected_model",
+        '{"auto": false, "provider": "groq",' ' "model_id": "llama-3.1-8b-instant", "model_name": "Llama"}',
+    )
     assert get_preferred_lm_model_id() is None
 
 
 def test_get_preferred_survives_malformed_json():
     from core.settings import set_setting
+
     set_setting("selected_model", "{not-json")
     assert get_preferred_lm_model_id() is None

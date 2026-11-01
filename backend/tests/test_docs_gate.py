@@ -3,6 +3,7 @@ Tests for /docs and /openapi.json gating behind DISABLE_DOCS (T-04).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import pytest
 
 

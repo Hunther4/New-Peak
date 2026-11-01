@@ -3,6 +3,7 @@ Tests para core/auditor.py
 
 Auditoría de sesiones de práctica deliberada.
 """
+
 from unittest.mock import patch
 
 from core.auditor import AuditResult, audit_session
@@ -20,17 +21,21 @@ def test_audit_session_success(mock_query, mock_gen):
         verdict="Buena sesión",
         reasoning="Práctica enfocada",
         domain_specific_notes="N/A",
-        book_citations=[]
+        book_citations=[],
     )
     mock_gen.return_value = mock_result
 
-    result = audit_session({
-        "what_i_practiced": "Practicar escala de Do mayor",
-        "difficulty": 4,
-        "micro_error_found": "Pulgar al pasar de 3 a 4",
-        "correction_applied": "Levantar más el pulgar",
-        "hypothesis_tomorrow": "Practicar transiciones de pulgar"
-    }, domain="music", onboarding_mode=False)
+    result = audit_session(
+        {
+            "what_i_practiced": "Practicar escala de Do mayor",
+            "difficulty": 4,
+            "micro_error_found": "Pulgar al pasar de 3 a 4",
+            "correction_applied": "Levantar más el pulgar",
+            "hypothesis_tomorrow": "Practicar transiciones de pulgar",
+        },
+        domain="music",
+        onboarding_mode=False,
+    )
 
     assert result is not None
     assert result.was_deliberate is True
@@ -45,13 +50,17 @@ def test_audit_session_ai_fails(mock_query, mock_gen):
     mock_query.return_value = []
     mock_gen.return_value = None
 
-    result = audit_session({
-        "what_i_practiced": "algo vago",
-        "difficulty": 2,
-        "micro_error_found": "no sé",
-        "correction_applied": "ninguna",
-        "hypothesis_tomorrow": "nada"
-    }, domain="generic", onboarding_mode=False)
+    result = audit_session(
+        {
+            "what_i_practiced": "algo vago",
+            "difficulty": 2,
+            "micro_error_found": "no sé",
+            "correction_applied": "ninguna",
+            "hypothesis_tomorrow": "nada",
+        },
+        domain="generic",
+        onboarding_mode=False,
+    )
 
     assert result is not None
     assert result.was_deliberate is False
@@ -72,17 +81,21 @@ def test_audit_session_onboarding_mode(mock_query, mock_gen):
         verdict="Sesión débil",
         reasoning="Falta especificidad",
         domain_specific_notes="N/A",
-        book_citations=[]
+        book_citations=[],
     )
     mock_gen.return_value = mock_result
 
-    result = audit_session({
-        "what_i_practiced": "Primer intento de práctica",
-        "difficulty": 1,
-        "micro_error_found": "todo",
-        "correction_applied": "prestar más atención",
-        "hypothesis_tomorrow": "mejorar"
-    }, domain="beginner", onboarding_mode=True)
+    result = audit_session(
+        {
+            "what_i_practiced": "Primer intento de práctica",
+            "difficulty": 1,
+            "micro_error_found": "todo",
+            "correction_applied": "prestar más atención",
+            "hypothesis_tomorrow": "mejorar",
+        },
+        domain="beginner",
+        onboarding_mode=True,
+    )
 
     assert result.verdict.startswith("[Onboarding]")
 
@@ -91,11 +104,9 @@ def test_audit_session_onboarding_mode(mock_query, mock_gen):
 @patch("core.auditor.query_books")
 def test_audit_session_rag_citations_replaced(mock_query, mock_gen):
     """Si hay RAG, las citas reales reemplazan las de la IA."""
-    mock_query.return_value = [{
-        "text": "La práctica deliberada requiere metas específicas",
-        "book_title": "Peak",
-        "chunk_index": 0
-    }]
+    mock_query.return_value = [
+        {"text": "La práctica deliberada requiere metas específicas", "book_title": "Peak", "chunk_index": 0}
+    ]
     mock_result = AuditResult(
         was_deliberate=True,
         score=90,
@@ -103,17 +114,21 @@ def test_audit_session_rag_citations_replaced(mock_query, mock_gen):
         verdict="Excelente",
         reasoning="Todo correcto",
         domain_specific_notes="N/A",
-        book_citations=["Cita de IA"]
+        book_citations=["Cita de IA"],
     )
     mock_gen.return_value = mock_result
 
-    result = audit_session({
-        "what_i_practiced": "Práctica deliberada avanzada",
-        "difficulty": 5,
-        "micro_error_found": "detalle técnico",
-        "correction_applied": "ajuste fino",
-        "hypothesis_tomorrow": "profundizar"
-    }, domain="advanced", onboarding_mode=False)
+    result = audit_session(
+        {
+            "what_i_practiced": "Práctica deliberada avanzada",
+            "difficulty": 5,
+            "micro_error_found": "detalle técnico",
+            "correction_applied": "ajuste fino",
+            "hypothesis_tomorrow": "profundizar",
+        },
+        domain="advanced",
+        onboarding_mode=False,
+    )
 
     assert len(result.book_citations) > 0
     assert "Peak" in result.book_citations[0]

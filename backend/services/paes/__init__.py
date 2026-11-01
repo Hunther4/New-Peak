@@ -1,4 +1,4 @@
-﻿"""PAES Adaptive Learning Services Package."""
+"""PAES Adaptive Learning Services Package."""
 
 from .demre_scale import DEMRE_M1_CONVERSION_TABLE, raw_score_to_paes
 from .learning_engine import (

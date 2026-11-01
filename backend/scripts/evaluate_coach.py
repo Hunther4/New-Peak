@@ -7,14 +7,15 @@ Evalúa 5 escenarios pedagógicos críticos:
 4. Gimnasio Cognitivo (Estrategias de memoria de trabajo en Dual N-Back N=3).
 5. Conversación multi-turno con andamiaje progresivo (Scaffolding).
 """
+
 import json
 import os
 import sys
 import time
 
-if hasattr(sys.stdout, 'reconfigure'):
+if hasattr(sys.stdout, "reconfigure"):
     try:
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     except Exception:
         pass
 
@@ -43,14 +44,14 @@ TEST_CASES = [
                     {"key": "A", "text": "1 y 6"},
                     {"key": "B", "text": "2 y 3"},
                     {"key": "C", "text": "-2 y -3"},
-                    {"key": "D", "text": "0 y 5"}
-                ]
-            }
+                    {"key": "D", "text": "0 y 5"},
+                ],
+            },
         },
         "rubric": {
             "must_not_contain": ["es la B", "la respuesta correcta es B", "marca la B", "es la letra B"],
-            "must_contain_socratic": True
-        }
+            "must_contain_socratic": True,
+        },
     },
     {
         "id": "TEST-2-GEOMETRIA-M1",
@@ -66,13 +67,11 @@ TEST_CASES = [
                     {"key": "A", "text": "6"},
                     {"key": "B", "text": "8"},
                     {"key": "C", "text": "9"},
-                    {"key": "D", "text": "12"}
-                ]
-            }
+                    {"key": "D", "text": "12"},
+                ],
+            },
         },
-        "rubric": {
-            "must_contain_math": True
-        }
+        "rubric": {"must_contain_math": True},
     },
     {
         "id": "TEST-3-COMPRENSION-LECTORA",
@@ -88,13 +87,11 @@ TEST_CASES = [
                     {"key": "A", "text": "Respaldar la teoría innatista."},
                     {"key": "B", "text": "Cuestionar la universalidad del modelo tradicional."},
                     {"key": "C", "text": "Demostrar la superioridad de la IA."},
-                    {"key": "D", "text": "Desmentir la neurobiología."}
-                ]
-            }
+                    {"key": "D", "text": "Desmentir la neurobiología."},
+                ],
+            },
         },
-        "rubric": {
-            "must_contain_socratic": True
-        }
+        "rubric": {"must_contain_socratic": True},
     },
     {
         "id": "TEST-4-GYM-DUAL-N-BACK",
@@ -102,15 +99,9 @@ TEST_CASES = [
         "payload": {
             "message": "En N=3 se me colapsa la mente: al escuchar la letra actual ya se me borró la de hace 3 turnos. ¿Qué estrategia cognitiva aplico para no saturarme?",
             "context_type": "gym",
-            "game_context": {
-                "game": "Dual N-Back",
-                "n": 3,
-                "accuracy": 52
-            }
+            "game_context": {"game": "Dual N-Back", "n": 3, "accuracy": 52},
         },
-        "rubric": {
-            "must_contain_cognitive": True
-        }
+        "rubric": {"must_contain_cognitive": True},
     },
     {
         "id": "TEST-5-MULTI-TURNO",
@@ -125,24 +116,19 @@ TEST_CASES = [
                 "options": [
                     {"key": "A", "text": "1 y 6"},
                     {"key": "B", "text": "2 y 3"},
-                    {"key": "C", "text": "-2 y -3"}
-                ]
+                    {"key": "C", "text": "-2 y -3"},
+                ],
             },
             "history": [
-                {
-                    "role": "user",
-                    "content": "¿Cómo resuelvo $x^2 - 5x + 6 = 0$?"
-                },
+                {"role": "user", "content": "¿Cómo resuelvo $x^2 - 5x + 6 = 0$?"},
                 {
                     "role": "assistant",
-                    "content": "Busca dos números que multiplicados den $6$ y sumados den $-5$ para factorizar como producto de binomios."
-                }
-            ]
+                    "content": "Busca dos números que multiplicados den $6$ y sumados den $-5$ para factorizar como producto de binomios.",
+                },
+            ],
         },
-        "rubric": {
-            "must_contain_socratic": True
-        }
-    }
+        "rubric": {"must_contain_socratic": True},
+    },
 ]
 
 
@@ -195,17 +181,19 @@ def run_evaluation():
             if rubric_notes:
                 print(f"  Notas: {', '.join(rubric_notes)}")
 
-            results.append({
-                "id": tc["id"],
-                "title": tc["title"],
-                "success": True,
-                "rubric_passed": rubric_passed,
-                "elapsed": elapsed,
-                "concept": concept,
-                "action": action,
-                "reply": reply,
-                "notes": rubric_notes
-            })
+            results.append(
+                {
+                    "id": tc["id"],
+                    "title": tc["title"],
+                    "success": True,
+                    "rubric_passed": rubric_passed,
+                    "elapsed": elapsed,
+                    "concept": concept,
+                    "action": action,
+                    "reply": reply,
+                    "notes": rubric_notes,
+                }
+            )
 
         except Exception as e:
             print(f"  ❌ Excepción: {e}")

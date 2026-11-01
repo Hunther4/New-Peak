@@ -22,6 +22,7 @@ def client(enrolled_user):
     """Real principal enrolled through the production services (conftest)."""
     return enrolled_user.client
 
+
 @pytest.fixture
 def seeded_paes(session: Session, enrolled_user):
     # Ensure baseline skill exists for cognitive telemetry bridge
@@ -147,33 +148,41 @@ def test_paes_fsrs_status_endpoint(client, seeded_paes):
 
 def test_paes_study_session_lifecycle(client, seeded_paes):
     # 1. Iniciar sesin
-    start_res = client.post("/api/paes/study/session/start", json={"session_mode": "PRACTICE", "subtopic_slug": "m1-algebra-ecuaciones"})
+    start_res = client.post(
+        "/api/paes/study/session/start", json={"session_mode": "PRACTICE", "subtopic_slug": "m1-algebra-ecuaciones"}
+    )
     assert start_res.status_code == 200
     session_data = start_res.json()
     session_id = session_data["session_id"]
     assert len(session_data["questions"]) >= 1
 
     # 2. Responder correctamente
-    submit_res = client.post("/api/paes/study/session/submit", json={
-        "session_id": session_id,
-        "question_id": "q-test-01",
-        "selected_option": "A",
-        "time_spent_seconds": 25,
-        "perceived_confidence": 4,
-    })
+    submit_res = client.post(
+        "/api/paes/study/session/submit",
+        json={
+            "session_id": session_id,
+            "question_id": "q-test-01",
+            "selected_option": "A",
+            "time_spent_seconds": 25,
+            "perceived_confidence": 4,
+        },
+    )
     assert submit_res.status_code == 200
     res_data = submit_res.json()
     assert res_data["is_correct"] is True
     assert res_data["fsrs_updated"]["stability"] is not None
 
     # 3. Responder errneamente y verificar conexin con telemetra
-    submit_err = client.post("/api/paes/study/session/submit", json={
-        "session_id": session_id,
-        "question_id": "q-test-01",
-        "selected_option": "B",
-        "time_spent_seconds": 45,
-        "perceived_confidence": 2,
-    })
+    submit_err = client.post(
+        "/api/paes/study/session/submit",
+        json={
+            "session_id": session_id,
+            "question_id": "q-test-01",
+            "selected_option": "B",
+            "time_spent_seconds": 45,
+            "perceived_confidence": 2,
+        },
+    )
     assert submit_err.status_code == 200
     err_data = submit_err.json()
     assert err_data["is_correct"] is False
@@ -181,11 +190,14 @@ def test_paes_study_session_lifecycle(client, seeded_paes):
 
 
 def test_socratic_tutor_step(client, seeded_paes):
-    res = client.post("/api/paes/tutor/step", json={
-        "session_id": "sess-test-01",
-        "question_id": "q-test-01",
-        "requested_level": 1,
-    })
+    res = client.post(
+        "/api/paes/tutor/step",
+        json={
+            "session_id": "sess-test-01",
+            "question_id": "q-test-01",
+            "requested_level": 1,
+        },
+    )
     assert res.status_code == 200
     data = res.json()
     assert "hint" in data

@@ -7,12 +7,13 @@ import numpy as np
 
 D_SCALING: float = 1.702
 
+
 @dataclass
 class ItemParameters:
     item_id: Optional[str] = None
-    a: float = 1.0     # Discriminacion [0.2, 3.0]
-    b: float = 0.0     # Dificultad [-4.0, 4.0]
-    c: float = 0.20    # Pseudo-azar / guessing [0.0, 0.35]
+    a: float = 1.0  # Discriminacion [0.2, 3.0]
+    b: float = 0.0  # Dificultad [-4.0, 4.0]
+    c: float = 0.20  # Pseudo-azar / guessing [0.0, 0.35]
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -21,6 +22,7 @@ class ItemParameters:
             "b": round(float(self.b), 4),
             "c": round(float(self.c), 4),
         }
+
 
 @dataclass
 class AbilityEstimate:
@@ -43,6 +45,7 @@ class AbilityEstimate:
             "information": round(float(self.information), 4),
         }
 
+
 def prob_3pl(
     theta: Union[float, np.ndarray],
     a: float,
@@ -54,6 +57,7 @@ def prob_3pl(
     z_clipped = np.clip(z, -30.0, 30.0)
     p_star = 1.0 / (1.0 + np.exp(-z_clipped))
     return c + (1.0 - c) * p_star
+
 
 def item_information(
     theta: Union[float, np.ndarray],
@@ -67,7 +71,8 @@ def item_information(
     q = 1.0 - p_safe
     numerator = (p_safe - c) ** 2
     denominator = ((1.0 - c) ** 2) * p_safe
-    return (d ** 2) * (a ** 2) * (numerator / denominator) * q
+    return (d**2) * (a**2) * (numerator / denominator) * q
+
 
 def calculate_test_information(
     theta: Union[float, np.ndarray],
@@ -79,6 +84,7 @@ def calculate_test_information(
     infos = [item_information(theta, it.a, it.b, it.c, d) for it in items]
     return np.sum(infos, axis=0)
 
+
 def standard_error(
     theta: Union[float, np.ndarray],
     items: List[ItemParameters],
@@ -87,6 +93,7 @@ def standard_error(
     info = calculate_test_information(theta, items, d)
     info_safe = np.maximum(info, 1e-6)
     return 1.0 / np.sqrt(info_safe)
+
 
 def theta_to_demre_score(
     theta: float,
@@ -103,6 +110,7 @@ def theta_to_demre_score(
     else:
         p_min, p_max = max(100, score - 30), min(1000, score + 30)
     return score, p_min, p_max
+
 
 def estimate_theta_eap(
     responses: List[int],
@@ -156,6 +164,7 @@ def estimate_theta_eap(
         information=info,
     )
 
+
 def estimate_theta_mle(
     responses: List[int],
     items: List[ItemParameters],
@@ -208,6 +217,7 @@ def estimate_theta_mle(
         information=info,
     )
 
+
 def estimate_theta_hybrid(
     responses: List[int],
     items: List[ItemParameters],
@@ -251,6 +261,7 @@ def estimate_theta_hybrid(
         return mle_res
     return estimate_theta_eap(responses, items, d=d)
 
+
 def select_next_adaptive_item(
     theta: float,
     candidate_items: List[ItemParameters],
@@ -271,6 +282,7 @@ def select_next_adaptive_item(
             best_item = it
 
     return best_item
+
 
 def calibrate_mmle_em(
     response_matrix: np.ndarray,
@@ -297,7 +309,7 @@ def calibrate_mmle_em(
             items.append(ItemParameters(item_id=f"item_{j+1}", a=1.0, b=float(b_init), c=0.20))
 
     nodes = np.linspace(-4.0, 4.0, num_nodes)
-    weights = np.exp(-0.5 * nodes ** 2) / np.sqrt(2 * np.pi)
+    weights = np.exp(-0.5 * nodes**2) / np.sqrt(2 * np.pi)
     weights /= np.sum(weights)
 
     for iteration in range(max_iter):

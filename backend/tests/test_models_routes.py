@@ -3,6 +3,7 @@ Tests para api/routes/models.py
 
 Endpoints de model_registry y router — probados contra TestClient con DB en memoria.
 """
+
 from unittest.mock import patch
 
 
@@ -45,12 +46,12 @@ def test_get_available_for_task_no_filter(client):
 def test_get_available_filters_by_provider(client, session):
     """GET /api/models/available?provider=... filtra por proveedor."""
     from models.models import AiModel
-    session.add(AiModel(name="G", provider="groq", model_id="g1", score=90,
-                        capabilities="audit|general"))
-    session.add(AiModel(name="GC", provider="generalcompute", model_id="gc1", score=85,
-                        capabilities="audit|general"))
-    session.add(AiModel(name="Local", provider="lm_studio", model_id="local-model", score=50,
-                        capabilities="audit|general"))
+
+    session.add(AiModel(name="G", provider="groq", model_id="g1", score=90, capabilities="audit|general"))
+    session.add(AiModel(name="GC", provider="generalcompute", model_id="gc1", score=85, capabilities="audit|general"))
+    session.add(
+        AiModel(name="Local", provider="lm_studio", model_id="local-model", score=50, capabilities="audit|general")
+    )
     session.commit()
 
     resp = client.get("/api/models/available?provider=generalcompute")
@@ -63,10 +64,9 @@ def test_get_available_filters_by_provider(client, session):
 def test_get_available_provider_plus_task_filter(client, session):
     """task y provider se aplican combinados."""
     from models.models import AiModel
-    session.add(AiModel(name="G", provider="groq", model_id="g1", score=90,
-                        capabilities="math_problem"))
-    session.add(AiModel(name="G2", provider="groq", model_id="g2", score=80,
-                        capabilities="audit"))
+
+    session.add(AiModel(name="G", provider="groq", model_id="g1", score=90, capabilities="math_problem"))
+    session.add(AiModel(name="G2", provider="groq", model_id="g2", score=80, capabilities="audit"))
     session.commit()
 
     resp = client.get("/api/models/available?provider=groq&task=audit")
@@ -80,12 +80,13 @@ def test_get_available_provider_plus_task_filter(client, session):
 def test_get_best_model_task_not_found(mock_best, client):
     """GET /api/models/best sin modelo válido retorna fallback."""
     from models.models import AiModel
+
     mock_best.return_value = AiModel(
         name="Local (Fallback)",
         provider="lm_studio",
         model_id="local-model",
         capabilities="audit|quick_log|assessment|general",
-        score=50
+        score=50,
     )
     resp = client.get("/api/models/best?task=unknown")
     assert resp.status_code == 200
@@ -95,10 +96,13 @@ def test_get_best_model_task_not_found(mock_best, client):
 def test_available_live_returns_loaded_models_and_preferred(client):
     """GET /api/models/available-live lista lo realmente cargado + id preferido."""
     from unittest.mock import patch
+
     loaded = ["llama-3.1-8b", "gemma-2-9b-it"]
-    with patch("api.routes.models.get_client"), \
-         patch("api.routes.models._fetch_loaded_lm_models", return_value=loaded), \
-         patch("api.routes.models._is_lm_studio_reachable", return_value=True):
+    with (
+        patch("api.routes.models.get_client"),
+        patch("api.routes.models._fetch_loaded_lm_models", return_value=loaded),
+        patch("api.routes.models._is_lm_studio_reachable", return_value=True),
+    ):
         resp = client.get("/api/models/available-live?provider=lm_studio")
     assert resp.status_code == 200
     body = resp.json()
@@ -114,9 +118,12 @@ def test_available_live_returns_loaded_models_and_preferred(client):
 def test_available_live_server_down_returns_empty_reachable_false(client):
     """Servidor caído: 200 con lista vacía (endpoint de visualización, no error)."""
     from unittest.mock import patch
-    with patch("api.routes.models.get_client"), \
-         patch("api.routes.models._fetch_loaded_lm_models", return_value=[]), \
-         patch("api.routes.models._is_lm_studio_reachable", return_value=False):
+
+    with (
+        patch("api.routes.models.get_client"),
+        patch("api.routes.models._fetch_loaded_lm_models", return_value=[]),
+        patch("api.routes.models._is_lm_studio_reachable", return_value=False),
+    ):
         resp = client.get("/api/models/available-live?provider=lm_studio")
     assert resp.status_code == 200
     body = resp.json()
@@ -135,9 +142,17 @@ def test_best_lm_studio_carries_display_only_marker(client, session):
     """GET /api/models/best en modo local marca el placeholder como no-vivo."""
     from core.settings import set_setting
     from models.models import AiModel
+
     set_setting("ai_mode", "local")
-    session.add(AiModel(name="Local (LM Studio)", provider="lm_studio", model_id="local-model",
-                        score=50, capabilities="audit|general"))
+    session.add(
+        AiModel(
+            name="Local (LM Studio)",
+            provider="lm_studio",
+            model_id="local-model",
+            score=50,
+            capabilities="audit|general",
+        )
+    )
     session.commit()
     resp = client.get("/api/models/best?task=audit")
     assert resp.status_code == 200

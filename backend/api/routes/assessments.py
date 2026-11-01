@@ -25,11 +25,7 @@ class AssessmentCreate(BaseModel):
 
 
 @router.get("/")
-def get_assessments(
-    skill_id: Optional[int] = None,
-    limit: int = 20,
-    db: Session = Depends(get_session)
-):
+def get_assessments(skill_id: Optional[int] = None, limit: int = 20, db: Session = Depends(get_session)):
     query = select(Assessment).order_by(Assessment.created_at.desc()).limit(limit)
     if skill_id:
         query = query.where(Assessment.skill_id == skill_id)
@@ -70,7 +66,9 @@ def create_assessment(request: Request, data: AssessmentCreate, db: Session = De
         # 60% = umbral de éxito — por encima la skill progresa
         session_success = data.score >= 60.0
         apply_staircase(
-            db, skill, session_success,
+            db,
+            skill,
+            session_success,
             trigger="assessment",
             session_id=data.linked_session_id,
         )

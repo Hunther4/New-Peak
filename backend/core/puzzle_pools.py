@@ -95,10 +95,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                     "El ADN codifica información genética, del mismo modo "
                     "que un libro contiene información en su texto."
                 ),
-                "source": (
-                    "Watson & Crick (1953), 'Molecular structure of "
-                    "nucleic acids', Nature"
-                ),
+                "source": ("Watson & Crick (1953), 'Molecular structure of " "nucleic acids', Nature"),
             },
             {
                 "puzzle_type": "verbal_analogy",
@@ -131,10 +128,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                     "El hipotálamo regula la temperatura corporal; el "
                     "hipocampo es clave en la formación de memorias."
                 ),
-                "source": (
-                    "Kandel, Schwartz & Jessell, 'Principles of Neural "
-                    "Science' (5th ed., 2013)"
-                ),
+                "source": ("Kandel, Schwartz & Jessell, 'Principles of Neural " "Science' (5th ed., 2013)"),
             },
         ],
         # Level 2 — intermedio (8 puzzles, verified scientific data)
@@ -232,10 +226,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Cotidiano — compra con vuelto",
             },
             {
-                "question": (
-                    "Tenés 4 paquetes de yerba de 250 gramos cada uno. "
-                    "¿Cuántos gramos tenés en total?"
-                ),
+                "question": ("Tenés 4 paquetes de yerba de 250 gramos cada uno. " "¿Cuántos gramos tenés en total?"),
                 "correct_answer": 1000.0,
                 "solution_steps": [
                     "gramos = 4 × 250 = 1.000",
@@ -268,8 +259,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "1 kilogramo = 1.000 gramos. Si comprás 3,5 "
-                    "kilogramos de naranjas, ¿cuántos gramos son?"
+                    "1 kilogramo = 1.000 gramos. Si comprás 3,5 " "kilogramos de naranjas, ¿cuántos gramos son?"
                 ),
                 "correct_answer": 3500.0,
                 "solution_steps": [
@@ -290,10 +280,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Cotidiano — ahorro mensual",
             },
             {
-                "question": (
-                    "Tenés $5.000. Este mes gastás 30% en comida y "
-                    "20% en transporte. ¿Cuánto te queda?"
-                ),
+                "question": ("Tenés $5.000. Este mes gastás 30% en comida y " "20% en transporte. ¿Cuánto te queda?"),
                 "correct_answer": 2500.0,
                 "solution_steps": [
                     "gastado = 5.000 × 0,5 = 2.500",
@@ -302,10 +289,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Cotidiano — finanzas personales",
             },
             {
-                "question": (
-                    "Una remera cuesta $1.200 y te hacen 25% de "
-                    "descuento. ¿Cuánto pagás?"
-                ),
+                "question": ("Una remera cuesta $1.200 y te hacen 25% de " "descuento. ¿Cuánto pagás?"),
                 "correct_answer": 900.0,
                 "solution_steps": [
                     "descuento = 1.200 × 0,25 = 300",
@@ -316,8 +300,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             # --- Nuevos problemas estáticos nivel 1 ---
             {
                 "question": (
-                    "Tenés 12 huevos en la heladera. Usás 3 para hacer "
-                    "tortilla y 2 para una torta. ¿Cuántos quedan?"
+                    "Tenés 12 huevos en la heladera. Usás 3 para hacer " "tortilla y 2 para una torta. ¿Cuántos quedan?"
                 ),
                 "correct_answer": 7.0,
                 "solution_steps": [
@@ -327,10 +310,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Cotidiano — uso de ingredientes",
             },
             {
-                "question": (
-                    "Un bondi sale a las 8:15 y tarda 45 minutos en "
-                    "llegar. ¿A qué hora llegás?"
-                ),
+                "question": ("Un bondi sale a las 8:15 y tarda 45 minutos en " "llegar. ¿A qué hora llegás?"),
                 "correct_answer": 900.0,
                 "solution_steps": [
                     "8:15 + 45 min = 9:00",
@@ -351,8 +331,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Tu celular tiene 64 GB de almacenamiento. Ya usás "
-                    "45 GB. ¿Cuántos GB te quedan libres?"
+                    "Tu celular tiene 64 GB de almacenamiento. Ya usás " "45 GB. ¿Cuántos GB te quedan libres?"
                 ),
                 "correct_answer": 19.0,
                 "solution_steps": [
@@ -414,9 +393,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
         # Level 2 — intermedio (8 problemas con datos verificados)
         2: [
             {
-                "question": (
-                    "El Everest tiene 8,848 m. ¿Cuántos kilómetros es?"
-                ),
+                "question": ("El Everest tiene 8,848 m. ¿Cuántos kilómetros es?"),
                 "correct_answer": 8.848,
                 "solution_steps": [
                     "8,848 m ÷ 1,000 m/km = 8.848 km",
@@ -424,10 +401,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Medición oficial, Survey of Nepal / China (2020)",
             },
             {
-                "question": (
-                    "La Tierra orbita el Sol a 30 km/s. En 1 día (86,400 s), "
-                    "¿cuántos km recorre?"
-                ),
+                "question": ("La Tierra orbita el Sol a 30 km/s. En 1 día (86,400 s), " "¿cuántos km recorre?"),
                 "correct_answer": 2592000,
                 "solution_steps": [
                     "30 km/s × 86,400 s = 2,592,000 km",
@@ -436,8 +410,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "El cuerpo humano adulto tiene ~206 huesos. Si un "
-                    "bebé nace con ~270, ¿cuántos se fusionan?"
+                    "El cuerpo humano adulto tiene ~206 huesos. Si un " "bebé nace con ~270, ¿cuántos se fusionan?"
                 ),
                 "correct_answer": 64,
                 "solution_steps": [
@@ -458,8 +431,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Pi (π) ≈ 3.14159. Si un círculo tiene radio 5 cm, "
-                    "¿cuál es su circunferencia? (usa π=3.14)"
+                    "Pi (π) ≈ 3.14159. Si un círculo tiene radio 5 cm, " "¿cuál es su circunferencia? (usa π=3.14)"
                 ),
                 "correct_answer": 31.4,
                 "solution_steps": [
@@ -502,18 +474,14 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "CERN, Large Hadron Collider specifications",
             },
             {
-                "question": (
-                    "El universo tiene ~13.800 millones de años. "
-                    "¿Cuántos siglos son?"
-                ),
+                "question": ("El universo tiene ~13.800 millones de años. " "¿Cuántos siglos son?"),
                 "correct_answer": 138_000_000.0,
                 "solution_steps": [
                     "1 siglo = 100 años",
                     "13.800.000.000 años ÷ 100 = 138.000.000 siglos",
                 ],
                 "source": (
-                    "NASA / Planck Collaboration (2018) — edad del "
-                    "universo: 13.797 ± 0.023 mil millones de años"
+                    "NASA / Planck Collaboration (2018) — edad del " "universo: 13.797 ± 0.023 mil millones de años"
                 ),
             },
             {
@@ -538,8 +506,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "correct_answer": 40_000_000.0,
                 "solution_steps": [
                     "promedio = población total / cantidad de países",
-                    "promedio = 8.000.000.000 ÷ 200 = 40.000.000 personas "
-                    "por país",
+                    "promedio = 8.000.000.000 ÷ 200 = 40.000.000 personas " "por país",
                 ],
                 "source": "Naciones Unidas — World Population Prospects",
             },

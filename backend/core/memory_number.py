@@ -33,7 +33,7 @@ def generate_numbers(span: int, digit_max: int, ai_assisted: bool = False) -> li
         # Phase 7: mix of 1-4 digit numbers for variety
         return [random.randint(0, 10 ** random.randint(1, 4) - 1) for _ in range(span)]
 
-    max_val = 10 ** digit_max - 1
+    max_val = 10**digit_max - 1
     return [random.randint(0, max_val) for _ in range(span)]
 
 

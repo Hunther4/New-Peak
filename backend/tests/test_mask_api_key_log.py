@@ -3,6 +3,7 @@ Tests for masked API key in startup log (T-05).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import logging
 
 

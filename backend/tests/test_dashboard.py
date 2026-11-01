@@ -4,6 +4,7 @@ Tests del dashboard (T-07, T-08).
 Validan la función _calculate_streak que es lógica pura.
 No requiere API ni DB — se testea directamente.
 """
+
 from datetime import datetime, timezone
 from unittest.mock import MagicMock
 
@@ -13,26 +14,32 @@ from api.routes.dashboard import _calculate_streak
 
 def _create_test_skill(client, slug="test-skill", name="Test Skill", domain="memory"):
     """Helper para crear una skill via API."""
-    resp = client.post("/api/skills/", json={
-        "name": name,
-        "domain": domain,
-        "skill_type": "problem_set",
-        "config_path": "skills/default.yaml",
-        "slug": slug,
-    })
+    resp = client.post(
+        "/api/skills/",
+        json={
+            "name": name,
+            "domain": domain,
+            "skill_type": "problem_set",
+            "config_path": "skills/default.yaml",
+            "slug": slug,
+        },
+    )
     return resp.json()
 
 
 def _create_test_session(client, skill_id):
     """Helper para crear una sesión via API."""
-    resp = client.post("/api/sessions/", json={
-        "skill_id": skill_id,
-        "entry_mode": "quick",
-        "what_i_practiced": "Test practice session with enough detail for validation",
-        "micro_error_found": "Error detallado para probar el endpoint",
-        "difficulty": 3,
-        "duration_minutes": 15,
-    })
+    resp = client.post(
+        "/api/sessions/",
+        json={
+            "skill_id": skill_id,
+            "entry_mode": "quick",
+            "what_i_practiced": "Test practice session with enough detail for validation",
+            "micro_error_found": "Error detallado para probar el endpoint",
+            "difficulty": 3,
+            "duration_minutes": 15,
+        },
+    )
     return resp.json()
 
 
@@ -51,9 +58,9 @@ class TestCalculateStreak:
         """Tres días seguidos de práctica = racha de 3."""
         now = datetime(2025, 6, 15, 10, 0, tzinfo=timezone.utc)
         sessions = [
-            _make_session(datetime(2025, 6, 15, 8, 0)),   # Hoy
-            _make_session(datetime(2025, 6, 14, 18, 0)),   # Ayer
-            _make_session(datetime(2025, 6, 13, 9, 0)),    # Anteayer
+            _make_session(datetime(2025, 6, 15, 8, 0)),  # Hoy
+            _make_session(datetime(2025, 6, 14, 18, 0)),  # Ayer
+            _make_session(datetime(2025, 6, 13, 9, 0)),  # Anteayer
         ]
 
         assert _calculate_streak(sessions, now) == 3
@@ -63,10 +70,10 @@ class TestCalculateStreak:
         """Un día sin práctica rompe la racha."""
         now = datetime(2025, 6, 15, 10, 0, tzinfo=timezone.utc)
         sessions = [
-            _make_session(datetime(2025, 6, 15, 8, 0)),   # Hoy
+            _make_session(datetime(2025, 6, 15, 8, 0)),  # Hoy
             # 14 de junio: NADA
-            _make_session(datetime(2025, 6, 13, 9, 0)),    # Hace 2 días
-            _make_session(datetime(2025, 6, 12, 9, 0)),    # Hace 3 días
+            _make_session(datetime(2025, 6, 13, 9, 0)),  # Hace 2 días
+            _make_session(datetime(2025, 6, 12, 9, 0)),  # Hace 3 días
         ]
 
         assert _calculate_streak(sessions, now) == 1
@@ -80,7 +87,7 @@ class TestCalculateStreak:
         """Si solo practicaste ayer (no hoy), racha es 1 (en riesgo)."""
         now = datetime(2025, 6, 15, 10, 0, tzinfo=timezone.utc)
         sessions = [
-            _make_session(datetime(2025, 6, 14, 18, 0)),   # Ayer
+            _make_session(datetime(2025, 6, 14, 18, 0)),  # Ayer
         ]
 
         assert _calculate_streak(sessions, now) == 1
@@ -99,10 +106,7 @@ class TestCalculateStreak:
     def test_long_streak_of_seven_days(self):
         """Racha de 7 días consecutivos."""
         now = datetime(2025, 6, 15, 10, 0, tzinfo=timezone.utc)
-        sessions = [
-            _make_session(datetime(2025, 6, 15 - i, 9, 0))
-            for i in range(7)
-        ]
+        sessions = [_make_session(datetime(2025, 6, 15 - i, 9, 0)) for i in range(7)]
 
         assert _calculate_streak(sessions, now) == 7
 

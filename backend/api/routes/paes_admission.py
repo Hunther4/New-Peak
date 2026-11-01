@@ -18,18 +18,33 @@ router = APIRouter(prefix="/api/paes/admission", tags=["PAES Admission"])
 
 # --- Schemas ---
 
+
 class ScoresInput(BaseModel):
-    m1: Optional[float] = Field(default=500.0, ge=100.0, le=1000.0, description="Puntaje PAES Competencia Matemática 1 (100 - 1000)")
-    lectura: Optional[float] = Field(default=500.0, ge=100.0, le=1000.0, description="Puntaje PAES Competencia Lectora (100 - 1000)")
-    m2: Optional[float] = Field(default=100.0, ge=100.0, le=1000.0, description="Puntaje PAES Competencia Matemática 2 (100 - 1000)")
-    ciencias: Optional[float] = Field(default=100.0, ge=100.0, le=1000.0, description="Puntaje PAES Ciencias (100 - 1000)")
-    historia: Optional[float] = Field(default=100.0, ge=100.0, le=1000.0, description="Puntaje PAES Historia (100 - 1000)")
+    m1: Optional[float] = Field(
+        default=500.0, ge=100.0, le=1000.0, description="Puntaje PAES Competencia Matemática 1 (100 - 1000)"
+    )
+    lectura: Optional[float] = Field(
+        default=500.0, ge=100.0, le=1000.0, description="Puntaje PAES Competencia Lectora (100 - 1000)"
+    )
+    m2: Optional[float] = Field(
+        default=100.0, ge=100.0, le=1000.0, description="Puntaje PAES Competencia Matemática 2 (100 - 1000)"
+    )
+    ciencias: Optional[float] = Field(
+        default=100.0, ge=100.0, le=1000.0, description="Puntaje PAES Ciencias (100 - 1000)"
+    )
+    historia: Optional[float] = Field(
+        default=100.0, ge=100.0, le=1000.0, description="Puntaje PAES Historia (100 - 1000)"
+    )
 
 
 class SimulateAdmissionRequest(BaseModel):
-    nem: float = Field(..., ge=1.0, le=1000.0, description="NEM en escala DEMRE (100-1000) o nota escolar chilena (1.0-7.0)")
+    nem: float = Field(
+        ..., ge=1.0, le=1000.0, description="NEM en escala DEMRE (100-1000) o nota escolar chilena (1.0-7.0)"
+    )
     ranking: float = Field(..., ge=1.0, le=1000.0, description="Ranking DEMRE (100-1000) o nota escolar (1.0-7.0)")
-    career_id: Optional[str] = Field(default=None, description="ID de la carrera objetivo (ej: 'medicina-uch', 'ing-civil-puc')")
+    career_id: Optional[str] = Field(
+        default=None, description="ID de la carrera objetivo (ej: 'medicina-uch', 'ing-civil-puc')"
+    )
     scores: Optional[ScoresInput] = Field(default=None, description="Puntajes en pruebas PAES")
     # Campos directos opcionales para máxima compatibilidad con payloads planos
     m1: Optional[float] = Field(default=None, ge=100.0, le=1000.0)
@@ -40,6 +55,7 @@ class SimulateAdmissionRequest(BaseModel):
 
 
 # --- Endpoints ---
+
 
 @router.get("/careers")
 @limiter.limit(get_rate_limit_str())

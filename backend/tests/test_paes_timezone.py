@@ -8,6 +8,7 @@ producing a naive value that cannot be subtracted from an aware ``now``
 
 These tests pin the behaviour of the single shared helper that replaced it.
 """
+
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -73,9 +74,7 @@ def test_backend_code_no_longer_uses_replace_tzinfo_gymnastics():
                 continue  # the single sanctioned normalization helper
             content = path.read_text(encoding="utf-8", errors="ignore")
             if "replace(tzinfo=" in content:
-                offenders.append(
-                    f"{path.relative_to(BACKEND_ROOT)}: contains 'replace(tzinfo='"
-                )
+                offenders.append(f"{path.relative_to(BACKEND_ROOT)}: contains 'replace(tzinfo='")
 
     assert offenders == [], (
         "Datetime normalization must use core.timeutils.to_utc_aware instead of "

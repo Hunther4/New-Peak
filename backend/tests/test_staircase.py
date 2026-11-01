@@ -2,6 +2,7 @@
 
 Covers: apply_staircase, detect_plateau, compute_practice_level, determine_session_success.
 """
+
 from sqlmodel import select
 
 from models.models import SkillLevelHistory
@@ -23,9 +24,7 @@ def test_staircase_first_session_no_move(session, skill_factory):
     session.commit()
 
     assert skill.current_level == 5.0  # No change
-    history = session.exec(
-        select(SkillLevelHistory).where(SkillLevelHistory.skill_id == skill.id)
-    ).all()
+    history = session.exec(select(SkillLevelHistory).where(SkillLevelHistory.skill_id == skill.id)).all()
     assert len(history) == 1
     assert history[0].success is True
     assert history[0].delta == 0.0
@@ -40,9 +39,7 @@ def test_staircase_second_session_no_move(session, skill_factory):
     session.commit()
 
     assert skill.current_level == 5.0  # Still no change
-    history = session.exec(
-        select(SkillLevelHistory).where(SkillLevelHistory.skill_id == skill.id)
-    ).all()
+    history = session.exec(select(SkillLevelHistory).where(SkillLevelHistory.skill_id == skill.id)).all()
     assert len(history) == 2
 
 
@@ -124,9 +121,7 @@ def test_staircase_history_records_all_fields(session, skill_factory):
     apply_staircase(session, skill, True, trigger="session_consolidation", session_id=None)
     session.commit()
 
-    history = session.exec(
-        select(SkillLevelHistory).where(SkillLevelHistory.skill_id == skill.id)
-    ).first()
+    history = session.exec(select(SkillLevelHistory).where(SkillLevelHistory.skill_id == skill.id)).first()
     assert history is not None
     assert history.success is True
     assert history.level_before == 5.0
@@ -195,6 +190,7 @@ def test_plateau_not_enough_data(session, skill_factory):
 
 class FakeSession:
     """Minimal mock for practice level testing."""
+
     def __init__(self, **kwargs):
         self.what_i_practiced = kwargs.get("what_i_practiced", "")
         self.micro_error_found = kwargs.get("micro_error_found", None)
@@ -251,6 +247,7 @@ def test_practice_level_high_difficulty():
 
 class FakeGameSession:
     """Minimal mock for game session testing."""
+
     def __init__(self, skill_id, **kwargs):
         self.skill_id = skill_id
         for k, v in kwargs.items():

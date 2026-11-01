@@ -4,6 +4,7 @@ Uso:
   python bank_importer.py --dry-run   # Audita y valida sin modificar la BD
   python bank_importer.py --import    # Inserta en SQLite solo los ítems validados
 """
+
 import argparse
 import json
 import random
@@ -15,9 +16,9 @@ from pathlib import Path
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BACKEND_DIR))
 
-if hasattr(sys.stdout, 'reconfigure'):
+if hasattr(sys.stdout, "reconfigure"):
     try:
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     except Exception:
         pass
 
@@ -53,8 +54,14 @@ def run_pipeline(dry_run: bool = True):
         # Si faltan competencias de lectura, crearlas dinámicamente si no existen
         missing_comps = {
             "RASTREAR_LOCALIZAR": ("Rastrear y Localizar", "Capacidad de identificar y extraer información explícita."),
-            "RELACIONAR_INTERPRETAR": ("Relacionar e Interpretar", "Capacidad de inferir, relacionar párrafos y sintetizar."),
-            "EVALUAR_REFLEXIONAR": ("Evaluar y Reflexionar", "Capacidad de juzgar la forma, contenido y propósito del texto."),
+            "RELACIONAR_INTERPRETAR": (
+                "Relacionar e Interpretar",
+                "Capacidad de inferir, relacionar párrafos y sintetizar.",
+            ),
+            "EVALUAR_REFLEXIONAR": (
+                "Evaluar y Reflexionar",
+                "Capacidad de juzgar la forma, contenido y propósito del texto.",
+            ),
         }
         for code, (name, desc) in missing_comps.items():
             if code not in comp_map:
@@ -83,7 +90,7 @@ def run_pipeline(dry_run: bool = True):
                 passed_items.append(q)
                 print(f"  ✅ [PASS] {q['id']} ({q.get('subtopic_id')})")
             else:
-                failed_items.append((q['id'], errors))
+                failed_items.append((q["id"], errors))
                 print(f"  ❌ [REJECT] {q['id']}: {', '.join(errors)}")
 
         print("\n" + "-" * 70)
@@ -158,10 +165,7 @@ def run_pipeline(dry_run: bool = True):
             # Asegurar que el usuario 1 tenga learning state para este subtema
             sub_id = q_data["subtopic_id"]
             ls = session.exec(
-                select(PaesLearningState).where(
-                    PaesLearningState.user_id == 1,
-                    PaesLearningState.subtopic_id == sub_id
-                )
+                select(PaesLearningState).where(PaesLearningState.user_id == 1, PaesLearningState.subtopic_id == sub_id)
             ).first()
             if not ls:
                 new_ls = PaesLearningState(

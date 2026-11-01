@@ -30,6 +30,7 @@ def test_status_empty_when_no_books_indexed(client):
         assert data["total_chunks"] == 0
         assert data["is_indexing"] is False
 
+
 def test_search_rag_no_books_returns_empty(client):
     """GET /api/books/search should return empty results when no books indexed"""
     response = client.get("/api/books/search", params={"q": "test query"})
@@ -39,11 +40,13 @@ def test_search_rag_no_books_returns_empty(client):
     assert data["results"] == []
     assert data["count"] == 0
 
+
 def test_search_rag_empty_query_returns_400(client):
     """GET /api/books/search with empty q should return 400"""
     response = client.get("/api/books/search", params={"q": ""})
     assert response.status_code == 400
     assert response.json()["detail"] == "El parámetro 'q' no puede estar vacío."
+
 
 def test_index_books_no_body_returns_validation_error(client):
     """POST /api/books/index without body should return 422"""

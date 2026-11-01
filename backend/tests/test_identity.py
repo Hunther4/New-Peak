@@ -16,6 +16,7 @@ Acceptance criteria:
 Run from the repo root:
   backend\\venv\\Scripts\\python.exe -m pytest backend/tests/test_identity.py -q
 """
+
 import base64
 import hashlib
 from datetime import datetime, timedelta, timezone
@@ -34,6 +35,7 @@ LEGACY_CONSUMED_KEY = "legacy_enrollment_consumed_at"
 
 
 # --- helpers ---------------------------------------------------------------
+
 
 def _spki_b64(key) -> str:
     """Export a public key as its base64-encoded SPKI DER blob."""
@@ -77,6 +79,7 @@ def _insert_live_session(session, user: User, device: UserDevice) -> str:
 
 # --- ID-02: enrollment creates user + device, issues no session -------------
 
+
 def test_enroll_valid_p256_issues_no_session(client, session):
     response = client.post(ENROLL_PATH, json=_enroll_body(email="Alice@Example.COM"))
     assert response.status_code == 200
@@ -102,7 +105,11 @@ def test_enroll_openapi_request_schema_has_no_private_key(client):
     ref = schema["requestBody"]["content"]["application/json"]["schema"]["$ref"]
     props = openapi["components"]["schemas"][ref.split("/")[-1]]["properties"]
     assert set(props.keys()) == {
-        "email", "public_key_b64", "label", "legacy_key", "enrollment_token",
+        "email",
+        "public_key_b64",
+        "label",
+        "legacy_key",
+        "enrollment_token",
     }
     assert not any("private" in prop.lower() for prop in props)
 
@@ -138,6 +145,7 @@ def test_enroll_duplicate_email_409_device_rows_unchanged(client, session):
 
 # --- ID-01: the enrollment gate ---------------------------------------------
 
+
 def test_enroll_open_when_token_unset(client, monkeypatch):
     monkeypatch.delenv("ENROLLMENT_TOKEN", raising=False)
     assert client.post(ENROLL_PATH, json=_enroll_body()).status_code == 200
@@ -168,17 +176,14 @@ def test_enroll_wrong_token_401_no_rows(client, monkeypatch, session):
 
 # --- ID-03: the one-shot legacy bootstrap ------------------------------------
 
+
 def test_legacy_key_enrolls_once_then_refused(client, session, api_key):
     first = client.post(ENROLL_PATH, json=_enroll_body(**{"legacy_key": api_key}))
     assert first.status_code == 200
-    marker = session.exec(
-        select(AppSetting).where(AppSetting.key == LEGACY_CONSUMED_KEY)
-    ).one()
+    marker = session.exec(select(AppSetting).where(AppSetting.key == LEGACY_CONSUMED_KEY)).one()
 
     # A second legacy-key enrollment, even for a different email, is refused.
-    second = client.post(
-        ENROLL_PATH, json=_enroll_body("bob@example.com", **{"legacy_key": api_key})
-    )
+    second = client.post(ENROLL_PATH, json=_enroll_body("bob@example.com", **{"legacy_key": api_key}))
     assert second.status_code == 401
     assert len(session.exec(select(User)).all()) == 1
     assert len(session.exec(select(UserDevice)).all()) == 1
@@ -187,14 +192,11 @@ def test_legacy_key_enrolls_once_then_refused(client, session, api_key):
     from fastapi.testclient import TestClient
 
     from main import app
+
     with TestClient(app) as restarted:
-        after = restarted.post(
-            ENROLL_PATH, json=_enroll_body("carol@example.com", **{"legacy_key": api_key})
-        )
+        after = restarted.post(ENROLL_PATH, json=_enroll_body("carol@example.com", **{"legacy_key": api_key}))
     assert after.status_code == 401
-    persisted = session.exec(
-        select(AppSetting).where(AppSetting.key == LEGACY_CONSUMED_KEY)
-    ).one()
+    persisted = session.exec(select(AppSetting).where(AppSetting.key == LEGACY_CONSUMED_KEY)).one()
     assert persisted.id == marker.id  # same durable row, a process restart does not re-arm
     assert len(session.exec(select(User)).all()) == 1
 
@@ -206,11 +208,14 @@ def test_legacy_key_refused_on_non_enrollment_after_consumption(client, monkeypa
     headers = {"X-API-Key": api_key}
     assert client.get("/api/skills/", headers=headers).status_code == 401
     # ...and it is likewise refused on the other auth paths.
-    assert client.post(DEVICES_PATH, json={"public_key_b64": _spki_b64(_make_p256())}, headers=headers).status_code == 401
+    assert (
+        client.post(DEVICES_PATH, json={"public_key_b64": _spki_b64(_make_p256())}, headers=headers).status_code == 401
+    )
     assert len(session.exec(select(AuthSession)).all()) == 0
 
 
 # --- ID-09: device registration ----------------------------------------------
+
 
 def test_devices_second_device_with_live_session(client, session):
     user = User(email="dev2@example.com")

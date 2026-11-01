@@ -10,6 +10,7 @@ en la base de datos, por lo que los tests siembran LECTURA/CIENCIAS/M2 antes
 de asignarlas. Los ``user_id`` de las peticiones son válidos forjados: el
 propietario es el principal autenticado y dichos campos se ignoran (DO-02).
 """
+
 import pytest
 
 from seed_paes import seed_paes_data
@@ -68,10 +69,7 @@ def test_update_weekly_routine(client, full_curriculum):
 def test_quick_start_resolves_today_session(client):
     seed_paes_data()
     # Ejecutar quick-start
-    resp = client.post("/api/paes/study/routine/quick-start", json={
-        "user_id": 1,
-        "question_count": 15
-    })
+    resp = client.post("/api/paes/study/routine/quick-start", json={"user_id": 1, "question_count": 15})
     assert resp.status_code == 200
     data = resp.json()
     assert data["status"] == "success"

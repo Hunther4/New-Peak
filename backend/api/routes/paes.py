@@ -70,13 +70,16 @@ def santiago_weekday_key(moment: datetime) -> str:
     local = to_utc_aware(moment).astimezone(SANTIAGO_TZ)
     return ROUTINE_WEEKDAYS[local.weekday()]
 
+
 # --- Request / Response Schemas ---
+
 
 class StartStudySessionRequest(BaseModel):
     session_mode: str = "PRACTICE"  # PRACTICE, LEARN, EXAM, DIAGNOSTIC
     subtopic_slug: Optional[str] = None
     question_count: Optional[int] = None
     subject_code: Optional[str] = "M1"
+
 
 class SubmitAttemptRequest(BaseModel):
     session_id: str
@@ -86,24 +89,29 @@ class SubmitAttemptRequest(BaseModel):
     perceived_confidence: int = Field(default=3, ge=1, le=5)
     mistake_cause: Optional[str] = None
 
+
 class ExamAnswerItem(BaseModel):
     question_id: str
     selected_option: Optional[str] = None
     time_spent_seconds: int = 0
 
+
 class FinalizeExamRequest(BaseModel):
     answers: List[ExamAnswerItem]
     subject_code: Optional[str] = "M1"
 
+
 class ParametricRequest(BaseModel):
     template_code: str = "PARAM-M1-ALG-01"
     seed: Optional[int] = None
+
 
 class SocraticStepRequest(BaseModel):
     session_id: str
     question_id: str
     requested_level: int = Field(default=1, ge=1, le=6)
     student_message: Optional[str] = None
+
 
 class StudyPlanRequest(BaseModel):
     study_hours_weekly: int = 10
@@ -112,7 +120,9 @@ class StudyPlanRequest(BaseModel):
     active_days: Optional[List[str]] = Field(default_factory=lambda: ["Lunes", "Miércoles", "Viernes"])
     exam_date_str: Optional[str] = "2026-11-30"
 
+
 # --- Endpoints ---
+
 
 def _item_parameters_for(question: PaesQuestion) -> ItemParameters:
     """Derive the 3PL parameters of a question (falling back to its difficulty)."""
@@ -177,9 +187,7 @@ def _collect_scored_responses(
         return [], []
 
     question_ids = sorted(latest.keys())
-    questions = session.exec(
-        select(PaesQuestion).where(PaesQuestion.id.in_(question_ids))
-    ).all()
+    questions = session.exec(select(PaesQuestion).where(PaesQuestion.id.in_(question_ids))).all()
     by_id = {question.id: question for question in questions}
 
     responses: List[int] = []
@@ -200,7 +208,7 @@ def get_fsrs_status(
     request: Request,
     principal: Principal = UserPrincipalDep,
     subject_code: Optional[str] = None,
-    session: Session = Depends(get_session)
+    session: Session = Depends(get_session),
 ):
     """Devuelve la retención proyectada R(t), estabilidad y cola de repasos FSRS filtrada por asignatura."""
     user_id = principal.user_id
@@ -260,6 +268,7 @@ def get_fsrs_status(
         "timestamp": now.isoformat(),
     }
 
+
 @router.get("/subjects")
 @limiter.limit(get_rate_limit_str())
 def get_subjects(request: Request, session: Session = Depends(get_session)):
@@ -281,6 +290,7 @@ def get_subjects(request: Request, session: Session = Depends(get_session)):
         ]
     }
 
+
 @router.get("/curriculum/subtopics")
 @limiter.limit(get_rate_limit_str())
 def get_curriculum_subtopics(
@@ -297,7 +307,10 @@ def get_curriculum_subtopics(
         target_code = subject_code.upper()
         subject = session.exec(select(PaesSubject).where(PaesSubject.code == target_code)).first()
         if subject:
-            eje_ids = [e.id for e in session.exec(select(PaesEjeTematico).where(PaesEjeTematico.subject_id == subject.id)).all()]
+            eje_ids = [
+                e.id
+                for e in session.exec(select(PaesEjeTematico).where(PaesEjeTematico.subject_id == subject.id)).all()
+            ]
             topic_ids = [t.id for t in session.exec(select(PaesTopic).where(PaesTopic.eje_id.in_(eje_ids))).all()]
             query = query.where(PaesSubtopic.topic_id.in_(topic_ids))
 
@@ -309,28 +322,35 @@ def get_curriculum_subtopics(
         subj = session.get(PaesSubject, eje.subject_id) if (eje and eje.subject_id) else None
         state = session.exec(
             select(PaesLearningState).where(
-                PaesLearningState.user_id == user_id,
-                PaesLearningState.subtopic_id == sub.id
+                PaesLearningState.user_id == user_id, PaesLearningState.subtopic_id == sub.id
             )
         ).first()
-        results.append({
-            "id": sub.id,
-            "name": sub.name,
-            "slug": sub.slug,
-            "description": sub.description,
-            "subject_code": subj.code if subj else "M1",
-            "subject_name": subj.name if subj else "Competencia Matemática 1",
-            "eje_name": eje.name if eje else "General",
-            "topic_name": topic.name if topic else "General",
-            "mastery": round(state.mastery_score, 2) if (state and state.total_attempts > 0) else 0.0,
-            "leitner_box": state.leitner_box if (state and state.total_attempts > 0) else 1,
-            "attempts": state.total_attempts if state else 0,
-        })
+        results.append(
+            {
+                "id": sub.id,
+                "name": sub.name,
+                "slug": sub.slug,
+                "description": sub.description,
+                "subject_code": subj.code if subj else "M1",
+                "subject_name": subj.name if subj else "Competencia Matemática 1",
+                "eje_name": eje.name if eje else "General",
+                "topic_name": topic.name if topic else "General",
+                "mastery": round(state.mastery_score, 2) if (state and state.total_attempts > 0) else 0.0,
+                "leitner_box": state.leitner_box if (state and state.total_attempts > 0) else 1,
+                "attempts": state.total_attempts if state else 0,
+            }
+        )
     return {"subtopics": results}
+
 
 @router.post("/study/session/start")
 @limiter.limit(get_rate_limit_str())
-def start_study_session(request: Request, req: StartStudySessionRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
+def start_study_session(
+    request: Request,
+    req: StartStudySessionRequest,
+    principal: Principal = UserPrincipalDep,
+    session: Session = Depends(get_session),
+):
     """Inicia una sesión de estudio o simulacro de examen PAES M1."""
     user_id = principal.user_id
     # The subject is resolved FIRST: an unknown code must fail explicitly
@@ -395,9 +415,7 @@ def start_study_session(request: Request, req: StartStudySessionRequest, princip
             # whole curriculum would silently mix unrelated subjects.
             raise HTTPException(
                 status_code=400,
-                detail=(
-                    f"No hay preguntas disponibles para la asignatura '{target_subject_code}'."
-                ),
+                detail=(f"No hay preguntas disponibles para la asignatura '{target_subject_code}'."),
             )
 
         if len(all_q) <= count:
@@ -495,18 +513,20 @@ def start_study_session(request: Request, req: StartStudySessionRequest, princip
             {"key": opt["id"] if "id" in opt else opt.get("key"), "content": opt.get("content", opt.get("text"))}
             for opt in q.options
         ]
-        frontend_questions.append({
-            "id": q.id,
-            "subtopic_id": q.subtopic_id,
-            "stem": q.stem,
-            "stimulus_title": q.stimulus_title,
-            "stimulus_text": q.stimulus_text,
-            "options": opts,
-            "difficulty_estimate": q.difficulty_estimate,
-            "provenance_type": q.provenance_type,
-            "is_pilot": q.is_pilot,
-            "image_url": q.image_url,
-        })
+        frontend_questions.append(
+            {
+                "id": q.id,
+                "subtopic_id": q.subtopic_id,
+                "stem": q.stem,
+                "stimulus_title": q.stimulus_title,
+                "stimulus_text": q.stimulus_text,
+                "options": opts,
+                "difficulty_estimate": q.difficulty_estimate,
+                "provenance_type": q.provenance_type,
+                "is_pilot": q.is_pilot,
+                "image_url": q.image_url,
+            }
+        )
 
     session.commit()
 
@@ -524,7 +544,11 @@ def start_study_session(request: Request, req: StartStudySessionRequest, princip
     else:
         time_limit = None
 
-    display_subtopic = "Sesión de Revancha (Cuaderno de Errores)" if req.session_mode == "REVENGE" else (subtopic.name if subtopic else f"General {target_subject_code}")
+    display_subtopic = (
+        "Sesión de Revancha (Cuaderno de Errores)"
+        if req.session_mode == "REVENGE"
+        else (subtopic.name if subtopic else f"General {target_subject_code}")
+    )
 
     return {
         "session_id": session_id,
@@ -537,9 +561,15 @@ def start_study_session(request: Request, req: StartStudySessionRequest, princip
         "time_limit_minutes": time_limit,
     }
 
+
 @router.get("/study/error_notebook")
 @limiter.limit(get_rate_limit_str())
-def get_error_notebook(request: Request, subject_code: Optional[str] = None, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
+def get_error_notebook(
+    request: Request,
+    subject_code: Optional[str] = None,
+    principal: Principal = UserPrincipalDep,
+    session: Session = Depends(get_session),
+):
     """Retorna las preguntas falladas no superadas del estudiante para el Cuaderno de Errores."""
     user_id = principal.user_id
     attempts = session.exec(
@@ -560,12 +590,7 @@ def get_error_notebook(request: Request, subject_code: Optional[str] = None, pri
     unmastered_qids = [qid for qid, att in latest_attempt.items() if not att.is_correct]
 
     if not unmastered_qids:
-        return {
-            "total_errors": 0,
-            "by_subject": {},
-            "by_mistake_cause": {},
-            "items": []
-        }
+        return {"total_errors": 0, "by_subject": {}, "by_mistake_cause": {}, "items": []}
 
     questions = session.exec(select(PaesQuestion).where(PaesQuestion.id.in_(unmastered_qids))).all()
 
@@ -608,22 +633,24 @@ def get_error_notebook(request: Request, subject_code: Optional[str] = None, pri
         by_subject[s_code] = by_subject.get(s_code, 0) + 1
         by_cause[cause] = by_cause.get(cause, 0) + 1
 
-        items.append({
-            "question_id": q.id,
-            "subject_code": s_code,
-            "subject_name": subj.name if subj else "Competencia Matemática 1",
-            "eje_name": eje.name if eje else "General",
-            "subtopic_name": sub.name if sub else "General",
-            "stem": q.stem,
-            "image_url": q.image_url,
-            "options": q.options,
-            "failed_attempts_count": failed_counts.get(q.id, 1),
-            "last_selected_option": att.selected_option,
-            "last_mistake_cause": cause,
-            "raw_mistake_cause": raw_cause,
-            "last_attempt_at": att.created_at.isoformat() if att.created_at else None,
-            "explanation": q.explanation,
-        })
+        items.append(
+            {
+                "question_id": q.id,
+                "subject_code": s_code,
+                "subject_name": subj.name if subj else "Competencia Matemática 1",
+                "eje_name": eje.name if eje else "General",
+                "subtopic_name": sub.name if sub else "General",
+                "stem": q.stem,
+                "image_url": q.image_url,
+                "options": q.options,
+                "failed_attempts_count": failed_counts.get(q.id, 1),
+                "last_selected_option": att.selected_option,
+                "last_mistake_cause": cause,
+                "raw_mistake_cause": raw_cause,
+                "last_attempt_at": att.created_at.isoformat() if att.created_at else None,
+                "explanation": q.explanation,
+            }
+        )
 
     return {
         "total_errors": len(items),
@@ -632,9 +659,16 @@ def get_error_notebook(request: Request, subject_code: Optional[str] = None, pri
         "items": items,
     }
 
+
 @router.post("/study/session/{session_id}/finalize_exam")
 @limiter.limit(get_rate_limit_str())
-def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
+def finalize_exam(
+    request: Request,
+    session_id: str,
+    req: FinalizeExamRequest,
+    principal: Principal = UserPrincipalDep,
+    session: Session = Depends(get_session),
+):
     """Consolida un simulacro de examen PAES M1, calcula puntaje DEMRE 100-1000 y desglose por ejes."""
     user_id = principal.user_id
     # Owner-scoped raw load (DO-02): the session must belong to the caller or
@@ -737,23 +771,25 @@ def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, p
         )
         session.add(attempt)
 
-        review_items.append({
-            "question_id": q.id,
-            "stem": q.stem,
-            "stimulus_title": q.stimulus_title,
-            "stimulus_text": q.stimulus_text,
-            "options": q.options,
-            "selected_option": selected_opt,
-            "correct_option": correct_key,
-            "is_correct": is_correct,
-            "is_unanswered": not bool(selected_opt),
-            "time_spent_seconds": time_spent,
-            "difficulty_estimate": q.difficulty_estimate,
-            "eje_name": eje_name,
-            "subtopic_name": sub_map.get(q.subtopic_id).name if sub_map.get(q.subtopic_id) else "",
-            "explanation": q.explanation,
-            "image_url": q.image_url,
-        })
+        review_items.append(
+            {
+                "question_id": q.id,
+                "stem": q.stem,
+                "stimulus_title": q.stimulus_title,
+                "stimulus_text": q.stimulus_text,
+                "options": q.options,
+                "selected_option": selected_opt,
+                "correct_option": correct_key,
+                "is_correct": is_correct,
+                "is_unanswered": not bool(selected_opt),
+                "time_spent_seconds": time_spent,
+                "difficulty_estimate": q.difficulty_estimate,
+                "eje_name": eje_name,
+                "subtopic_name": sub_map.get(q.subtopic_id).name if sub_map.get(q.subtopic_id) else "",
+                "explanation": q.explanation,
+                "image_url": q.image_url,
+            }
+        )
 
     # Escalar puntaje a aciertos válidos oficiales DEMRE según la materia
     subject_code = (req.subject_code or "M1").upper()
@@ -773,12 +809,14 @@ def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, p
     for name, stat in ejes_stats.items():
         if stat["total"] > 0:
             pct = round((stat["correct"] / stat["total"]) * 100)
-            ejes_breakdown.append({
-                "name": name,
-                "total": stat["total"],
-                "correct": stat["correct"],
-                "percentage": pct,
-            })
+            ejes_breakdown.append(
+                {
+                    "name": name,
+                    "total": stat["total"],
+                    "correct": stat["correct"],
+                    "percentage": pct,
+                }
+            )
 
     # Motor Psicométrico TRI / IRT (3PL)
     # The ability estimate is computed over the FULL history of scored
@@ -800,8 +838,9 @@ def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, p
 
     # Actualizar o persistir PaesAssessmentState
     assess_state = session.exec(
-        select(PaesAssessmentState)
-        .where(PaesAssessmentState.user_id == user_id, PaesAssessmentState.subject_id == target_subj_id)
+        select(PaesAssessmentState).where(
+            PaesAssessmentState.user_id == user_id, PaesAssessmentState.subject_id == target_subj_id
+        )
     ).first()
 
     if not assess_state:
@@ -850,9 +889,15 @@ def finalize_exam(request: Request, session_id: str, req: FinalizeExamRequest, p
         "review": review_items,
     }
 
+
 @router.post("/study/session/submit")
 @limiter.limit(get_rate_limit_str())
-def submit_attempt(request: Request, req: SubmitAttemptRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
+def submit_attempt(
+    request: Request,
+    req: SubmitAttemptRequest,
+    principal: Principal = UserPrincipalDep,
+    session: Session = Depends(get_session),
+):
     """Evala un intento, actualiza FSRS, calcula fatiga y dispara telemetra cognitiva."""
     user_id = principal.user_id
     # Owner-scoped raw load (DO-02): same rule as finalize_exam.
@@ -908,8 +953,7 @@ def submit_attempt(request: Request, req: SubmitAttemptRequest, principal: Princ
     if question.subtopic_id:
         learning_state = session.exec(
             select(PaesLearningState).where(
-                PaesLearningState.user_id == user_id,
-                PaesLearningState.subtopic_id == question.subtopic_id
+                PaesLearningState.user_id == user_id, PaesLearningState.subtopic_id == question.subtopic_id
             )
         ).first()
 
@@ -978,9 +1022,7 @@ def submit_attempt(request: Request, req: SubmitAttemptRequest, principal: Princ
         try:
             # Resolver la skill de matemáticas PAES por slug (convención del repo);
             # si no existe, se omite la telemetría sin romper el envío de la respuesta.
-            paes_skill = session.exec(
-                select(Skill).where(Skill.slug == "math-thinking")
-            ).first()
+            paes_skill = session.exec(select(Skill).where(Skill.slug == "math-thinking")).first()
             if paes_skill is None:
                 raise LookupError("skill 'math-thinking' no encontrada")
 
@@ -1035,8 +1077,9 @@ def submit_attempt(request: Request, req: SubmitAttemptRequest, principal: Princ
             "total_answered": study_session.total_items,
             "total_correct": study_session.correct_items,
             "accuracy": round(study_session.correct_items / study_session.total_items, 2),
-        }
+        },
     }
+
 
 @router.post("/questions/generate_parametric")
 @limiter.limit(get_rate_limit_str())
@@ -1047,6 +1090,7 @@ def get_parametric_question(request: Request, req: ParametricRequest):
         return data
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.post("/tutor/step")
 @limiter.limit(get_rate_limit_str())
@@ -1101,9 +1145,15 @@ def socratic_tutor_step(
         "has_more_hints": req.requested_level < 6,
     }
 
+
 @router.post("/study/plan/generate")
 @limiter.limit(get_rate_limit_str())
-def create_study_plan(request: Request, req: StudyPlanRequest, principal: Principal = UserPrincipalDep, session: Session = Depends(get_session)):
+def create_study_plan(
+    request: Request,
+    req: StudyPlanRequest,
+    principal: Principal = UserPrincipalDep,
+    session: Session = Depends(get_session),
+):
     """Genera el cronograma semanal adaptativo según pesos DEMRE y brecha de puntaje."""
     user_id = principal.user_id
     states = session.exec(
@@ -1128,10 +1178,7 @@ def create_study_plan(request: Request, req: StudyPlanRequest, principal: Princi
         eje_name = eje.name if eje else "Álgebra y Funciones"
         eje_scores.setdefault(eje_name, []).append(st.mastery_score)
 
-    masteries_by_eje = {
-        eje_name: (sum(scores) / len(scores))
-        for eje_name, scores in eje_scores.items()
-    }
+    masteries_by_eje = {eje_name: (sum(scores) / len(scores)) for eje_name, scores in eje_scores.items()}
 
     weekly_hours = req.weekly_hours if req.weekly_hours is not None else req.study_hours_weekly
     active_days = req.active_days or ["Lunes", "Miércoles", "Viernes"]
@@ -1146,12 +1193,14 @@ def create_study_plan(request: Request, req: StudyPlanRequest, principal: Princi
     )
     return plan
 
+
 @router.get("/rag/search")
 @limiter.limit(get_rate_limit_str())
 def search_curriculum(request: Request, query: str, top_k: int = 3):
     """Búsqueda semántica en el temario oficial DEMRE M1 2026."""
     results = search_demre_curriculum(query, top_k=top_k)
     return {"query": query, "results": results}
+
 
 @router.get("/score/convert")
 @limiter.limit(get_rate_limit_str())
@@ -1216,9 +1265,7 @@ def _default_routine(session: Session) -> dict[str, str]:
 
 def _stored_routine(session: Session, user_id: int) -> Optional[dict[str, str]]:
     """Routine persisted for a user, or None when the user has no row."""
-    row = session.exec(
-        select(PaesWeeklyRoutine).where(PaesWeeklyRoutine.user_id == user_id)
-    ).first()
+    row = session.exec(select(PaesWeeklyRoutine).where(PaesWeeklyRoutine.user_id == user_id)).first()
     if row is None:
         return None
     try:
@@ -1295,14 +1342,9 @@ def update_study_routine(
             ),
         )
 
-    payload = {
-        day: current.get(day, REST_DAY_SUBJECT)
-        for day in DEFAULT_WEEKLY_ROUTINE
-    }
+    payload = {day: current.get(day, REST_DAY_SUBJECT) for day in DEFAULT_WEEKLY_ROUTINE}
 
-    row = session.exec(
-        select(PaesWeeklyRoutine).where(PaesWeeklyRoutine.user_id == principal.user_id)
-    ).first()
+    row = session.exec(select(PaesWeeklyRoutine).where(PaesWeeklyRoutine.user_id == principal.user_id)).first()
     if row is None:
         row = PaesWeeklyRoutine(id=f"routine-{uuid.uuid4().hex[:12]}", user_id=principal.user_id)
     row.routine_json = json.dumps(payload, ensure_ascii=False)
@@ -1340,9 +1382,7 @@ def quick_start_today(
         subject = _routine_fallback_subject(available)
 
     # The subject must exist before a session is started.
-    subject_row = session.exec(
-        select(PaesSubject).where(PaesSubject.code == subject)
-    ).first()
+    subject_row = session.exec(select(PaesSubject).where(PaesSubject.code == subject)).first()
     if subject_row is None:
         raise HTTPException(
             status_code=400,

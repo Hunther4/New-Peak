@@ -8,6 +8,7 @@ of two minimal-length INTEGERs, each prefixed with ``0x00`` when its high bit
 is set) instead of being captured from the library, so a regression in the
 encoder breaks these tests instead of silently redefining them.
 """
+
 import base64
 
 import pytest
@@ -36,9 +37,7 @@ KNOWN_DER_HEX = "3044" + "0220" + KNOWN_R_HEX + "0220" + KNOWN_S_HEX
 # leading zero byte and becomes 33 bytes, so the content is 69 bytes ("30 45").
 LEADING_ZERO_R_HEX = "80" + "00" * 31
 LEADING_ZERO_S_HEX = "01" * 32
-LEADING_ZERO_DER_HEX = (
-    "3045" + "0221" + "00" + LEADING_ZERO_R_HEX + "0220" + LEADING_ZERO_S_HEX
-)
+LEADING_ZERO_DER_HEX = "3045" + "0221" + "00" + LEADING_ZERO_R_HEX + "0220" + LEADING_ZERO_S_HEX
 
 
 def _p1363(r_hex: str, s_hex: str) -> bytes:
@@ -103,9 +102,7 @@ def test_normalize_to_der_round_trips_r_and_s():
         (b"", 0),
     ],
 )
-def test_normalize_to_der_rejects_a_signature_that_is_neither_p1363_nor_der(
-    signature, expected_length
-):
+def test_normalize_to_der_rejects_a_signature_that_is_neither_p1363_nor_der(signature, expected_length):
     """A malformed signature is a typed error naming the byte count, not a 500."""
     with pytest.raises(InvalidSignatureFormat) as excinfo:
         normalize_to_der(signature)

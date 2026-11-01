@@ -3,6 +3,7 @@
 Módulo de compatibilidad para el motor psicométrico 3PL IRT.
 Reexporta todas las definiciones y funciones desde `services.paes.irt_engine`.
 """
+
 from services.paes.irt_engine import (
     D_SCALING,
     AbilityEstimate,

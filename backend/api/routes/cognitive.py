@@ -50,21 +50,13 @@ def get_cognitive_skills(db: Session = Depends(get_session)):
 
 @router.post("/skills/", response_model=CognitiveSkill, status_code=201)
 @limiter.limit(get_rate_limit_str())
-def create_cognitive_skill(
-    request: Request,
-    data: CognitiveSkillCreate,
-    db: Session = Depends(get_session)
-):
+def create_cognitive_skill(request: Request, data: CognitiveSkillCreate, db: Session = Depends(get_session)):
     """Crea una nueva habilidad cognitiva."""
     existing = db.exec(select(CognitiveSkill).where(CognitiveSkill.nombre == data.nombre)).first()
     if existing:
         raise HTTPException(status_code=400, detail="Ya existe una habilidad con este nombre")
 
-    new_skill = CognitiveSkill(
-        nombre=data.nombre,
-        descripcion=data.descripcion,
-        fase_iq_base=data.fase_iq_base
-    )
+    new_skill = CognitiveSkill(nombre=data.nombre, descripcion=data.descripcion, fase_iq_base=data.fase_iq_base)
     db.add(new_skill)
     db.commit()
     db.refresh(new_skill)
@@ -73,11 +65,7 @@ def create_cognitive_skill(
 
 @router.post("/sessions/", response_model=CognitiveSession, status_code=201)
 @limiter.limit(get_rate_limit_str())
-def start_cognitive_session(
-    request: Request,
-    data: CognitiveSessionCreate,
-    db: Session = Depends(get_session)
-):
+def start_cognitive_session(request: Request, data: CognitiveSessionCreate, db: Session = Depends(get_session)):
     """Inicia una nueva sesión de entrenamiento cognitivo."""
     try:
         return iniciar_sesion(db, data.cognitive_skill_id)
@@ -86,10 +74,7 @@ def start_cognitive_session(
 
 
 @router.post("/trials/", status_code=201)
-def upload_cognitive_trials(
-    data: CognitiveTrialBulkCreate,
-    db: Session = Depends(get_session)
-):
+def upload_cognitive_trials(data: CognitiveTrialBulkCreate, db: Session = Depends(get_session)):
     """Registra un lote (bulk) de trials asociados a una sesión cognitiva."""
     session = db.get(CognitiveSession, data.session_id)
     if not session:
@@ -106,7 +91,7 @@ def upload_cognitive_trials(
             respuesta_esperada=t.respuesta_esperada,
             respuesta_usuario=t.respuesta_usuario,
             es_correcto=t.es_correcto,
-            tiempo_reaccion_ms=t.tiempo_reaccion_ms
+            tiempo_reaccion_ms=t.tiempo_reaccion_ms,
         )
         db.add(db_trial)
         db_trials.append(db_trial)
@@ -117,9 +102,7 @@ def upload_cognitive_trials(
 
 @router.post("/sessions/{session_id}/consolidate", status_code=201)
 def consolidate_cognitive_session(
-    session_id: int,
-    payload: Optional[ConsolidatePayload] = Body(default=None),
-    db: Session = Depends(get_session)
+    session_id: int, payload: Optional[ConsolidatePayload] = Body(default=None), db: Session = Depends(get_session)
 ):
     """Consolida una CognitiveSession creando un PracticeSession para la timeline."""
     elapsed_seconds = payload.elapsed_seconds if payload else None
@@ -131,9 +114,7 @@ def consolidate_cognitive_session(
 
 @router.post("/sessions/{session_id}/finalize/")
 def finalize_cognitive_session(
-    session_id: int,
-    payload: Optional[ConsolidatePayload] = Body(default=None),
-    db: Session = Depends(get_session)
+    session_id: int, payload: Optional[ConsolidatePayload] = Body(default=None), db: Session = Depends(get_session)
 ):
     """Finaliza la sesión, calcula la tasa de precisión, tiempo de reacción promedio y nuevo nivel N.
 
@@ -146,8 +127,7 @@ def finalize_cognitive_session(
 
     if session_obj.fecha_fin is not None:
         raise HTTPException(
-            status_code=400,
-            detail="La sesión ya fue finalizada. No se puede volver a computar el nivel N."
+            status_code=400, detail="La sesión ya fue finalizada. No se puede volver a computar el nivel N."
         )
 
     try:

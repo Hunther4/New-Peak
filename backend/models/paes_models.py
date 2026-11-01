@@ -15,6 +15,7 @@ class PaesCurriculumVersion(SQLModel, table=True):
     is_active: bool = Field(default=True)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class PaesSubject(SQLModel, table=True):
     __tablename__ = "paes_subjects"
 
@@ -28,13 +29,15 @@ class PaesSubject(SQLModel, table=True):
     pilot_questions: int = Field(default=5)
     duration_minutes: int = Field(default=140)
 
+
 class PaesCompetency(SQLModel, table=True):
     __tablename__ = "paes_competencies"
 
     id: str = Field(primary_key=True)
-    code: str = Field(index=True, unique=True) # RESOLVER_PROBLEMAS, MODELAR, REPRESENTAR, ARGUMENTAR
+    code: str = Field(index=True, unique=True)  # RESOLVER_PROBLEMAS, MODELAR, REPRESENTAR, ARGUMENTAR
     name: str
     description: Optional[str] = Field(default=None)
+
 
 class PaesEjeTematico(SQLModel, table=True):
     __tablename__ = "paes_ejes_tematicos"
@@ -44,6 +47,7 @@ class PaesEjeTematico(SQLModel, table=True):
     name: str
     order_index: int = Field(default=0)
 
+
 class PaesTopic(SQLModel, table=True):
     __tablename__ = "paes_topics"
 
@@ -51,6 +55,7 @@ class PaesTopic(SQLModel, table=True):
     eje_id: str = Field(foreign_key="paes_ejes_tematicos.id", index=True)
     name: str
     order_index: int = Field(default=0)
+
 
 class PaesSubtopic(SQLModel, table=True):
     __tablename__ = "paes_subtopics"
@@ -62,6 +67,7 @@ class PaesSubtopic(SQLModel, table=True):
     description: Optional[str] = Field(default=None)
     order_index: int = Field(default=0)
 
+
 class PaesSubtopicPrerequisite(SQLModel, table=True):
     __tablename__ = "paes_subtopic_prerequisites"
 
@@ -72,18 +78,19 @@ class PaesSubtopicPrerequisite(SQLModel, table=True):
     minimum_mastery_required: float = Field(default=0.60)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class PaesQuestion(SQLModel, table=True):
     __tablename__ = "paes_questions"
 
     id: str = Field(primary_key=True)
     subtopic_id: str = Field(foreign_key="paes_subtopics.id", index=True)
     skill_id: str = Field(foreign_key="paes_competencies.id", index=True)
-    provenance_type: str = Field(default="ORIGINAL") # OFFICIAL, ORIGINAL, PARAMETRIC
+    provenance_type: str = Field(default="ORIGINAL")  # OFFICIAL, ORIGINAL, PARAMETRIC
     stem: str
     stimulus_title: Optional[str] = Field(default=None)
     stimulus_text: Optional[str] = Field(default=None)
-    options_json: str # JSON list of {key, text, is_correct, distractor_type}
-    explanation_json: str # JSON dict {correct_solution, distractor_analysis}
+    options_json: str  # JSON list of {key, text, is_correct, distractor_type}
+    explanation_json: str  # JSON dict {correct_solution, distractor_analysis}
     difficulty_estimate: float = Field(default=0.5)
     difficulty_source: str = Field(default="INITIAL_HEURISTIC")
     irt_a: Optional[float] = Field(default=None)
@@ -104,6 +111,7 @@ class PaesQuestion(SQLModel, table=True):
     def explanation(self) -> Dict[str, Any]:
         return json.loads(self.explanation_json) if self.explanation_json else {}
 
+
 class PaesLearningState(SQLModel, table=True):
     __tablename__ = "paes_learning_states"
 
@@ -121,6 +129,7 @@ class PaesLearningState(SQLModel, table=True):
     total_successes: int = Field(default=0)
     last_practiced_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class PaesAssessmentState(SQLModel, table=True):
     __tablename__ = "paes_assessment_states"
 
@@ -136,12 +145,13 @@ class PaesAssessmentState(SQLModel, table=True):
     total_scored_items_answered: int = Field(default=0)
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 class PaesStudySession(SQLModel, table=True):
     __tablename__ = "paes_study_sessions"
 
     id: str = Field(primary_key=True)
     user_id: int = Field(index=True)
-    session_mode: str = Field(default="PRACTICE") # PRACTICE, LEARN, EXAM, DIAGNOSTIC
+    session_mode: str = Field(default="PRACTICE")  # PRACTICE, LEARN, EXAM, DIAGNOSTIC
     subject_id: Optional[str] = Field(default=None)
     subtopic_id: Optional[str] = Field(default=None)
     is_completed: bool = Field(default=False)
@@ -157,6 +167,7 @@ class PaesStudySession(SQLModel, table=True):
     # attempt insert violates the foreign key.
     attempts: List["PaesQuestionAttempt"] = Relationship(back_populates="study_session")
 
+
 class PaesQuestionAttempt(SQLModel, table=True):
     __tablename__ = "paes_question_attempts"
 
@@ -164,15 +175,16 @@ class PaesQuestionAttempt(SQLModel, table=True):
     session_id: str = Field(foreign_key="paes_study_sessions.id", index=True)
     question_id: str = Field(foreign_key="paes_questions.id", index=True)
     user_id: int = Field(index=True)
-    selected_option: str # A, B, C, D
+    selected_option: str  # A, B, C, D
     is_correct: bool
     time_spent_seconds: int = Field(default=30)
-    perceived_confidence: int = Field(default=3) # 1-5
-    mistake_cause: Optional[str] = Field(default=None) # CONCEPTUAL, PROCEDIMENTAL, CALCULO, etc.
+    perceived_confidence: int = Field(default=3)  # 1-5
+    mistake_cause: Optional[str] = Field(default=None)  # CONCEPTUAL, PROCEDIMENTAL, CALCULO, etc.
     diagnostic_source: Optional[str] = Field(default=None)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     study_session: "PaesStudySession" = Relationship(back_populates="attempts")
+
 
 class PaesSocraticStep(SQLModel, table=True):
     __tablename__ = "paes_socratic_steps"
@@ -180,11 +192,12 @@ class PaesSocraticStep(SQLModel, table=True):
     id: str = Field(primary_key=True)
     session_id: str = Field(index=True)
     question_id: str = Field(index=True)
-    tutor_level: int = Field(default=1) # 1 to 6
+    tutor_level: int = Field(default=1)  # 1 to 6
     hint_text: str
     student_response: Optional[str] = Field(default=None)
     student_understanding: Optional[str] = Field(default=None)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 
 class PaesWeeklyRoutine(SQLModel, table=True):
     """Persisted weekly study routine (day -> subject code) for a single user.
@@ -199,4 +212,3 @@ class PaesWeeklyRoutine(SQLModel, table=True):
     user_id: int = Field(index=True, unique=True)
     routine_json: str = Field(default="{}")  # JSON object: {"monday": "M1", ...}
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-

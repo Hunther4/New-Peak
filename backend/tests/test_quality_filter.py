@@ -2,6 +2,7 @@
 Tests para curriculum_banks/quality_filter.py
 Verifica el filtrado de calidad de ítems PAES y la validación de KaTeX.
 """
+
 from curriculum_banks.quality_filter import QualityFilter
 
 
@@ -15,9 +16,7 @@ def test_quality_filter_valid_item():
             {"key": "C", "text": "$10$", "is_correct": False},
             {"key": "D", "text": "$20$", "is_correct": False},
         ],
-        "explanation": {
-            "correct_solution": "Dividiendo por $2$ ambos lados, obtenemos $x = 5$."
-        }
+        "explanation": {"correct_solution": "Dividiendo por $2$ ambos lados, obtenemos $x = 5$."},
     }
     is_valid, errors = QualityFilter.validate_item(item, {"sub-test"})
     assert is_valid is True
@@ -26,7 +25,7 @@ def test_quality_filter_valid_item():
 
 def test_quality_filter_unbalanced_katex():
     item = {
-        "stem": "¿Cuál es el valor de $x en la ecuación $2x = 10$?", # Delimitador desbalanceado
+        "stem": "¿Cuál es el valor de $x en la ecuación $2x = 10$?",  # Delimitador desbalanceado
         "subtopic_id": "sub-test",
         "options": [
             {"key": "A", "text": "5", "is_correct": True},
@@ -34,9 +33,7 @@ def test_quality_filter_unbalanced_katex():
             {"key": "C", "text": "10", "is_correct": False},
             {"key": "D", "text": "20", "is_correct": False},
         ],
-        "explanation": {
-            "correct_solution": "Solución válida."
-        }
+        "explanation": {"correct_solution": "Solución válida."},
     }
     is_valid, errors = QualityFilter.validate_item(item, {"sub-test"})
     assert is_valid is False
@@ -49,13 +46,11 @@ def test_quality_filter_multiple_correct_options():
         "subtopic_id": "sub-test",
         "options": [
             {"key": "A", "text": "2 es par", "is_correct": True},
-            {"key": "B", "text": "4 es par", "is_correct": True}, # 2 correctas
+            {"key": "B", "text": "4 es par", "is_correct": True},  # 2 correctas
             {"key": "C", "text": "3 es par", "is_correct": False},
             {"key": "D", "text": "5 es par", "is_correct": False},
         ],
-        "explanation": {
-            "correct_solution": "Explicación."
-        }
+        "explanation": {"correct_solution": "Explicación."},
     }
     is_valid, errors = QualityFilter.validate_item(item, {"sub-test"})
     assert is_valid is False

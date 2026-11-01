@@ -3,6 +3,7 @@ Tests for Secrets Management (T-04, T-05).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import pytest
 
 
@@ -13,6 +14,7 @@ class TestLazyAIClient:
     def reset_ai_client(self):
         """Reset the lazy client cache before each test."""
         import core.ai
+
         core.ai.reset_client()
         yield
         core.ai.reset_client()
@@ -21,6 +23,7 @@ class TestLazyAIClient:
         """GIVEN core.ai module loaded
         WHEN no get_client() call made yet THEN _client is None."""
         import core.ai
+
         assert core.ai._client is None
 
     def test_get_client_first_call_reads_env(self, monkeypatch):
@@ -90,6 +93,7 @@ class TestLazyRouterKeys:
         """GIVEN GROQ_API_KEY set in env
         WHEN _get_groq_key() called first time THEN returns env value."""
         from core.router import _get_groq_key, _key_cache
+
         _key_cache.clear()
 
         monkeypatch.setenv("GROQ_API_KEY", "gsk-test-groq")
@@ -99,6 +103,7 @@ class TestLazyRouterKeys:
         """GIVEN _get_groq_key() called once
         WHEN called again with different env THEN returns cached value."""
         from core.router import _get_groq_key, _key_cache
+
         _key_cache.clear()
 
         monkeypatch.setenv("GROQ_API_KEY", "gsk-original")
@@ -113,6 +118,7 @@ class TestLazyRouterKeys:
         """GIVEN OPENROUTER_API_KEY set in env
         WHEN _get_openrouter_key() called first time THEN returns env value."""
         from core.router import _get_openrouter_key, _key_cache
+
         _key_cache.clear()
 
         monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-v1-test")
@@ -122,6 +128,7 @@ class TestLazyRouterKeys:
         """GIVEN _get_openrouter_key() called once
         WHEN called again with different env THEN returns cached value."""
         from core.router import _get_openrouter_key, _key_cache
+
         _key_cache.clear()
 
         monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-v1-original")
@@ -136,6 +143,7 @@ class TestLazyRouterKeys:
         """GIVEN both API keys in env
         WHEN both accessors called THEN each caches independently."""
         from core.router import _get_groq_key, _get_openrouter_key, _key_cache
+
         _key_cache.clear()
 
         monkeypatch.setenv("GROQ_API_KEY", "groq-only")

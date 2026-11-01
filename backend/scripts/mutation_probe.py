@@ -21,7 +21,6 @@ Usage
 
 from __future__ import annotations
 
-import importlib
 import sys
 import types
 from pathlib import Path
@@ -32,12 +31,23 @@ _LEARNING_ENGINE_PATH = Path(__file__).parent.parent / "services" / "paes" / "le
 # Canonical default FSRS-4.5 constants (for oracle assertions)
 FACTOR = 19.0 / 81.0  # ≈ 0.2345679012345679
 FSRS_W = [
-    0.4072, 1.1827, 3.1262, 15.4722,  # w0..w3
-    7.2102, 0.5316,                    # w4..w5
-    1.0651, 0.0234,                    # w6..w7
-    1.6160, 0.1544, 1.0824,            # w8..w10
-    1.9813, 0.0953, 0.2975, 0.2242,    # w11..w14
-    0.2507, 2.9466,                    # w15..w16
+    0.4072,
+    1.1827,
+    3.1262,
+    15.4722,  # w0..w3
+    7.2102,
+    0.5316,  # w4..w5
+    1.0651,
+    0.0234,  # w6..w7
+    1.6160,
+    0.1544,
+    1.0824,  # w8..w10
+    1.9813,
+    0.0953,
+    0.2975,
+    0.2242,  # w11..w14
+    0.2507,
+    2.9466,  # w15..w16
 ]
 
 

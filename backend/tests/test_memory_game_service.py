@@ -5,6 +5,7 @@ Bypasses the FastAPI HTTP layer to validate the service functions in
 isolation. Catches logic bugs without going through routing, validation,
 or middleware (auth, rate limit, etc.).
 """
+
 import json
 from unittest.mock import patch
 
@@ -199,10 +200,9 @@ class TestEnviarIntento:
 
         # Attempt row created
         from models.models import MemoryNumberAttempt
+
         attempts = session.exec(
-            __import__("sqlmodel").select(MemoryNumberAttempt).where(
-                MemoryNumberAttempt.round_id == rnd.id
-            )
+            __import__("sqlmodel").select(MemoryNumberAttempt).where(MemoryNumberAttempt.round_id == rnd.id)
         ).all()
         assert len(attempts) == 1
         assert attempts[0].correct is True
@@ -380,7 +380,8 @@ class TestSaveSessionMeta:
         mem = _create_mem_session(session, skill.id)
 
         result = memory_game_service.save_session_meta(
-            session, mem.id,
+            session,
+            mem.id,
             strategy_type="chunking",
             self_reported_difficulty=3,
             notes="Usé chunking de a 3",
@@ -398,7 +399,8 @@ class TestSaveSessionMeta:
         """Raises ValueError for bad session_id."""
         with pytest.raises(ValueError, match="Game session not found"):
             memory_game_service.save_session_meta(
-                session, 99999,
+                session,
+                99999,
                 strategy_type="chunking",
                 self_reported_difficulty=3,
                 notes=None,
@@ -411,7 +413,8 @@ class TestSaveSessionMeta:
 
         with pytest.raises(ValueError, match="difficulty must be 1-5"):
             memory_game_service.save_session_meta(
-                session, mem.id,
+                session,
+                mem.id,
                 strategy_type="chunking",
                 self_reported_difficulty=6,
                 notes=None,
@@ -423,7 +426,8 @@ class TestSaveSessionMeta:
         mem = _create_mem_session(session, skill.id)
 
         result = memory_game_service.save_session_meta(
-            session, mem.id,
+            session,
+            mem.id,
             strategy_type="rehearsal",
             self_reported_difficulty=None,
             notes=None,

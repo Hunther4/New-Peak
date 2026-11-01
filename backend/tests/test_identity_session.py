@@ -27,6 +27,7 @@ Acceptance criteria:
 Run from the repo root:
   backend\\venv\\Scripts\\python.exe -m pytest backend/tests/test_identity_session.py -q
 """
+
 import base64
 import hashlib
 import threading
@@ -54,7 +55,12 @@ ME_PATH = "/api/auth/me"
 LOGOUT_PATH = "/api/auth/logout"
 DEVICES_PATH = "/api/auth/devices"
 CHALLENGE_FIELDS = {
-    "challenge_id", "nonce", "email", "origin", "deployment_id", "expires_at",
+    "challenge_id",
+    "nonce",
+    "email",
+    "origin",
+    "deployment_id",
+    "expires_at",
 }
 
 
@@ -67,6 +73,7 @@ def _reset_limiter():
 
 
 # --- helpers ----------------------------------------------------------------
+
 
 def _spki_b64(key) -> str:
     """Export a public key as its base64-encoded SPKI DER blob."""
@@ -162,6 +169,7 @@ def _freeze_clock(monkeypatch, base: datetime, **offset):
 
 # --- ID-04: challenge issuance without an enumeration oracle -----------------
 
+
 def test_challenge_known_and_unknown_shape_identical(client, session):
     user, device, _ = _enrolled(client, session)
     known = _challenge(client, "session@example.com", device.id)
@@ -201,8 +209,7 @@ def test_challenge_unknown_nonce_never_verifies(client, session):
 def test_challenge_rate_limited(client, session):
     _enrolled(client, session)
     status_codes = [
-        client.post(CHALLENGE_PATH, json={"email": "rl@example.com", "device_id": 1}).status_code
-        for _ in range(12)
+        client.post(CHALLENGE_PATH, json={"email": "rl@example.com", "device_id": 1}).status_code for _ in range(12)
     ]
     assert status_codes[:10] == [200] * 10
     assert 429 in status_codes[10:]
@@ -210,26 +217,36 @@ def test_challenge_rate_limited(client, session):
 
 # --- ID-05: signature normalization ------------------------------------------
 
+
 def test_verify_p1363_and_der_signatures_both_200(client, session):
     user, device, privkey = _enrolled(client, session)
 
     # each verify must consume its own challenge
     first = _challenge(client, "session@example.com", device.id)
-    p1363 = client.post(VERIFY_PATH, json={
-        "challenge_id": first["challenge_id"],
-        "signature_b64": _challenge_signed(privkey, first),
-    })
+    p1363 = client.post(
+        VERIFY_PATH,
+        json={
+            "challenge_id": first["challenge_id"],
+            "signature_b64": _challenge_signed(privkey, first),
+        },
+    )
     assert p1363.status_code == 200, p1363.text
 
     second = _challenge(client, "session@example.com", device.id)
     message = canonical_message(
-        challenge_id=second["challenge_id"], nonce=second["nonce"], email=second["email"],
-        origin=second["origin"], deployment_id=second["deployment_id"],
+        challenge_id=second["challenge_id"],
+        nonce=second["nonce"],
+        email=second["email"],
+        origin=second["origin"],
+        deployment_id=second["deployment_id"],
     )
-    der = client.post(VERIFY_PATH, json={
-        "challenge_id": second["challenge_id"],
-        "signature_b64": _sign_der(privkey, message),
-    })
+    der = client.post(
+        VERIFY_PATH,
+        json={
+            "challenge_id": second["challenge_id"],
+            "signature_b64": _sign_der(privkey, message),
+        },
+    )
     assert der.status_code == 200, der.text
 
 
@@ -237,14 +254,20 @@ def test_verify_wrong_length_is_typed_400(client, session):
     user, device, privkey = _enrolled(client, session)
     challenge = _challenge(client, "session@example.com", device.id)
     message = canonical_message(
-        challenge_id=challenge["challenge_id"], nonce=challenge["nonce"], email=challenge["email"],
-        origin=challenge["origin"], deployment_id=challenge["deployment_id"],
+        challenge_id=challenge["challenge_id"],
+        nonce=challenge["nonce"],
+        email=challenge["email"],
+        origin=challenge["origin"],
+        deployment_id=challenge["deployment_id"],
     )
     truncated = privkey.sign(message, ec.ECDSA(hashes.SHA256()))[:60]
-    response = client.post(VERIFY_PATH, json={
-        "challenge_id": challenge["challenge_id"],
-        "signature_b64": base64.b64encode(truncated).decode(),
-    })
+    response = client.post(
+        VERIFY_PATH,
+        json={
+            "challenge_id": challenge["challenge_id"],
+            "signature_b64": base64.b64encode(truncated).decode(),
+        },
+    )
     assert response.status_code == 400
     assert "byte" in response.json()["detail"].lower()
 
@@ -256,36 +279,64 @@ def test_verify_wrong_key_challenge_or_deployment_401(client, session):
     # a signature by another key
     stranger_challenge = _challenge(client, "session@example.com", device.id)
     stranger_sig = _challenge_signed(stranger, stranger_challenge)
-    assert client.post(VERIFY_PATH, json={
-        "challenge_id": stranger_challenge["challenge_id"], "signature_b64": stranger_sig,
-    }).status_code == 401
+    assert (
+        client.post(
+            VERIFY_PATH,
+            json={
+                "challenge_id": stranger_challenge["challenge_id"],
+                "signature_b64": stranger_sig,
+            },
+        ).status_code
+        == 401
+    )
 
     # a signature over another challenge id: signed over A, submitted under B
     a = _challenge(client, "session@example.com", device.id)
     stale = canonical_message(
-        challenge_id=a["challenge_id"], nonce=a["nonce"], email=a["email"],
-        origin=a["origin"], deployment_id=a["deployment_id"],
+        challenge_id=a["challenge_id"],
+        nonce=a["nonce"],
+        email=a["email"],
+        origin=a["origin"],
+        deployment_id=a["deployment_id"],
     )
     b = _challenge(client, "session@example.com", device.id)
-    assert client.post(VERIFY_PATH, json={
-        "challenge_id": b["challenge_id"], "signature_b64": _sign(privkey, stale),
-    }).status_code == 401
+    assert (
+        client.post(
+            VERIFY_PATH,
+            json={
+                "challenge_id": b["challenge_id"],
+                "signature_b64": _sign(privkey, stale),
+            },
+        ).status_code
+        == 401
+    )
 
     # a signature bound to another deployment_id
     c = _challenge(client, "session@example.com", device.id)
     foreign_msg = canonical_message(
-        challenge_id=c["challenge_id"], nonce=c["nonce"], email=c["email"],
-        origin=c["origin"], deployment_id="other-deployment",
+        challenge_id=c["challenge_id"],
+        nonce=c["nonce"],
+        email=c["email"],
+        origin=c["origin"],
+        deployment_id="other-deployment",
     )
-    assert client.post(VERIFY_PATH, json={
-        "challenge_id": c["challenge_id"], "signature_b64": _sign(privkey, foreign_msg),
-    }).status_code == 401
+    assert (
+        client.post(
+            VERIFY_PATH,
+            json={
+                "challenge_id": c["challenge_id"],
+                "signature_b64": _sign(privkey, foreign_msg),
+            },
+        ).status_code
+        == 401
+    )
     # the canonical body binds exactly the six server-supplied lines
     assert PROTOCOL_VERSION == "peak-auth-v1"
     assert session.exec(select(AuthSession)).all() == []
 
 
 # --- ID-06: atomic single-use consumption -------------------------------------
+
 
 def test_challenge_single_consumption_second_verify_401(client, session):
     user, device, privkey = _enrolled(client, session)
@@ -344,16 +395,24 @@ def test_concurrent_verify_exactly_one_winner(tmp_path):
         setup.add(device)
         setup.flush()
         challenge_id = uuid.uuid4().hex
-        setup.add(AuthChallenge(
-            id=challenge_id, user_id=user.id, device_id=device.id,
-            nonce=nonce,
-            created_at=now, expires_at=now + timedelta(seconds=300),
-        ))
+        setup.add(
+            AuthChallenge(
+                id=challenge_id,
+                user_id=user.id,
+                device_id=device.id,
+                nonce=nonce,
+                created_at=now,
+                expires_at=now + timedelta(seconds=300),
+            )
+        )
         setup.commit()
 
     message = canonical_message(
-        challenge_id=challenge_id, nonce=nonce, email="race@example.com",
-        origin=identity_mod._auth_origin(), deployment_id="race-deployment",
+        challenge_id=challenge_id,
+        nonce=nonce,
+        email="race@example.com",
+        origin=identity_mod._auth_origin(),
+        deployment_id="race-deployment",
     )
     signature = _sign(privkey, message)
 
@@ -390,14 +449,19 @@ def test_challenge_expired_401(client, session, monkeypatch):
     signature = _challenge_signed(privkey, challenge)
 
     _freeze_clock(monkeypatch, to_utc_aware(row.created_at), seconds=301)
-    response = client.post(VERIFY_PATH, json={
-        "challenge_id": challenge["challenge_id"], "signature_b64": signature,
-    })
+    response = client.post(
+        VERIFY_PATH,
+        json={
+            "challenge_id": challenge["challenge_id"],
+            "signature_b64": signature,
+        },
+    )
     assert response.status_code == 401
     assert session.exec(select(AuthSession)).all() == []
 
 
 # --- ID-07 / ID-11: the session token and the principal -----------------------
+
 
 def test_session_row_stores_only_the_digest(client, session):
     user, device, privkey = _enrolled(client, session)
@@ -406,9 +470,15 @@ def test_session_row_stores_only_the_digest(client, session):
     row = session.exec(select(AuthSession)).one()
     assert row.token_hash == hashlib.sha256(token.encode()).hexdigest()
     persisted = [
-        row.token_hash, str(row.created_at), str(row.last_seen_at),
-        str(row.expires_at), str(row.absolute_expires_at), str(row.revoked_at),
-        str(row.id), str(row.user_id), str(row.device_id),
+        row.token_hash,
+        str(row.created_at),
+        str(row.last_seen_at),
+        str(row.expires_at),
+        str(row.absolute_expires_at),
+        str(row.revoked_at),
+        str(row.id),
+        str(row.user_id),
+        str(row.device_id),
     ]
     assert not any(token in value for value in persisted)
 
@@ -430,12 +500,11 @@ def test_me_resolves_complete_principal_then_401(client, session, monkeypatch):
 
     # without and with a bogus token: 401, never a resolvable principal
     assert client.get(ME_PATH).status_code == 401
-    assert client.get(
-        ME_PATH, headers={"Authorization": "Bearer not-a-real-token"}
-    ).status_code == 401
+    assert client.get(ME_PATH, headers={"Authorization": "Bearer not-a-real-token"}).status_code == 401
 
 
 # --- ID-08: sliding, absolute, revoked ----------------------------------------
+
 
 def test_session_revoked_401(client, session, monkeypatch):
     monkeypatch.delenv("DISABLE_AUTH", raising=False)
@@ -478,13 +547,9 @@ def test_session_sliding_expiry_and_idle_refresh(client, session, monkeypatch):
     # sliding window missed entirely (no refresh since): 401 on the next call
     fresh_user, fresh_device, fresh_key = _enrolled(client, session, "sliding@example.com")
     fresh_token = _login(client, "sliding@example.com", fresh_device.id, fresh_key)
-    fresh_row = session.exec(
-        select(AuthSession).where(AuthSession.device_id == fresh_device.id)
-    ).one()
+    fresh_row = session.exec(select(AuthSession).where(AuthSession.device_id == fresh_device.id)).one()
     _freeze_clock(monkeypatch, to_utc_aware(fresh_row.created_at), days=40)
-    assert client.get(
-        ME_PATH, headers={"Authorization": f"Bearer {fresh_token}"}
-    ).status_code == 401
+    assert client.get(ME_PATH, headers={"Authorization": f"Bearer {fresh_token}"}).status_code == 401
 
 
 def test_absolute_expiry_wins_over_refreshed_sliding(client, session, monkeypatch):
@@ -518,13 +583,19 @@ def test_absolute_expiry_wins_over_refreshed_sliding(client, session, monkeypatc
 
 # --- ID-09: devices add / rotate / revoke --------------------------------------
 
+
 def test_devices_added_with_session_then_401_without(client, session):
     user, device, privkey = _enrolled(client, session)
     token = _login(client, "session@example.com", device.id, privkey)
 
-    second = client.post(DEVICES_PATH, json={
-        "public_key_b64": _spki_b64(_make_p256()), "label": "phone",
-    }, headers={"Authorization": f"Bearer {token}"})
+    second = client.post(
+        DEVICES_PATH,
+        json={
+            "public_key_b64": _spki_b64(_make_p256()),
+            "label": "phone",
+        },
+        headers={"Authorization": f"Bearer {token}"},
+    )
     assert second.status_code == 200
     body = second.json()
     assert set(body) == {"device_id", "needs_challenge"} and body["needs_challenge"] is True
@@ -542,9 +613,14 @@ def test_device_duplicate_public_key_409(client, session):
     """
     user, device, privkey = _enrolled(client, session)
     token = _login(client, "session@example.com", device.id, privkey)
-    duplicate = client.post(DEVICES_PATH, json={
-        "public_key_b64": _spki_b64(privkey), "label": "dupe",
-    }, headers={"Authorization": f"Bearer {token}"})
+    duplicate = client.post(
+        DEVICES_PATH,
+        json={
+            "public_key_b64": _spki_b64(privkey),
+            "label": "dupe",
+        },
+        headers={"Authorization": f"Bearer {token}"},
+    )
     assert duplicate.status_code == 409, duplicate.text
     assert len(session.exec(select(UserDevice)).all()) == 1  # no extra row
 
@@ -558,16 +634,19 @@ def test_rotate_duplicate_public_key_409_leaves_state_untouched(client, session)
     user, device, privkey = _enrolled(client, session)
     token = _login(client, "session@example.com", device.id, privkey)
     headers = {"Authorization": f"Bearer {token}"}
-    other = client.post(DEVICES_PATH, json={"public_key_b64": _spki_b64(_make_p256())},
-                        headers=headers)
+    other = client.post(DEVICES_PATH, json={"public_key_b64": _spki_b64(_make_p256())}, headers=headers)
     assert other.status_code == 200
     other_id = other.json()["device_id"]
 
     session.expire_all()
     other_key = session.get(UserDevice, other_id).public_key
-    rotated = client.post(f"{DEVICES_PATH}/{device.id}/rotate", json={
-        "public_key_b64": base64.b64encode(other_key).decode("ascii"),
-    }, headers=headers)
+    rotated = client.post(
+        f"{DEVICES_PATH}/{device.id}/rotate",
+        json={
+            "public_key_b64": base64.b64encode(other_key).decode("ascii"),
+        },
+        headers=headers,
+    )
     assert rotated.status_code == 409, rotated.text
 
     # nothing happened: the key, the epoch and the device's sessions
@@ -576,9 +655,7 @@ def test_rotate_duplicate_public_key_409_leaves_state_untouched(client, session)
     assert row.public_key == _spki_der(privkey)
     assert row.key_epoch == 1
     live_sessions = session.exec(
-        select(AuthSession).where(
-            (AuthSession.device_id == device.id) & (AuthSession.revoked_at.is_(None))
-        )
+        select(AuthSession).where((AuthSession.device_id == device.id) & (AuthSession.revoked_at.is_(None)))
     ).all()
     assert len(live_sessions) == 1
 
@@ -591,9 +668,13 @@ def test_rotate_replaces_key_bumps_epoch_revokes_sessions(client, session, monke
 
     new_key = _make_p256()
     before_epoch = session.get(UserDevice, device.id).key_epoch  # int snapshot
-    rotated = client.post(f"{DEVICES_PATH}/{device.id}/rotate", json={
-        "public_key_b64": _spki_b64(new_key),
-    }, headers=headers)
+    rotated = client.post(
+        f"{DEVICES_PATH}/{device.id}/rotate",
+        json={
+            "public_key_b64": _spki_b64(new_key),
+        },
+        headers=headers,
+    )
     assert rotated.status_code == 200
     body = rotated.json()
     assert set(body) == {"device_id", "key_epoch"}
@@ -613,8 +694,9 @@ def test_rotate_refused_without_live_session_for_that_device(client, session, mo
     token = _login(client, "session@example.com", device.id, privkey)
 
     # add a second device through the live session, authenticate on it…
-    other = client.post(DEVICES_PATH, json={"public_key_b64": _spki_b64(_make_p256())},
-                        headers={"Authorization": f"Bearer {token}"})
+    other = client.post(
+        DEVICES_PATH, json={"public_key_b64": _spki_b64(_make_p256())}, headers={"Authorization": f"Bearer {token}"}
+    )
     assert other.status_code == 200
     other_id = other.json()["device_id"]
     second_key = _make_p256()
@@ -629,18 +711,26 @@ def test_rotate_refused_without_live_session_for_that_device(client, session, mo
     # rotating device1 from device2's session: no live session for device1 → 401
     session.expire_all()
     before = session.get(UserDevice, device.id).public_key
-    denied = client.post(f"{DEVICES_PATH}/{device.id}/rotate", json={
-        "public_key_b64": _spki_b64(_make_p256()),
-    }, headers={"Authorization": f"Bearer {token2}"})
+    denied = client.post(
+        f"{DEVICES_PATH}/{device.id}/rotate",
+        json={
+            "public_key_b64": _spki_b64(_make_p256()),
+        },
+        headers={"Authorization": f"Bearer {token2}"},
+    )
     assert denied.status_code == 401
     session.expire_all()
     assert session.get(UserDevice, device.id).public_key == before
 
     # a device that is not the caller's is 404
     stranger_user, stranger_device, _ = _enrolled(client, session, "other@example.com")
-    foreign = client.post(f"{DEVICES_PATH}/{stranger_device.id}/rotate", json={
-        "public_key_b64": _spki_b64(_make_p256()),
-    }, headers={"Authorization": f"Bearer {token}"})
+    foreign = client.post(
+        f"{DEVICES_PATH}/{stranger_device.id}/rotate",
+        json={
+            "public_key_b64": _spki_b64(_make_p256()),
+        },
+        headers={"Authorization": f"Bearer {token}"},
+    )
     assert foreign.status_code == 404
 
 
@@ -660,10 +750,8 @@ def test_revoke_keeps_row_and_user_data(client, session, monkeypatch):
 
     session.expire_all()
     assert session.get(UserDevice, device.id) is not None  # the row survives
-    assert session.get(User, user.id) is not None          # the user's data survives
-    assert len(session.exec(select(UserDevice)).all()) == 2 == len(
-        session.exec(select(User)).all()
-    )
+    assert session.get(User, user.id) is not None  # the user's data survives
+    assert len(session.exec(select(UserDevice)).all()) == 2 == len(session.exec(select(User)).all())
     sessions = session.exec(select(AuthSession)).all()
     assert all(s.revoked_at is not None for s in sessions if s.device_id == device.id)
     assert client.get(ME_PATH, headers=headers).status_code == 401
@@ -681,6 +769,7 @@ def test_logout_revokes_only_own_session(client, session, monkeypatch):
 
 
 # --- ID-10: device-loss recovery CLI -------------------------------------------
+
 
 def test_reset_identity_cli_existing_and_unknown_email(session, monkeypatch, capsys):
     import scripts.reset_identity as reset_module
@@ -700,13 +789,13 @@ def test_reset_identity_cli_existing_and_unknown_email(session, monkeypatch, cap
 
     session.expire_all()  # the CLI committed through the shared connection
     devices = session.exec(select(UserDevice)).all()
-    assert len(devices) == 2                      # a new device row exists
+    assert len(devices) == 2  # a new device row exists
     live = [d for d in devices if d.revoked_at is None and d.user_id == user.id]
-    assert len(live) == 1                         # exactly the replacement stays live
+    assert len(live) == 1  # exactly the replacement stays live
 
     count_before = len(session.exec(select(UserDevice)).all())
     monkeypatch.setattr("sys.argv", ["reset_identity", "--email", "nobody@example.com"])
-    assert reset_module.main() != 0               # unknown email: non-zero exit
+    assert reset_module.main() != 0  # unknown email: non-zero exit
     assert len(session.exec(select(UserDevice)).all()) == count_before
 
 
@@ -724,18 +813,15 @@ def test_reset_identity_cli_normalizes_mixed_case_email(session, monkeypatch):
     assert reset_module.main() == 0
 
     session.expire_all()  # the CLI committed through the shared connection
-    devices = session.exec(
-        select(UserDevice).where(UserDevice.user_id == user.id)
-    ).all()
+    devices = session.exec(select(UserDevice).where(UserDevice.user_id == user.id)).all()
     live = [d for d in devices if d.revoked_at is None]
     assert len(live) == 1 and live[0].label == "recovery"
 
 
 # --- ID-12: the machine credential path -----------------------------------------
 
-def test_machine_credential_off_by_default_then_403_when_enabled(
-    client, session, monkeypatch, api_key
-):
+
+def test_machine_credential_off_by_default_then_403_when_enabled(client, session, monkeypatch, api_key):
     monkeypatch.delenv("DISABLE_AUTH", raising=False)
     monkeypatch.delenv("PEAK_ADMIN_KEY_ENABLED", raising=False)
     headers = {"X-API-Key": api_key}
@@ -751,9 +837,13 @@ def test_machine_credential_off_by_default_then_403_when_enabled(
     assert "machine" in me.json()["detail"].lower()
 
     # …and user-scoped routes refuse it with 403, touching no user row
-    refused = client.post(DEVICES_PATH, json={
-        "public_key_b64": _spki_b64(_make_p256()),
-    }, headers=headers)
+    refused = client.post(
+        DEVICES_PATH,
+        json={
+            "public_key_b64": _spki_b64(_make_p256()),
+        },
+        headers=headers,
+    )
     assert refused.status_code == 403
     assert session.exec(select(UserDevice)).all() == []
 
@@ -764,6 +854,7 @@ def test_production_refuses_disable_auth(monkeypatch):
     from fastapi.testclient import TestClient
 
     from main import app
+
     with pytest.raises(RuntimeError):
         with TestClient(app):
             pass

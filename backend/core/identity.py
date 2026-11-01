@@ -9,6 +9,7 @@ S3 scope: challenge issuance (no user-enumeration oracle), the one-transaction
 R3 consumption protocol of ``verify_challenge``, and the session lifecycle
 (issue, digest-only storage, sliding/absolute expiry, revocation).
 """
+
 import base64
 import binascii
 import hashlib
@@ -171,14 +172,7 @@ def enroll_user_device(
 
 def legacy_bootstrap_consumed(session: Session) -> bool:
     """True when the one-shot legacy enrollment key has already been used."""
-    return (
-        session.exec(
-            select(AppSetting).where(
-                AppSetting.key == LEGACY_ENROLLMENT_CONSUMED_KEY
-            )
-        ).first()
-        is not None
-    )
+    return session.exec(select(AppSetting).where(AppSetting.key == LEGACY_ENROLLMENT_CONSUMED_KEY)).first() is not None
 
 
 def record_legacy_consumption(session: Session) -> None:
@@ -226,9 +220,7 @@ def ensure_deployment_id(session: Session) -> str:
     commit-time loser rolls back and re-selects the winner's row instead of
     raising.
     """
-    row = session.exec(
-        select(AppSetting).where(AppSetting.key == DEPLOYMENT_ID_KEY)
-    ).first()
+    row = session.exec(select(AppSetting).where(AppSetting.key == DEPLOYMENT_ID_KEY)).first()
     if row is not None and row.value:
         return row.value
     value = uuid.uuid4().hex
@@ -237,9 +229,7 @@ def ensure_deployment_id(session: Session) -> str:
         session.commit()
     except IntegrityError:
         session.rollback()
-        row = session.exec(
-            select(AppSetting).where(AppSetting.key == DEPLOYMENT_ID_KEY)
-        ).first()
+        row = session.exec(select(AppSetting).where(AppSetting.key == DEPLOYMENT_ID_KEY)).first()
         if row is None or not row.value:
             raise
         logger.info("identity: deployment_id race lost, reused existing value")
@@ -292,9 +282,7 @@ def issue_challenge(session: Session, email: str, device_id: int) -> dict:
     if user is not None:
         device = session.exec(
             select(UserDevice).where(
-                (UserDevice.id == device_id)
-                & (UserDevice.user_id == user.id)
-                & (UserDevice.revoked_at.is_(None))
+                (UserDevice.id == device_id) & (UserDevice.user_id == user.id) & (UserDevice.revoked_at.is_(None))
             )
         ).first()
     if user is not None and device is not None:
@@ -318,9 +306,7 @@ def issue_challenge(session: Session, email: str, device_id: int) -> dict:
     )
 
 
-def verify_challenge(
-    session: Session, challenge_id: str, signature_b64: str
-) -> tuple[AuthSession, str]:
+def verify_challenge(session: Session, challenge_id: str, signature_b64: str) -> tuple[AuthSession, str]:
     """Consume the challenge and issue exactly one session (R3 protocol).
 
     One transaction, one commit, opened with **BEGIN IMMEDIATE** so the
@@ -349,9 +335,7 @@ def verify_challenge(
     if not dbapi_connection.in_transaction:
         connection.exec_driver_sql("BEGIN IMMEDIATE")
 
-    challenge = session.exec(
-        select(AuthChallenge).where(AuthChallenge.id == challenge_id)
-    ).first()
+    challenge = session.exec(select(AuthChallenge).where(AuthChallenge.id == challenge_id)).first()
     if challenge is None:
         raise ChallengeRejected("unknown")
     if challenge.consumed_at is not None:
@@ -419,9 +403,7 @@ def verify_challenge(
     session.add(session_row)
     session.commit()
     session.refresh(session_row)
-    logger.info(
-        "auth: challenge consumed id=%s session_id=%s", challenge_id, session_row.id
-    )
+    logger.info("auth: challenge consumed id=%s session_id=%s", challenge_id, session_row.id)
     return session_row, token
 
 
@@ -436,9 +418,7 @@ def resolve_session_principal(session: Session, token: str) -> Principal | None:
     one hour; that refresh commits in place, everything else reads.
     """
     digest = hashlib.sha256(token.encode("utf-8")).hexdigest()
-    row = session.exec(
-        select(AuthSession).where(AuthSession.token_hash == digest)
-    ).first()
+    row = session.exec(select(AuthSession).where(AuthSession.token_hash == digest)).first()
     if row is None:
         logger.info("auth: unknown session token")
         return None
@@ -464,9 +444,7 @@ def resolve_session_principal(session: Session, token: str) -> Principal | None:
         # only ever extends a window that is still live (never revives one).
         logger.info("auth: session expired sliding session_id=%s", row.id)
         return None
-    if now - to_utc_aware(row.last_seen_at) > timedelta(
-        hours=SESSION_IDLE_REFRESH_HOURS
-    ):
+    if now - to_utc_aware(row.last_seen_at) > timedelta(hours=SESSION_IDLE_REFRESH_HOURS):
         row.last_seen_at = now
         row.expires_at = now + timedelta(days=SESSION_SLIDING_DAYS)
         session.add(row)
@@ -530,5 +508,3 @@ def current_user_principal(request: Request) -> Principal:
 
 PrincipalDep = Depends(current_principal)
 UserPrincipalDep = Depends(current_user_principal)
-
-

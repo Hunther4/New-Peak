@@ -5,6 +5,7 @@ Covers:
 - Unit tests for core.memory_number (generate_numbers, calculate_staircase, evaluate_attempt)
 - Integration tests for the /api/memory-game endpoints via TestClient
 """
+
 from core.memory_number import (
     calculate_staircase,
     evaluate_attempt,
@@ -14,6 +15,7 @@ from core.memory_number import (
 # =============================================================================
 # Unit Tests — generate_numbers()
 # =============================================================================
+
 
 class TestGenerateNumbers:
     """Number generation with correct count and range per phase."""
@@ -69,14 +71,18 @@ class TestGenerateNumbers:
 # Unit Tests — calculate_staircase()
 # =============================================================================
 
+
 class TestCalculateStaircase:
     """Staircase algorithm: span progression, phase changes, floor/ceiling."""
 
     def test_three_correct_at_span_5_increases_span(self):
         """3 correct at span 5 → span becomes 6."""
         result = calculate_staircase(
-            current_span=5, phase=1,
-            was_correct=True, consecutive_correct=2, consecutive_incorrect=0,
+            current_span=5,
+            phase=1,
+            was_correct=True,
+            consecutive_correct=2,
+            consecutive_incorrect=0,
         )
         assert result["new_span"] == 6
         assert result["new_consecutive_correct"] == 0  # reset after advancing
@@ -87,8 +93,11 @@ class TestCalculateStaircase:
     def test_three_correct_at_span_7_advances_phase(self):
         """3 correct at span 7 (phase 1 max) → advances to phase 2, span=8."""
         result = calculate_staircase(
-            current_span=7, phase=1,
-            was_correct=True, consecutive_correct=2, consecutive_incorrect=0,
+            current_span=7,
+            phase=1,
+            was_correct=True,
+            consecutive_correct=2,
+            consecutive_incorrect=0,
         )
         assert result["phase_changed"] is True
         assert result["new_phase"] == 2
@@ -98,8 +107,11 @@ class TestCalculateStaircase:
     def test_one_incorrect_resets_consecutive(self):
         """1 error → consecutive_correct resets, consecutive_incorrect increments."""
         result = calculate_staircase(
-            current_span=5, phase=1,
-            was_correct=False, consecutive_correct=2, consecutive_incorrect=0,
+            current_span=5,
+            phase=1,
+            was_correct=False,
+            consecutive_correct=2,
+            consecutive_incorrect=0,
         )
         assert result["new_consecutive_correct"] == 0
         assert result["new_consecutive_incorrect"] == 1
@@ -109,8 +121,11 @@ class TestCalculateStaircase:
     def test_three_incorrect_at_same_span_decreases_span(self):
         """3 consecutive incorrect → span -= 2."""
         result = calculate_staircase(
-            current_span=6, phase=1,
-            was_correct=False, consecutive_correct=0, consecutive_incorrect=2,
+            current_span=6,
+            phase=1,
+            was_correct=False,
+            consecutive_correct=0,
+            consecutive_incorrect=2,
         )
         assert result["new_span"] == 4
         assert result["new_consecutive_incorrect"] == 0  # reset after adjustment
@@ -120,8 +135,11 @@ class TestCalculateStaircase:
     def test_three_incorrect_at_phase_1_min_span_stays_at_floor(self):
         """3 incorrect at min_span (4) in phase 1 → span stays at 4 (floor)."""
         result = calculate_staircase(
-            current_span=4, phase=1,
-            was_correct=False, consecutive_correct=0, consecutive_incorrect=2,
+            current_span=4,
+            phase=1,
+            was_correct=False,
+            consecutive_correct=0,
+            consecutive_incorrect=2,
         )
         assert result["new_span"] == 4, "Span should not go below min_span for phase 1"
         assert result["phase_changed"] is False
@@ -131,8 +149,11 @@ class TestCalculateStaircase:
         """3 incorrect at phase 2 with span dropping below min → regress to phase 1."""
         # Phase 2 min is 8, so at span=9, 3 incorrect → 9-2=7 which is < 8
         result = calculate_staircase(
-            current_span=9, phase=2,
-            was_correct=False, consecutive_correct=0, consecutive_incorrect=2,
+            current_span=9,
+            phase=2,
+            was_correct=False,
+            consecutive_correct=0,
+            consecutive_incorrect=2,
         )
         assert result["phase_changed"] is True
         assert result["new_phase"] == 1
@@ -142,8 +163,11 @@ class TestCalculateStaircase:
     def test_one_correct_less_than_3_keeps_span(self):
         """Correct but not yet 3 consecutive → span stays same."""
         result = calculate_staircase(
-            current_span=5, phase=1,
-            was_correct=True, consecutive_correct=1, consecutive_incorrect=0,
+            current_span=5,
+            phase=1,
+            was_correct=True,
+            consecutive_correct=1,
+            consecutive_incorrect=0,
         )
         assert result["new_span"] == 5
         assert result["new_consecutive_correct"] == 2
@@ -153,8 +177,11 @@ class TestCalculateStaircase:
     def test_max_phase_cap_at_phase_7(self):
         """At phase 7 max_span, 3 correct stays at max_span with message."""
         result = calculate_staircase(
-            current_span=80, phase=7,
-            was_correct=True, consecutive_correct=2, consecutive_incorrect=0,
+            current_span=80,
+            phase=7,
+            was_correct=True,
+            consecutive_correct=2,
+            consecutive_incorrect=0,
         )
         assert result["new_span"] == 80  # max_span for phase 7
         assert result["phase_changed"] is False
@@ -165,6 +192,7 @@ class TestCalculateStaircase:
 # =============================================================================
 # Unit Tests — evaluate_attempt()
 # =============================================================================
+
 
 class TestEvaluateAttempt:
     """Position-by-position evaluation of recall attempts."""
@@ -203,7 +231,7 @@ class TestEvaluateAttempt:
         submitted = [3, 7]
         result = evaluate_attempt(expected, submitted)
         assert result["correct"] is False
-        assert result["correct_positions"] == 0 # Now invalidates completely
+        assert result["correct_positions"] == 0  # Now invalidates completely
 
     def test_more_submitted_than_expected(self):
         """More submitted → attempt marked incorrect."""
@@ -219,6 +247,7 @@ class TestEvaluateAttempt:
 # =============================================================================
 # Integration Tests — POST /api/memory-game/sessions
 # =============================================================================
+
 
 class TestCreateGameSession:
     """POST /api/memory-game/sessions"""
@@ -241,6 +270,7 @@ class TestCreateGameSession:
 # =============================================================================
 # Integration Tests — POST /api/memory-game/sessions/{id}/rounds
 # =============================================================================
+
 
 class TestCreateRound:
     """POST /api/memory-game/sessions/{id}/rounds"""
@@ -291,6 +321,7 @@ class TestCreateRound:
 # =============================================================================
 # Integration Tests — POST /api/memory-game/rounds/{id}/attempts
 # =============================================================================
+
 
 class TestSubmitAttempt:
     """POST /api/memory-game/rounds/{id}/attempts"""
@@ -391,6 +422,7 @@ class TestSubmitAttempt:
 # Integration Tests — POST /api/memory-game/sessions/{id}/consolidate
 # =============================================================================
 
+
 class TestConsolidateSession:
     """POST /api/memory-game/sessions/{id}/consolidate"""
 
@@ -429,6 +461,7 @@ class TestConsolidateSession:
 
         from core.database import engine
         from models.models import Session as PracticeSession
+
         with DBSession(engine) as db:
             ps = db.get(PracticeSession, data["practice_session_id"])
             assert ps is not None
@@ -461,6 +494,7 @@ class TestConsolidateSession:
 # Integration Tests — GET /api/memory-game/sessions/{id}/state
 # =============================================================================
 
+
 class TestGetGameState:
     """GET /api/memory-game/sessions/{id}/state"""
 
@@ -488,6 +522,7 @@ class TestGetGameState:
 # =============================================================================
 # Integration Tests — GET /api/memory-game/sessions/{id}/history
 # =============================================================================
+
 
 class TestGetHistory:
     """GET /api/memory-game/sessions/{id}/history"""

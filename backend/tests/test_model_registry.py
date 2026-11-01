@@ -6,24 +6,24 @@ def test_best_model_for_task_highest_score(session):
     """T-11: best_model_for_task highest score"""
     # Seed models
     model1 = AiModel(
-        name="Model A", provider="groq", model_id="a",
-        capabilities="coding|general", score=80, is_active=True
+        name="Model A", provider="groq", model_id="a", capabilities="coding|general", score=80, is_active=True
     )
     model2 = AiModel(
-        name="Model B", provider="groq", model_id="b",
-        capabilities="coding|general", score=90, is_active=True
+        name="Model B", provider="groq", model_id="b", capabilities="coding|general", score=90, is_active=True
     )
     model3 = AiModel(
-        name="Model C", provider="openrouter", model_id="c",
-        capabilities="coding|general", score=95, is_active=True
+        name="Model C", provider="openrouter", model_id="c", capabilities="coding|general", score=95, is_active=True
     )
     model4 = AiModel(
-        name="Model D", provider="lm_studio", model_id="d",
-        capabilities="general", score=70, is_active=True
+        name="Model D", provider="lm_studio", model_id="d", capabilities="general", score=70, is_active=True
     )
     default_model = AiModel(
-        name="Default Local", provider="lm_studio", model_id="local-model",
-        capabilities="general", score=50, is_active=True
+        name="Default Local",
+        provider="lm_studio",
+        model_id="local-model",
+        capabilities="general",
+        score=50,
+        is_active=True,
     )
     session.add_all([model1, model2, model3, model4, default_model])
     session.commit()
@@ -40,12 +40,17 @@ def test_best_model_for_task_highest_score(session):
     assert best_overall.name == "Model C"
     assert best_overall.score == 95
 
+
 def test_invalid_provider_returns_default(session):
     """T-12: invalid provider returns default"""
     # Seed the default model
     default_model = AiModel(
-        name="Default Local", provider="lm_studio", model_id="local-model",
-        capabilities="general", score=50, is_active=True
+        name="Default Local",
+        provider="lm_studio",
+        model_id="local-model",
+        capabilities="general",
+        score=50,
+        is_active=True,
     )
     session.add(default_model)
     session.commit()
@@ -56,4 +61,3 @@ def test_invalid_provider_returns_default(session):
     # Should return the default model
     default = get_default_model()
     assert best.model_id == default.model_id
-

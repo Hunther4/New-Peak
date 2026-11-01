@@ -2,6 +2,7 @@
 Pruebas unitarias para el generador autónomo de contenido PAES.
 Verifica generación simbólica CAS, consistencia pedagógica y calibración 3PL IRT.
 """
+
 import pytest
 from sqlmodel import Session
 

@@ -26,8 +26,10 @@ def load_skill_config():
     with open(config_path) as f:
         return yaml.safe_load(f)
 
+
 def iniciar_sesion(db: Session, skill_id: int) -> MathThinkingSession:
     return iniciar_sesion_base(db, MathThinkingSession, skill_id)
+
 
 def crear_round(db: Session, session_id: int) -> tuple[MathThinkingRound, dict]:
     mt_session = db.get(MathThinkingSession, session_id)
@@ -62,6 +64,7 @@ def crear_round(db: Session, session_id: int) -> tuple[MathThinkingRound, dict]:
     db.refresh(round_obj)
 
     return round_obj, problem
+
 
 def enviar_intento(db: Session, round_id: int, user_answer: float) -> dict:
     round_obj = db.get(MathThinkingRound, round_id)
@@ -131,6 +134,7 @@ def enviar_intento(db: Session, round_id: int, user_answer: float) -> dict:
         "staircase_result": staircase_result,
     }
 
+
 def get_hint(db: Session, round_id: int) -> dict:
     """Generate an AI hint for the current math problem without revealing the answer."""
     round_obj = db.get(MathThinkingRound, round_id)
@@ -143,9 +147,7 @@ def get_hint(db: Session, round_id: int) -> dict:
         "Máximo 2 oraciones."
     )
     hint_user = (
-        f"Problema: {round_obj.problem_text}\n"
-        f"Nivel: {round_obj.level}\n"
-        "Dame una pista sin revelar la respuesta."
+        f"Problema: {round_obj.problem_text}\n" f"Nivel: {round_obj.level}\n" "Dame una pista sin revelar la respuesta."
     )
 
     try:
@@ -155,11 +157,16 @@ def get_hint(db: Session, round_id: int) -> dict:
             user_prompt=hint_user,
             response_model=HintResponse,
         )
-        hint_text = result.hint if result else "Pensá: ¿qué operación te acerca más a la respuesta? Probá descomponer el problema."
+        hint_text = (
+            result.hint
+            if result
+            else "Pensá: ¿qué operación te acerca más a la respuesta? Probá descomponer el problema."
+        )
     except Exception:
         hint_text = "Pensá: ¿qué operación te acerca más a la respuesta? Probá descomponer el problema."
 
     return {"hint": hint_text}
+
 
 def consolidar_sesion(db: Session, session_id: int, elapsed_seconds: Optional[int]) -> dict:
     def build_session_data(gs):
@@ -184,8 +191,13 @@ def consolidar_sesion(db: Session, session_id: int, elapsed_seconds: Optional[in
         }
 
     practice_session, gs = consolidar_sesion_base(
-        db, MathThinkingSession, session_id, elapsed_seconds,
-        "Math", build_session_data, build_practice_fields,
+        db,
+        MathThinkingSession,
+        session_id,
+        elapsed_seconds,
+        "Math",
+        build_session_data,
+        build_practice_fields,
         min_rounds_message="Minimum 3 problems required before consolidation",
     )
 

@@ -9,15 +9,14 @@ Architecture:
     ``request.state.principal`` before the route handler runs, and refuses
     everything else with one uniform 401.
 """
+
 import hashlib
 import hmac
 import logging
 import os
 import re
 import secrets
-import time
 from datetime import datetime, timedelta, timezone
-from threading import Lock
 
 import bcrypt
 from fastapi import Request
@@ -71,9 +70,7 @@ class LazyAPIKeyManager:
         with Session(core.database.engine) as session:
             if env_key:
                 hashed = bcrypt.hashpw(env_key.encode(), bcrypt.gensalt()).decode()
-                setting = session.exec(
-                    select(AppSetting).where(AppSetting.key == "api_key_hash")
-                ).first()
+                setting = session.exec(select(AppSetting).where(AppSetting.key == "api_key_hash")).first()
                 if setting:
                     setting.value = hashed
                 else:
@@ -83,9 +80,7 @@ class LazyAPIKeyManager:
                 self._cached_hash = hashed
                 return None
 
-            setting = session.exec(
-                select(AppSetting).where(AppSetting.key == "api_key_hash")
-            ).first()
+            setting = session.exec(select(AppSetting).where(AppSetting.key == "api_key_hash")).first()
             if setting is not None:
                 self._cached_hash = setting.value
                 return None
@@ -113,9 +108,7 @@ class LazyAPIKeyManager:
         if len(provided_key.encode("utf-8")) > 72:
             return False
         try:
-            candidate = bcrypt.hashpw(
-                provided_key.encode(), self._cached_hash.encode()
-            )
+            candidate = bcrypt.hashpw(provided_key.encode(), self._cached_hash.encode())
             return hmac.compare_digest(candidate, self._cached_hash.encode())
         except Exception:
             return False
@@ -217,7 +210,7 @@ def _bearer_token(request: Request) -> str | None:
     """Extract a non-empty bearer token, or None for anything else."""
     header = request.headers.get("Authorization", "")
     if header.startswith("Bearer "):
-        token = header[len("Bearer "):].strip()
+        token = header[len("Bearer ") :].strip()
         return token or None
     return None
 
@@ -238,7 +231,6 @@ def _resolve_bearer(token: str) -> Principal | None:
     """
     with Session(core.database.engine) as session:
         return resolve_session_principal(session, token)
-
 
 
 def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principal:
@@ -284,17 +276,10 @@ def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principa
                     user = session.exec(select(User).where(User.email == email)).first()
 
         device = session.exec(
-            select(UserDevice).where(
-                UserDevice.user_id == user.id,
-                UserDevice.revoked_at.is_(None)
-            )
+            select(UserDevice).where(UserDevice.user_id == user.id, UserDevice.revoked_at.is_(None))
         ).first()
         if not device:
-            device = UserDevice(
-                user_id=user.id,
-                label="beta-web",
-                public_key=f"beta-key-{user.id}".encode("utf-8")
-            )
+            device = UserDevice(user_id=user.id, label="beta-web", public_key=f"beta-key-{user.id}".encode("utf-8"))
             session.add(device)
             try:
                 session.commit()
@@ -305,9 +290,7 @@ def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principa
 
         auth_session = session.exec(
             select(AuthSession).where(
-                AuthSession.user_id == user.id,
-                AuthSession.device_id == device.id,
-                AuthSession.revoked_at.is_(None)
+                AuthSession.user_id == user.id, AuthSession.device_id == device.id, AuthSession.revoked_at.is_(None)
             )
         ).first()
         if auth_session:

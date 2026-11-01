@@ -13,6 +13,7 @@ ships no IANA time zone database and ``zoneinfo`` cannot read
 ``ZoneInfoNotFoundError`` there. Rather than adding a dependency, the module
 falls back to an equivalent implementation of the Chilean rule.
 """
+
 from datetime import datetime, timedelta, timezone, tzinfo
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 

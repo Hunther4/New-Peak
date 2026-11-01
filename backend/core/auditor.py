@@ -9,6 +9,7 @@ from core.utils import sanitize_prompt
 
 logger = logging.getLogger(__name__)
 
+
 class AuditResult(BaseModel):
     was_deliberate: bool
     score: int = Field(ge=1, le=100)
@@ -34,6 +35,7 @@ class AuditResult(BaseModel):
             return int(round(min(100, max(1, float(v)))))
         return v
 
+
 def audit_session(session_data: dict, domain: str, onboarding_mode: bool) -> AuditResult:
     """
     Audita una sesión de práctica usando LM Studio.
@@ -52,16 +54,15 @@ def audit_session(session_data: dict, domain: str, onboarding_mode: bool) -> Aud
             short_text = chunk["text"][:300].replace("\n", " ")
             citation = f"{chunk['book_title']} (chunk {chunk['chunk_index']}): {short_text}"
             real_citations.append(citation)
-            rag_lines.append(
-                f"Fragmento de referencia:\n{chunk['text']}\n---\nFuente: {chunk['book_title']}"
-            )
+            rag_lines.append(f"Fragmento de referencia:\n{chunk['text']}\n---\nFuente: {chunk['book_title']}")
         rag_context_block = (
             "\n\nCONTEXTO DE LIBROS INDEXADOS (usá estos fragmentos para tus book_citations):\n"
             + "\n\n".join(rag_lines)
             + "\n"
         )
 
-    system_prompt = """Eres auditor de práctica deliberada (modelo Peak/Anders Ericsson).
+    system_prompt = (
+        """Eres auditor de práctica deliberada (modelo Peak/Anders Ericsson).
 
 CRITERIOS — La sesión es DELIBERADA solo si TODOS se cumplen:
 1. OBJETIVO específico: "compás 14-16 piano" ✓ | "practiqué piano" ✗
@@ -70,14 +71,18 @@ CRITERIOS — La sesión es DELIBERADA solo si TODOS se cumplen:
 4. CORRECCIÓN real aplicada: "ralentice 50% y aislé pulgar" ✓ | "practiqué más" ✗
 5. HIPÓTESIS mañana: "mañana pruebo metrónomo 60bpm" ✓ | "seguiré practicando" ✗
 
-DOMINIO: """ + domain + """
+DOMINIO: """
+        + domain
+        + """
 - Técnico (código, música, deporte): exigi tecnicismo en error/corrección
 - Blando (escritura, arte, liderazgo): acepta error conceptual ("enfoqué la audiencia errónea")
 
 REGLAS:
 - Si fallan 2+ criterios → was_deliberate: false, score ≤ 30
 - Sé implacable: vaguedad = no deliberada
-- NO inventes book_citations. Si no hay RAG, devolve [].""" + rag_context_block
+- NO inventes book_citations. Si no hay RAG, devolve []."""
+        + rag_context_block
+    )
 
     if onboarding_mode:
         system_prompt += "\n\nMODO ONBOARDING: evalúa con honestidad (no cambies was_deliberate), tono educativo."
@@ -95,12 +100,13 @@ REGLAS:
 Respondé SOLO el JSON."""
 
     from core.router import get_ai_mode
+
     if get_ai_mode() == "api":
         from core.router import execute_with_router
+
         result = execute_with_router("audit", system_prompt, user_prompt, AuditResult)
     else:
         result = generate_structured_json(system_prompt, user_prompt, AuditResult, force_local=True)
-
 
     if not result:
         # Fallback seguro en caso de que la IA falle o no responda JSON válido
@@ -113,7 +119,7 @@ Respondé SOLO el JSON."""
             domain_specific_notes="N/A",
             book_citations=[],
             security_flag=False,
-            socratic_prompt=None
+            socratic_prompt=None,
         )
 
     # Poblar book_citations con citas reales de ChromaDB si las hay.

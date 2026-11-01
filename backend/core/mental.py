@@ -13,6 +13,7 @@ Flujo Challenge:
   2. IA genera desafío concreto + difficulty_target
   3. Si hay RAG con libros, lo enriquece con citas
 """
+
 import logging
 from typing import Optional
 
@@ -26,6 +27,7 @@ logger = logging.getLogger(__name__)
 
 
 # --- Modelos Pydantic para IA ---
+
 
 class MentalRepResult(BaseModel):
     description: str = Field(..., description="Formato: 'Antes veía X, ahora veo Y'")
@@ -41,6 +43,7 @@ class ChallengeResult(BaseModel):
 
 
 # --- Generación de MentalRep ---
+
 
 def generate_mental_rep(
     skill_name: str,
@@ -59,10 +62,7 @@ def generate_mental_rep(
     rag_chunks = query_books(f"{skill_name} mental model representation deliberate practice", top_k=2)
     rag_context = ""
     if rag_chunks:
-        rag_lines = [
-            f"Fragmento de referencia:\n{c['text'][:400]}\n---\nFuente: {c['book_title']}"
-            for c in rag_chunks
-        ]
+        rag_lines = [f"Fragmento de referencia:\n{c['text'][:400]}\n---\nFuente: {c['book_title']}" for c in rag_chunks]
         rag_context = "\n\nCONTEXTO DE LIBROS:\n" + "\n\n".join(rag_lines)
 
     system_prompt = f"""Coach Mental Representations (Ericsson). Dominio: {domain} | Tipo: {skill_type}
@@ -108,12 +108,14 @@ Generá la representación mental inicial del usuario sobre esta habilidad.
 Formato: "Veo/entiendo X como Y"."""
 
     from core.router import _build_augmented_system
+
     augmented = _build_augmented_system(system_prompt, MentalRepResult)
     result = generate_structured_json(augmented, user_prompt, MentalRepResult, task_type="assessment")
     return result
 
 
 # --- Generación de Challenge ---
+
 
 def generate_challenge(
     skill_name: str,
@@ -133,10 +135,10 @@ def generate_challenge(
     if rag_chunks:
         rag_lines = []
         for c in rag_chunks:
-            rag_lines.append(
-                f"Fragmento de referencia:\n{c['text'][:400]}\n---\nFuente: {c['book_title']}"
-            )
-        rag_context = "\n\nCONTEXTO DE LIBROS (usá estos fragmentos para inspirar el desafío):\n" + "\n\n".join(rag_lines)
+            rag_lines.append(f"Fragmento de referencia:\n{c['text'][:400]}\n---\nFuente: {c['book_title']}")
+        rag_context = "\n\nCONTEXTO DE LIBROS (usá estos fragmentos para inspirar el desafío):\n" + "\n\n".join(
+            rag_lines
+        )
         source_book = rag_chunks[0]["book_title"]
 
     system_prompt = f"""Coach práctica deliberate. Generá UN desafío CONCRETO + MEDIBLE para PRÓXIMA sesión.
@@ -176,6 +178,7 @@ Nivel actual: {current_level}/100
 
 Generá el próximo desafío."""
     from core.router import _build_augmented_system
+
     augmented = _build_augmented_system(system_prompt, ChallengeResult)
     result = generate_structured_json(augmented, user_prompt, ChallengeResult, task_type="reasoning")
 
@@ -186,6 +189,7 @@ Generá el próximo desafío."""
 
 
 # --- Generación de Challenge Post-Assessment ---
+
 
 def generate_challenge_from_assessment(
     skill_name: str,

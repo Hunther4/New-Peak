@@ -3,6 +3,7 @@ Batch Question Image Cropper for DEMRE PAES Exams.
 Crops each official question directly from the original DEMRE PDFs as high-resolution PNGs
 and assigns `image_url` to the corresponding `PaesQuestion` records in peak.db.
 """
+
 import re
 import sqlite3
 from pathlib import Path
@@ -24,7 +25,6 @@ EXAMS_CATALOG = [
     ("paes-2026-ciencias_biologia", "prueba_oficial_paes_2026_ciencias_biologia.pdf"),
     ("paes-2026-ciencias_fisica", "prueba_oficial_paes_2026_ciencias_fisica.pdf"),
     ("paes-2026-ciencias_quimica", "prueba_oficial_paes_2026_ciencias_quimica.pdf"),
-
     # --- 2025 ---
     ("paes-2025-m1", "prueba_oficial_paes_2025_m1.pdf"),
     ("paes-2025-m2", "prueba_oficial_paes_2025_m2.pdf"),
@@ -33,7 +33,6 @@ EXAMS_CATALOG = [
     ("paes-2025-ciencias_biologia", "prueba_oficial_paes_2025_ciencias_biologia.pdf"),
     ("paes-2025-ciencias_fisica", "prueba_oficial_paes_2025_ciencias_fisica.pdf"),
     ("paes-2025-ciencias_quimica", "prueba_oficial_paes_2025_ciencias_quimica.pdf"),
-
     # --- 2024 ---
     ("paes-2024-m1", "prueba_oficial_paes_2024_m1.pdf"),
     ("paes-2024-m2", "prueba_oficial_paes_2024_m2.pdf"),
@@ -94,7 +93,9 @@ def crop_exam_questions(exam_prefix: str, pdf_filename: str) -> List[Tuple[str, 
                 if b_y1 < top or b_y0 >= next_q_y0:
                     continue
                 # Exclude footer page number e.g. "- 7 -"
-                if re.match(r"^\s*-\s*\d+\s*-\s*$", b_txt) or (b_y0 > page.rect.height - 55 and re.match(r"^\d+$", b_txt)):
+                if re.match(r"^\s*-\s*\d+\s*-\s*$", b_txt) or (
+                    b_y0 > page.rect.height - 55 and re.match(r"^\d+$", b_txt)
+                ):
                     continue
                 content_y1_list.append(b_y1)
 

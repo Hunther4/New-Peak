@@ -1,4 +1,5 @@
 """Tests for backend/seed_models.py — listas canónicas sin duplicados y puntajes vivos."""
+
 from sqlmodel import Session, select
 
 import seed_models

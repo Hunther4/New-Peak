@@ -1,4 +1,3 @@
-
 from fastapi import Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlmodel import Session
@@ -53,10 +52,7 @@ def _format_history_round(round_obj, attempts):
         "level": round_obj.level,
         "problem_text": round_obj.problem_text,
         "correct": any(a.correct for a in attempts) if attempts else None,
-        "attempts": [
-            {"correct": a.correct, "user_answer": a.user_answer}
-            for a in attempts
-        ],
+        "attempts": [{"correct": a.correct, "user_answer": a.user_answer} for a in attempts],
     }
 
 

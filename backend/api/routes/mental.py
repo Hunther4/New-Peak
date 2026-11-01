@@ -2,6 +2,7 @@
 Endpoints de MentalReps y Challenges (Fase 5).
 Registrado en main.py como: prefix="/api/mental", tags=["Mental"]
 """
+
 import logging
 from datetime import datetime, timezone
 from typing import Optional
@@ -25,22 +26,27 @@ router = APIRouter()
 
 # --- Schemas de Request ---
 
+
 class GenerateMentalRepRequest(BaseModel):
     skill_id: int
+
 
 class AcceptMentalRepRequest(BaseModel):
     description: str = Field(max_length=2000)
     skill_id: Optional[int] = None
 
+
 class GenerateChallengeRequest(BaseModel):
     skill_id: int
     difficulty_override: Optional[int] = Field(default=None, ge=1, le=5)
+
 
 class CompleteChallengeRequest(BaseModel):
     completed: bool = True
 
 
 # --- MentalRep Endpoints ---
+
 
 @router.get("/reps")
 def get_mental_reps(
@@ -77,9 +83,7 @@ def create_mental_rep(request: Request, body: GenerateMentalRepRequest, db: Sess
 
     # Obtener última MentalRep
     prev_rep = db.exec(
-        select(MentalRep)
-        .where(MentalRep.skill_id == body.skill_id)
-        .order_by(MentalRep.created_at.desc())
+        select(MentalRep).where(MentalRep.skill_id == body.skill_id).order_by(MentalRep.created_at.desc())
     ).first()
 
     # Obtener resumen de últimas sesiones
@@ -115,7 +119,7 @@ def create_mental_rep(request: Request, body: GenerateMentalRepRequest, db: Sess
         return {
             "generated": False,
             "message": "La IA no pudo generar una representación. Verificá que LM Studio esté funcionando.",
-            "suggestion": "Intentá de nuevo más tarde o generala manualmente."
+            "suggestion": "Intentá de nuevo más tarde o generala manualmente.",
         }
 
     return {
@@ -167,6 +171,7 @@ def accept_mental_rep(request: Request, rep_id: int, body: AcceptMentalRepReques
 
 # --- Challenge Endpoints ---
 
+
 @router.get("/challenges")
 def get_challenges(
     skill_id: Optional[int] = None,
@@ -187,6 +192,7 @@ def get_challenges(
 # IMPORTANTE: esta ruta debe definirse ANTES que /challenges/{challenge_id}
 # para que FastAPI no interprete "next" como un challenge_id.
 
+
 @router.get("/challenges/next/{skill_id}")
 def get_next_challenge(skill_id: int, db: Session = Depends(get_session)):
     """
@@ -200,16 +206,11 @@ def get_next_challenge(skill_id: int, db: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="Skill no encontrada")
 
     # Challenges activos (no completados)
-    pending = db.exec(
-        select(Challenge)
-        .where(Challenge.skill_id == skill_id, Challenge.completed.is_(False))
-    ).all()
+    pending = db.exec(select(Challenge).where(Challenge.skill_id == skill_id, Challenge.completed.is_(False))).all()
 
     # Último assessment
     last_assessment = db.exec(
-        select(Assessment)
-        .where(Assessment.skill_id == skill_id)
-        .order_by(Assessment.created_at.desc())
+        select(Assessment).where(Assessment.skill_id == skill_id).order_by(Assessment.created_at.desc())
     ).first()
 
     return {
@@ -220,8 +221,10 @@ def get_next_challenge(skill_id: int, db: Session = Depends(get_session)):
         "last_assessment": {
             "score": last_assessment.score,
             "type": last_assessment.type,
-            "date": last_assessment.created_at.isoformat()
-        } if last_assessment else None,
+            "date": last_assessment.created_at.isoformat(),
+        }
+        if last_assessment
+        else None,
     }
 
 
@@ -253,10 +256,7 @@ def create_challenge(request: Request, body: GenerateChallengeRequest, db: Sessi
     ).all()
 
     if not last_sessions:
-        raise HTTPException(
-            status_code=400,
-            detail="Necesitás al menos una sesión para generar un challenge."
-        )
+        raise HTTPException(status_code=400, detail="Necesitás al menos una sesión para generar un challenge.")
 
     last = last_sessions[0]
     last_session_str = (
@@ -288,7 +288,7 @@ def create_challenge(request: Request, body: GenerateChallengeRequest, db: Sessi
     if not result:
         return {
             "generated": False,
-            "message": "La IA no pudo generar un desafío. Verificá que LM Studio esté funcionando."
+            "message": "La IA no pudo generar un desafío. Verificá que LM Studio esté funcionando.",
         }
 
     return {

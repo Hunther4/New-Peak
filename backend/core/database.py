@@ -25,7 +25,6 @@ engine = create_engine(
 )
 
 
-
 @event.listens_for(engine, "connect")
 def _set_sqlite_pragma(dbapi_connection, connection_record):
     cursor = dbapi_connection.cursor()
@@ -44,11 +43,7 @@ def _do_begin_immediate(conn):
     preventing concurrent readers from locking out writers or other readers.
     """
     opts = conn.get_execution_options()
-    is_write = (
-        conn.info.get("write", False)
-        or opts.get("write", False)
-        or opts.get("isolation_level") == "IMMEDIATE"
-    )
+    is_write = conn.info.get("write", False) or opts.get("write", False) or opts.get("isolation_level") == "IMMEDIATE"
     if is_write:
         conn.exec_driver_sql("BEGIN IMMEDIATE")
 

@@ -18,6 +18,7 @@ caller's session, and the device rotate/revoke routes keep the one-transaction
 per-route rule — rotate replaces the key and revokes the device's sessions in
 a single commit.
 """
+
 import hmac
 import logging
 import os
@@ -124,9 +125,7 @@ def enroll(
     # --- validate email and the public key, create the rows (ID-02) ---------
     try:
         normalized = normalize_email(body.email)
-        user, device = enroll_user_device(
-            session, normalized, body.public_key_b64, body.label
-        )
+        user, device = enroll_user_device(session, normalized, body.public_key_b64, body.label)
     except InvalidPublicKey as exc:
         logger.info("enroll: rejected public key reason=%s", exc)
         raise HTTPException(400, str(exc))
@@ -147,10 +146,7 @@ def enroll(
         # the INSERT race re-selects what won and answers with the module's
         # typed response instead of an uncontrolled 500.
         session.rollback()
-        if (
-            session.exec(select(User).where(User.email == normalized)).first()
-            is not None
-        ):
+        if session.exec(select(User).where(User.email == normalized)).first() is not None:
             logger.info("enroll: lost the concurrent email INSERT race")
             raise HTTPException(409, "That email is already enrolled")
         if legacy_used and legacy_bootstrap_consumed(session):
@@ -158,9 +154,7 @@ def enroll(
             raise HTTPException(401, "The enrollment key has already been used")
         raise
 
-    logger.info(
-        "enroll: issued device_id=%s needs_challenge=true (no session)", device.id
-    )
+    logger.info("enroll: issued device_id=%s needs_challenge=true (no session)", device.id)
     return {
         "user_id": user.id,
         "email": normalized,
@@ -196,13 +190,9 @@ def verify_challenge_route(
         session_row, token = verify_challenge(session, body.challenge_id, body.signature_b64)
     except InvalidSignatureFormat as exc:
         logger.info("auth: malformed signature %s", exc)
-        raise HTTPException(
-            400, "Signature must be a 64-byte IEEE P1363 or DER ECDSA signature"
-        )
+        raise HTTPException(400, "Signature must be a 64-byte IEEE P1363 or DER ECDSA signature")
     except ChallengeRejected as exc:
-        logger.info(
-            "auth: challenge rejected id=%s reason=%s", body.challenge_id, exc
-        )
+        logger.info("auth: challenge rejected id=%s reason=%s", body.challenge_id, exc)
         raise HTTPException(401, "Invalid or expired challenge")
 
     user = session.get(User, session_row.user_id)
@@ -320,9 +310,7 @@ def rotate_device(
         session.rollback()
         logger.info("rotate: duplicate public key user_id=%s", principal.user_id)
         raise HTTPException(409, "That public key is already registered")
-    logger.info(
-        "rotate: device_id=%s key_epoch=%s sessions revoked", device.id, device.key_epoch
-    )
+    logger.info("rotate: device_id=%s key_epoch=%s sessions revoked", device.id, device.key_epoch)
     return {"device_id": device.id, "key_epoch": device.key_epoch}
 
 

@@ -52,8 +52,12 @@ def test_local_mode_falls_back_to_api_when_lm_studio_is_down():
         return None
 
     # Mock the model registry so the API fallback can find models
-    fake_groq_model = type("M", (), {"provider": "groq", "model_id": "test-groq-model", "name": "Test Groq", "score": 90})()
-    fake_or_model = type("M", (), {"provider": "openrouter", "model_id": "test-or-model", "name": "Test OR", "score": 80})()
+    fake_groq_model = type(
+        "M", (), {"provider": "groq", "model_id": "test-groq-model", "name": "Test Groq", "score": 90}
+    )()
+    fake_or_model = type(
+        "M", (), {"provider": "openrouter", "model_id": "test-or-model", "name": "Test OR", "score": 80}
+    )()
 
     def fake_get_available_models(provider=None):
         if provider == "groq":
@@ -62,10 +66,12 @@ def test_local_mode_falls_back_to_api_when_lm_studio_is_down():
             return [fake_or_model]
         return []
 
-    with patch("core.router._try_lm_studio_with_retry", side_effect=fake_lm_studio), \
-         patch("core.router._call_groq", side_effect=fake_groq), \
-         patch("core.router._call_openrouter", side_effect=fake_openrouter), \
-         patch("core.model_registry.get_available_models", side_effect=fake_get_available_models):
+    with (
+        patch("core.router._try_lm_studio_with_retry", side_effect=fake_lm_studio),
+        patch("core.router._call_groq", side_effect=fake_groq),
+        patch("core.router._call_openrouter", side_effect=fake_openrouter),
+        patch("core.model_registry.get_available_models", side_effect=fake_get_available_models),
+    ):
         result = execute_with_router(
             task_type="audit",
             system_prompt="test",
@@ -99,9 +105,11 @@ def test_local_mode_returns_lm_studio_result_when_available():
         captured_api_called["openrouter"] = True
         return _Probe(answer="from-openrouter")
 
-    with patch("core.router._try_lm_studio_with_retry", side_effect=fake_lm_studio), \
-         patch("core.router._call_groq", side_effect=fake_groq), \
-         patch("core.router._call_openrouter", side_effect=fake_openrouter):
+    with (
+        patch("core.router._try_lm_studio_with_retry", side_effect=fake_lm_studio),
+        patch("core.router._call_groq", side_effect=fake_groq),
+        patch("core.router._call_openrouter", side_effect=fake_openrouter),
+    ):
         result = execute_with_router(
             task_type="audit",
             system_prompt="test",
@@ -120,9 +128,11 @@ def test_local_mode_returns_lm_studio_result_when_available():
 # AuthenticationError short-circuit + RetryableAPIError fallback (WU-B)
 # ---------------------------------------------------------------------------
 
+
 def _make_auth_error(cls):
     """Construye un AuthenticationError 401 sin red."""
     import httpx
+
     request = httpx.Request("POST", "http://test")
     response = httpx.Response(401, request=request)
     return cls("Unauthorized", response=response, body=None)
@@ -130,8 +140,12 @@ def _make_auth_error(cls):
 
 def _fake_model(provider, model_id, score, capabilities="general"):
     from types import SimpleNamespace
+
     return SimpleNamespace(
-        provider=provider, model_id=model_id, name=model_id, score=score,
+        provider=provider,
+        model_id=model_id,
+        name=model_id,
+        score=score,
         capabilities=capabilities,
     )
 
@@ -143,6 +157,7 @@ def _groq_or_models(groq, or_models):
         if provider == "openrouter":
             return list(or_models)
         return []
+
     return _get
 
 
@@ -153,6 +168,7 @@ def test_call_groq_auth_error_propagates(monkeypatch):
     import groq
 
     from core.router import _call_groq, clear_key_cache
+
     clear_key_cache()
     monkeypatch.setenv("GROQ_API_KEY", "bad-key")
 
@@ -173,6 +189,7 @@ def test_call_openrouter_auth_error_propagates(monkeypatch):
     import openai
 
     from core.router import _call_openrouter, clear_key_cache
+
     clear_key_cache()
     monkeypatch.setenv("OPENROUTER_API_KEY", "bad-key")
 
@@ -199,12 +216,11 @@ def test_fallback_groq_401_tries_groq_once_then_openrouter():
     ]
     or_models = [_fake_model("openrouter", "o1", 88)]
 
-    with patch("core.model_registry.get_available_models",
-               side_effect=_groq_or_models(groq_models, or_models)), \
-         patch("core.router._call_groq",
-               side_effect=_make_auth_error(groq.AuthenticationError)) as mock_groq, \
-         patch("core.router._call_openrouter",
-               return_value=_Probe(answer="from-or")) as mock_or:
+    with (
+        patch("core.model_registry.get_available_models", side_effect=_groq_or_models(groq_models, or_models)),
+        patch("core.router._call_groq", side_effect=_make_auth_error(groq.AuthenticationError)) as mock_groq,
+        patch("core.router._call_openrouter", return_value=_Probe(answer="from-or")) as mock_or,
+    ):
         result = _try_api_fallback("general", "sys", "user", _Probe)
 
     assert result is not None
@@ -222,11 +238,13 @@ def test_fallback_retryable_tries_next_model():
         _fake_model("groq", "g2", 90),
     ]
 
-    with patch("core.model_registry.get_available_models",
-               side_effect=_groq_or_models(groq_models, [])), \
-         patch("core.router._call_groq",
-               side_effect=[RetryableAPIError("timeout"), _Probe(answer="g2-ok")]) as mock_groq, \
-         patch("core.router._call_openrouter") as mock_or:
+    with (
+        patch("core.model_registry.get_available_models", side_effect=_groq_or_models(groq_models, [])),
+        patch(
+            "core.router._call_groq", side_effect=[RetryableAPIError("timeout"), _Probe(answer="g2-ok")]
+        ) as mock_groq,
+        patch("core.router._call_openrouter") as mock_or,
+    ):
         result = _try_api_fallback("general", "sys", "user", _Probe)
 
     assert result is not None
@@ -239,8 +257,10 @@ def test_fallback_retryable_tries_next_model():
 # response_format json_object (WU-E)
 # ---------------------------------------------------------------------------
 
+
 def _mock_api_client(content='{"answer": "ok"}'):
     from unittest.mock import MagicMock
+
     choice = MagicMock()
     choice.message.content = content
     response = MagicMock()
@@ -253,6 +273,7 @@ def _mock_api_client(content='{"answer": "ok"}'):
 def test_groq_passes_response_format_json_object(monkeypatch):
     """_call_groq pide response_format json_object."""
     from core.router import _call_groq, clear_key_cache
+
     clear_key_cache()
     monkeypatch.setenv("GROQ_API_KEY", "key")
 
@@ -268,6 +289,7 @@ def test_groq_passes_response_format_json_object(monkeypatch):
 def test_openrouter_passes_response_format_json_object(monkeypatch):
     """_call_openrouter pide response_format json_object."""
     from core.router import _call_openrouter, clear_key_cache
+
     clear_key_cache()
     monkeypatch.setenv("OPENROUTER_API_KEY", "key")
 
@@ -284,6 +306,7 @@ def test_openrouter_passes_response_format_json_object(monkeypatch):
 # Capability-aware fallback ordering (WU-C)
 # ---------------------------------------------------------------------------
 
+
 def test_fallback_prefers_capability_over_score_for_audit():
     """Para 'audit', un modelo con la capability va antes aunque tenga menor score."""
     from core.router import _try_api_fallback
@@ -298,10 +321,11 @@ def test_fallback_prefers_capability_over_score_for_audit():
         attempted.append(model_id)
         return None
 
-    with patch("core.model_registry.get_available_models",
-               side_effect=_groq_or_models(groq_models, [])), \
-         patch("core.router._call_groq", side_effect=fake_call), \
-         patch("core.router._call_openrouter", return_value=None):
+    with (
+        patch("core.model_registry.get_available_models", side_effect=_groq_or_models(groq_models, [])),
+        patch("core.router._call_groq", side_effect=fake_call),
+        patch("core.router._call_openrouter", return_value=None),
+    ):
         assert _try_api_fallback("audit", "sys", "user", _Probe) is None
 
     # Ningún modelo filtrado (sin starvation), pero el capaz va primero
@@ -322,10 +346,11 @@ def test_fallback_empty_task_type_keeps_pure_score_order():
         attempted.append(model_id)
         return None
 
-    with patch("core.model_registry.get_available_models",
-               side_effect=_groq_or_models(groq_models, [])), \
-         patch("core.router._call_groq", side_effect=fake_call), \
-         patch("core.router._call_openrouter", return_value=None):
+    with (
+        patch("core.model_registry.get_available_models", side_effect=_groq_or_models(groq_models, [])),
+        patch("core.router._call_groq", side_effect=fake_call),
+        patch("core.router._call_openrouter", return_value=None),
+    ):
         assert _try_api_fallback("", "sys", "user", _Probe) is None
 
     assert attempted == ["high", "low"]
@@ -335,16 +360,25 @@ def test_fallback_empty_task_type_keeps_pure_score_order():
 # Selección manual fail-fast visible, sin fallback silencioso (WU-D)
 # ---------------------------------------------------------------------------
 
+
 def _set_manual_selection(provider, model_id="m1", model_name="Manual"):
     import json
 
     from core.router import set_ai_mode
     from core.settings import set_setting
+
     set_ai_mode("api")
-    set_setting("selected_model", json.dumps({
-        "auto": False, "provider": provider,
-        "model_id": model_id, "model_name": model_name,
-    }))
+    set_setting(
+        "selected_model",
+        json.dumps(
+            {
+                "auto": False,
+                "provider": provider,
+                "model_id": model_id,
+                "model_name": model_name,
+            }
+        ),
+    )
 
 
 def test_manual_groq_none_returns_none_without_fallback():
@@ -353,8 +387,7 @@ def test_manual_groq_none_returns_none_without_fallback():
 
     _set_manual_selection("groq")
 
-    with patch("core.router._call_groq", return_value=None), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with patch("core.router._call_groq", return_value=None), patch("core.router._try_api_fallback") as mock_fallback:
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is None
@@ -367,8 +400,10 @@ def test_manual_groq_retryable_returns_none_without_fallback():
 
     _set_manual_selection("groq")
 
-    with patch("core.router._call_groq", side_effect=RetryableAPIError("timeout")), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._call_groq", side_effect=RetryableAPIError("timeout")),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is None
@@ -381,8 +416,10 @@ def test_manual_openrouter_none_returns_none_without_fallback():
 
     _set_manual_selection("openrouter")
 
-    with patch("core.router._call_openrouter", return_value=None), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._call_openrouter", return_value=None),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is None
@@ -392,6 +429,7 @@ def test_manual_openrouter_none_returns_none_without_fallback():
 # ---------------------------------------------------------------------------
 # General Compute: tercer provider cloud
 # ---------------------------------------------------------------------------
+
 
 def _registry_models(groq, or_models, gc_models=None):
     """get_available_models mockeado para Groq/OpenRouter/General Compute."""
@@ -405,6 +443,7 @@ def _registry_models(groq, or_models, gc_models=None):
         if provider == "generalcompute":
             return list(gc_models)
         return []
+
     return _get
 
 
@@ -415,10 +454,13 @@ def test_call_generalcompute_auth_error_propagates(monkeypatch):
     import openai
 
     from core.router import _call_generalcompute, clear_key_cache
+
     clear_key_cache()
     monkeypatch.delenv("GENERALCOMPUTE_API_KEY", raising=False)
-    monkeypatch.setattr("core.provider_keys.get_setting",
-                        lambda key, default="": "bad-key" if key == "provider_key_generalcompute" else default)
+    monkeypatch.setattr(
+        "core.provider_keys.get_setting",
+        lambda key, default="": "bad-key" if key == "provider_key_generalcompute" else default,
+    )
 
     client = MagicMock()
     client.chat.completions.create.side_effect = _make_auth_error(openai.AuthenticationError)
@@ -433,6 +475,7 @@ def test_call_generalcompute_auth_error_propagates(monkeypatch):
 def test_call_generalcompute_without_key_returns_none(monkeypatch):
     """Sin key, _call_generalcompute retorna None (omite provider)."""
     from core.router import _call_generalcompute, clear_key_cache
+
     monkeypatch.delenv("GENERALCOMPUTE_API_KEY", raising=False)
     monkeypatch.setattr("core.provider_keys.get_setting", lambda key, default="": default)
     clear_key_cache()
@@ -442,8 +485,11 @@ def test_call_generalcompute_without_key_returns_none(monkeypatch):
 def test_generalcompute_passes_response_format_json_object(monkeypatch):
     """_call_generalcompute pide response_format json_object (misma forma que OpenRouter)."""
     from core.router import _call_generalcompute, clear_key_cache
-    monkeypatch.setattr("core.provider_keys.get_setting",
-                        lambda key, default="": "gc-key" if key == "provider_key_generalcompute" else default)
+
+    monkeypatch.setattr(
+        "core.provider_keys.get_setting",
+        lambda key, default="": "gc-key" if key == "provider_key_generalcompute" else default,
+    )
     clear_key_cache()
 
     client = _mock_api_client()
@@ -480,11 +526,14 @@ def test_fallback_tries_generalcompute_after_openrouter():
         order.append("generalcompute")
         return _Probe(answer="from-gc")
 
-    with patch("core.model_registry.get_available_models",
-               side_effect=_registry_models(groq_models, or_models, gc_models)), \
-         patch("core.router._call_groq", side_effect=fake_groq), \
-         patch("core.router._call_openrouter", side_effect=fake_or), \
-         patch("core.router._call_generalcompute", side_effect=fake_gc):
+    with (
+        patch(
+            "core.model_registry.get_available_models", side_effect=_registry_models(groq_models, or_models, gc_models)
+        ),
+        patch("core.router._call_groq", side_effect=fake_groq),
+        patch("core.router._call_openrouter", side_effect=fake_or),
+        patch("core.router._call_generalcompute", side_effect=fake_gc),
+    ):
         result = _try_api_fallback("general", "sys", "user", _Probe)
 
     assert result is not None
@@ -499,11 +548,12 @@ def test_fallback_success_before_gc_skips_gc():
     or_models = [_fake_model("openrouter", "o1", 88)]
     gc_models = [_fake_model("generalcompute", "gc1", 85)]
 
-    with patch("core.model_registry.get_available_models",
-               side_effect=_registry_models([], or_models, gc_models)), \
-         patch("core.router._call_groq") as mock_groq, \
-         patch("core.router._call_openrouter", return_value=_Probe(answer="from-or")), \
-         patch("core.router._call_generalcompute") as mock_gc:
+    with (
+        patch("core.model_registry.get_available_models", side_effect=_registry_models([], or_models, gc_models)),
+        patch("core.router._call_groq") as mock_groq,
+        patch("core.router._call_openrouter", return_value=_Probe(answer="from-or")),
+        patch("core.router._call_generalcompute") as mock_gc,
+    ):
         result = _try_api_fallback("general", "sys", "user", _Probe)
 
     assert result.answer == "from-or"
@@ -522,12 +572,12 @@ def test_fallback_gc_401_stops_gc_loop():
         _fake_model("generalcompute", "gc2", 85),
     ]
 
-    with patch("core.model_registry.get_available_models",
-               side_effect=_registry_models([], [], gc_models)), \
-         patch("core.router._call_groq"), \
-         patch("core.router._call_openrouter"), \
-         patch("core.router._call_generalcompute",
-               side_effect=_make_auth_error(openai.AuthenticationError)) as mock_gc:
+    with (
+        patch("core.model_registry.get_available_models", side_effect=_registry_models([], [], gc_models)),
+        patch("core.router._call_groq"),
+        patch("core.router._call_openrouter"),
+        patch("core.router._call_generalcompute", side_effect=_make_auth_error(openai.AuthenticationError)) as mock_gc,
+    ):
         result = _try_api_fallback("general", "sys", "user", _Probe)
 
     assert result is None
@@ -540,8 +590,10 @@ def test_manual_generalcompute_none_returns_none_without_fallback():
 
     _set_manual_selection("generalcompute")
 
-    with patch("core.router._call_generalcompute", return_value=None), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._call_generalcompute", return_value=None),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is None
@@ -554,8 +606,10 @@ def test_manual_generalcompute_retryable_returns_none_without_fallback():
 
     _set_manual_selection("generalcompute")
 
-    with patch("core.router._call_generalcompute", side_effect=RetryableAPIError("timeout")), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._call_generalcompute", side_effect=RetryableAPIError("timeout")),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is None
@@ -570,9 +624,10 @@ def test_manual_generalcompute_auth_error_returns_none_without_fallback():
 
     _set_manual_selection("generalcompute")
 
-    with patch("core.router._call_generalcompute",
-               side_effect=_make_auth_error(openai.AuthenticationError)), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._call_generalcompute", side_effect=_make_auth_error(openai.AuthenticationError)),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is None
@@ -582,6 +637,7 @@ def test_manual_generalcompute_auth_error_returns_none_without_fallback():
 # ---------------------------------------------------------------------------
 # Selección manual LM Studio: id resuelto en el momento de la llamada
 # ---------------------------------------------------------------------------
+
 
 def _lm_client_with_models(model_ids, content='{"answer": "ok"}'):
     """Cliente LM Studio simulado: models.list() + chat.completions.create()."""
@@ -604,15 +660,18 @@ def test_manual_lm_studio_uses_stored_model_id_without_fallback():
     """Selección manual lm_studio → se envía el id almacenado si está cargado,
     sin invocar el fallback cloud (fail-fast)."""
     from core.ai import clear_lm_model_cache
+
     clear_lm_model_cache()
     # El id almacenado NO es el primero de la lista: si la selección se
     # ignorara, el resolver devolvería "qwen2.5-9b" (primer 9b de la lista).
     _set_manual_selection("lm_studio", model_id="gemma-2-9b-it", model_name="Gemma 2 9B")
     client = _lm_client_with_models(["qwen2.5-9b-instruct", "gemma-2-9b-it"])
 
-    with patch("core.router._is_lm_studio_reachable", return_value=True), \
-         patch("core.ai.get_client", return_value=client), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._is_lm_studio_reachable", return_value=True),
+        patch("core.ai.get_client", return_value=client),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is not None
@@ -625,13 +684,16 @@ def test_manual_lm_studio_uses_stored_model_id_without_fallback():
 def test_manual_lm_studio_not_loaded_falls_back_within_lm_not_to_cloud():
     """Selección manual no cargada → se usa el modelo local cargado, sin fallback cloud."""
     from core.ai import clear_lm_model_cache
+
     clear_lm_model_cache()
     _set_manual_selection("lm_studio", model_id="unloaded-model", model_name="Gone")
     client = _lm_client_with_models(["gpt-oss-20b", "qwen2.5-9b-instruct"])
 
-    with patch("core.router._is_lm_studio_reachable", return_value=True), \
-         patch("core.ai.get_client", return_value=client), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._is_lm_studio_reachable", return_value=True),
+        patch("core.ai.get_client", return_value=client),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is not None
@@ -647,8 +709,10 @@ def test_manual_lm_studio_none_returns_none_without_fallback():
 
     _set_manual_selection("lm_studio", model_id="gemma-2-9b-it", model_name="Gemma")
 
-    with patch("core.router._try_lm_studio_with_retry", return_value=None), \
-         patch("core.router._try_api_fallback") as mock_fallback:
+    with (
+        patch("core.router._try_lm_studio_with_retry", return_value=None),
+        patch("core.router._try_api_fallback") as mock_fallback,
+    ):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is None
@@ -669,8 +733,7 @@ def test_execute_with_router_invalidates_lm_model_cache():
         core.ai._fetch_loaded_lm_models(client)
     assert core.ai._lm_models_cache is not None
 
-    with patch("core.router._try_lm_studio_with_retry",
-               return_value=_Probe(answer="lm")):
+    with patch("core.router._try_lm_studio_with_retry", return_value=_Probe(answer="lm")):
         result = execute_with_router("audit", "sys", "user", _Probe)
 
     assert result is not None

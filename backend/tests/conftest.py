@@ -8,6 +8,7 @@ Estrategia:
 - autouse setup_db crea tablas antes de cada test, las destruye después
 - IA mockeada: _executor.submit es no-op
 """
+
 import os
 import sys
 from pathlib import Path
@@ -35,6 +36,7 @@ TEST_ENGINE = create_engine(
     poolclass=StaticPool,
 )
 
+
 # Register the same PRAGMA listener that core/database.py uses on the real
 # engine.  Since conftest replaces core.database.engine with TEST_ENGINE,
 # the event listener registered at import time would be lost.
@@ -43,6 +45,7 @@ def _set_test_pragma(dbapi_connection, connection_record):
     cursor = dbapi_connection.cursor()
     cursor.execute("PRAGMA foreign_keys=ON")
     cursor.close()
+
 
 # Parchear engine global ANTES de importar cualquier módulo de la app
 import core.database  # noqa: E402
@@ -58,6 +61,7 @@ def setup_db():
     SQLModel.metadata.create_all(TEST_ENGINE)
     # Reset LM Studio model-list cache so each test starts clean
     from core.ai import clear_lm_model_cache
+
     clear_lm_model_cache()
     yield
     # Limpieza física estricta para evitar leaks entre tests debido a StaticPool
@@ -71,6 +75,7 @@ def setup_db():
     SQLModel.metadata.drop_all(TEST_ENGINE)
     # Reset auth manager cache so each test starts clean
     from core.auth import api_key_manager
+
     api_key_manager.reset()
 
 
@@ -118,6 +123,7 @@ def client_fixture():
 
     app.dependency_overrides[get_session] = override_get_session
     from fastapi.testclient import TestClient
+
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
@@ -232,9 +238,7 @@ def api_key_fixture(session):
 
     raw = "test-api-key"
     hashed = bcrypt.hashpw(raw.encode(), bcrypt.gensalt()).decode()
-    existing = session.exec(
-        select(AppSetting).where(AppSetting.key == "api_key_hash")
-    ).first()
+    existing = session.exec(select(AppSetting).where(AppSetting.key == "api_key_hash")).first()
     if existing:
         existing.value = hashed
     else:

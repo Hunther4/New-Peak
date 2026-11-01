@@ -3,6 +3,7 @@ Tests for CORS `*` production guard (T-09).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 from unittest.mock import patch
 
 import pytest

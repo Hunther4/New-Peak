@@ -3,6 +3,7 @@ Tests for core/tasks.py — BoundedExecutor.
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import pytest
 
 
@@ -79,4 +80,5 @@ class TestBoundedExecutor:
         """GIVEN core.tasks module
         WHEN importing background_executor THEN it is a BoundedExecutor instance."""
         from core.tasks import BoundedExecutor, background_executor
+
         assert isinstance(background_executor, BoundedExecutor)

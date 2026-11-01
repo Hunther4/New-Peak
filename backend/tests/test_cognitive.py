@@ -8,6 +8,7 @@ from services.cognitive_service import calcular_escalera_psicometrica
 # 1. PRUEBAS UNITARIAS: Algoritmo de Escalera Psicométrica (Jaeggi et al.)
 # ============================================================================
 
+
 def test_ladder_logic_increase():
     """GIVEN precision >= 80% WHEN calculating next N THEN N increases by 1."""
     assert calcular_escalera_psicometrica(0.80, 2) == 3
@@ -36,13 +37,12 @@ def test_ladder_logic_floor():
 # 2. PRUEBAS DE INTEGRACIÓN: Endpoints FastAPI (/api/cognitive)
 # ============================================================================
 
+
 @pytest.fixture(name="cog_skill")
 def cog_skill_fixture(session):
     """Fixture que crea un CognitiveSkill base."""
     skill = CognitiveSkill(
-        nombre="N-Back Aritmético",
-        descripcion="Entrenamiento científico de memoria de trabajo",
-        fase_iq_base=115
+        nombre="N-Back Aritmético", descripcion="Entrenamiento científico de memoria de trabajo", fase_iq_base=115
     )
     session.add(skill)
     session.commit()
@@ -52,11 +52,7 @@ def cog_skill_fixture(session):
 
 def test_create_cognitive_skill(client):
     """POST /api/cognitive/skills/ crea una nueva habilidad cognitiva."""
-    payload = {
-        "nombre": "Dual N-Back Auditivo",
-        "descripcion": "Estímulos de audio adaptativos",
-        "fase_iq_base": 130
-    }
+    payload = {"nombre": "Dual N-Back Auditivo", "descripcion": "Estímulos de audio adaptativos", "fase_iq_base": 130}
     resp = client.post("/api/cognitive/skills/", json=payload)
     assert resp.status_code == 201
     data = resp.json()
@@ -67,11 +63,7 @@ def test_create_cognitive_skill(client):
 
 def test_create_cognitive_skill_duplicate(client, cog_skill):
     """POST habilidad con nombre duplicado retorna 400."""
-    payload = {
-        "nombre": cog_skill.nombre,
-        "descripcion": "Otra descripcion",
-        "fase_iq_base": 100
-    }
+    payload = {"nombre": cog_skill.nombre, "descripcion": "Otra descripcion", "fase_iq_base": 100}
     resp = client.post("/api/cognitive/skills/", json=payload)
     assert resp.status_code == 400
     assert "Ya existe" in resp.json()["detail"]
@@ -114,9 +106,21 @@ def test_upload_trials_bulk_and_finalize(client, cog_skill):
     trials_payload = {
         "session_id": session_id,
         "trials": [
-            {"estimulo": "A", "respuesta_esperada": "Match", "respuesta_usuario": "Match", "es_correcto": True, "tiempo_reaccion_ms": 300},
-            {"estimulo": "B", "respuesta_esperada": "NoMatch", "respuesta_usuario": "NoMatch", "es_correcto": True, "tiempo_reaccion_ms": 400},
-        ]
+            {
+                "estimulo": "A",
+                "respuesta_esperada": "Match",
+                "respuesta_usuario": "Match",
+                "es_correcto": True,
+                "tiempo_reaccion_ms": 300,
+            },
+            {
+                "estimulo": "B",
+                "respuesta_esperada": "NoMatch",
+                "respuesta_usuario": "NoMatch",
+                "es_correcto": True,
+                "tiempo_reaccion_ms": 400,
+            },
+        ],
     }
     trials_resp = client.post("/api/cognitive/trials/", json=trials_payload)
     assert trials_resp.status_code == 201
@@ -140,7 +144,7 @@ def test_session_adaptive_ladder_continuation(client, cog_skill, session):
         nivel_n_alcanzado=3,
         tasa_precision=0.85,
         tiempo_reaccion_promedio_ms=400.0,
-        fecha_fin=None # se finalizará a través de la API o directo
+        fecha_fin=None,  # se finalizará a través de la API o directo
     )
     session.add(past_session)
     session.commit()
@@ -153,7 +157,7 @@ def test_session_adaptive_ladder_continuation(client, cog_skill, session):
         respuesta_esperada="A",
         respuesta_usuario="A",
         es_correcto=True,
-        tiempo_reaccion_ms=250
+        tiempo_reaccion_ms=250,
     )
     session.add(trial)
     session.commit()
@@ -181,8 +185,14 @@ def test_trials_blocked_on_finalized_session(client, cog_skill):
     trials_payload = {
         "session_id": session_id,
         "trials": [
-            {"estimulo": "A", "respuesta_esperada": "B", "respuesta_usuario": "B", "es_correcto": True, "tiempo_reaccion_ms": 300}
-        ]
+            {
+                "estimulo": "A",
+                "respuesta_esperada": "B",
+                "respuesta_usuario": "B",
+                "es_correcto": True,
+                "tiempo_reaccion_ms": 300,
+            }
+        ],
     }
     resp = client.post("/api/cognitive/trials/", json=trials_payload)
     assert resp.status_code == 400
@@ -201,8 +211,14 @@ def test_finalize_is_idempotent_guard(client, cog_skill):
     trials_payload = {
         "session_id": session_id,
         "trials": [
-            {"estimulo": "A", "respuesta_esperada": "Match", "respuesta_usuario": "Match", "es_correcto": True, "tiempo_reaccion_ms": 300},
-        ]
+            {
+                "estimulo": "A",
+                "respuesta_esperada": "Match",
+                "respuesta_usuario": "Match",
+                "es_correcto": True,
+                "tiempo_reaccion_ms": 300,
+            },
+        ],
     }
     client.post("/api/cognitive/trials/", json=trials_payload)
 
@@ -220,6 +236,7 @@ def test_finalize_is_idempotent_guard(client, cog_skill):
 # ============================================================================
 # 3. SEGURIDAD: Autenticación en Endpoints de Telemetría Cognitiva
 # ============================================================================
+
 
 class TestCognitiveAuth:
     """Verificación de que el middleware de API Key protege las nuevas rutas de Cognitive."""
@@ -263,9 +280,11 @@ class TestCognitiveAuth:
 # 4. PRUEBAS DE CONSOLIDACIÓN: Creación de PracticeSession desde CognitiveSession
 # ============================================================================
 
+
 def seed_dual_n_back_skill(session):
     """Crea el skill estándar Dual N-Back si no existe."""
     from models.models import Skill
+
     existing = session.exec(select(Skill).where(Skill.skill_type == "dual_n_back")).first()
     if existing:
         return existing
@@ -290,8 +309,13 @@ def create_cog_session_with_trials(client, cog_skill_id, trial_count=10):
     session_id = session_resp.json()["id"]
 
     trials = [
-        {"estimulo": f"S{i}", "respuesta_esperada": "A", "respuesta_usuario": "A",
-         "es_correcto": True, "tiempo_reaccion_ms": 300}
+        {
+            "estimulo": f"S{i}",
+            "respuesta_esperada": "A",
+            "respuesta_usuario": "A",
+            "es_correcto": True,
+            "tiempo_reaccion_ms": 300,
+        }
         for i in range(trial_count)
     ]
     client.post("/api/cognitive/trials/", json={"session_id": session_id, "trials": trials})
@@ -315,6 +339,7 @@ def test_consolidate_creates_practice_session(client, cog_skill, session):
 
     # Verificar que el PracticeSession existe en la DB
     from models.models import Session as PracticeSession
+
     ps = session.get(PracticeSession, data["practice_session_id"])
     assert ps is not None
     assert ps.skill_id is not None

@@ -5,6 +5,7 @@ Adds new topics + subtopics for LECTURA (9 subtopics total),
 M2 (10 subtopics), CIENCIAS (12 subtopics), HISTORIA (9 subtopics).
 All inserts are idempotent (skip if already exists).
 """
+
 import logging
 import os
 import sys
@@ -24,27 +25,87 @@ logger = logging.getLogger("seed_curriculum_expansion")
 # ---------------------------------------------------------------------------
 EXTRA_TOPICS = [
     # LECTURA — extra topics inside existing ejes
-    {"id": "top-lec-infografia", "eje_id": "eje-lec-divulgacion", "name": "Infografías y textos discontinuos", "order_index": 2},
-    {"id": "top-lec-reportaje", "eje_id": "eje-lec-divulgacion", "name": "Reportajes periodísticos y crónicas", "order_index": 3},
-    {"id": "top-lec-debate", "eje_id": "eje-lec-argumentativo", "name": "Discursos públicos y debates formales", "order_index": 4},
-    {"id": "top-lec-ensayo", "eje_id": "eje-lec-argumentativo", "name": "Ensayos filosóficos y literarios", "order_index": 5},
+    {
+        "id": "top-lec-infografia",
+        "eje_id": "eje-lec-divulgacion",
+        "name": "Infografías y textos discontinuos",
+        "order_index": 2,
+    },
+    {
+        "id": "top-lec-reportaje",
+        "eje_id": "eje-lec-divulgacion",
+        "name": "Reportajes periodísticos y crónicas",
+        "order_index": 3,
+    },
+    {
+        "id": "top-lec-debate",
+        "eje_id": "eje-lec-argumentativo",
+        "name": "Discursos públicos y debates formales",
+        "order_index": 4,
+    },
+    {
+        "id": "top-lec-ensayo",
+        "eje_id": "eje-lec-argumentativo",
+        "name": "Ensayos filosóficos y literarios",
+        "order_index": 5,
+    },
     {"id": "top-lec-poesia", "eje_id": "eje-lec-literario", "name": "Lírica y textos poéticos", "order_index": 6},
     {"id": "top-lec-drama", "eje_id": "eje-lec-literario", "name": "Teatro y textos dramáticos", "order_index": 7},
     # M2 — extra topics inside existing ejes
-    {"id": "top-m2-trigonometria", "eje_id": "eje-m2-num", "name": "Trigonometría y números complejos", "order_index": 2},
+    {
+        "id": "top-m2-trigonometria",
+        "eje_id": "eje-m2-num",
+        "name": "Trigonometría y números complejos",
+        "order_index": 2,
+    },
     {"id": "top-m2-derivadas", "eje_id": "eje-m2-alg", "name": "Límites y derivadas (introducción)", "order_index": 3},
-    {"id": "top-m2-conicas", "eje_id": "eje-m2-geo", "name": "Cónicas: circunferencia, elipse y parábola", "order_index": 4},
-    {"id": "top-m2-combinatoria", "eje_id": "eje-m2-prob", "name": "Combinatoria y probabilidad condicional", "order_index": 5},
+    {
+        "id": "top-m2-conicas",
+        "eje_id": "eje-m2-geo",
+        "name": "Cónicas: circunferencia, elipse y parábola",
+        "order_index": 4,
+    },
+    {
+        "id": "top-m2-combinatoria",
+        "eje_id": "eje-m2-prob",
+        "name": "Combinatoria y probabilidad condicional",
+        "order_index": 5,
+    },
     # CIENCIAS — extra topics inside existing ejes
     {"id": "top-cie-evolucion", "eje_id": "eje-cie-bio", "name": "Evolución y biodiversidad", "order_index": 2},
     {"id": "top-cie-termodinamica", "eje_id": "eje-cie-fis", "name": "Termodinámica y electricidad", "order_index": 3},
-    {"id": "top-cie-acido-base", "eje_id": "eje-cie-quim", "name": "Ácidos, bases y equilibrio químico", "order_index": 4},
-    {"id": "top-cie-electivo-bio", "eje_id": "eje-cie-elec", "name": "Módulo Electivo Biología aplicada", "order_index": 5},
+    {
+        "id": "top-cie-acido-base",
+        "eje_id": "eje-cie-quim",
+        "name": "Ácidos, bases y equilibrio químico",
+        "order_index": 4,
+    },
+    {
+        "id": "top-cie-electivo-bio",
+        "eje_id": "eje-cie-elec",
+        "name": "Módulo Electivo Biología aplicada",
+        "order_index": 5,
+    },
     # HISTORIA — extra topics inside existing ejes
     {"id": "top-his-guerra-fria", "eje_id": "eje-his-chile", "name": "Guerra Fría y orden bipolar", "order_index": 2},
-    {"id": "top-his-globalizacion", "eje_id": "eje-his-chile", "name": "Globalización y mundo contemporáneo", "order_index": 3},
-    {"id": "top-his-rrhh", "eje_id": "eje-his-ciudadania", "name": "Derechos humanos y mecanismos de protección", "order_index": 4},
-    {"id": "top-his-territorio", "eje_id": "eje-his-economia", "name": "Geografía, territorio y planificación urbana", "order_index": 5},
+    {
+        "id": "top-his-globalizacion",
+        "eje_id": "eje-his-chile",
+        "name": "Globalización y mundo contemporáneo",
+        "order_index": 3,
+    },
+    {
+        "id": "top-his-rrhh",
+        "eje_id": "eje-his-ciudadania",
+        "name": "Derechos humanos y mecanismos de protección",
+        "order_index": 4,
+    },
+    {
+        "id": "top-his-territorio",
+        "eje_id": "eje-his-economia",
+        "name": "Geografía, territorio y planificación urbana",
+        "order_index": 5,
+    },
 ]
 
 # ---------------------------------------------------------------------------
@@ -100,7 +161,6 @@ EXTRA_SUBTOPICS = [
         "description": "Caracterización de personajes, tipos de conflicto dramático y estructura del acto teatral.",
         "order_index": 20,
     },
-
     # ── M2 ───────────────────────────────────────────────────────────────────
     {
         "id": "sub-m2-trigonometria",
@@ -150,7 +210,6 @@ EXTRA_SUBTOPICS = [
         "description": "Regla del producto, probabilidad condicionada P(A|B) y aplicación del teorema de Bayes.",
         "order_index": 26,
     },
-
     # ── CIENCIAS ─────────────────────────────────────────────────────────────
     {
         "id": "sub-cie-evolucion",
@@ -192,7 +251,6 @@ EXTRA_SUBTOPICS = [
         "description": "Integración funcional de los sistemas biológicos humanos y su regulación homeostática.",
         "order_index": 31,
     },
-
     # ── HISTORIA ─────────────────────────────────────────────────────────────
     {
         "id": "sub-his-guerra-fria",

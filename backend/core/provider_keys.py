@@ -4,6 +4,7 @@ Orden de resolución: setting en AppSetting (DB) primero, fallback a la
 variable de entorno correspondiente. Nunca se registra ni se retorna la
 key completa en respuestas HTTP (solo máscara).
 """
+
 import os
 
 from core.settings import get_setting, set_setting

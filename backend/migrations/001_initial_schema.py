@@ -9,6 +9,7 @@ runner has at least one discovered module to validate the discovery
 mechanism end-to-end.
 """
 
+
 def up(conn) -> None:
     """No-op baseline migration. Schema is created by SQLModel.metadata.create_all
     before the migration runner is invoked. This migration exists so the

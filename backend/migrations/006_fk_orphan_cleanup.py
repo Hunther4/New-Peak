@@ -125,9 +125,7 @@ def up(conn):
     if total_orphans == 0:
         logger.info("[%s] Zero orphans found across all FK pairs", mode)
 
-    logger.info(
-        "[%s] Orphan scan complete. Total orphans: %d", mode, total_orphans
-    )
+    logger.info("[%s] Orphan scan complete. Total orphans: %d", mode, total_orphans)
 
 
 MIGRATION = {

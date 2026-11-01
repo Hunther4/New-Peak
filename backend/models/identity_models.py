@@ -5,6 +5,7 @@ mirrors ``backend/migrations/013_identity_tables.py`` exactly: the standard
 bootstrap creates them from this metadata and the migration guarantees them
 for a database that never ran ``create_all``.
 """
+
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -44,9 +45,7 @@ class UserDevice(SQLModel, table=True):
 
     __tablename__ = "user_devices"
     __table_args__ = (
-        UniqueConstraint(
-            "user_id", "public_key", name="uq_user_devices_user_id_public_key"
-        ),
+        UniqueConstraint("user_id", "public_key", name="uq_user_devices_user_id_public_key"),
         Index("ix_user_devices_user_revoked", "user_id", "revoked_at"),
     )
 
@@ -73,9 +72,7 @@ class AuthChallenge(SQLModel, table=True):
     """
 
     __tablename__ = "auth_challenges"
-    __table_args__ = (
-        Index("ix_auth_challenges_user_expiry", "user_id", "expires_at"),
-    )
+    __table_args__ = (Index("ix_auth_challenges_user_expiry", "user_id", "expires_at"),)
 
     id: str = Field(primary_key=True)
     user_id: int = Field(foreign_key="users.id", ondelete="CASCADE")
@@ -99,9 +96,7 @@ class AuthSession(SQLModel, table=True):
     """
 
     __tablename__ = "auth_sessions"
-    __table_args__ = (
-        Index("ix_auth_sessions_user", "user_id"),
-    )
+    __table_args__ = (Index("ix_auth_sessions_user", "user_id"),)
 
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="users.id", ondelete="CASCADE")

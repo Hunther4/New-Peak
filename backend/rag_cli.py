@@ -8,6 +8,7 @@ Uso:
   python rag_cli.py list            # Lista libros indexados
   python rag_cli.py query "texto"   # Busca chunks relevantes
 """
+
 import sys
 from pathlib import Path
 
@@ -40,7 +41,7 @@ def cmd_list() -> None:
 
 
 def cmd_query(text: str, top_k: int = 3) -> None:
-    print(f"\n🔍 Buscando: \"{text}\" (top {top_k})\n")
+    print(f'\n🔍 Buscando: "{text}" (top {top_k})\n')
     results = query_books(text, top_k=top_k)
     if not results:
         print("Sin resultados. Verificá que haya libros indexados.")
@@ -72,7 +73,7 @@ def main() -> None:
 
     elif command == "query":
         if len(args) < 2:
-            print("Uso: python rag_cli.py query \"tu consulta\"")
+            print('Uso: python rag_cli.py query "tu consulta"')
             sys.exit(1)
         query_text = args[1]
         top_k = int(args[2]) if len(args) > 2 else 3

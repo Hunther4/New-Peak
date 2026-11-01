@@ -20,25 +20,37 @@ def get_summary(db: Session = Depends(get_session)):
     skill_ids = [s.id for s in skills]
 
     # Batch load: todas las sesiones de todos los skills en 1 query
-    all_sessions = db.exec(
-        select(PracticeSession)
-        .where(PracticeSession.skill_id.in_(skill_ids) if skill_ids else False)
-        .order_by(PracticeSession.created_at.desc())
-    ).all() if skill_ids else []
+    all_sessions = (
+        db.exec(
+            select(PracticeSession)
+            .where(PracticeSession.skill_id.in_(skill_ids) if skill_ids else False)
+            .order_by(PracticeSession.created_at.desc())
+        ).all()
+        if skill_ids
+        else []
+    )
 
     # Batch load: todos los assessments (último por skill)
-    all_assessments = db.exec(
-        select(Assessment)
-        .where(Assessment.skill_id.in_(skill_ids) if skill_ids else False)
-        .order_by(Assessment.created_at.desc())
-    ).all() if skill_ids else []
+    all_assessments = (
+        db.exec(
+            select(Assessment)
+            .where(Assessment.skill_id.in_(skill_ids) if skill_ids else False)
+            .order_by(Assessment.created_at.desc())
+        ).all()
+        if skill_ids
+        else []
+    )
 
     # Batch load: SkillLevelHistory para detect_plateau (N+1 fix)
-    all_history = db.exec(
-        select(SkillLevelHistory)
-        .where(SkillLevelHistory.skill_id.in_(skill_ids) if skill_ids else False)
-        .order_by(SkillLevelHistory.created_at.desc())
-    ).all() if skill_ids else []
+    all_history = (
+        db.exec(
+            select(SkillLevelHistory)
+            .where(SkillLevelHistory.skill_id.in_(skill_ids) if skill_ids else False)
+            .order_by(SkillLevelHistory.created_at.desc())
+        ).all()
+        if skill_ids
+        else []
+    )
 
     # Indexar por skill_id
     sessions_by_skill = {}
@@ -73,38 +85,38 @@ def get_summary(db: Session = Depends(get_session)):
         skill_history = history_by_skill.get(skill.id, [])[:PLATEAU_WINDOW]
         is_plateaued = len(skill_history) >= PLATEAU_WINDOW and all(h.delta == 0 for h in skill_history)
 
-        summary.append({
-            "skill": {
-                "id": skill.id,
-                "name": skill.name,
-                "slug": skill.slug,
-                "domain": skill.domain,
-                "skill_type": skill.skill_type,
-                "current_level": skill.current_level,
-                "practice_level": skill.practice_level,
-                "is_plateaued": is_plateaued,
-                "parent_id": skill.parent_id,
-            },
-            "total_sessions": len(sessions),
-            "sessions_this_week": len(sessions_this_week),
-            "streak_days": streak,
-            "last_assessment": {
-                "score": last_assessment.score,
-                "type": last_assessment.type,
-                "date": last_assessment.created_at.isoformat()
-            } if last_assessment else None,
-            "last_session": sessions[0].created_at.isoformat() if sessions else None
-        })
+        summary.append(
+            {
+                "skill": {
+                    "id": skill.id,
+                    "name": skill.name,
+                    "slug": skill.slug,
+                    "domain": skill.domain,
+                    "skill_type": skill.skill_type,
+                    "current_level": skill.current_level,
+                    "practice_level": skill.practice_level,
+                    "is_plateaued": is_plateaued,
+                    "parent_id": skill.parent_id,
+                },
+                "total_sessions": len(sessions),
+                "sessions_this_week": len(sessions_this_week),
+                "streak_days": streak,
+                "last_assessment": {
+                    "score": last_assessment.score,
+                    "type": last_assessment.type,
+                    "date": last_assessment.created_at.isoformat(),
+                }
+                if last_assessment
+                else None,
+                "last_session": sessions[0].created_at.isoformat() if sessions else None,
+            }
+        )
 
     return {"skills": summary, "generated_at": now_utc.isoformat()}
 
 
 @router.get("/timeline")
-def get_timeline(
-    skill_id: Optional[int] = None,
-    limit: int = 30,
-    db: Session = Depends(get_session)
-):
+def get_timeline(skill_id: Optional[int] = None, limit: int = 30, db: Session = Depends(get_session)):
     # Eager load: trae las sessions con su skill en UNA sola query via JOIN
     query = (
         select(PracticeSession)
@@ -124,25 +136,28 @@ def get_timeline(
             try:
                 from api.routes.sessions import _process_session_background
                 from core.tasks import background_executor
+
                 background_executor.submit(_process_session_background, s.id, s.skill_id, s.onboarding_mode)
             except Exception:
                 pass
-        timeline.append({
-            "type": "session",
-            "id": s.id,
-            "skill_name": skill.name if skill else "?",
-            "skill_slug": skill.slug if skill else "?",
-            "date": s.created_at.isoformat(),
-            "duration_minutes": s.duration_minutes,
-            "difficulty": s.difficulty,
-            "entry_mode": s.entry_mode,
-            "was_deliberate": s.was_deliberate,
-            "ai_fields_status": s.ai_fields_status,
-            "onboarding_mode": s.onboarding_mode,
-            "what_i_practiced": s.what_i_practiced,
-            "micro_error_found": s.micro_error_found,
-            "ai_audit_log": s.ai_audit_log
-        })
+        timeline.append(
+            {
+                "type": "session",
+                "id": s.id,
+                "skill_name": skill.name if skill else "?",
+                "skill_slug": skill.slug if skill else "?",
+                "date": s.created_at.isoformat(),
+                "duration_minutes": s.duration_minutes,
+                "difficulty": s.difficulty,
+                "entry_mode": s.entry_mode,
+                "was_deliberate": s.was_deliberate,
+                "ai_fields_status": s.ai_fields_status,
+                "onboarding_mode": s.onboarding_mode,
+                "what_i_practiced": s.what_i_practiced,
+                "micro_error_found": s.micro_error_found,
+                "ai_audit_log": s.ai_audit_log,
+            }
+        )
 
     return {"timeline": timeline}
 

@@ -2,6 +2,7 @@
 Tests for PAES Exam simulation and finalization.
 Verifies balanced sampling across 4 DEMRE ejes and score conversion.
 """
+
 import pytest
 from sqlmodel import Session
 
@@ -21,6 +22,7 @@ from models.paes_models import (
 def client(enrolled_user):
     """Real principal enrolled through the production services (conftest)."""
     return enrolled_user.client
+
 
 @pytest.fixture
 def seeded_exam_data(session: Session):
@@ -51,7 +53,7 @@ def seeded_exam_data(session: Session):
 
     ejes_data = ["Números", "Álgebra y Funciones", "Geometría", "Probabilidad y Estadística"]
     for i, eje_name in enumerate(ejes_data):
-        eje = PaesEjeTematico(id=f"eje-exam-{i}", subject_id="subj-exam-01", name=eje_name, order_index=i+1)
+        eje = PaesEjeTematico(id=f"eje-exam-{i}", subject_id="subj-exam-01", name=eje_name, order_index=i + 1)
         session.add(eje)
         session.flush()
 
@@ -83,12 +85,10 @@ def seeded_exam_data(session: Session):
             session.add(q)
     session.commit()
 
+
 def test_paes_start_exam_mini(client, seeded_exam_data):
     """Starts a 15-question mini-exam and verifies question distribution."""
-    resp = client.post("/api/paes/study/session/start", json={
-        "session_mode": "EXAM",
-        "question_count": 15
-    })
+    resp = client.post("/api/paes/study/session/start", json={"session_mode": "EXAM", "question_count": 15})
     assert resp.status_code == 200
     data = resp.json()
     assert data["session_mode"] == "EXAM"
@@ -99,12 +99,10 @@ def test_paes_start_exam_mini(client, seeded_exam_data):
         assert "options" in q
         assert len(q["options"]) == 2
 
+
 def test_paes_finalize_exam_scoring(client, seeded_exam_data):
     """Finalizes an exam session and validates DEMRE official scale conversion."""
-    start_resp = client.post("/api/paes/study/session/start", json={
-        "session_mode": "EXAM",
-        "question_count": 15
-    })
+    start_resp = client.post("/api/paes/study/session/start", json={"session_mode": "EXAM", "question_count": 15})
     assert start_resp.status_code == 200
     session_data = start_resp.json()
     session_id = session_data["session_id"]
@@ -114,15 +112,9 @@ def test_paes_finalize_exam_scoring(client, seeded_exam_data):
     for i, q in enumerate(questions):
         # Answer first option for 10 items, leave 5 blank
         selected = q["options"][0]["key"] if i < 10 else None
-        answers.append({
-            "question_id": q["id"],
-            "selected_option": selected,
-            "time_spent_seconds": 45
-        })
+        answers.append({"question_id": q["id"], "selected_option": selected, "time_spent_seconds": 45})
 
-    final_resp = client.post(f"/api/paes/study/session/{session_id}/finalize_exam", json={
-        "answers": answers
-    })
+    final_resp = client.post(f"/api/paes/study/session/{session_id}/finalize_exam", json={"answers": answers})
     assert final_resp.status_code == 200
     res = final_resp.json()
     assert res["total_questions"] == 15
@@ -133,6 +125,7 @@ def test_paes_finalize_exam_scoring(client, seeded_exam_data):
     assert len(res["review"]) == 15
     assert res["unanswered_count"] == 5
 
+
 def test_paes_finalize_exam_rollback_on_midway_failure(client, seeded_exam_data, session: Session):
     """Si finalize_exam falla a mitad de camino, no quedan huérfanos: sin intentos ni completado."""
     from unittest.mock import patch
@@ -141,43 +134,37 @@ def test_paes_finalize_exam_rollback_on_midway_failure(client, seeded_exam_data,
 
     from models.paes_models import PaesQuestionAttempt, PaesStudySession
 
-    start_resp = client.post("/api/paes/study/session/start", json={
-        "session_mode": "EXAM",
-        "question_count": 5
-    })
+    start_resp = client.post("/api/paes/study/session/start", json={"session_mode": "EXAM", "question_count": 5})
     assert start_resp.status_code == 200
     session_id = start_resp.json()["session_id"]
     questions = start_resp.json()["questions"]
 
-    answers = [{
-        "question_id": q["id"],
-        "selected_option": q["options"][0]["key"],
-        "time_spent_seconds": 10
-    } for q in questions]
+    answers = [
+        {"question_id": q["id"], "selected_option": q["options"][0]["key"], "time_spent_seconds": 10} for q in questions
+    ]
 
     with patch("api.routes.paes.raw_score_to_paes", side_effect=RuntimeError("cálculo fallido")):
         with pytest.raises(RuntimeError):
-            client.post(f"/api/paes/study/session/{session_id}/finalize_exam", json={
-                "answers": answers
-            })
+            client.post(f"/api/paes/study/session/{session_id}/finalize_exam", json={"answers": answers})
 
     study = session.get(PaesStudySession, session_id)
     assert study is not None
     assert study.is_completed is False
-    attempts = session.exec(
-        select(PaesQuestionAttempt).where(PaesQuestionAttempt.session_id == session_id)
-    ).all()
+    attempts = session.exec(select(PaesQuestionAttempt).where(PaesQuestionAttempt.session_id == session_id)).all()
     assert attempts == []
 
 
 def test_paes_study_plan_generate_endpoint(client, seeded_exam_data):
     """Verifica la generación adaptativa del plan de estudio semanal."""
-    resp = client.post("/api/paes/study/plan/generate", json={
-        "study_hours_weekly": 12,
-        "target_score": 800,
-        "active_days": ["Lunes", "Miércoles", "Viernes", "Sábado"],
-        "exam_date_str": "2026-11-30"
-    })
+    resp = client.post(
+        "/api/paes/study/plan/generate",
+        json={
+            "study_hours_weekly": 12,
+            "target_score": 800,
+            "active_days": ["Lunes", "Miércoles", "Viernes", "Sábado"],
+            "exam_date_str": "2026-11-30",
+        },
+    )
     assert resp.status_code == 200
     plan = resp.json()
     assert plan["target_score"] == 800
@@ -212,10 +199,7 @@ def test_paes_study_plan_with_user_learning_states(client, enrolled_user, seeded
     session.add(ls_alg)
     session.commit()
 
-    resp = client.post("/api/paes/study/plan/generate", json={
-        "study_hours_weekly": 10,
-        "target_score": 850
-    })
+    resp = client.post("/api/paes/study/plan/generate", json={"study_hours_weekly": 10, "target_score": 850})
     assert resp.status_code == 200
     plan = resp.json()
     assert plan["target_score"] == 850

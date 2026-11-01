@@ -4,6 +4,7 @@ Direct service-layer tests for cognitive_service.
 Bypasses the FastAPI HTTP layer to validate the service functions in
 isolation.
 """
+
 from datetime import datetime, timezone
 
 import pytest
@@ -105,12 +106,20 @@ class TestProcesarFinSesionCognitiva:
         """All correct → precision=1.0, N+1."""
         trials = [
             CognitiveTrial(
-                session_id=1, estimulo="A", respuesta_esperada="A",
-                respuesta_usuario="A", es_correcto=True, tiempo_reaccion_ms=200,
+                session_id=1,
+                estimulo="A",
+                respuesta_esperada="A",
+                respuesta_usuario="A",
+                es_correcto=True,
+                tiempo_reaccion_ms=200,
             ),
             CognitiveTrial(
-                session_id=1, estimulo="B", respuesta_esperada="B",
-                respuesta_usuario="B", es_correcto=True, tiempo_reaccion_ms=300,
+                session_id=1,
+                estimulo="B",
+                respuesta_esperada="B",
+                respuesta_usuario="B",
+                es_correcto=True,
+                tiempo_reaccion_ms=300,
             ),
         ]
         result = cognitive_service.procesar_fin_sesion_cognitiva(trials, 2)
@@ -122,20 +131,36 @@ class TestProcesarFinSesionCognitiva:
         """Mixed correct/incorrect → calculated precision and average RT."""
         trials = [
             CognitiveTrial(
-                session_id=1, estimulo="A", respuesta_esperada="A",
-                respuesta_usuario="A", es_correcto=True, tiempo_reaccion_ms=200,
+                session_id=1,
+                estimulo="A",
+                respuesta_esperada="A",
+                respuesta_usuario="A",
+                es_correcto=True,
+                tiempo_reaccion_ms=200,
             ),
             CognitiveTrial(
-                session_id=1, estimulo="B", respuesta_esperada="B",
-                respuesta_usuario="C", es_correcto=False, tiempo_reaccion_ms=400,
+                session_id=1,
+                estimulo="B",
+                respuesta_esperada="B",
+                respuesta_usuario="C",
+                es_correcto=False,
+                tiempo_reaccion_ms=400,
             ),
             CognitiveTrial(
-                session_id=1, estimulo="C", respuesta_esperada="C",
-                respuesta_usuario="C", es_correcto=True, tiempo_reaccion_ms=300,
+                session_id=1,
+                estimulo="C",
+                respuesta_esperada="C",
+                respuesta_usuario="C",
+                es_correcto=True,
+                tiempo_reaccion_ms=300,
             ),
             CognitiveTrial(
-                session_id=1, estimulo="D", respuesta_esperada="D",
-                respuesta_usuario="E", es_correcto=False, tiempo_reaccion_ms=500,
+                session_id=1,
+                estimulo="D",
+                respuesta_esperada="D",
+                respuesta_usuario="E",
+                es_correcto=False,
+                tiempo_reaccion_ms=500,
             ),
         ]
         result = cognitive_service.procesar_fin_sesion_cognitiva(trials, 2)
@@ -147,14 +172,22 @@ class TestProcesarFinSesionCognitiva:
         """Precision between 0.70 and 0.79 → maintain N."""
         trials = [
             CognitiveTrial(
-                session_id=1, estimulo=f"S{i}", respuesta_esperada="A",
-                respuesta_usuario="A", es_correcto=True, tiempo_reaccion_ms=300,
+                session_id=1,
+                estimulo=f"S{i}",
+                respuesta_esperada="A",
+                respuesta_usuario="A",
+                es_correcto=True,
+                tiempo_reaccion_ms=300,
             )
             for i in range(7)
         ] + [
             CognitiveTrial(
-                session_id=1, estimulo=f"S{i}", respuesta_esperada="A",
-                respuesta_usuario="B", es_correcto=False, tiempo_reaccion_ms=300,
+                session_id=1,
+                estimulo=f"S{i}",
+                respuesta_esperada="A",
+                respuesta_usuario="B",
+                es_correcto=False,
+                tiempo_reaccion_ms=300,
             )
             for i in range(3)
         ]  # 7/10 = 0.70 → maintain

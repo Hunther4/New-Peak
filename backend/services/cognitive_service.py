@@ -63,10 +63,7 @@ def iniciar_sesion(db: DBSession, skill_id: int) -> CognitiveSession:
     )
 
     # Create session
-    session = CognitiveSession(
-        cognitive_skill_id=skill_id,
-        nivel_n_alcanzado=nivel_inicial
-    )
+    session = CognitiveSession(cognitive_skill_id=skill_id, nivel_n_alcanzado=nivel_inicial)
     db.add(session)
     db.commit()
     db.refresh(session)
@@ -89,9 +86,7 @@ def consolidar_sesion(db: DBSession, session_id: int, elapsed_seconds: Optional[
         raise ValueError(f"Minimum 10 trials required before consolidation (found {len(trials)})")
 
     # Fetch Dual N-Back skill
-    skill = db.exec(
-        select(Skill).where(Skill.skill_type == "dual_n_back")
-    ).first()
+    skill = db.exec(select(Skill).where(Skill.skill_type == "dual_n_back")).first()
     if not skill:
         raise ValueError("Dual N-Back skill not found — run seed.py first")
 
@@ -136,9 +131,7 @@ def consolidar_sesion(db: DBSession, session_id: int, elapsed_seconds: Optional[
 
     session_success = determine_session_success(db, cognitive_session, skill=skill)
     if skill:
-        apply_staircase(db, skill, session_success,
-                        trigger="session_consolidation",
-                        session_id=practice_session.id)
+        apply_staircase(db, skill, session_success, trigger="session_consolidation", session_id=practice_session.id)
         skill.practice_level = compute_practice_level(practice_session)
         skill.current_level = float(cognitive_session.nivel_n_alcanzado)
         db.add(skill)
@@ -161,6 +154,7 @@ def consolidar_sesion(db: DBSession, session_id: int, elapsed_seconds: Optional[
 
 def obtener_trials(db: DBSession, session_id: int) -> List[CognitiveTrial]:
     return db.exec(select(CognitiveTrial).where(CognitiveTrial.session_id == session_id)).all()
+
 
 def finalizar_session(db: DBSession, session_id: int) -> dict:
     session = db.get(CognitiveSession, session_id)

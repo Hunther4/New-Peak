@@ -35,12 +35,14 @@ def get_skill_by_slug(slug: str, db: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="Skill no encontrada")
     return skill
 
+
 class SkillCreate(BaseModel):
     name: str = Field(max_length=200)
     domain: str = Field(max_length=200)
     skill_type: str = Field(default="problem_set", max_length=200)
     config_path: str = Field(default="skills/default.yaml", max_length=500)
     slug: str = Field(max_length=200)
+
 
 @router.post("/", status_code=201)
 @limiter.limit(get_rate_limit_str())
@@ -55,7 +57,7 @@ def create_skill(request: Request, data: SkillCreate, db: Session = Depends(get_
         skill_type=data.skill_type,
         config_path=data.config_path,
         slug=data.slug,
-        current_level=1.0
+        current_level=1.0,
     )
     db.add(new_skill)
     db.commit()
@@ -70,9 +72,7 @@ def get_sub_skills(skill_id: int, db: Session = Depends(get_session)):
     if not skill:
         raise HTTPException(status_code=404, detail="Skill no encontrada")
 
-    sub_skills = db.exec(
-        select(Skill).where(Skill.parent_id == skill_id)
-    ).all()
+    sub_skills = db.exec(select(Skill).where(Skill.parent_id == skill_id)).all()
     return sub_skills
 
 

@@ -3,6 +3,7 @@ RAG Pipeline para Peak — Fase 3
 Indexa PDFs de books/ en ChromaDB via LlamaIndex + HuggingFace embeddings.
 NO se ejecuta al arrancar el backend. Solo por CLI o endpoint manual.
 """
+
 import json
 import logging
 import os
@@ -36,6 +37,7 @@ def _get_li_settings():
     """Lazy import of LlamaIndex Settings to avoid crash if llama_index is not installed."""
     try:
         from llama_index.core import Settings as LISettings
+
         return LISettings
     except ImportError:
         return None
@@ -50,6 +52,7 @@ def _get_embed_model():
             if _embed_model is None:  # Double-checked locking
                 try:
                     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+
                     logger.info("[RAG] Loading embedding model (BGE-small)...")
                     _embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
                     logger.info("[RAG] Embedding model loaded")
@@ -71,6 +74,7 @@ def _get_chroma_client():
             if _chroma_client is None:
                 import chromadb
                 from chromadb.config import Settings
+
                 logger.info("[RAG] Initializing ChromaDB client...")
                 _chroma_client = chromadb.PersistentClient(
                     path=str(CHROMA_DIR),
@@ -162,7 +166,6 @@ def index_books(force_reindex: bool = False) -> dict:
 
         BOOKS_DIR.mkdir(parents=True, exist_ok=True)
         CHROMA_DIR.mkdir(parents=True, exist_ok=True)
-
 
         pdf_files = list(BOOKS_DIR.glob("*.pdf"))
         if not pdf_files:
@@ -309,14 +312,16 @@ def query_books(query: str, top_k: int = 3) -> list[dict]:
             score = max(0.0, 1.0 - (dist / 2.0))
             if score < SIMILARITY_THRESHOLD:
                 continue  # BUGFIX (V3 S4 C1): Filtrar chunks irrelevantes
-            chunks.append({
-                "text": doc,
-                "score": round(score, 4),
-                "source": meta.get("source", ""),
-                "book_title": meta.get("book_title", ""),
-                "chunk_index": meta.get("chunk_index", 0),
-                "total_chunks": meta.get("total_chunks", 0),
-            })
+            chunks.append(
+                {
+                    "text": doc,
+                    "score": round(score, 4),
+                    "source": meta.get("source", ""),
+                    "book_title": meta.get("book_title", ""),
+                    "chunk_index": meta.get("chunk_index", 0),
+                    "total_chunks": meta.get("total_chunks", 0),
+                }
+            )
 
         return chunks
 

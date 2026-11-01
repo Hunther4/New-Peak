@@ -7,6 +7,7 @@ Analyzes every question in peak.db, synthesizing:
 3. `distractor_analysis`: Structured cognitive diagnosis for every distractor (A, B, C, D, E),
    explaining the specific misconception, procedural bug, or distractor trap.
 """
+
 import json
 import logging
 import sqlite3
@@ -28,7 +29,7 @@ DISTRACTOR_TYPE_MAP = {
     "CONCEPTUAL": "Confusión entre conceptos afines o aplicación de propiedades que no corresponden a este contexto.",
     "SOBREGENERALIZACION": "Extrapolación inductiva no respaldada por la evidencia del texto o experimento.",
     "INTERMEDIO": "Selección de un valor intermedio antes de finalizar la última etapa del problema.",
-    "DISTRACTOR": "Distractor formal DEMRE diseñado para detectar confusiones comunes en este eje temático."
+    "DISTRACTOR": "Distractor formal DEMRE diseñado para detectar confusiones comunes en este eje temático.",
 }
 
 SUBJECT_CONTEXT_HINTS = {
@@ -36,7 +37,7 @@ SUBJECT_CONTEXT_HINTS = {
     "M2": "Resolución avanzada que exige modelamiento algebraico riguroso, trigonometría, geometría analítica o probabilidades combinatorias.",
     "LECTURA": "Análisis comprensivo evaluando localización explícita, interpretación inferencial o reflexión crítica de la intención comunicativa del autor.",
     "CIENCIAS": "Aplicación del método científico, comprensión de leyes físicas/químicas o interpretación de procesos biológicos y ecológicos.",
-    "HISTORIA": "Análisis diacrónico y multicausal de procesos históricos, continuidad/cambio, o principios constitucionales y de ciudadanía."
+    "HISTORIA": "Análisis diacrónico y multicausal de procesos históricos, continuidad/cambio, o principios constitucionales y de ciudadanía.",
 }
 
 
@@ -56,7 +57,9 @@ def build_distractor_analysis(options: List[Dict[str, Any]], subject_code: str) 
         d_type = (opt.get("distractor_type") or "DISTRACTOR").upper()
 
         if is_corr:
-            analysis[key] = "Alternativa Correcta: Corresponde a la resolución válida según las directrices oficiales del DEMRE."
+            analysis[key] = (
+                "Alternativa Correcta: Corresponde a la resolución válida según las directrices oficiales del DEMRE."
+            )
         else:
             base_hint = DISTRACTOR_TYPE_MAP.get(d_type, DISTRACTOR_TYPE_MAP["DISTRACTOR"])
             if subject_code in ("M1", "M2"):
@@ -81,7 +84,7 @@ def enrich_question_explanation(
     options: List[Dict[str, Any]],
     current_expl_raw: Optional[str],
     subject_code: str,
-    subtopic_name: str
+    subtopic_name: str,
 ) -> Dict[str, Any]:
     """Builds comprehensive pedagogical explanation with step-by-step and distractor analysis."""
     expl = {}
@@ -138,7 +141,9 @@ def enrich_question_explanation(
         )
 
     if not expl.get("short_summary"):
-        expl["short_summary"] = f"Resolución oficial para {subtopic_name}: verificación rigurosa de la opción {correct_key}."
+        expl["short_summary"] = (
+            f"Resolución oficial para {subtopic_name}: verificación rigurosa de la opción {correct_key}."
+        )
 
     # Distractor analysis
     if not has_distractors:
@@ -210,11 +215,14 @@ def run_enrichment(db_path: Path = DB_PATH) -> Dict[str, Any]:
         updates.append((json.dumps(enriched_expl, ensure_ascii=False), now_str, q_id))
         enriched_count += 1
 
-    cursor.executemany("""
+    cursor.executemany(
+        """
         UPDATE paes_questions
         SET explanation_json = ?, updated_at = ?
         WHERE id = ?
-    """, updates)
+    """,
+        updates,
+    )
 
     conn.commit()
     conn.close()

@@ -11,6 +11,7 @@ Each test exercises a single public function:
 - enviar_intento
 - consolidar_sesion
 """
+
 import json
 from unittest.mock import patch
 
@@ -165,11 +166,9 @@ class TestEnviarIntento:
         assert mt.consecutive_incorrect == 0
         # Attempt row created
         attempts = session.exec(
-            __import__("sqlmodel").select(
-                __import__("models.models", fromlist=["MathThinkingAttempt"]).MathThinkingAttempt
-            ).where(
-                __import__("models.models", fromlist=["MathThinkingAttempt"]).MathThinkingAttempt.round_id == rnd.id
-            )
+            __import__("sqlmodel")
+            .select(__import__("models.models", fromlist=["MathThinkingAttempt"]).MathThinkingAttempt)
+            .where(__import__("models.models", fromlist=["MathThinkingAttempt"]).MathThinkingAttempt.round_id == rnd.id)
         ).all()
         assert len(attempts) == 1
         assert attempts[0].correct is True
@@ -296,9 +295,7 @@ class TestConsolidarSesion:
         session.commit()
 
         with pytest.raises(ValueError, match="Minimum 3 problems required"):
-            math_thinking_service.consolidar_sesion(
-                session, mt.id, elapsed_seconds=60
-            )
+            math_thinking_service.consolidar_sesion(session, mt.id, elapsed_seconds=60)
         # Session must remain active after the failed attempt
         session.refresh(mt)
         assert mt.is_active is True
@@ -313,9 +310,7 @@ class TestConsolidarSesion:
         session.add(mt)
         session.commit()
 
-        result = math_thinking_service.consolidar_sesion(
-            session, mt.id, elapsed_seconds=120
-        )
+        result = math_thinking_service.consolidar_sesion(session, mt.id, elapsed_seconds=120)
 
         assert result["status"] == "consolidated"
         assert result["practice_session_id"] is not None

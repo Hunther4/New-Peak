@@ -24,9 +24,7 @@ def test_no_bare_datetime_now_in_models():
         if "datetime.now()" in stripped and "timezone.utc" not in stripped:
             if stripped.startswith("#"):
                 continue
-            pytest.fail(
-                f"models/models.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}"
-            )
+            pytest.fail(f"models/models.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}")
 
 
 def test_no_bare_datetime_now_in_settings():
@@ -39,9 +37,7 @@ def test_no_bare_datetime_now_in_settings():
         if "datetime.now()" in stripped and "timezone.utc" not in stripped:
             if stripped.startswith("#"):
                 continue
-            pytest.fail(
-                f"core/settings.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}"
-            )
+            pytest.fail(f"core/settings.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}")
 
 
 def test_no_bare_datetime_now_in_sessions():
@@ -54,9 +50,7 @@ def test_no_bare_datetime_now_in_sessions():
         if "datetime.now()" in stripped and "timezone.utc" not in stripped:
             if stripped.startswith("#"):
                 continue
-            pytest.fail(
-                f"api/routes/sessions.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}"
-            )
+            pytest.fail(f"api/routes/sessions.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}")
 
 
 def test_no_bare_datetime_now_in_mental():
@@ -69,9 +63,7 @@ def test_no_bare_datetime_now_in_mental():
         if "datetime.now()" in stripped and "timezone.utc" not in stripped:
             if stripped.startswith("#"):
                 continue
-            pytest.fail(
-                f"api/routes/mental.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}"
-            )
+            pytest.fail(f"api/routes/mental.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}")
 
 
 def test_no_bare_datetime_now_in_conftest():
@@ -84,21 +76,15 @@ def test_no_bare_datetime_now_in_conftest():
         if "datetime.now()" in stripped and "timezone.utc" not in stripped:
             if stripped.startswith("#"):
                 continue
-            pytest.fail(
-                f"tests/conftest.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}"
-            )
+            pytest.fail(f"tests/conftest.py:{i}: bare datetime.now() found without timezone.utc\n  {stripped}")
 
 
 def test_named_constants_in_sessions():
     """sessions.py must use named constants instead of magic numbers."""
     fp = Path(__file__).parent.parent / "api" / "routes" / "sessions.py"
     content = fp.read_text()
-    assert "ONBOARDING_SESSION_THRESHOLD" in content, (
-        "ONBOARDING_SESSION_THRESHOLD constant not found in sessions.py"
-    )
-    assert "MENTALREP_SESSION_THRESHOLD" in content, (
-        "MENTALREP_SESSION_THRESHOLD constant not found in sessions.py"
-    )
+    assert "ONBOARDING_SESSION_THRESHOLD" in content, "ONBOARDING_SESSION_THRESHOLD constant not found in sessions.py"
+    assert "MENTALREP_SESSION_THRESHOLD" in content, "MENTALREP_SESSION_THRESHOLD constant not found in sessions.py"
 
 
 def test_models_use_timezone_utc():
@@ -115,6 +101,7 @@ def test_models_use_timezone_utc():
 def test_timezone_aware_default_factory():
     """datetime.now(timezone.utc) produces the correct UTC time."""
     from datetime import timezone
+
     # Verify the pattern itself works
     now = datetime.now(timezone.utc)
     assert now.tzinfo is not None

@@ -23,6 +23,7 @@ services exactly as S2/S3 wired them (never a faked principal).
 Run from the repo root:
   backend\\venv\\Scripts\\python.exe -m pytest backend/tests/test_data_isolation.py -q
 """
+
 import base64
 
 import pytest
@@ -78,6 +79,7 @@ def _reset_limiter():
 
 # --- production-services helpers (S2/S3 pattern) ------------------------------
 
+
 def _make_p256():
     return ec.generate_private_key(ec.SECP256R1())
 
@@ -113,9 +115,7 @@ def _enroll_and_login(client: TestClient, email: str):
     assert response.status_code == 200, response.text
     body = response.json()
     uid = body["user_id"]
-    challenge = client.post(
-        CHALLENGE_PATH, json={"email": email, "device_id": body["device_id"]}
-    ).json()
+    challenge = client.post(CHALLENGE_PATH, json={"email": email, "device_id": body["device_id"]}).json()
     response = client.post(
         VERIFY_PATH,
         json={
@@ -128,6 +128,7 @@ def _enroll_and_login(client: TestClient, email: str):
 
 
 # --- curriculum + learning-state seeds ----------------------------------------
+
 
 def _seed_curriculum(session: Session):
     """One M1 subject with two subtopics, each holding one question."""
@@ -218,6 +219,7 @@ def _start_session(client: TestClient, headers, mode: str = "PRACTICE", **extra)
 
 # --- DO-01-S1: the schema no longer offers a user id --------------------------
 
+
 def test_openapi_13_operations_declare_no_user_id(client):
     schema = client.get("/openapi.json").json()
     for method, path in ISOLATION_OPERATIONS:
@@ -233,9 +235,7 @@ def test_openapi_13_operations_declare_no_user_id(client):
                 model = schema["components"]["schemas"][ref.rsplit("/", 1)[-1]]
             else:
                 model = content["schema"]
-            assert "user_id" not in model.get("properties", {}), (
-                f"{method} {path}: body model still declares user_id"
-            )
+            assert "user_id" not in model.get("properties", {}), f"{method} {path}: body model still declares user_id"
 
 
 def test_requests_carrying_unknown_user_id_still_validate(client, session):
@@ -273,11 +273,16 @@ def test_requests_carrying_unknown_user_id_still_validate(client, session):
 
 # --- DO-01-S2 / DO-11: a forged id serves only the caller's rows ---------------
 
+
 def test_forged_user_id_serves_only_the_callers_rows(client, session):
     _, sub_a, sub_b = _seed_curriculum(session)
     headers_a, caller_id, _ = _enroll_and_login(client, "forge-a@example.com")
     _, other_id, _ = _enroll_and_login(client, "forge-b@example.com")
-    _seed_learning_state(session, caller_id, sub_a.id, )
+    _seed_learning_state(
+        session,
+        caller_id,
+        sub_a.id,
+    )
     _seed_learning_state(session, other_id, sub_b.id)
 
     # A forges B's id into the query; the response must still be A's data.
@@ -327,6 +332,7 @@ def test_forged_revenge_session_serves_only_the_callers_errors(client, session):
 
 # --- DO-01-S3: a write lands on the caller's row only --------------------------
 
+
 def test_submit_updates_only_the_callers_learning_state(client, session):
     subject, sub_a, sub_b = _seed_curriculum(session)
     headers_a, caller_id, _ = _enroll_and_login(client, "wr-a@example.com")
@@ -359,6 +365,7 @@ def test_submit_updates_only_the_callers_learning_state(client, session):
 
 # --- DO-02-S1: submitting into another user's session is a 404 -----------------
 
+
 def test_submit_into_another_users_session_is_a_404(client, session):
     subject, sub_a, sub_b = _seed_curriculum(session)
     headers_a, _, _ = _enroll_and_login(client, "sec-a@example.com")
@@ -389,6 +396,7 @@ def test_submit_into_another_users_session_is_a_404(client, session):
 
 # --- DO-02-S2: finalizing another user's exam is a 404 -------------------------
 
+
 def test_finalize_another_users_exam_is_a_404(client, session):
     subject, sub_a, sub_b = _seed_curriculum(session)
     headers_a, _, _ = _enroll_and_login(client, "fin-a@example.com")
@@ -396,10 +404,7 @@ def test_finalize_another_users_exam_is_a_404(client, session):
 
     # B owns an exam session, scores it, and the IRT estimate lands on B's row.
     started = _start_session(client, headers_b, mode="EXAM")
-    answers = [
-        {"question_id": q["id"], "selected_option": "A", "time_spent_seconds": 5}
-        for q in started["questions"]
-    ]
+    answers = [{"question_id": q["id"], "selected_option": "A", "time_spent_seconds": 5} for q in started["questions"]]
     own_final = client.post(
         f"/api/paes/study/session/{started['session_id']}/finalize_exam",
         json={"answers": answers, "subject_code": "M1"},
@@ -408,9 +413,7 @@ def test_finalize_another_users_exam_is_a_404(client, session):
     assert own_final.status_code == 200, own_final.text  # DO-02-S3: own exam works
 
     session.expire_all()
-    theta_row = session.exec(
-        select(PaesAssessmentState).where(PaesAssessmentState.user_id == other_id)
-    ).first()
+    theta_row = session.exec(select(PaesAssessmentState).where(PaesAssessmentState.user_id == other_id)).first()
     assert theta_row is not None and theta_row.user_id == other_id
     theta_before = (theta_row.theta, theta_row.theta_se, theta_row.total_scored_items_answered)
 
@@ -419,8 +422,7 @@ def test_finalize_another_users_exam_is_a_404(client, session):
         f"/api/paes/study/session/{started['session_id']}/finalize_exam",
         json={
             "answers": [
-                {"question_id": q["id"], "selected_option": "B", "time_spent_seconds": 7}
-                for q in started["questions"]
+                {"question_id": q["id"], "selected_option": "B", "time_spent_seconds": 7} for q in started["questions"]
             ],
             "subject_code": "M1",
         },
@@ -434,6 +436,7 @@ def test_finalize_another_users_exam_is_a_404(client, session):
 
 
 # --- DO-01: the coach chat body accepts no user_id -----------------------------
+
 
 def test_coach_chat_accepts_no_user_id(client, session):
     schema = client.get("/openapi.json").json()

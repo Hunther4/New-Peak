@@ -22,13 +22,14 @@ router = APIRouter()
 
 # Threshold constants
 ONBOARDING_SESSION_THRESHOLD = 14  # First N sessions per skill are "onboarding" mode
-MENTALREP_SESSION_THRESHOLD = 20   # Generate MentalRep after every N sessions
+MENTALREP_SESSION_THRESHOLD = 20  # Generate MentalRep after every N sessions
 
 # Validation constants
 MIN_DURATION_MINUTES = 10
 MIN_PRACTICE_LENGTH = 10
 
 # Quitamos el executor local y el shutdown local
+
 
 def _process_session_background(session_id: int, skill_id: int, onboarding: bool):
     """
@@ -49,7 +50,7 @@ def _process_session_background(session_id: int, skill_id: int, onboarding: bool
                 completions = generate_quick_log_completions(
                     what_i_practiced=practice_session.what_i_practiced,
                     micro_error_found=practice_session.micro_error_found,
-                    domain=skill.domain
+                    domain=skill.domain,
                 )
                 practice_session.correction_applied = completions.get("correction_applied", "")
                 practice_session.hypothesis_tomorrow = completions.get("hypothesis_tomorrow", "")
@@ -61,10 +62,10 @@ def _process_session_background(session_id: int, skill_id: int, onboarding: bool
                     "difficulty": practice_session.difficulty,
                     "micro_error_found": practice_session.micro_error_found,
                     "correction_applied": practice_session.correction_applied,
-                    "hypothesis_tomorrow": practice_session.hypothesis_tomorrow
+                    "hypothesis_tomorrow": practice_session.hypothesis_tomorrow,
                 },
                 domain=skill.domain,
-                onboarding_mode=onboarding
+                onboarding_mode=onboarding,
             )
 
             practice_session.was_deliberate = audit_result.was_deliberate
@@ -134,25 +135,20 @@ def _check_mentalrep_triggers(db: Session, session: PracticeSession, skill: Skil
     """Verifica si corresponde generar una nueva MentalRep."""
     # Última MentalRep
     last_rep = db.exec(
-        select(MentalRep)
-        .where(MentalRep.skill_id == skill.id)
-        .order_by(MentalRep.created_at.desc())
+        select(MentalRep).where(MentalRep.skill_id == skill.id).order_by(MentalRep.created_at.desc())
     ).first()
 
     # Contar sesiones desde la última MentalRep
     if last_rep:
         sessions_since = db.exec(
-            select(PracticeSession)
-            .where(
+            select(PracticeSession).where(
                 PracticeSession.skill_id == skill.id,
                 PracticeSession.created_at > last_rep.created_at,
             )
         ).all()
         sessions_count = len(sessions_since)
     else:
-        sessions_count = db.exec(
-            select(PracticeSession).where(PracticeSession.skill_id == skill.id)
-        ).all()
+        sessions_count = db.exec(select(PracticeSession).where(PracticeSession.skill_id == skill.id)).all()
         sessions_count = len(sessions_count)
 
     # Trigger A: MENTALREP_SESSION_THRESHOLD sesiones sin actualizar
@@ -196,11 +192,7 @@ class SessionCreate(BaseModel):
 
 
 @router.get("/", response_model=List[PracticeSession])
-def get_sessions(
-    skill_id: Optional[int] = None,
-    limit: int = 50,
-    db: Session = Depends(get_session)
-):
+def get_sessions(skill_id: Optional[int] = None, limit: int = 50, db: Session = Depends(get_session)):
     query = select(PracticeSession).order_by(PracticeSession.created_at.desc()).limit(limit)
     if skill_id:
         query = query.where(PracticeSession.skill_id == skill_id)
@@ -223,12 +215,12 @@ def create_session(request: Request, data: SessionCreate, db: Session = Depends(
     if not skill:
         raise HTTPException(status_code=404, detail="Skill no encontrada")
     if data.duration_minutes < MIN_DURATION_MINUTES:
-
         raise HTTPException(status_code=400, detail=f"Duración mínima: {MIN_DURATION_MINUTES} minutos")
 
     if not data.what_i_practiced.strip() or len(data.what_i_practiced.strip()) < MIN_PRACTICE_LENGTH:
-
-        raise HTTPException(status_code=400, detail=f"what_i_practiced debe tener al menos {MIN_PRACTICE_LENGTH} caracteres")
+        raise HTTPException(
+            status_code=400, detail=f"what_i_practiced debe tener al menos {MIN_PRACTICE_LENGTH} caracteres"
+        )
     if data.micro_error_found is not None and not data.micro_error_found.strip():
         raise HTTPException(status_code=400, detail="micro_error_found no puede estar vacío")
 
@@ -244,9 +236,7 @@ def create_session(request: Request, data: SessionCreate, db: Session = Depends(
             raise HTTPException(status_code=400, detail="Modo full requiere hypothesis_tomorrow")
 
     # Calcular onboarding_mode (primeras N sesiones por skill)
-    sessions_count = len(db.exec(
-        select(PracticeSession).where(PracticeSession.skill_id == data.skill_id)
-    ).all())
+    sessions_count = len(db.exec(select(PracticeSession).where(PracticeSession.skill_id == data.skill_id)).all())
     onboarding = sessions_count < ONBOARDING_SESSION_THRESHOLD  # La sesión actual aún no está en DB
 
     principal = getattr(request.state, "principal", None)
@@ -272,7 +262,7 @@ def create_session(request: Request, data: SessionCreate, db: Session = Depends(
         timer_elapsed_sec=data.timer_elapsed_sec,
         onboarding_mode=onboarding,
         session_data=json.dumps(data.session_data) if data.session_data else None,
-        ai_fields_status="pending"
+        ai_fields_status="pending",
     )
 
     db.add(session)
@@ -306,11 +296,21 @@ def clear_all_practice_data(
     from sqlalchemy import text as sa_text
 
     tables_to_clear = [
-        "session", "mentalrep", "challenge", "assessment",
-        "memorynumbersession", "memorynumberround", "memorynumberattempt",
-        "maththinkingsession", "maththinkinground", "maththinkingattempt",
-        "iqpracticesession", "iqpracticeround", "iqpracticeattempt",
-        "cognitivesession", "cognitivetrial",
+        "session",
+        "mentalrep",
+        "challenge",
+        "assessment",
+        "memorynumbersession",
+        "memorynumberround",
+        "memorynumberattempt",
+        "maththinkingsession",
+        "maththinkinground",
+        "maththinkingattempt",
+        "iqpracticesession",
+        "iqpracticeround",
+        "iqpracticeattempt",
+        "cognitivesession",
+        "cognitivetrial",
     ]
 
     # Validate table names against actual database tables (prevent injection)
@@ -332,12 +332,10 @@ def clear_all_practice_data(
 
 @router.get("/skill/{skill_id}/count")
 def get_session_count(skill_id: int, db: Session = Depends(get_session)):
-    sessions = db.exec(
-        select(PracticeSession).where(PracticeSession.skill_id == skill_id)
-    ).all()
+    sessions = db.exec(select(PracticeSession).where(PracticeSession.skill_id == skill_id)).all()
     deliberate = [s for s in sessions if s.was_deliberate is True]
     return {
         "total": len(sessions),
         "deliberate": len(deliberate),
-        "onboarding_remaining": max(0, ONBOARDING_SESSION_THRESHOLD - len(sessions))
+        "onboarding_remaining": max(0, ONBOARDING_SESSION_THRESHOLD - len(sessions)),
     }

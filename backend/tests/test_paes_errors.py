@@ -9,6 +9,7 @@ def client(enrolled_user):
     """Real principal enrolled through the production services (conftest)."""
     return enrolled_user.client
 
+
 def test_paes_errors_vault_empty(client, session: Session):
     seed_paes_data()
     # The vault belongs to the caller; an unknown ``user_id`` query parameter
@@ -21,29 +22,31 @@ def test_paes_errors_vault_empty(client, session: Session):
     assert data["by_subject"] == {}
     assert data["by_distractor_type"] == {}
 
+
 def test_paes_errors_lifecycle_and_revenge(client, session: Session):
     seed_paes_data()
 
     # 1. Iniciar sesión de práctica
-    start_resp = client.post("/api/paes/study/session/start", json={
-        "session_mode": "PRACTICE",
-        "subject_code": "M1",
-        "question_count": 3
-    })
+    start_resp = client.post(
+        "/api/paes/study/session/start", json={"session_mode": "PRACTICE", "subject_code": "M1", "question_count": 3}
+    )
     assert start_resp.status_code == 200
     s_data = start_resp.json()
     sess_id = s_data["session_id"]
     q0 = s_data["questions"][0]
 
     # 2. Registrar un intento erróneo con causa de cálculo
-    attempt_resp = client.post("/api/paes/study/session/submit", json={
-        "session_id": sess_id,
-        "question_id": q0["id"],
-        "selected_option": "Z_WRONG",
-        "time_spent_seconds": 35,
-        "perceived_confidence": 3,
-        "mistake_cause": "CALCULO"
-    })
+    attempt_resp = client.post(
+        "/api/paes/study/session/submit",
+        json={
+            "session_id": sess_id,
+            "question_id": q0["id"],
+            "selected_option": "Z_WRONG",
+            "time_spent_seconds": 35,
+            "perceived_confidence": 3,
+            "mistake_cause": "CALCULO",
+        },
+    )
     assert attempt_resp.status_code == 200
     assert attempt_resp.json()["is_correct"] is False
 
@@ -57,10 +60,7 @@ def test_paes_errors_lifecycle_and_revenge(client, session: Session):
     assert any(item["question_id"] == q0["id"] for item in vault_data["items"])
 
     # 4. Generar sesión de revancha POST /api/paes/errors/revenge-session
-    rev_resp = client.post("/api/paes/errors/revenge-session", json={
-        "subject_code": "M1",
-        "question_count": 10
-    })
+    rev_resp = client.post("/api/paes/errors/revenge-session", json={"subject_code": "M1", "question_count": 10})
     assert rev_resp.status_code == 200
     rev_data = rev_resp.json()
     assert rev_data["session_mode"] == "REVENGE"
@@ -83,17 +83,17 @@ def test_paes_errors_lifecycle_and_revenge(client, session: Session):
     alt_var_resp = client.get(f"/api/paes/errors/questions/{q0['id']}/variant")
     assert alt_var_resp.status_code == 200
 
+
 def test_paes_variant_not_found(client, session: Session):
     resp = client.get("/api/paes/questions/non-existent-question-id-12345/variant")
     assert resp.status_code == 404
 
+
 def test_revenge_session_no_errors(client, session: Session):
     seed_paes_data()
     # Usuario sin errores
-    resp = client.post("/api/paes/errors/revenge-session", json={
-        "subject_code": "M1",
-        "question_count": 10,
-        "user_id": 99999
-    })
+    resp = client.post(
+        "/api/paes/errors/revenge-session", json={"subject_code": "M1", "question_count": 10, "user_id": 99999}
+    )
     assert resp.status_code == 400
     assert "No tienes preguntas pendientes" in resp.json()["detail"]

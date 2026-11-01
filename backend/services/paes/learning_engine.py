@@ -15,12 +15,7 @@ from core.timeutils import elapsed_days as elapsed_days_since
 from .distractor_taxonomy import CANONICAL_DISTRACTOR_TYPES, normalize_distractor_type
 
 
-def calculate_p_success(
-    mastery: float,
-    difficulty: float,
-    c: float = 0.25,
-    gamma: float = 4.5
-) -> float:
+def calculate_p_success(mastery: float, difficulty: float, c: float = 0.25, gamma: float = 4.5) -> float:
     """
     Calcula la probabilidad esperada de éxito P(éxito | M, d).
     Fórmula: P = c + (1 - c) / (1 + exp(-gamma * (M - d)))
@@ -34,10 +29,7 @@ def calculate_p_success(
     return c + (1.0 - c) / (1.0 + math.exp(exponent))
 
 
-def calculate_skill_deficit(
-    skill_code: str,
-    recent_skill_counts: Dict[str, int]
-) -> float:
+def calculate_skill_deficit(skill_code: str, recent_skill_counts: Dict[str, int]) -> float:
     """
     SkillDeficit(k) in [0.0, 1.0].
     Prioriza habilidades DEMRE con menor exposición reciente.
@@ -51,10 +43,7 @@ def calculate_skill_deficit(
     return 1.0 - (k_count / (max_count + 1.0))
 
 
-def calculate_novelty(
-    days_since_last_attempt: Optional[Any],
-    tau: float = 14.0
-) -> float:
+def calculate_novelty(days_since_last_attempt: Optional[Any], tau: float = 14.0) -> float:
     """
     Novelty(i) in [0.0, 1.0].
     Acepta tanto float de días como datetime.
@@ -63,7 +52,7 @@ def calculate_novelty(
         return 1.0
     if isinstance(days_since_last_attempt, (int, float)):
         days = max(0.0, float(days_since_last_attempt))
-    elif hasattr(days_since_last_attempt, 'total_seconds') or isinstance(days_since_last_attempt, datetime):
+    elif hasattr(days_since_last_attempt, "total_seconds") or isinstance(days_since_last_attempt, datetime):
         days = elapsed_days_since(days_since_last_attempt, datetime.now(timezone.utc))
     else:
         days = 0.0
@@ -72,8 +61,8 @@ def calculate_novelty(
 
 def calculate_prerequisite_penalty(
     subtopic_id: UUID,
-    prerequisites: List[Tuple[UUID, float]], # List of (prereq_subtopic_id, min_mastery)
-    user_masteries: Dict[UUID, float]
+    prerequisites: List[Tuple[UUID, float]],  # List of (prereq_subtopic_id, min_mastery)
+    user_masteries: Dict[UUID, float],
 ) -> float:
     """
     PrerequisitePenalty(s):
@@ -102,7 +91,7 @@ def calculate_zdp_score(
     w_n: float = 0.20,
     prereq_penalty: Optional[float] = None,
     prerequisite_penalty: Optional[float] = None,
-    **kwargs
+    **kwargs,
 ) -> float:
     """
     J(i) = -|P(éxito) - P*| + w_k * SkillDeficit + w_n * Novelty - PrerequisitePenalty
@@ -114,21 +103,29 @@ def calculate_zdp_score(
         dist = -abs(p - target_p)
         deficit = float(args[1])
         novelty = float(args[2])
-        penalty = float(prereq_penalty if prereq_penalty is not None else (args[3] if len(args) > 3 else (prerequisite_penalty or 0.0)))
+        penalty = float(
+            prereq_penalty
+            if prereq_penalty is not None
+            else (args[3] if len(args) > 3 else (prerequisite_penalty or 0.0))
+        )
         return dist + (w_k * deficit) + (w_n * novelty) - penalty
 
     # Caso 2: Pasado por kwargs directos (p_success=..., skill_deficit=..., novelty=...)
-    if 'p_success' in kwargs:
-        p = float(kwargs['p_success'])
+    if "p_success" in kwargs:
+        p = float(kwargs["p_success"])
         dist = -abs(p - target_p)
-        deficit = float(kwargs.get('skill_deficit', 1.0))
-        nov = float(kwargs.get('novelty', 1.0))
-        penalty = float(prereq_penalty if prereq_penalty is not None else (prerequisite_penalty or kwargs.get('prereq_penalty', 0.0)))
+        deficit = float(kwargs.get("skill_deficit", 1.0))
+        nov = float(kwargs.get("novelty", 1.0))
+        penalty = float(
+            prereq_penalty
+            if prereq_penalty is not None
+            else (prerequisite_penalty or kwargs.get("prereq_penalty", 0.0))
+        )
         return dist + (w_k * deficit) + (w_n * nov) - penalty
 
     # Caso 3: Invocación contextual original con dificultad, subtopic, etc.
     diff = item_difficulty if item_difficulty is not None else (args[0] if len(args) > 0 else 0.5)
-    skill = item_skill if item_skill is not None else (args[1] if len(args) > 1 else '')
+    skill = item_skill if item_skill is not None else (args[1] if len(args) > 1 else "")
     days = days_since_item_attempt if days_since_item_attempt is not None else (args[2] if len(args) > 2 else None)
     s_id = subtopic_id if subtopic_id is not None else (args[3] if len(args) > 3 else None)
     m_score = subtopic_mastery if subtopic_mastery is not None else (args[4] if len(args) > 4 else 0.5)
@@ -152,8 +149,8 @@ def select_next_question(
     prerequisites: List[Tuple[UUID, float]],
     user_masteries: Dict[UUID, float],
     recent_skill_counts: Dict[str, int],
-    question_history: Dict[UUID, Dict[str, Any]], # question_id -> {'days_since': float, 'attempts_count': int}
-    target_p: float = 0.70
+    question_history: Dict[UUID, Dict[str, Any]],  # question_id -> {'days_since': float, 'attempts_count': int}
+    target_p: float = 0.70,
 ) -> Optional[Dict[str, Any]]:
     """
     Selecciona la siguiente pregunta según J(i) con desempate determinista:
@@ -166,21 +163,21 @@ def select_next_question(
 
     scored_candidates = []
     for q in candidate_questions:
-        q_id = q['id']
+        q_id = q["id"]
         history = question_history.get(q_id, {})
-        days_since = history.get('days_since', None)
-        attempts_count = history.get('attempts_count', 0)
+        days_since = history.get("days_since", None)
+        attempts_count = history.get("attempts_count", 0)
 
         score = calculate_zdp_score(
-            item_difficulty=q['difficulty_estimate'],
-            item_skill=q['skill_code'],
+            item_difficulty=q["difficulty_estimate"],
+            item_skill=q["skill_code"],
             days_since_item_attempt=days_since,
             subtopic_id=subtopic_id,
             subtopic_mastery=subtopic_mastery,
             prerequisites=prerequisites,
             user_masteries=user_masteries,
             recent_skill_counts=recent_skill_counts,
-            target_p=target_p
+            target_p=target_p,
         )
         scored_candidates.append((score, -attempts_count, str(q_id), q))
 
@@ -190,10 +187,7 @@ def select_next_question(
 
 
 def update_mastery(
-    current_mastery: float,
-    is_correct: bool,
-    item_difficulty: float,
-    perceived_confidence: int
+    current_mastery: float, is_correct: bool, item_difficulty: float, perceived_confidence: int
 ) -> float:
     """
     Actualización asimétrica de dominio con ponderación metacognitiva:
@@ -229,7 +223,7 @@ def diagnose_mistake(
     selected_option: str,
     options_metadata: List[Dict[str, Any]],
     time_spent_seconds: int,
-    student_reported_cause: Optional[str] = None
+    student_reported_cause: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     Diagnóstico de causa de error probabilístico discreto con suavizado laplaciano.
@@ -240,24 +234,22 @@ def diagnose_mistake(
     # 1. Distractor identificado (normalizado a la taxonomía canónica)
     distractor_cause = None
     for opt in options_metadata:
-        if opt['id'] == selected_option:
-            raw_distractor_cause = opt.get('distractor_type')
+        if opt["id"] == selected_option:
+            raw_distractor_cause = opt.get("distractor_type")
             if raw_distractor_cause:
                 distractor_cause = normalize_distractor_type(raw_distractor_cause)
             break
 
-    reported_cause = (
-        normalize_distractor_type(student_reported_cause) if student_reported_cause else None
-    )
+    reported_cause = normalize_distractor_type(student_reported_cause) if student_reported_cause else None
 
     # 2. Señal temporal
     time_signal = {}
     if time_spent_seconds < 25:
-        time_signal['LECTURA'] = 1.0
-        time_signal['AZAR'] = 1.0
+        time_signal["LECTURA"] = 1.0
+        time_signal["AZAR"] = 1.0
     elif time_spent_seconds > 180:
-        time_signal['ESTRATEGIA'] = 1.0
-        time_signal['TIEMPO'] = 1.0
+        time_signal["ESTRATEGIA"] = 1.0
+        time_signal["TIEMPO"] = 1.0
 
     # 3. Ponderaciones: w1=0.50, w2=0.20, w3=0.30, epsilon=0.02
     w1, w2, w3 = 0.50, 0.20, 0.30
@@ -281,31 +273,18 @@ def diagnose_mistake(
     # 3. Coincide con autorreporte
     # 4. Orden alfabético
     def sort_key(c):
-        return (
-            probabilities[c],
-            1 if c == distractor_cause else 0,
-            1 if c == reported_cause else 0,
-            -ord(c[0])
-        )
+        return (probabilities[c], 1 if c == distractor_cause else 0, 1 if c == reported_cause else 0, -ord(c[0]))
 
     dominant_cause = max(all_causes, key=sort_key)
 
     result = []
     for c in all_causes:
-        result.append({
-            'cause': c,
-            'probability': round(probabilities[c], 6),
-            'is_dominant': (c == dominant_cause)
-        })
+        result.append({"cause": c, "probability": round(probabilities[c], 6), "is_dominant": (c == dominant_cause)})
 
     return result
 
 
-def leitner_schedule_next(
-    current_box: int,
-    is_correct: bool,
-    now: datetime
-) -> Tuple[int, datetime]:
+def leitner_schedule_next(current_box: int, is_correct: bool, now: datetime) -> Tuple[int, datetime]:
     """
     Programador Leitner determinista para MVP 1:
     Box 1: 1 día
@@ -313,12 +292,7 @@ def leitner_schedule_next(
     Box 3: 7 días
     Box 4: 14 días
     """
-    intervals = {
-        1: timedelta(days=1),
-        2: timedelta(days=3),
-        3: timedelta(days=7),
-        4: timedelta(days=14)
-    }
+    intervals = {1: timedelta(days=1), 2: timedelta(days=3), 3: timedelta(days=7), 4: timedelta(days=14)}
 
     if is_correct:
         next_box = min(4, current_box + 1)
@@ -328,7 +302,6 @@ def leitner_schedule_next(
     interval = intervals[next_box]
     next_review = now + interval
     return next_box, next_review
-
 
 
 @dataclass
@@ -345,6 +318,7 @@ class QuestionItem:
     source_attribution: Dict[str, Any] = field(default_factory=dict)
     provenance_type: str = "ORIGINAL"
 
+
 @dataclass
 class StudentLearningStateData:
     user_id: str
@@ -356,11 +330,10 @@ class StudentLearningStateData:
     total_attempts: int = 0
     total_successes: int = 0
 
+
 # Aliases for explicit contract requirements
 select_next_item_zdp = select_next_question
 diagnose_mistake_bayesian = diagnose_mistake
-
-
 
 
 class LeitnerResult(dict):
@@ -369,9 +342,11 @@ class LeitnerResult(dict):
         self.box = box
         self.interval_days = interval_days
         self.next_review_at = next_review_at
+
     def __iter__(self):
         yield self.box
         yield self.next_review_at
+
 
 def update_leitner_box(current_box: int, is_correct: bool, now: Optional[datetime] = None) -> LeitnerResult:
     intervals = {1: 1, 2: 3, 3: 7, 4: 14}
@@ -380,14 +355,16 @@ def update_leitner_box(current_box: int, is_correct: bool, now: Optional[datetim
     if now is None:
         now = datetime.now(timezone.utc)
     from datetime import timedelta
+
     next_dt = now + timedelta(days=days)
     return LeitnerResult(next_box, days, next_dt)
+
 
 def calculate_bayesian_error_diagnosis(
     distractor_cause: Optional[str] = None,
     time_spent_seconds: int = 60,
     student_self_report: Optional[str] = None,
-    **kwargs
+    **kwargs,
 ) -> List[Dict[str, Any]]:
     all_causes = list(CANONICAL_DISTRACTOR_TYPES)
     w1, w2, w3 = 0.50, 0.20, 0.30
@@ -395,13 +372,13 @@ def calculate_bayesian_error_diagnosis(
 
     time_signal = {}
     if time_spent_seconds < 25:
-        time_signal['LECTURA'] = 1.0
-        time_signal['AZAR'] = 1.0
+        time_signal["LECTURA"] = 1.0
+        time_signal["AZAR"] = 1.0
     elif time_spent_seconds > 180:
-        time_signal['ESTRATEGIA'] = 1.0
-        time_signal['TIEMPO'] = 1.0
+        time_signal["ESTRATEGIA"] = 1.0
+        time_signal["TIEMPO"] = 1.0
 
-    student_report = student_self_report or kwargs.get('student_reported_cause')
+    student_report = student_self_report or kwargs.get("student_reported_cause")
     normalized_distractor = normalize_distractor_type(distractor_cause) if distractor_cause else None
     normalized_report = normalize_distractor_type(student_report) if student_report else None
 
@@ -422,12 +399,8 @@ def calculate_bayesian_error_diagnosis(
 
     res = []
     for c in all_causes:
-        res.append({
-            'cause': c,
-            'probability': round(probs[c], 4),
-            'is_dominant': (c == dominant)
-        })
-    res.sort(key=lambda x: x['probability'], reverse=True)
+        res.append({"cause": c, "probability": round(probs[c], 4), "is_dominant": (c == dominant)})
+    res.sort(key=lambda x: x["probability"], reverse=True)
     return res
 
 
@@ -446,12 +419,23 @@ FACTOR = 19.0 / 81.0  # Constante canónica de decaimiento FSRS
 
 # Vector canónico de 17 parámetros de FSRS v4.5
 FSRS_W = [
-    0.4072, 1.1827, 3.1262, 15.4722,  # w0..w3: S0 iniciales
-    7.2102, 0.5316,                   # w4..w5: D0 inicial
-    1.0651, 0.0234,                   # w6..w7: D_raw y mean reversion
-    1.6160, 0.1544, 1.0824,           # w8..w10: S_recall (éxito)
-    1.9813, 0.0953, 0.2975, 0.2242,   # w11..w14: S_lapse (error)
-    0.2507, 2.9466                    # w15..w16: moduladores Hard/Easy
+    0.4072,
+    1.1827,
+    3.1262,
+    15.4722,  # w0..w3: S0 iniciales
+    7.2102,
+    0.5316,  # w4..w5: D0 inicial
+    1.0651,
+    0.0234,  # w6..w7: D_raw y mean reversion
+    1.6160,
+    0.1544,
+    1.0824,  # w8..w10: S_recall (éxito)
+    1.9813,
+    0.0953,
+    0.2975,
+    0.2242,  # w11..w14: S_lapse (error)
+    0.2507,
+    2.9466,  # w15..w16: moduladores Hard/Easy
 ]
 
 
@@ -485,6 +469,7 @@ def _weights(weights: Optional[List[float]] = None) -> List[float]:
     """Normalize the optional per-call weight vector (None/empty → defaults)."""
     return weights if weights else FSRS_W
 
+
 def calculate_retrievability(elapsed_days: float, stability: float) -> float:
     """R(t, S) = (1 + factor * (t / S))^(-1)"""
     if stability <= 0:
@@ -492,12 +477,8 @@ def calculate_retrievability(elapsed_days: float, stability: float) -> float:
     t = max(0.0, float(elapsed_days))
     return float(1.0 / (1.0 + FACTOR * (t / stability)))
 
-def infer_fsrs_grade(
-    is_correct: bool,
-    confidence: int,
-    time_spent_seconds: int,
-    change_count: int = 0
-) -> int:
+
+def infer_fsrs_grade(is_correct: bool, confidence: int, time_spent_seconds: int, change_count: int = 0) -> int:
     """Mapeo objetivo a G in {1: Again, 2: Hard, 3: Good, 4: Easy}"""
     if not is_correct:
         return 1
@@ -507,10 +488,12 @@ def infer_fsrs_grade(
         return 4
     return 3
 
+
 def initial_difficulty(grade: int, weights: Optional[List[float]] = None) -> float:
     w = _weights(weights)
     val = w[4] - math.exp(w[5] * (grade - 1)) + 1.0
     return max(1.0, min(10.0, val))
+
 
 def next_difficulty(d: float, grade: int, weights: Optional[List[float]] = None) -> float:
     w = _weights(weights)
@@ -519,11 +502,13 @@ def next_difficulty(d: float, grade: int, weights: Optional[List[float]] = None)
     d_new = w[7] * d_0_good + (1.0 - w[7]) * d_raw
     return max(1.0, min(10.0, d_new))
 
+
 def next_recall_stability(d: float, s: float, r: float, grade: int, weights: Optional[List[float]] = None) -> float:
     w = _weights(weights)
     h_g = w[15] if grade == 2 else (w[16] if grade == 4 else 1.0)
     exp_factor = math.exp(w[8]) * (11.0 - d) * (s ** (-w[9])) * (math.exp(w[10] * (1.0 - r)) - 1.0) * h_g
     return max(0.1, s * (1.0 + exp_factor))
+
 
 def next_lapse_stability(d: float, s: float, r: float, weights: Optional[List[float]] = None) -> float:
     w = _weights(weights)
@@ -531,11 +516,13 @@ def next_lapse_stability(d: float, s: float, r: float, weights: Optional[List[fl
     s_new = min(s, exp_factor)
     return max(0.1, s_new)
 
+
 def calculate_next_interval(stability: float, target_r: float = 0.85) -> int:
     if stability <= 0:
         return 1
     ivl = (stability / FACTOR) * ((1.0 / target_r) - 1.0)
     return max(1, round(ivl))
+
 
 class FSRSState:
     def __init__(
@@ -545,7 +532,7 @@ class FSRSState:
         reps: int = 0,
         lapses: int = 0,
         last_review_at: Optional[datetime] = None,
-        next_review_at: Optional[datetime] = None
+        next_review_at: Optional[datetime] = None,
     ):
         self.stability = float(stability)
         self.difficulty = float(difficulty)
@@ -561,8 +548,9 @@ class FSRSState:
             "reps": self.reps,
             "lapses": self.lapses,
             "last_review_at": self.last_review_at.isoformat() if self.last_review_at else None,
-            "next_review_at": self.next_review_at.isoformat() if self.next_review_at else None
+            "next_review_at": self.next_review_at.isoformat() if self.next_review_at else None,
         }
+
 
 def update_fsrs_state(
     current: FSRSState,
@@ -572,7 +560,7 @@ def update_fsrs_state(
     change_count: int = 0,
     now: Optional[datetime] = None,
     target_r: float = 0.85,
-    weights: Optional[List[float]] = None
+    weights: Optional[List[float]] = None,
 ) -> Tuple[FSRSState, int]:
     if now is None:
         now = datetime.now(timezone.utc)
@@ -604,14 +592,13 @@ def update_fsrs_state(
         reps=new_reps,
         lapses=new_lapses,
         last_review_at=now,
-        next_review_at=next_review
+        next_review_at=next_review,
     )
     return new_state, interval_days
 
+
 def apply_review_capping(
-    due_items: List[Dict[str, Any]],
-    max_daily_reviews: int = 5,
-    now: Optional[datetime] = None
+    due_items: List[Dict[str, Any]], max_daily_reviews: int = 5, now: Optional[datetime] = None
 ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     """Select the items that are closest to being forgotten.
 
@@ -671,6 +658,7 @@ class BaseParametricTemplate:
     def generate(self, rng: random.Random) -> Dict[str, Any]:
         raise NotImplementedError
 
+
 class LinearEquationParametricTemplate(BaseParametricTemplate):
     template_code = "PARAM-M1-ALG-01"
     subtopic_id = "m1-algebra-ecuaciones-lineales"
@@ -679,7 +667,7 @@ class LinearEquationParametricTemplate(BaseParametricTemplate):
 
     def generate(self, rng: random.Random) -> Dict[str, Any]:
         # Generar ecuación ax + b = c con solución entera controlada
-        sp.Symbol('x')
+        sp.Symbol("x")
         sol = rng.randint(-9, 9)
         while sol == 0:
             sol = rng.randint(-9, 9)
@@ -710,7 +698,7 @@ class LinearEquationParametricTemplate(BaseParametricTemplate):
             {"id": "A", "content": f"$x = {sol}$", "is_correct": True, "distractor_type": None},
             {"id": "B", "content": f"$x = {d1}$", "is_correct": False, "distractor_type": "CALCULO"},
             {"id": "C", "content": f"$x = {d2}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"},
-            {"id": "D", "content": f"$x = {d3}$", "is_correct": False, "distractor_type": "INTERPRETACION"}
+            {"id": "D", "content": f"$x = {d3}$", "is_correct": False, "distractor_type": "INTERPRETACION"},
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -725,11 +713,12 @@ class LinearEquationParametricTemplate(BaseParametricTemplate):
                 "short_summary": f"Despejando x se obtiene x = {sol}.",
                 "step_by_step": f"1. Transponer {b_sign}: {a}x = {c} - ({b}) = {c - b}. 2. Dividir por {a}: x = {sol}.",
                 "key_concept": "Resolución de ecuaciones de primer grado en Q mediante propiedades de la igualdad.",
-                "frequent_mistake": "Olvidar cambiar de signo al transponer términos al otro lado de la ecuación."
+                "frequent_mistake": "Olvidar cambiar de signo al transponer términos al otro lado de la ecuación.",
             },
             "difficulty_estimate": self.base_difficulty,
-            "provenance_type": "PARAMETRIC"
+            "provenance_type": "PARAMETRIC",
         }
+
 
 class System2x2ParametricTemplate(BaseParametricTemplate):
     template_code = "PARAM-M1-ALG-02"
@@ -765,7 +754,7 @@ class System2x2ParametricTemplate(BaseParametricTemplate):
             {"id": "A", "content": f"$x = {x0}$", "is_correct": True, "distractor_type": None},
             {"id": "B", "content": f"$x = {d1}$", "is_correct": False, "distractor_type": "INTERPRETACION"},
             {"id": "C", "content": f"$x = {d2}$", "is_correct": False, "distractor_type": "CALCULO"},
-            {"id": "D", "content": f"$x = {d3}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"}
+            {"id": "D", "content": f"$x = {d3}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"},
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -780,11 +769,12 @@ class System2x2ParametricTemplate(BaseParametricTemplate):
                 "short_summary": f"La solución del sistema para x es {x0}.",
                 "step_by_step": f"Despejando y = {c1} - x y sustituyendo en la segunda ecuación se obtiene x = {x0}, y = {y0}.",
                 "key_concept": "Sistemas de ecuaciones lineales 2x2 por método de sustitución o reducción.",
-                "frequent_mistake": "Identificar el valor de la variable equivocada (responder y en vez de x)."
+                "frequent_mistake": "Identificar el valor de la variable equivocada (responder y en vez de x).",
             },
             "difficulty_estimate": self.base_difficulty,
-            "provenance_type": "PARAMETRIC"
+            "provenance_type": "PARAMETRIC",
         }
+
 
 class PythagorasParametricTemplate(BaseParametricTemplate):
     template_code = "PARAM-M1-GEO-01"
@@ -810,7 +800,7 @@ class PythagorasParametricTemplate(BaseParametricTemplate):
             {"id": "A", "content": f"${hip}\\text{{ cm}}$", "is_correct": True, "distractor_type": None},
             {"id": "B", "content": f"${d1}\\text{{ cm}}$", "is_correct": False, "distractor_type": "CONCEPTUAL"},
             {"id": "C", "content": f"${d2}\\text{{ cm}}$", "is_correct": False, "distractor_type": "CALCULO"},
-            {"id": "D", "content": f"${d3}\\text{{ cm}}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"}
+            {"id": "D", "content": f"${d3}\\text{{ cm}}$", "is_correct": False, "distractor_type": "PROCEDIMENTAL"},
         ]
         rng.shuffle(options)
         for idx, letter in enumerate(["A", "B", "C", "D"]):
@@ -825,17 +815,19 @@ class PythagorasParametricTemplate(BaseParametricTemplate):
                 "short_summary": f"La hipotenusa mide {hip} cm.",
                 "step_by_step": f"Por el Teorema de Pitágoras: c^2 = {cat1}^2 + {cat2}^2 = {cat1**2} + {cat2**2} = {hip**2} ==> c = {hip} cm.",
                 "key_concept": "Teorema de Pitágoras en triángulos rectángulos: c = sqrt(a^2 + b^2).",
-                "frequent_mistake": "Sumar los catetos directamente sin elevarlos al cuadrado."
+                "frequent_mistake": "Sumar los catetos directamente sin elevarlos al cuadrado.",
             },
             "difficulty_estimate": self.base_difficulty,
-            "provenance_type": "PARAMETRIC"
+            "provenance_type": "PARAMETRIC",
         }
+
 
 PARAMETRIC_REGISTRY = {
     "PARAM-M1-ALG-01": LinearEquationParametricTemplate(),
     "PARAM-M1-ALG-02": System2x2ParametricTemplate(),
-    "PARAM-M1-GEO-01": PythagorasParametricTemplate()
+    "PARAM-M1-GEO-01": PythagorasParametricTemplate(),
 }
+
 
 def generate_parametric_question(template_code: str, seed: Optional[int] = None) -> Dict[str, Any]:
     template = PARAMETRIC_REGISTRY.get(template_code)
@@ -859,7 +851,7 @@ DEMRE_CHUNKS = [
         "title": "Operaciones fundamentales en el conjunto de los racionales (Q)",
         "content": "El temario oficial DEMRE M1 evalúa la resolución de problemas en los números racionales, incluyendo adición, sustracción, multiplicación y división de fracciones y decimales positivos y negativos, así como el orden y la densidad en Q.",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 8, Eje Números, Criterio 1.1"
+        "page_ref": "Pág. 8, Eje Números, Criterio 1.1",
     },
     {
         "id": "RAG-M1-NUM-02",
@@ -868,7 +860,7 @@ DEMRE_CHUNKS = [
         "title": "Cálculo de porcentajes, aumentos y descuentos sucesivos",
         "content": "La PAES M1 exige modelar situaciones cotidianas mediante el cálculo de porcentajes, determinación del valor total conocido un porcentaje, y situaciones de interés simple y variaciones porcentuales sucesivas.",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 8, Eje Números, Criterio 1.2"
+        "page_ref": "Pág. 8, Eje Números, Criterio 1.2",
     },
     {
         "id": "RAG-M1-NUM-03",
@@ -877,7 +869,7 @@ DEMRE_CHUNKS = [
         "title": "Propiedades de potencias de exponente entero y raíces cuadradas",
         "content": "Comprende la multiplicación y división de potencias de igual base o igual exponente, potencias de base racional y exponente entero negativo, y la descomposición y simplificación de raíces cuadradas inexactas.",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 8, Eje Números, Criterio 1.3"
+        "page_ref": "Pág. 8, Eje Números, Criterio 1.3",
     },
     {
         "id": "RAG-M1-ALG-01",
@@ -886,7 +878,7 @@ DEMRE_CHUNKS = [
         "title": "Ecuaciones lineales de primer grado en una variable (ax + b = c)",
         "content": "El estudiante debe resolver analíticamente y modelar problemas mediante ecuaciones de primer grado con coeficientes racionales (a en Q, a != 0), interpretando la solución en el contexto del problema y reconociendo cuándo no existe solución.",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 9, Eje Álgebra y Funciones, Criterio 2.1"
+        "page_ref": "Pág. 9, Eje Álgebra y Funciones, Criterio 2.1",
     },
     {
         "id": "RAG-M1-ALG-02",
@@ -895,7 +887,7 @@ DEMRE_CHUNKS = [
         "title": "Sistemas de ecuaciones lineales 2x2",
         "content": "Se evalúa la formulación y resolución de sistemas de dos ecuaciones lineales con dos incógnitas utilizando métodos algebraicos (sustitución, igualación, reducción) y el análisis de compatibilidad (solución única, infinitas soluciones o sin solución).",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 9, Eje Álgebra y Funciones, Criterio 2.2"
+        "page_ref": "Pág. 9, Eje Álgebra y Funciones, Criterio 2.2",
     },
     {
         "id": "RAG-M1-ALG-03",
@@ -904,7 +896,7 @@ DEMRE_CHUNKS = [
         "title": "Función lineal (y = mx) y función afín (y = mx + n)",
         "content": "Evalúa el concepto de pendiente (m) como razón de cambio constante, coeficiente de posición o intercepto (n), tablas de valores, gráficas en el plano cartesiano y el modelamiento de tarifas y costos lineales.",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 10, Eje Álgebra y Funciones, Criterio 2.3"
+        "page_ref": "Pág. 10, Eje Álgebra y Funciones, Criterio 2.3",
     },
     {
         "id": "RAG-M1-ALG-04",
@@ -913,7 +905,7 @@ DEMRE_CHUNKS = [
         "title": "Función cuadrática (f(x) = ax^2 + bx + c)",
         "content": "Se evalúa la determinación de la concavidad (signo de a), coordenadas del vértice (-b/(2a), f(-b/(2a))), eje de simetría, intersección con el eje Y (0, c) y cantidad de ceros de la función mediante el discriminante (b^2 - 4ac).",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 10, Eje Álgebra y Funciones, Criterio 2.4"
+        "page_ref": "Pág. 10, Eje Álgebra y Funciones, Criterio 2.4",
     },
     {
         "id": "RAG-M1-GEO-01",
@@ -922,7 +914,7 @@ DEMRE_CHUNKS = [
         "title": "Teorema de Pitágoras y distancias en el plano",
         "content": "Aplicación del teorema a^2 + b^2 = c^2 en triángulos rectángulos para calcular lados desconocidos, resolver problemas en contextos geométricos y calcular la distancia euclidiana entre dos puntos en el plano cartesiano.",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 11, Eje Geometría, Criterio 3.1"
+        "page_ref": "Pág. 11, Eje Geometría, Criterio 3.1",
     },
     {
         "id": "RAG-M1-GEO-02",
@@ -931,7 +923,7 @@ DEMRE_CHUNKS = [
         "title": "Perímetro y área de triángulos, paralelógramos y circunferencias",
         "content": "Cálculo de perímetros y áreas de polígonos regulares e irregulares, figuras compuestas y áreas sombreadas. Incluye la longitud de circunferencia (2*pi*r) y el área del círculo (pi*r^2).",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 11, Eje Geometría, Criterio 3.2"
+        "page_ref": "Pág. 11, Eje Geometría, Criterio 3.2",
     },
     {
         "id": "RAG-M1-EST-01",
@@ -940,7 +932,7 @@ DEMRE_CHUNKS = [
         "title": "Medidas de tendencia central y medidas de posición",
         "content": "Cálculo e interpretación de la media aritmética, mediana y moda para datos no agrupados y agrupados. Determinación e interpretación de cuartiles y percentiles en diagramas de caja y bigotes.",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 12, Eje Probabilidad y Estadística, Criterio 4.1"
+        "page_ref": "Pág. 12, Eje Probabilidad y Estadística, Criterio 4.1",
     },
     {
         "id": "RAG-M1-EST-02",
@@ -949,18 +941,20 @@ DEMRE_CHUNKS = [
         "title": "Regla de Laplace y cálculo de probabilidad clásica",
         "content": "Determinación de la probabilidad de un evento en espacios muestrales equiprobables mediante P(A) = casos favorables / casos totales. Propiedades de la probabilidad: 0 <= P(A) <= 1, evento complementario P(A') = 1 - P(A).",
         "official_source": "DEMRE — Temario Oficial Competencia Matemática 1 (M1), Proceso de Admisión 2026",
-        "page_ref": "Pág. 12, Eje Probabilidad y Estadística, Criterio 4.2"
-    }
+        "page_ref": "Pág. 12, Eje Probabilidad y Estadística, Criterio 4.2",
+    },
 ]
 
+
 def _tokenize_text(text: str) -> List[str]:
-    clean = re.sub(r'[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]', ' ', text.lower())
+    clean = re.sub(r"[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]", " ", text.lower())
     return [w for w in clean.split() if len(w) >= 3]
+
 
 def _hash_vector(tokens: List[str], dim: int = 128) -> np.ndarray:
     vec = np.zeros(dim, dtype=np.float32)
     for tok in tokens:
-        h = int(hashlib.md5(tok.encode('utf-8')).hexdigest(), 16)
+        h = int(hashlib.md5(tok.encode("utf-8")).hexdigest(), 16)
         idx = h % dim
         sign = 1.0 if (h >> 8) & 1 else -1.0
         vec[idx] += sign
@@ -969,12 +963,14 @@ def _hash_vector(tokens: List[str], dim: int = 128) -> np.ndarray:
         vec /= norm
     return vec
 
+
 # Precomputar matriz de embeddings curriculares
 CHUNK_VECTORS = []
 for chunk in DEMRE_CHUNKS:
     full_text = f"{chunk['eje']} {chunk['title']} {chunk['content']} {chunk['subtopic_slug']}"
     CHUNK_VECTORS.append(_hash_vector(_tokenize_text(full_text)))
 CHUNK_MATRIX = np.array(CHUNK_VECTORS, dtype=np.float32)
+
 
 def search_demre_curriculum(query: str, top_k: int = 2) -> List[Dict[str, Any]]:
     """Búsqueda semántica por similitud coseno sobre el Temario Oficial DEMRE M1 2026"""
@@ -999,19 +995,15 @@ def search_demre_curriculum(query: str, top_k: int = 2) -> List[Dict[str, Any]]:
 # MVP 2: STUDY PLANNER & DETECCIÓN DE FATIGA / MESETAS
 # =====================================================================
 
-EJE_WEIGHTS = {
-    "Álgebra y Funciones": 0.34,
-    "Números": 0.23,
-    "Probabilidad y Estadística": 0.22,
-    "Geometría": 0.21
-}
+EJE_WEIGHTS = {"Álgebra y Funciones": 0.34, "Números": 0.23, "Probabilidad y Estadística": 0.22, "Geometría": 0.21}
+
 
 def generate_dynamic_study_plan(
     target_score: int,
     weekly_hours: int,
     active_days: List[str],
     masteries_by_eje: Dict[str, float],
-    exam_date_str: str = "2026-11-30"
+    exam_date_str: str = "2026-11-30",
 ) -> Dict[str, Any]:
     """Genera distribución semanal equilibrada de horas según brecha vs meta."""
     m_star = max(0.40, min(0.95, (target_score - 100.0) / 900.0))
@@ -1039,16 +1031,18 @@ def generate_dynamic_study_plan(
     eje_keys = list(EJE_WEIGHTS.keys())
     for idx, day in enumerate(active_days):
         primary_eje = eje_keys[idx % len(eje_keys)]
-        schedule.append({
-            "day": day,
-            "allocated_minutes": mins_per_session,
-            "primary_eje": primary_eje,
-            "blocks": [
-                {"name": "Consolidación FSRS (Repaso)", "duration_min": 15, "type": "FSRS_REVIEW"},
-                {"name": f"Práctica Deliberada ZDP ({primary_eje})", "duration_min": 20, "type": "ZDP_PRACTICE"},
-                {"name": "Recuperación de Errores Recientes", "duration_min": 10, "type": "MISTAKE_RECOVERY"}
-            ]
-        })
+        schedule.append(
+            {
+                "day": day,
+                "allocated_minutes": mins_per_session,
+                "primary_eje": primary_eje,
+                "blocks": [
+                    {"name": "Consolidación FSRS (Repaso)", "duration_min": 15, "type": "FSRS_REVIEW"},
+                    {"name": f"Práctica Deliberada ZDP ({primary_eje})", "duration_min": 20, "type": "ZDP_PRACTICE"},
+                    {"name": "Recuperación de Errores Recientes", "duration_min": 10, "type": "MISTAKE_RECOVERY"},
+                ],
+            }
+        )
 
     return {
         "target_score": target_score,
@@ -1057,12 +1051,12 @@ def generate_dynamic_study_plan(
         "total_weekly_minutes": total_minutes,
         "eje_allocation_minutes": allocated_minutes,
         "session_schedule": schedule,
-        "pedagogical_focus": max(deficits, key=deficits.get)
+        "pedagogical_focus": max(deficits, key=deficits.get),
     }
 
+
 def calculate_fatigue_index(
-    recent_attempts: List[Dict[str, Any]],
-    baseline_time_seconds: float = 60.0
+    recent_attempts: List[Dict[str, Any]], baseline_time_seconds: float = 60.0
 ) -> Dict[str, Any]:
     """
     Calcula el Índice de Fatiga Phi_k a partir de los últimos intentos.
@@ -1089,13 +1083,12 @@ def calculate_fatigue_index(
         "is_fatigued": is_fatigued,
         "recent_accuracy_pct": round(accuracy * 100, 1),
         "recent_avg_time_sec": round(avg_time, 1),
-        "recommended_action": action
+        "recommended_action": action,
     }
 
+
 def detect_cognitive_plateau(
-    mastery_history: List[float],
-    accuracy_history: List[bool],
-    window_k: int = 8
+    mastery_history: List[float], accuracy_history: List[bool], window_k: int = 8
 ) -> Dict[str, Any]:
     """
     Detecta meseta cognitiva (Plateau) si en una ventana de K intentos
@@ -1120,5 +1113,5 @@ def detect_cognitive_plateau(
         "has_plateau": has_plateau,
         "delta_mastery_window": round(delta_m, 4),
         "accuracy_window_pct": round(acc_rate * 100, 1),
-        "intervention_protocol": intervention
+        "intervention_protocol": intervention,
     }

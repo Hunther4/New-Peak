@@ -28,7 +28,8 @@ def up(conn):
         conn.execute(text("ALTER TABLE skill ADD COLUMN practice_level VARCHAR(20)"))
 
     # 2. Create skilllevelhistory table
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE IF NOT EXISTS skilllevelhistory (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             skill_id INTEGER NOT NULL REFERENCES skill(id),
@@ -40,21 +41,13 @@ def up(conn):
             session_id INTEGER REFERENCES session(id) ON DELETE SET NULL,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
-    """))
+    """)
+    )
 
     # 3. Indexes
-    conn.execute(text(
-        "CREATE INDEX IF NOT EXISTS ix_skilllevelhistory_skill_id "
-        "ON skilllevelhistory(skill_id)"
-    ))
-    conn.execute(text(
-        "CREATE INDEX IF NOT EXISTS ix_skilllevelhistory_created_at "
-        "ON skilllevelhistory(created_at)"
-    ))
-    conn.execute(text(
-        "CREATE INDEX IF NOT EXISTS ix_skill_parent_id "
-        "ON skill(parent_id)"
-    ))
+    conn.execute(text("CREATE INDEX IF NOT EXISTS ix_skilllevelhistory_skill_id " "ON skilllevelhistory(skill_id)"))
+    conn.execute(text("CREATE INDEX IF NOT EXISTS ix_skilllevelhistory_created_at " "ON skilllevelhistory(created_at)"))
+    conn.execute(text("CREATE INDEX IF NOT EXISTS ix_skill_parent_id " "ON skill(parent_id)"))
 
 
 MIGRATION = {

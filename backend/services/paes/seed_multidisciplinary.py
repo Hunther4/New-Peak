@@ -97,8 +97,18 @@ MULTIDISCIPLINARY_DATA = {
     ],
     "ejes": [
         # LECTURA
-        {"id": "eje-lec-divulgacion", "subject_id": "subj-lectura", "name": "Textos No Literarios Expositivos", "order_index": 1},
-        {"id": "eje-lec-argumentativo", "subject_id": "subj-lectura", "name": "Textos No Literarios Argumentativos", "order_index": 2},
+        {
+            "id": "eje-lec-divulgacion",
+            "subject_id": "subj-lectura",
+            "name": "Textos No Literarios Expositivos",
+            "order_index": 1,
+        },
+        {
+            "id": "eje-lec-argumentativo",
+            "subject_id": "subj-lectura",
+            "name": "Textos No Literarios Argumentativos",
+            "order_index": 2,
+        },
         {"id": "eje-lec-literario", "subject_id": "subj-lectura", "name": "Textos Literarios", "order_index": 3},
         # M2
         {"id": "eje-m2-num", "subject_id": "subj-m2", "name": "Números (M2)", "order_index": 1},
@@ -109,16 +119,41 @@ MULTIDISCIPLINARY_DATA = {
         {"id": "eje-cie-bio", "subject_id": "subj-ciencias", "name": "Módulo Común Biología", "order_index": 1},
         {"id": "eje-cie-fis", "subject_id": "subj-ciencias", "name": "Módulo Común Física", "order_index": 2},
         {"id": "eje-cie-quim", "subject_id": "subj-ciencias", "name": "Módulo Común Química", "order_index": 3},
-        {"id": "eje-cie-elec", "subject_id": "subj-ciencias", "name": "Módulo Electivo / Método Científico", "order_index": 4},
+        {
+            "id": "eje-cie-elec",
+            "subject_id": "subj-ciencias",
+            "name": "Módulo Electivo / Método Científico",
+            "order_index": 4,
+        },
         # HISTORIA
-        {"id": "eje-his-chile", "subject_id": "subj-historia", "name": "Historia: Chile y el Mundo en el Siglo XX", "order_index": 1},
-        {"id": "eje-his-ciudadania", "subject_id": "subj-historia", "name": "Formación Ciudadana y Democracia", "order_index": 2},
+        {
+            "id": "eje-his-chile",
+            "subject_id": "subj-historia",
+            "name": "Historia: Chile y el Mundo en el Siglo XX",
+            "order_index": 1,
+        },
+        {
+            "id": "eje-his-ciudadania",
+            "subject_id": "subj-historia",
+            "name": "Formación Ciudadana y Democracia",
+            "order_index": 2,
+        },
         {"id": "eje-his-economia", "subject_id": "subj-historia", "name": "Economía y Sociedad", "order_index": 3},
     ],
     "topics": [
         # LECTURA
-        {"id": "top-lec-divulgacion", "eje_id": "eje-lec-divulgacion", "name": "Divulgación Científica y Tecnología", "order_index": 1},
-        {"id": "top-lec-editorial", "eje_id": "eje-lec-argumentativo", "name": "Editoriales y Columnas de Opinión", "order_index": 2},
+        {
+            "id": "top-lec-divulgacion",
+            "eje_id": "eje-lec-divulgacion",
+            "name": "Divulgación Científica y Tecnología",
+            "order_index": 1,
+        },
+        {
+            "id": "top-lec-editorial",
+            "eje_id": "eje-lec-argumentativo",
+            "name": "Editoriales y Columnas de Opinión",
+            "order_index": 2,
+        },
         {"id": "top-lec-narrativa", "eje_id": "eje-lec-literario", "name": "Narrativa Contemporánea", "order_index": 3},
         # M2
         {"id": "top-m2-log", "eje_id": "eje-m2-num", "name": "Logaritmos y Complejos", "order_index": 1},
@@ -131,9 +166,24 @@ MULTIDISCIPLINARY_DATA = {
         {"id": "top-cie-quim", "eje_id": "eje-cie-quim", "name": "Enlaces y Estequiometría", "order_index": 3},
         {"id": "top-cie-exp", "eje_id": "eje-cie-elec", "name": "Diseño Experimental", "order_index": 4},
         # HISTORIA
-        {"id": "top-his-chile", "eje_id": "eje-his-chile", "name": "Transformaciones del Siglo XX en Chile", "order_index": 1},
-        {"id": "top-his-demo", "eje_id": "eje-his-ciudadania", "name": "Institucionalidad y Derechos Humanos", "order_index": 2},
-        {"id": "top-his-eco", "eje_id": "eje-his-economia", "name": "Mercado, Inflación y Políticas Públicas", "order_index": 3},
+        {
+            "id": "top-his-chile",
+            "eje_id": "eje-his-chile",
+            "name": "Transformaciones del Siglo XX en Chile",
+            "order_index": 1,
+        },
+        {
+            "id": "top-his-demo",
+            "eje_id": "eje-his-ciudadania",
+            "name": "Institucionalidad y Derechos Humanos",
+            "order_index": 2,
+        },
+        {
+            "id": "top-his-eco",
+            "eje_id": "eje-his-economia",
+            "name": "Mercado, Inflación y Políticas Públicas",
+            "order_index": 3,
+        },
     ],
     "subtopics": [
         # LECTURA
@@ -255,6 +305,7 @@ MULTIDISCIPLINARY_DATA = {
     ],
 }
 
+
 def seed_multidisciplinary(session_arg: Session = None):
     def _seed(session):
         # 1. Ensure DEMRE-2026 version
@@ -370,6 +421,7 @@ def seed_multidisciplinary(session_arg: Session = None):
     else:
         with Session(engine) as session:
             _seed(session)
+
 
 if __name__ == "__main__":
     seed_multidisciplinary()

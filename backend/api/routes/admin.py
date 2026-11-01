@@ -86,9 +86,7 @@ def live_monitor(
     # --- 2. Users who have had any auth session in the activity window ---
     #        (excludes revoked sessions that never refreshed)
     recent_sessions = db.exec(
-        select(AuthSession)
-        .where(AuthSession.revoked_at.is_(None))
-        .where(AuthSession.last_seen_at >= activity_cutoff)
+        select(AuthSession).where(AuthSession.revoked_at.is_(None)).where(AuthSession.last_seen_at >= activity_cutoff)
     ).all()
 
     if not recent_sessions:
@@ -110,14 +108,10 @@ def live_monitor(
     active_user_ids = list(latest_session_by_user.keys())
 
     # --- 3. Fetch users & profiles ---
-    users_rows = db.exec(
-        select(User).where(User.id.in_(active_user_ids))
-    ).all()
+    users_rows = db.exec(select(User).where(User.id.in_(active_user_ids))).all()
     users_by_id: dict[int, User] = {u.id: u for u in users_rows}
 
-    profiles_rows = db.exec(
-        select(UserProfile).where(UserProfile.user_id.in_(active_user_ids))
-    ).all()
+    profiles_rows = db.exec(select(UserProfile).where(UserProfile.user_id.in_(active_user_ids))).all()
     profiles_by_user_id: dict[int, UserProfile] = {p.user_id: p for p in profiles_rows}
 
     # --- 4. Fetch completed PAES study sessions for these users ---
@@ -135,8 +129,7 @@ def live_monitor(
 
     # --- 5. Fetch assessment states (score estimates) ---
     assessment_states = db.exec(
-        select(PaesAssessmentState)
-        .where(PaesAssessmentState.user_id.in_(active_user_ids))
+        select(PaesAssessmentState).where(PaesAssessmentState.user_id.in_(active_user_ids))
     ).all()
 
     # Index: user_id → subject_id → PaesAssessmentState
@@ -184,37 +177,43 @@ def live_monitor(
                 total = sess.total_items or 0
                 correct = sess.correct_items or 0
                 pct = round(correct / total * 100, 1) if total > 0 else 0.0
-                sessions_out.append({
-                    "started_at": to_utc_aware(sess.started_at).isoformat() if sess.started_at else None,
-                    "items": total,
-                    "correct": correct,
-                    "pct": pct,
-                    "score_min": score_min_global,
-                    "score_max": score_max_global,
-                })
+                sessions_out.append(
+                    {
+                        "started_at": to_utc_aware(sess.started_at).isoformat() if sess.started_at else None,
+                        "items": total,
+                        "correct": correct,
+                        "pct": pct,
+                        "score_min": score_min_global,
+                        "score_max": score_max_global,
+                    }
+                )
 
-            subjects_out.append({
-                "code": subject_code,
-                "name": subject_name,
-                "session_count": len(sess_list),
-                "sessions": sessions_out,
-                "best_score_min": score_min_global,
-                "best_score_max": score_max_global,
-            })
+            subjects_out.append(
+                {
+                    "code": subject_code,
+                    "name": subject_name,
+                    "session_count": len(sess_list),
+                    "sessions": sessions_out,
+                    "best_score_min": score_min_global,
+                    "best_score_max": score_max_global,
+                }
+            )
 
         # Sort subjects alphabetically by code
         subjects_out.sort(key=lambda x: x["code"])
 
         prof = profiles_by_user_id.get(uid)
         display_name = prof.name if prof else user.email.split("@")[0].capitalize()
-        user_list.append({
-            "user_id": uid,
-            "email": user.email,
-            "name": display_name,
-            "is_online": is_online,
-            "last_seen_minutes_ago": delta_minutes,
-            "subjects": subjects_out,
-        })
+        user_list.append(
+            {
+                "user_id": uid,
+                "email": user.email,
+                "name": display_name,
+                "is_online": is_online,
+                "last_seen_minutes_ago": delta_minutes,
+                "subjects": subjects_out,
+            }
+        )
 
     # Online users first, then by last_seen_minutes_ago
     user_list.sort(key=lambda u: (not u["is_online"], u["last_seen_minutes_ago"]))

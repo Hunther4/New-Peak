@@ -31,8 +31,10 @@ MODELS_LIST_TIMEOUT = 10.0
 # Marca display-only para resultados lm_studio de /best (placeholder del registry).
 LM_PLACEHOLDER_NOTE = "placeholder del registry; el id real se resuelve en tiempo de llamada"
 
+
 class ModeUpdateRequest(BaseModel):
     mode: Literal["local", "api"]
+
 
 class ModelSelectRequest(BaseModel):
     model_name: Optional[str] = None
@@ -40,13 +42,16 @@ class ModelSelectRequest(BaseModel):
     model_id: Optional[str] = None
     auto: bool = False
 
+
 class ProviderKeyRequest(BaseModel):
     key: str
+
 
 @router.get("/")
 def get_models():
     """Retorna lista de modelos activos."""
     return get_available_models()
+
 
 @router.get("/available")
 def get_available_for_task(task: Optional[str] = None, provider: Optional[str] = None):
@@ -55,6 +60,7 @@ def get_available_for_task(task: Optional[str] = None, provider: Optional[str] =
     if not task:
         return models
     return [m for m in models if m.capabilities and task in m.capabilities.split("|")]
+
 
 @router.get("/available-live")
 def get_available_live(provider: str = "lm_studio"):
@@ -77,10 +83,12 @@ def get_available_live(provider: str = "lm_studio"):
         "server_reachable": reachable,
     }
 
+
 @router.get("/status")
 def get_mode_status():
     """Retorna el modo actual (local o api)."""
     return {"mode": get_ai_mode()}
+
 
 @router.put("/mode")
 @limiter.limit(get_rate_limit_str())
@@ -88,6 +96,7 @@ def update_mode(request: Request, req: ModeUpdateRequest):
     """Cambia el modo de operación de la IA."""
     set_ai_mode(req.mode)
     return {"status": "success", "mode": req.mode}
+
 
 @router.post("/select")
 def select_model(req: ModelSelectRequest):
@@ -108,6 +117,7 @@ def select_model(req: ModelSelectRequest):
     set_setting("selected_model", json.dumps(selection))
     return {"status": "success", "selection": selection}
 
+
 @router.get("/selection")
 def get_model_selection():
     """Returns the current model selection."""
@@ -119,6 +129,7 @@ def get_model_selection():
     except (json.JSONDecodeError, TypeError):
         return {"selection": {"auto": True}}
 
+
 @router.get("/keys")
 def get_provider_keys():
     """Estado de las API keys por proveedor. Nunca retorna la key completa."""
@@ -127,6 +138,7 @@ def get_provider_keys():
         key = resolve_provider_key(provider)
         result[provider] = {"configured": bool(key), "masked": mask_key(key)}
     return result
+
 
 @router.put("/keys/{provider}")
 def update_provider_key(provider: str, req: ProviderKeyRequest):
@@ -144,6 +156,7 @@ def update_provider_key(provider: str, req: ProviderKeyRequest):
         "configured": bool(key),
         "masked": mask_key(key),
     }
+
 
 @router.get("/available-for-key")
 def get_available_for_key(provider: str):
@@ -204,11 +217,14 @@ def get_available_for_key(provider: str):
     models = []
     for item in data:
         if isinstance(item, dict) and item.get("id"):
-            models.append({
-                "model_id": item["id"],
-                "name": item.get("name") or item["id"],
-            })
+            models.append(
+                {
+                    "model_id": item["id"],
+                    "name": item.get("name") or item["id"],
+                }
+            )
     return models
+
 
 @router.get("/best")
 def get_best_model(task: str):

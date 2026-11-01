@@ -21,27 +21,26 @@ def up(conn):
     # 1. Check if constraint already exists
     existing = {
         row[1]
-        for row in conn.execute(
-            text("SELECT * FROM sqlite_master WHERE name LIKE 'uq_errorpattern%'")
-        ).fetchall()
+        for row in conn.execute(text("SELECT * FROM sqlite_master WHERE name LIKE 'uq_errorpattern%'")).fetchall()
     }
     if existing:
-        logger.info(
-            "UNIQUE constraint already exists on errorpattern — skipping"
-        )
+        logger.info("UNIQUE constraint already exists on errorpattern — skipping")
         return
 
     # 2. Deduplicate: keep lowest id per (skill_id, error_type)
-    conn.execute(text("""
+    conn.execute(
+        text("""
         DELETE FROM errorpattern
         WHERE id NOT IN (
             SELECT MIN(id) FROM errorpattern
             GROUP BY skill_id, error_type
         )
-    """))
+    """)
+    )
 
     # 3. Create new table with UNIQUE constraint
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE TABLE errorpattern_new (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             skill_id INTEGER NOT NULL REFERENCES skill(id) ON DELETE CASCADE,
@@ -53,16 +52,19 @@ def up(conn):
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             UNIQUE(skill_id, error_type)
         )
-    """))
+    """)
+    )
 
     # 4. Copy existing data
-    conn.execute(text("""
+    conn.execute(
+        text("""
         INSERT INTO errorpattern_new (id, skill_id, skill_type, error_type,
                                       count, severity, last_seen, created_at)
         SELECT id, skill_id, skill_type, error_type,
                count, severity, last_seen, created_at
         FROM errorpattern
-    """))
+    """)
+    )
 
     # 5. Drop old table and rename new one
     conn.execute(text("DROP TABLE errorpattern"))

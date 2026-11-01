@@ -32,8 +32,7 @@ def test_pragma_active(engine):
     with engine.connect() as conn:
         result = conn.execute(text("PRAGMA foreign_keys")).scalar()
     assert result == 1, (
-        f"Expected PRAGMA foreign_keys=1, got {result}. "
-        "Check _set_sqlite_pragma() in core/database.py"
+        f"Expected PRAGMA foreign_keys=1, got {result}. " "Check _set_sqlite_pragma() in core/database.py"
     )
 
 
@@ -77,11 +76,9 @@ def test_bad_fk_raises_integrity_error(engine):
 
             # Verify it's an IntegrityError (or subclass)
             error_name = type(excinfo.value).__name__
-            assert "IntegrityError" in error_name or "integrity" in str(
-                excinfo.value
-            ).lower(), (
-                f"Expected IntegrityError, got {error_name}: {excinfo.value}"
-            )
+            assert (
+                "IntegrityError" in error_name or "integrity" in str(excinfo.value).lower()
+            ), f"Expected IntegrityError, got {error_name}: {excinfo.value}"
 
 
 # =============================================================================
@@ -122,12 +119,8 @@ def test_cascade_skilllevelhistory(engine):
         session.commit()
 
         # Verify SkillLevelHistory is gone
-        remaining = session.exec(
-            select(SkillLevelHistory).where(SkillLevelHistory.id == slh_id)
-        ).first()
-        assert remaining is None, (
-            f"SkillLevelHistory {slh_id} should have been cascade-deleted"
-        )
+        remaining = session.exec(select(SkillLevelHistory).where(SkillLevelHistory.id == slh_id)).first()
+        assert remaining is None, f"SkillLevelHistory {slh_id} should have been cascade-deleted"
 
 
 def test_cascade_cognitivesession_cognitivetrial(engine):
@@ -163,18 +156,12 @@ def test_cascade_cognitivesession_cognitivetrial(engine):
         ct_id = ct.id
 
         # Delete the CognitiveSession
-        session.exec(
-            delete(CognitiveSession).where(CognitiveSession.id == cs_id)
-        )
+        session.exec(delete(CognitiveSession).where(CognitiveSession.id == cs_id))
         session.commit()
 
         # Verify CognitiveTrial is gone
-        remaining = session.exec(
-            select(CognitiveTrial).where(CognitiveTrial.id == ct_id)
-        ).first()
-        assert remaining is None, (
-            f"CognitiveTrial {ct_id} should have been cascade-deleted"
-        )
+        remaining = session.exec(select(CognitiveTrial).where(CognitiveTrial.id == ct_id)).first()
+        assert remaining is None, f"CognitiveTrial {ct_id} should have been cascade-deleted"
 
 
 def test_sessionerror_discriminator_no_fk(engine):
@@ -236,17 +223,12 @@ def test_sessionerror_discriminator_no_fk(engine):
 
         # Delete the consolidated Session — must NOT cascade to SessionError
         # because session_id is a discriminator field without FK
-        session.exec(
-            delete(PracticeSession).where(PracticeSession.id == ps.id)
-        )
+        session.exec(delete(PracticeSession).where(PracticeSession.id == ps.id))
         session.commit()
 
-        remaining = session.exec(
-            select(SessionError).where(SessionError.id == se_id)
-        ).first()
+        remaining = session.exec(select(SessionError).where(SessionError.id == se_id)).first()
         assert remaining is not None, (
-            "SessionError should survive consolidated Session deletion — "
-            "discriminator field has no FK cascade"
+            "SessionError should survive consolidated Session deletion — " "discriminator field has no FK cascade"
         )
 
 
@@ -295,11 +277,8 @@ def test_errorpattern_unique_constraint(engine):
             session.commit()
 
         error_name = type(excinfo.value).__name__
-        assert "IntegrityError" in error_name or "integrity" in str(
-            excinfo.value
-        ).lower(), (
-            f"Expected IntegrityError for duplicate ErrorPattern, "
-            f"got {error_name}: {excinfo.value}"
+        assert "IntegrityError" in error_name or "integrity" in str(excinfo.value).lower(), (
+            f"Expected IntegrityError for duplicate ErrorPattern, " f"got {error_name}: {excinfo.value}"
         )
 
 
@@ -340,16 +319,12 @@ def test_orphan_cleanup_idempotent(engine, monkeypatch):
     #    cascade deletion. Then delete the skill so errorpattern becomes orphaned.
     with engine.begin() as conn:
         conn.execute(text("PRAGMA foreign_keys=OFF"))
-        conn.execute(
-            text("DELETE FROM skill WHERE id = :sid"), {"sid": skill_id}
-        )
+        conn.execute(text("DELETE FROM skill WHERE id = :sid"), {"sid": skill_id})
 
     # 3. Confirm orphans exist
     with engine.begin() as conn:
         orphan_count = conn.execute(
-            text(
-                "SELECT COUNT(*) FROM errorpattern WHERE skill_id = :sid"
-            ),
+            text("SELECT COUNT(*) FROM errorpattern WHERE skill_id = :sid"),
             {"sid": skill_id},
         ).scalar()
     assert orphan_count > 0, "Expected orphans before cleanup"
@@ -364,14 +339,10 @@ def test_orphan_cleanup_idempotent(engine, monkeypatch):
     # 5. Verify orphans are gone
     with engine.begin() as conn:
         remaining = conn.execute(
-            text(
-                "SELECT COUNT(*) FROM errorpattern WHERE skill_id = :sid"
-            ),
+            text("SELECT COUNT(*) FROM errorpattern WHERE skill_id = :sid"),
             {"sid": skill_id},
         ).scalar()
-    assert remaining == 0, (
-        f"Expected 0 orphans after cleanup, got {remaining}"
-    )
+    assert remaining == 0, f"Expected 0 orphans after cleanup, got {remaining}"
 
     # 6. Re-run — must be idempotent (zero orphans to delete)
     with engine.begin() as conn:
@@ -386,31 +357,17 @@ def test_orphan_cleanup_idempotent(engine, monkeypatch):
 def test_learningpattern_indexes_exist(engine):
     """LearningPattern MUST have indexes on session_id, round_id, attempt_id."""
     with engine.connect() as conn:
-        indexes = conn.execute(
-            text("SELECT name FROM sqlite_master WHERE type='index'")
-        ).fetchall()
+        indexes = conn.execute(text("SELECT name FROM sqlite_master WHERE type='index'")).fetchall()
 
     index_names = {row[0] for row in indexes}
 
     # SQLModel's index=True generates names like ix_learningpattern_session_id
-    assert any(
-        "session_id" in name and "learningpattern" in name
-        for name in index_names
-    ), (
-        f"No session_id index found on learningpattern. "
-        f"Available indexes: {sorted(index_names)}"
+    assert any("session_id" in name and "learningpattern" in name for name in index_names), (
+        f"No session_id index found on learningpattern. " f"Available indexes: {sorted(index_names)}"
     )
-    assert any(
-        "round_id" in name and "learningpattern" in name
-        for name in index_names
-    ), (
-        f"No round_id index found on learningpattern. "
-        f"Available indexes: {sorted(index_names)}"
+    assert any("round_id" in name and "learningpattern" in name for name in index_names), (
+        f"No round_id index found on learningpattern. " f"Available indexes: {sorted(index_names)}"
     )
-    assert any(
-        "attempt_id" in name and "learningpattern" in name
-        for name in index_names
-    ), (
-        f"No attempt_id index found on learningpattern. "
-        f"Available indexes: {sorted(index_names)}"
+    assert any("attempt_id" in name and "learningpattern" in name for name in index_names), (
+        f"No attempt_id index found on learningpattern. " f"Available indexes: {sorted(index_names)}"
     )

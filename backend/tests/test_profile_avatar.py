@@ -3,6 +3,7 @@ Tests for avatar upload MIME validation (T-02).
 
 Strict TDD: tests written BEFORE production code.
 """
+
 import io
 
 

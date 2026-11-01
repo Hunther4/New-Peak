@@ -9,6 +9,7 @@ and the error analytics were meaningless.
 There is now ONE canonical taxonomy with an explicit normalizer. Unknown
 values land in a documented catch-all bucket, never silently in "conceptual".
 """
+
 import json
 import re
 from pathlib import Path
@@ -53,6 +54,7 @@ def client(enrolled_user):
 # The normalizer
 # ---------------------------------------------------------------------------
 
+
 def test_every_observed_literal_maps_to_a_canonical_bucket():
     """Every literal used by the seeded banks must be classified explicitly."""
     from services.paes.distractor_taxonomy import (
@@ -66,9 +68,7 @@ def test_every_observed_literal_maps_to_a_canonical_bucket():
     unclassified = sorted(
         literal for literal in literals if normalize_distractor_type(literal) == CANONICAL_UNCLASSIFIED
     )
-    assert unclassified == [], (
-        "These distractor types are not part of the canonical taxonomy: " f"{unclassified}"
-    )
+    assert unclassified == [], "These distractor types are not part of the canonical taxonomy: " f"{unclassified}"
 
 
 def test_normalizer_maps_bank_values_to_meaningful_buckets():
@@ -117,6 +117,7 @@ def test_canonical_values_are_stable_under_normalization():
 # ---------------------------------------------------------------------------
 # Consumers of the taxonomy
 # ---------------------------------------------------------------------------
+
 
 def test_diagnose_mistake_uses_the_canonical_cause():
     """The causal classifier must recognize bank distractor types."""
@@ -174,9 +175,7 @@ def _seed_question_with_attempt(session: Session, user_id: int, mistake_cause=No
             difficulty_estimate=0.5,
         )
     )
-    session.add(
-        PaesStudySession(id="sess-tax-01", user_id=user_id, session_mode="PRACTICE")
-    )
+    session.add(PaesStudySession(id="sess-tax-01", user_id=user_id, session_mode="PRACTICE"))
     session.flush()
     session.add(
         PaesQuestionAttempt(

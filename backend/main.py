@@ -42,7 +42,6 @@ from core.tasks import shutdown_executor
 logger = logging.getLogger(__name__)
 
 
-
 ALLOWED_UPLOAD_MIMES = {
     "image/png",
     "image/jpeg",
@@ -106,9 +105,7 @@ def _check_cors_production_guard():
 def _check_disable_auth_production_guard():
     """The DISABLE_AUTH test/legacy bypass must never reach production (R6)."""
     if os.getenv("DISABLE_AUTH") == "1" and os.getenv("PRODUCTION") == "1":
-        raise RuntimeError(
-            "refusing to start: DISABLE_AUTH=1 is incompatible with PRODUCTION=1"
-        )
+        raise RuntimeError("refusing to start: DISABLE_AUTH=1 is incompatible with PRODUCTION=1")
 
 
 @asynccontextmanager
@@ -204,7 +201,7 @@ if _frontend_dist.exists() and (_frontend_dist / "index.html").exists():
     async def serve_spa(full_path: str):
         if full_path.startswith("api/") or full_path.startswith("static/") or full_path.startswith("uploads/"):
             raise HTTPException(status_code=404, detail="Not Found")
-        
+
         if full_path:
             try:
                 target_path = (_frontend_dist / full_path).resolve()
@@ -223,6 +220,7 @@ if _frontend_dist.exists() and (_frontend_dist / "index.html").exists():
 
         return FileResponse(_frontend_dist / "index.html")
 else:
+
     @app.get("/")
     def root():
         return {"status": "Peak Practice API corriendo"}

@@ -23,6 +23,7 @@ any schema inspection.
 There is no ``down()`` — the migration runner only ever calls ``up``. Rolling
 this migration back means dropping the four empty tables.
 """
+
 import logging
 
 from sqlalchemy import text
@@ -50,8 +51,7 @@ TABLE_DDL = [
         UNIQUE (user_id, public_key),
         FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
     )""",
-    "CREATE INDEX IF NOT EXISTS ix_user_devices_user_revoked "
-    "ON user_devices (user_id, revoked_at)",
+    "CREATE INDEX IF NOT EXISTS ix_user_devices_user_revoked " "ON user_devices (user_id, revoked_at)",
     """CREATE TABLE IF NOT EXISTS auth_challenges (
         id VARCHAR NOT NULL,
         user_id INTEGER NOT NULL,
@@ -65,8 +65,7 @@ TABLE_DDL = [
         FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
         FOREIGN KEY (device_id) REFERENCES user_devices (id) ON DELETE CASCADE
     )""",
-    "CREATE INDEX IF NOT EXISTS ix_auth_challenges_user_expiry "
-    "ON auth_challenges (user_id, expires_at)",
+    "CREATE INDEX IF NOT EXISTS ix_auth_challenges_user_expiry " "ON auth_challenges (user_id, expires_at)",
     """CREATE TABLE IF NOT EXISTS auth_sessions (
         id INTEGER NOT NULL,
         user_id INTEGER NOT NULL,

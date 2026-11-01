@@ -46,6 +46,7 @@ applying the migration twice — or onto a database where
 ``SQLModel.metadata.create_all`` already created the columns — is a no-op.
 Like migration 013 there is no ``down()``: the runner only ever calls ``up``.
 """
+
 import logging
 
 from sqlalchemy import text
@@ -107,8 +108,7 @@ def up(conn):
 
     if not _table_exists(conn, "users"):
         raise RuntimeError(
-            "migration 014: the `users` table does not exist — migration 013 "
-            "must run first; refusing to continue"
+            "migration 014: the `users` table does not exist — migration 013 " "must run first; refusing to continue"
         )
 
     owner_id = _single_user_id(conn)
@@ -117,38 +117,25 @@ def up(conn):
     for table in TENANT_TABLES:
         if not _table_exists(conn, table):
             raise RuntimeError(
-                f"migration 014: table {table!r} does not exist — refusing to "
-                "continue with a half-applied schema"
+                f"migration 014: table {table!r} does not exist — refusing to " "continue with a half-applied schema"
             )
 
         columns = _columns(conn, table)
 
         if "user_id" not in columns:
-            conn.execute(
-                text(
-                    f"ALTER TABLE {table} ADD COLUMN user_id INTEGER "
-                    "REFERENCES users (id)"
-                )
-            )
+            conn.execute(text(f"ALTER TABLE {table} ADD COLUMN user_id INTEGER " "REFERENCES users (id)"))
 
         # Same name SQLModel's index=True generates, so create_all and this
         # migration converge on one index instead of fighting over names.
-        conn.execute(
-            text(f"CREATE INDEX IF NOT EXISTS ix_{table}_user_id ON {table} (user_id)")
-        )
+        conn.execute(text(f"CREATE INDEX IF NOT EXISTS ix_{table}_user_id ON {table} (user_id)"))
 
         for column, column_type in EXTRA_COLUMNS.get(table, []):
             if column not in columns:
-                conn.execute(
-                    text(f"ALTER TABLE {table} ADD COLUMN {column} {column_type}")
-                )
+                conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {column} {column_type}"))
 
         if owner_id is not None:
             result = conn.execute(
-                text(
-                    f"UPDATE {table} SET user_id = :owner "
-                    "WHERE user_id IS NULL"
-                ),
+                text(f"UPDATE {table} SET user_id = :owner " "WHERE user_id IS NULL"),
                 {"owner": owner_id},
             )
             backfilled += result.rowcount or 0
@@ -158,8 +145,7 @@ def up(conn):
     for table in TENANT_TABLES:
         if "user_id" not in _columns(conn, table):
             raise RuntimeError(
-                f"migration 014: table {table!r} exists without a user_id "
-                "column — refusing to continue"
+                f"migration 014: table {table!r} exists without a user_id " "column — refusing to continue"
             )
 
     if owner_id is not None:

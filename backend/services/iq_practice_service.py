@@ -146,8 +146,13 @@ def consolidar_sesion(db: Session, session_id: int, elapsed_seconds: Optional[in
         }
 
     practice_session, gs = consolidar_sesion_base(
-        db, IQPracticeSession, session_id, elapsed_seconds,
-        "IQ", build_session_data, build_practice_fields,
+        db,
+        IQPracticeSession,
+        session_id,
+        elapsed_seconds,
+        "IQ",
+        build_session_data,
+        build_practice_fields,
     )
 
     return {

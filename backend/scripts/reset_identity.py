@@ -13,6 +13,7 @@ Exit codes:
     0 — the account was reset and the replacement key was handed over
     1 — the email does not name an enrolled account (nothing written)
 """
+
 import argparse
 import sys
 
@@ -48,9 +49,7 @@ def main() -> int:
             return 1
 
         now = _now()
-        devices = session.exec(
-            select(UserDevice).where(UserDevice.user_id == user.id)
-        ).all()
+        devices = session.exec(select(UserDevice).where(UserDevice.user_id == user.id)).all()
         for device in devices:
             if device.revoked_at is None:
                 device.revoked_at = now
@@ -75,10 +74,7 @@ def main() -> int:
             serialization.PrivateFormat.PKCS8,
             serialization.NoEncryption(),
         ).decode("ascii")
-        print(
-            "New private key for the recovered device — hand it over now, "
-            "it is not stored:"
-        )
+        print("New private key for the recovered device — hand it over now, " "it is not stored:")
         print(pem)
         print(f"Replacement device_id={replacement.id} for user_id={user.id}")
         return 0

@@ -48,8 +48,7 @@ def up(conn):
     for table, fk_col, ref_table, ref_pk in TABLES_TO_CHECK:
         if _has_orphans(conn, table, fk_col, ref_table, ref_pk):
             logger.warning(
-                "[ORPHAN WARNING] %s.%s has orphans referencing %s — "
-                "run migration 006 first",
+                "[ORPHAN WARNING] %s.%s has orphans referencing %s — " "run migration 006 first",
                 table,
                 fk_col,
                 ref_table,
@@ -57,12 +56,8 @@ def up(conn):
             any_orphans = True
 
     if any_orphans:
-        logger.error(
-            "Orphans found — aborting. Run migration 006 first to clean orphans."
-        )
-        raise RuntimeError(
-            "Orphans found in FK-gap tables. Run migration 006 before 008."
-        )
+        logger.error("Orphans found — aborting. Run migration 006 first to clean orphans.")
+        raise RuntimeError("Orphans found in FK-gap tables. Run migration 006 before 008.")
 
     # 2. Log annotation status
     logger.info(

@@ -44,13 +44,16 @@ def test_get_skill_by_slug_not_found(client):
 
 def test_create_skill(client):
     """POST crea skill con valores por defecto."""
-    resp = client.post("/api/skills/", json={
-        "name": "Piano",
-        "domain": "music",
-        "skill_type": "staircase",
-        "config_path": "skills/piano.yaml",
-        "slug": "piano"
-    })
+    resp = client.post(
+        "/api/skills/",
+        json={
+            "name": "Piano",
+            "domain": "music",
+            "skill_type": "staircase",
+            "config_path": "skills/piano.yaml",
+            "slug": "piano",
+        },
+    )
     # POST create debe retornar 201 (recurso creado), no 200
     assert resp.status_code == 201, f"Esperaba 201, obtuve {resp.status_code}: {resp.text}"
     data = resp.json()
@@ -65,7 +68,7 @@ def test_create_duplicate_slug(client):
         "domain": "test",
         "skill_type": "problem_set",
         "config_path": "skills/default.yaml",
-        "slug": "dup-slug"
+        "slug": "dup-slug",
     }
     client.post("/api/skills/", json=payload)
     resp = client.post("/api/skills/", json=payload)
