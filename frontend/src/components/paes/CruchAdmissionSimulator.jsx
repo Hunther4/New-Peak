@@ -234,7 +234,7 @@ export function CruchAdmissionSimulator() {
     const cutoff2026 = Number(c.cutoffs?.["2026"] || c.cutoffs?.["2025"] || 0)
     if (cutoff2026 >= 720) return true
     const popularRegex =
-      /(medicina|odontolog|enfermer|obstetricia|kinesiolog|psicolog|derecho|arquitectura|civil industrial|civil inform|civil plan com|civil el[eé]ctrica|civil qu[ií]mica|civil mec[aá]nica|ingenier.*comercial|auditor|trabajo social|farmacia|bioqu|tecnolog.*m[eé]dica|veterinaria|educaci[oó]n diferencial)/i
+      /(medicina|odontolog|enfermer|obstetricia|kinesiolog|psicolog|derecho|arquitectura|civil industrial|civil inform|civil plan com|civil el[eé]ctrica|civil qu[ií]mica|civil mec[aá]nica|automatiz|ingenier.*comercial|auditor|trabajo social|farmacia|bioqu|tecnolog.*m[eé]dica|veterinaria|educaci[oó]n diferencial)/i
     return popularRegex.test(c.name || "")
   }, [])
 

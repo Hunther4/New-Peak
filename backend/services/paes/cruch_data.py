@@ -2901,7 +2901,7 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
             "m1": 0.3,
             "m2": 0.1,
             "ciencias": 0.1,
-            "historia": 0.1,
+            "historia": 0.0,
             "elective_rule": "MAX"
         },
         "cutoffs": {
@@ -4540,6 +4540,7 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
     {
         "id": "medicina-utalca",
         "name": "Medicina",
+        "url": "https://admision.utalca.cl/carreras/medicina/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4557,17 +4558,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 902.5,
-                "2025": 905.8,
-                "2026": 908.4
-        },
+        "cutoffs": {"2024": 862.0, "2025": 910.5, "2026": 914.5},
         "requires_m2": False,
         "min_weighted_score": 600.0
 },
     {
         "id": "odontologia-utalca",
         "name": "Odontología",
+        "url": "https://admision.utalca.cl/carreras/odontologia/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4585,17 +4583,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 808.5,
-                "2025": 812.0,
-                "2026": 815.3
-        },
+        "cutoffs": {"2024": 827.9, "2025": 821.4, "2026": 818.7},
         "requires_m2": False,
         "min_weighted_score": 550.0
 },
     {
         "id": "enfermeria-utalca",
         "name": "Enfermería",
+        "url": "https://admision.utalca.cl/carreras/enfermeria/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4613,17 +4608,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 768.4,
-                "2025": 772.1,
-                "2026": 775.5
-        },
+        "cutoffs": {"2024": 753.6, "2025": 741.5, "2026": 725.8},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "obstetricia-y-puericultura-utalca",
         "name": "Obstetricia y Puericultura",
+        "url": "https://admision.utalca.cl/carreras/obstetricia-y-puericultura/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4641,17 +4633,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 782.1,
-                "2025": 785.4,
-                "2026": 788.9
-        },
+        "cutoffs": {"2024": 784.4, "2025": 770.1, "2026": 720.1},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "kinesiologia-utalca",
         "name": "Kinesiología",
+        "url": "https://admision.utalca.cl/carreras/kinesiologia/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4669,17 +4658,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 728.5,
-                "2025": 732.0,
-                "2026": 735.6
-        },
+        "cutoffs": {"2024": 705.6, "2025": 709.3, "2026": 700.5},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "tecnologia-medica-utalca",
         "name": "Tecnología Médica",
+        "url": "https://admision.utalca.cl/carreras/tecnologia-medica/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4697,17 +4683,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 775.0,
-                "2025": 778.5,
-                "2026": 782.0
-        },
+        "cutoffs": {"2024": 754.0, "2025": 740.4, "2026": 731.8},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "derecho-utalca",
         "name": "Derecho",
+        "url": "https://admision.utalca.cl/carreras/derecho/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4725,17 +4708,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 742.0,
-                "2025": 746.5,
-                "2026": 750.2
-        },
+        "cutoffs": {"2024": 769.4, "2025": 753.7, "2026": 751.3},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "psicologia-utalca",
         "name": "Psicología",
+        "url": "https://admision.utalca.cl/carreras/psicologia/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4753,17 +4733,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.075,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 748.2,
-                "2025": 752.1,
-                "2026": 755.8
-        },
+        "cutoffs": {"2024": 740.9, "2025": 725.7, "2026": 704.2},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "arquitectura-utalca",
         "name": "Arquitectura",
+        "url": "https://admision.utalca.cl/carreras/arquitectura/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4781,11 +4758,7 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 712.0,
-                "2025": 715.6,
-                "2026": 719.1
-        },
+        "cutoffs": {"2024": 715.2, "2025": 721.6, "2026": 724.8},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
@@ -4876,6 +4849,7 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
     {
         "id": "ingenieria-comercial-utalca",
         "name": "Ingeniería Comercial",
+        "url": "https://admision.utalca.cl/carreras/ingenieria-comercial/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4893,17 +4867,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 682.0,
-                "2025": 686.0,
-                "2026": 689.5
-        },
+        "cutoffs": {"2024": 636.8, "2025": 670.2, "2026": 668.8},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "bioquimica-utalca",
         "name": "Bioquímica",
+        "url": "https://admision.utalca.cl/carreras/bioquimica/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4921,17 +4892,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 748.0,
-                "2025": 752.0,
-                "2026": 756.2
-        },
+        "cutoffs": {"2024": 690.5, "2025": 711.1, "2026": 714.0},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "agronomia-utalca",
         "name": "Agronomía",
+        "url": "https://admision.utalca.cl/carreras/agronomia/",
         "university": "Universidad de Talca",
         "university_short": "UTALCA",
         "campus": "Campus Lircay (Talca)",
@@ -4949,17 +4917,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 635.0,
-                "2025": 638.5,
-                "2026": 642.0
-        },
+        "cutoffs": {"2024": 656.1, "2025": 640.0, "2026": 658.0},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "medicina-ucm",
         "name": "Medicina",
+        "url": "https://www.ucm.cl/prenovato/medicina/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -4977,17 +4942,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 896.2,
-                "2025": 899.4,
-                "2026": 902.1
-        },
+        "cutoffs": {"2024": 910.7, "2025": 919.2, "2026": 923.0},
         "requires_m2": False,
         "min_weighted_score": 600.0
 },
     {
         "id": "enfermeria-ucm",
         "name": "Enfermería",
+        "url": "https://www.ucm.cl/prenovato/enfermeria/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5005,17 +4967,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 752.0,
-                "2025": 755.8,
-                "2026": 759.5
-        },
+        "cutoffs": {"2024": 768.4, "2025": 757.2, "2026": 750.7},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "kinesiologia-ucm",
         "name": "Kinesiología",
+        "url": "https://www.ucm.cl/prenovato/kinesiologia/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5033,17 +4992,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 722.0,
-                "2025": 725.5,
-                "2026": 729.0
-        },
+        "cutoffs": {"2024": 718.6, "2025": 715.6, "2026": 704.3},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "psicologia-ucm",
         "name": "Psicología",
+        "url": "https://www.ucm.cl/prenovato/psicologia/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5061,45 +5017,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.075,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 731.0,
-                "2025": 734.5,
-                "2026": 738.0
-        },
-        "requires_m2": False,
-        "min_weighted_score": 500.0
-},
-    {
-        "id": "obstetricia-y-puericultura-ucm",
-        "name": "Obstetricia y Puericultura",
-        "university": "Universidad Católica del Maule",
-        "university_short": "UCM",
-        "campus": "Campus Curicó (Carmen)",
-        "region": "Maule",
-        "city": "Curicó",
-        "area": "Ciencias de la Salud",
-        "vacantes": 50,
-        "weights": {
-                "nem": 0.2,
-                "ranking": 0.3,
-                "lectura": 0.15,
-                "m1": 0.15,
-                "m2": 0.0,
-                "ciencias": 0.2,
-                "historia": 0.0,
-                "elective_rule": "CIENCIAS"
-        },
-        "cutoffs": {
-                "2024": 765.0,
-                "2025": 768.4,
-                "2026": 772.0
-        },
+        "cutoffs": {"2024": 743.4, "2025": 716.8, "2026": 715.6},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "derecho-ucm",
         "name": "Derecho",
+        "url": "https://www.ucm.cl/prenovato/derecho/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5117,17 +5042,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 710.0,
-                "2025": 714.0,
-                "2026": 717.5
-        },
+        "cutoffs": {"2024": 724.2, "2025": 715.5, "2026": 702.0},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "ingenieria-civil-industrial-ucm",
         "name": "Ingeniería Civil Industrial",
+        "url": "https://www.ucm.cl/prenovato/ingenieria-civil-industrial/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5145,17 +5067,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 692.0,
-                "2025": 696.0,
-                "2026": 700.0
-        },
+        "cutoffs": {"2024": 712.0, "2025": 729.0, "2026": 717.8},
         "requires_m2": True,
         "min_weighted_score": 500.0
 },
     {
         "id": "ingenieria-civil-informatica-ucm",
         "name": "Ingeniería Civil Informática",
+        "url": "https://www.ucm.cl/prenovato/ingenieria-civil-informatica/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5173,17 +5092,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 685.0,
-                "2025": 689.0,
-                "2026": 693.0
-        },
+        "cutoffs": {"2024": 655.4, "2025": 695.6, "2026": 686.4},
         "requires_m2": True,
         "min_weighted_score": 500.0
 },
     {
         "id": "pedagogia-en-educacion-fisica-ucm",
         "name": "Pedagogía en Educación Física",
+        "url": "https://www.ucm.cl/prenovato/pedagogia-en-educacion-fisica/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5201,17 +5117,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 612.0,
-                "2025": 616.0,
-                "2026": 620.0
-        },
+        "cutoffs": {"2024": 656.4, "2025": 672.1, "2026": 641.9},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "pedagogia-en-educacion-diferencial-ucm",
         "name": "Pedagogía en Educación Especial / Diferencial",
+        "url": "https://www.ucm.cl/prenovato/pedagogia-en-educacion-especial/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5229,17 +5142,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 605.0,
-                "2025": 609.0,
-                "2026": 613.5
-        },
+        "cutoffs": {"2024": 622.5, "2025": 604.9, "2026": 570.4},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "trabajo-social-ucm",
         "name": "Trabajo Social",
+        "url": "https://www.ucm.cl/prenovato/trabajo-social/",
         "university": "Universidad Católica del Maule",
         "university_short": "UCM",
         "campus": "Campus San Miguel (Talca)",
@@ -5257,45 +5167,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.075,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 618.0,
-                "2025": 622.0,
-                "2026": 626.0
-        },
-        "requires_m2": False,
-        "min_weighted_score": 500.0
-},
-    {
-        "id": "nutricion-y-dietetica-ucm",
-        "name": "Nutrición y Dietética",
-        "university": "Universidad Católica del Maule",
-        "university_short": "UCM",
-        "campus": "Campus San Miguel (Talca)",
-        "region": "Maule",
-        "city": "Talca",
-        "area": "Ciencias de la Salud",
-        "vacantes": 55,
-        "weights": {
-                "nem": 0.2,
-                "ranking": 0.3,
-                "lectura": 0.15,
-                "m1": 0.15,
-                "m2": 0.0,
-                "ciencias": 0.2,
-                "historia": 0.0,
-                "elective_rule": "CIENCIAS"
-        },
-        "cutoffs": {
-                "2024": 695.0,
-                "2025": 699.0,
-                "2026": 703.0
-        },
+        "cutoffs": {"2024": 627.0, "2025": 579.8, "2026": 552.7},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "medicina-ua-talca",
         "name": "Medicina",
+        "url": "https://admision.uautonoma.cl/carreras/medicina/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5313,45 +5192,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 878.5,
-                "2025": 882.1,
-                "2026": 885.3
-        },
+        "cutoffs": {"2024": 881.3, "2025": 878.5, "2026": 885.1},
         "requires_m2": False,
         "min_weighted_score": 600.0
 },
     {
-        "id": "odontologia-ua-talca",
-        "name": "Odontología",
-        "university": "Universidad Autónoma de Chile",
-        "university_short": "UA",
-        "campus": "Campus Alameda (Talca)",
-        "region": "Maule",
-        "city": "Talca",
-        "area": "Ciencias de la Salud",
-        "vacantes": 65,
-        "weights": {
-                "nem": 0.15,
-                "ranking": 0.25,
-                "lectura": 0.15,
-                "m1": 0.2,
-                "m2": 0.0,
-                "ciencias": 0.25,
-                "historia": 0.0,
-                "elective_rule": "CIENCIAS"
-        },
-        "cutoffs": {
-                "2024": 745.0,
-                "2025": 749.0,
-                "2026": 753.0
-        },
-        "requires_m2": False,
-        "min_weighted_score": 500.0
-},
-    {
         "id": "enfermeria-ua-talca",
         "name": "Enfermería",
+        "url": "https://admision.uautonoma.cl/carreras/enfermeria/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5369,17 +5217,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 718.0,
-                "2025": 722.0,
-                "2026": 726.0
-        },
+        "cutoffs": {"2024": 676.0, "2025": 654.6, "2026": 651.8},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "obstetricia-y-puericultura-ua-talca",
         "name": "Obstetricia y Puericultura",
+        "url": "https://admision.uautonoma.cl/carreras/obstetricia-y-puericultura/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5397,17 +5242,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 725.0,
-                "2025": 729.0,
-                "2026": 733.0
-        },
+        "cutoffs": {"2024": 708.3, "2025": 685.9, "2026": 653.4},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "kinesiologia-ua-talca",
         "name": "Kinesiología",
+        "url": "https://admision.uautonoma.cl/carreras/kinesiologia/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5425,17 +5267,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 672.0,
-                "2025": 676.0,
-                "2026": 680.0
-        },
+        "cutoffs": {"2024": 641.9, "2025": 629.7, "2026": 619.6},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "psicologia-ua-talca",
         "name": "Psicología",
+        "url": "https://admision.uautonoma.cl/carreras/psicologia/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5453,17 +5292,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.075,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 665.0,
-                "2025": 669.0,
-                "2026": 673.0
-        },
+        "cutoffs": {"2024": 675.4, "2025": 656.9, "2026": 638.3},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "derecho-ua-talca",
         "name": "Derecho",
+        "url": "https://admision.uautonoma.cl/carreras/derecho/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5481,17 +5317,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 635.0,
-                "2025": 639.0,
-                "2026": 643.0
-        },
+        "cutoffs": {"2024": 650.0, "2025": 620.1, "2026": 606.0},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "arquitectura-ua-talca",
         "name": "Arquitectura",
+        "url": "https://admision.uautonoma.cl/carreras/arquitectura/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5509,17 +5342,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.05,
                 "elective_rule": "MAX"
         },
-        "cutoffs": {
-                "2024": 625.0,
-                "2025": 629.0,
-                "2026": 633.0
-        },
+        "cutoffs": {"2024": 616.4, "2025": 586.6, "2026": 566.7},
         "requires_m2": False,
         "min_weighted_score": 500.0
 },
     {
         "id": "ingenieria-civil-industrial-ua-talca",
         "name": "Ingeniería Civil Industrial",
+        "url": "https://admision.uautonoma.cl/carreras/ingenieria-civil-industrial/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5537,17 +5367,14 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 655.0,
-                "2025": 659.0,
-                "2026": 663.0
-        },
+        "cutoffs": {"2024": 604.5, "2025": 618.7, "2026": 608.1},
         "requires_m2": True,
         "min_weighted_score": 500.0
 },
     {
         "id": "ingenieria-civil-informatica-ua-talca",
         "name": "Ingeniería Civil Informática",
+        "url": "https://admision.uautonoma.cl/carreras/ingenieria-civil-informatica/",
         "university": "Universidad Autónoma de Chile",
         "university_short": "UA",
         "campus": "Campus Alameda (Talca)",
@@ -5565,11 +5392,7 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
                 "historia": 0.0,
                 "elective_rule": "CIENCIAS"
         },
-        "cutoffs": {
-                "2024": 648.0,
-                "2025": 652.0,
-                "2026": 656.0
-        },
+        "cutoffs": {"2024": 566.0, "2025": 569.6, "2026": 540.5},
         "requires_m2": True,
         "min_weighted_score": 500.0
 },
