@@ -1,7 +1,7 @@
 import React from "react"
 import { describe, it, expect, vi, beforeEach } from "vitest"
 import { render, screen, waitFor } from "@testing-library/react"
-import { CruchAdmissionSimulator } from "../CruchAdmissionSimulator"
+import { CruchAdmissionSimulator, getCareerUrl, UNIVERSITY_ADMISSION_URLS } from "../CruchAdmissionSimulator"
 import { api } from "../../../api/client"
 
 vi.mock("../../../api/client", () => ({
@@ -122,5 +122,59 @@ describe("CruchAdmissionSimulator Component", () => {
     expect(screen.getByText(/Top \/ Alta Demanda/i)).toBeInTheDocument()
     expect(screen.getByText(/Catálogo Completo/i)).toBeInTheDocument()
     expect(screen.getByRole("combobox")).toBeInTheDocument()
+  })
+
+  it("renders 'Link de la carrera' link with target _blank and valid admission URL", async () => {
+    render(<CruchAdmissionSimulator />)
+
+    await waitFor(() => {
+      expect(api.paes.admission.getCareers).toHaveBeenCalled()
+    })
+
+    const careerLink = await screen.findByRole("link", { name: /Link de la carrera/i })
+    expect(careerLink).toBeInTheDocument()
+    expect(careerLink).toHaveAttribute("target", "_blank")
+    expect(careerLink).toHaveAttribute("rel", "noopener noreferrer")
+    expect(careerLink).toHaveAttribute("href", "https://admision.uchile.cl/")
+  })
+
+  describe("getCareerUrl helper and fallbacks", () => {
+    it("prioritizes career.url when explicitly defined", () => {
+      expect(getCareerUrl({ url: "https://example.com/medicina", university_short: "UCH" })).toBe("https://example.com/medicina")
+    })
+
+    it("uses career.link when url is not present", () => {
+      expect(getCareerUrl({ link: "https://example.com/carrera-link", university_short: "PUC" })).toBe("https://example.com/carrera-link")
+    })
+
+    it("resolves specific UdeC URL when code is present in catalogue", () => {
+      expect(getCareerUrl({ code: "13086", university_short: "UdeC" })).toBe("https://admision.udec.cl/medicina/")
+      expect(getCareerUrl({ code: "13080", university_short: "UdeC" })).toBe("https://admision.udec.cl/arquitectura/")
+    })
+
+    it("resolves intelligent fallback URLs for all CRUCH partner universities by shortcode", () => {
+      expect(getCareerUrl({ university_short: "UdeC" })).toBe("https://admision.udec.cl/")
+      expect(getCareerUrl({ university_short: "UTALCA" })).toBe("https://admision.utalca.cl/")
+      expect(getCareerUrl({ university_short: "UCM" })).toBe("https://admision.ucm.cl/")
+      expect(getCareerUrl({ university_short: "UA" })).toBe("https://admision.uautonoma.cl/")
+      expect(getCareerUrl({ university_short: "UCH" })).toBe("https://admision.uchile.cl/")
+      expect(getCareerUrl({ university_short: "PUC" })).toBe("https://admision.uc.cl/")
+      expect(getCareerUrl({ university_short: "USACH" })).toBe("https://admision.usach.cl/")
+      expect(getCareerUrl({ university_short: "UTFSM" })).toBe("https://usm.cl/")
+      expect(getCareerUrl({ university_short: "UBB" })).toBe("https://admision.ubiobio.cl/")
+      expect(getCareerUrl({ university_short: "UCSC" })).toBe("https://admision.ucsc.cl/")
+    })
+
+    it("resolves intelligent fallback by university name if shortcode is missing", () => {
+      expect(getCareerUrl({ university: "Universidad de Concepción" })).toBe("https://admision.udec.cl/")
+      expect(getCareerUrl({ university: "Pontificia Universidad Católica de Chile" })).toBe("https://admision.uc.cl/")
+      expect(getCareerUrl({ university: "Universidad Técnica Federico Santa María" })).toBe("https://usm.cl/")
+      expect(getCareerUrl({ university: "Universidad del Bío-Bío" })).toBe("https://admision.ubiobio.cl/")
+    })
+
+    it("falls back to demre.cl when career is empty or unknown", () => {
+      expect(getCareerUrl(null)).toBe("https://demre.cl/")
+      expect(getCareerUrl({ university: "Universidad Desconocida" })).toBe("https://demre.cl/")
+    })
   })
 })

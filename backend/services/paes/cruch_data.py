@@ -2892,19 +2892,25 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
         "city": "Concepción",
         "area": "Ingeniería y Ciencias Exactas",
         "vacantes": 75,
+        "is_popular": True,
+        "url": "https://admision.ubiobio.cl/carreras/ingenieria-civil-en-automatizacion/",
         "weights": {
-            "nem": 0.1,
-            "ranking": 0.45,
-            "lectura": 0.1,
-            "m1": 0.15,
+            "nem": 0.2,
+            "ranking": 0.15,
+            "lectura": 0.15,
+            "m1": 0.3,
             "m2": 0.1,
             "ciencias": 0.1,
-            "historia": 0.0,
-            "elective_rule": "MAX",
+            "historia": 0.1,
+            "elective_rule": "MAX"
         },
-        "cutoffs": {"2024": 665.1, "2025": 672.3, "2026": 606.75},
+        "cutoffs": {
+            "2024": 665.1,
+            "2025": 672.3,
+            "2026": 606.75
+        },
         "requires_m2": True,
-        "min_weighted_score": 458.0,
+        "min_weighted_score": 458.0
     },
     {
         "id": "ingenieria-civil-en-informatica-ubb",

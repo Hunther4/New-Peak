@@ -2,6 +2,117 @@ import React, { useState, useEffect, useMemo, useCallback } from "react"
 import { api } from "../../api/client"
 import { gradeFromNem, nemFromGrade } from "../../utils/nemScale"
 
+export const UNIVERSITY_ADMISSION_URLS = {
+  UdeC: "https://admision.udec.cl/",
+  UTALCA: "https://admision.utalca.cl/",
+  UCM: "https://admision.ucm.cl/",
+  UA: "https://admision.uautonoma.cl/",
+  UCH: "https://admision.uchile.cl/",
+  PUC: "https://admision.uc.cl/",
+  USACH: "https://admision.usach.cl/",
+  UTFSM: "https://usm.cl/",
+  UBB: "https://admision.ubiobio.cl/",
+  UCSC: "https://admision.ucsc.cl/",
+}
+
+export const UDEC_CAREER_URLS = {
+  "13001": "https://admision.udec.cl/licenciatura-en-quimica-quimico/",
+  "13002": "https://admision.udec.cl/licenciatura-en-matematica/",
+  "13003": "https://admision.udec.cl/ingenieria-civil-matematica/",
+  "13004": "https://admision.udec.cl/quimico-a-analista/",
+  "13008": "https://admision.udec.cl/ingenieria-forestal/",
+  "13009": "https://admision.udec.cl/ingenieria-civil-agricola/",
+  "13012": "https://admision.udec.cl/bioingenieria/",
+  "13013": "https://admision.udec.cl/biologia-marina/",
+  "13014": "https://admision.udec.cl/biologia/",
+  "13015": "https://admision.udec.cl/geologia/",
+  "13016": "https://admision.udec.cl/ingenieria-en-biotecnologia-marina-y-acuicultura/",
+  "13018": "https://admision.udec.cl/geografia/",
+  "13019": "https://admision.udec.cl/ingenieria-comercial/",
+  "13025": "https://admision.udec.cl/trabajo-social/",
+  "13026": "https://admision.udec.cl/antropologia/",
+  "13027": "https://admision.udec.cl/educacion-parvularia/",
+  "13031": "https://admision.udec.cl/periodismo/",
+  "13036": "https://admision.udec.cl/pedagogia-en-ciencias-naturales-y-fisica/",
+  "13037": "https://admision.udec.cl/pedagogia-en-ciencias-naturales-y-quimica/",
+  "13039": "https://admision.udec.cl/pedagogia-en-educacion-musical/",
+  "13040": "https://admision.udec.cl/pedagogia-en-historia-y-geografia/",
+  "13041": "https://admision.udec.cl/pedagogia-en-espanol/",
+  "13042": "https://admision.udec.cl/pedagogia-en-filosofia/",
+  "13043": "https://admision.udec.cl/ingenieria-en-conservacion-de-recursos-naturales/",
+  "13044": "https://admision.udec.cl/ingenieria-ambiental-chillan/",
+  "13046": "https://admision.udec.cl/ciencias-fisicas/",
+  "13048": "https://admision.udec.cl/bioquimica/",
+  "13049": "https://admision.udec.cl/quimica-y-farmacia/",
+  "13050": "https://admision.udec.cl/nutricion-y-dietetica/",
+  "13052": "https://admision.udec.cl/bachillerato-en-humanidades/",
+  "13054": "https://admision.udec.cl/artes-visuales/",
+  "13055": "https://admision.udec.cl/astronomia/",
+  "13056": "https://admision.udec.cl/geofisica/",
+  "13058": "https://admision.udec.cl/traduccion-interpretacion-en-idiomas-extranjeros/",
+  "13059": "https://admision.udec.cl/licenciatura-en-historia/",
+  "13060": "https://admision.udec.cl/teatro/",
+  "13061": "https://admision.udec.cl/ingenieria-ambiental/",
+  "13062": "https://admision.udec.cl/ingenieria-civil-biomedica/",
+  "13064": "https://admision.udec.cl/ingenieria-civil-en-telecomunicaciones/",
+  "13065": "https://admision.udec.cl/ingenieria-estadistica/",
+  "13066": "https://admision.udec.cl/ingenieria-civil-aeroespacial/",
+  "13067": "https://admision.udec.cl/psicologia/",
+  "13068": "https://admision.udec.cl/ingenieria-civil-primer-ano-comun/",
+  "13069": "https://admision.udec.cl/ingenieria-civil/",
+  "13070": "https://admision.udec.cl/ingenieria-civil-electrica/",
+  "13071": "https://admision.udec.cl/ingenieria-civil-electronica/",
+  "13072": "https://admision.udec.cl/ingenieria-civil-industrial/",
+  "13073": "https://admision.udec.cl/ingenieria-civil-informatica/",
+  "13074": "https://admision.udec.cl/ingenieria-civil-mecanica/",
+  "13075": "https://admision.udec.cl/ingenieria-civil-metalurgica/",
+  "13076": "https://admision.udec.cl/ingenieria-civil-quimica/",
+  "13077": "https://admision.udec.cl/sociologia/",
+  "13080": "https://admision.udec.cl/arquitectura/",
+  "13081": "https://admision.udec.cl/tecnologia-medica/",
+  "13082": "https://admision.udec.cl/fonoaudiologia/",
+  "13083": "https://admision.udec.cl/kinesiologia/",
+  "13086": "https://admision.udec.cl/medicina/",
+  "13087": "https://admision.udec.cl/enfermeria/",
+  "13088": "https://admision.udec.cl/obstetricia-y-puericultura/",
+  "13091": "https://admision.udec.cl/odontologia/",
+  "13093": "https://admision.udec.cl/ingenieria-geomatica/",
+  "13101": "https://admision.udec.cl/pedagogia-en-educacion-fisica/",
+  "13102": "https://admision.udec.cl/ingenieria-civil-de-minas/",
+  "13107": "https://admision.udec.cl/pedagogia-en-artes-visuales/",
+  "13112": "https://admision.udec.cl/pedagogia-en-espanol-los-angeles/",
+  "13114": "https://admision.udec.cl/bachillerato-en-ciencias-e-innovacion/",
+}
+
+export function getCareerUrl(career) {
+  if (!career) return "https://demre.cl/"
+  if (career.url) return career.url
+  if (career.link) return career.link
+
+  if (career.code && UDEC_CAREER_URLS[career.code]) {
+    return UDEC_CAREER_URLS[career.code]
+  }
+
+  const shortCode = career.university_short
+  if (shortCode && UNIVERSITY_ADMISSION_URLS[shortCode]) {
+    return UNIVERSITY_ADMISSION_URLS[shortCode]
+  }
+
+  const uni = (career.university || "").toLowerCase()
+  if (uni.includes("concepción") || uni.includes("udec")) return UNIVERSITY_ADMISSION_URLS.UdeC
+  if (uni.includes("talca") || uni.includes("utalca")) return UNIVERSITY_ADMISSION_URLS.UTALCA
+  if (uni.includes("maule") || uni.includes("ucm")) return UNIVERSITY_ADMISSION_URLS.UCM
+  if (uni.includes("autónoma") || uni.includes("autonoma")) return UNIVERSITY_ADMISSION_URLS.UA
+  if (uni.includes("santiago de chile") || uni.includes("usach")) return UNIVERSITY_ADMISSION_URLS.USACH
+  if (uni.includes("santa maría") || uni.includes("santa maria") || uni.includes("utfsm") || uni.includes("usm")) return UNIVERSITY_ADMISSION_URLS.UTFSM
+  if (uni.includes("bío-bío") || uni.includes("bio-bio") || uni.includes("biobío") || uni.includes("ubb")) return UNIVERSITY_ADMISSION_URLS.UBB
+  if (uni.includes("santísima") || uni.includes("santisima") || uni.includes("ucsc")) return UNIVERSITY_ADMISSION_URLS.UCSC
+  if (uni.includes("católica de chile") || uni.includes("puc") || (uni.includes("católica") && uni.includes("pontificia"))) return UNIVERSITY_ADMISSION_URLS.PUC
+  if (uni.includes("chile")) return UNIVERSITY_ADMISSION_URLS.UCH
+
+  return "https://demre.cl/"
+}
+
 export function CruchAdmissionSimulator() {
   const [careers, setCareers] = useState([])
   const [loadingCareers, setLoadingCareers] = useState(true)
@@ -141,12 +252,19 @@ export function CruchAdmissionSimulator() {
       Metropolitana: "🏛️",
       Valparaíso: "🌊",
     }
+    const regionNames = {
+      Biobío: "Región del Biobío",
+      Ñuble: "Región de Ñuble",
+      Maule: "Región del Maule",
+      Metropolitana: "Región Metropolitana",
+      Valparaíso: "Región de Valparaíso",
+    }
     const preferredOrder = ["Biobío", "Ñuble", "Maule", "Metropolitana", "Valparaíso"]
     preferredOrder.forEach((r) => {
       if (regSet.has(r)) {
         regionPills.push({
           id: r,
-          label: `${regionIcons[r] || "📌"} Región del ${r}`,
+          label: `${regionIcons[r] || "📌"} ${regionNames[r] || `Región de ${r}`}`,
         })
         regSet.delete(r)
       }
@@ -604,8 +722,19 @@ export function CruchAdmissionSimulator() {
                     {selectedCareer.university_short}
                   </span>
                 </div>
-                <div className="text-neutral-400 text-[11px]">
-                  🏛️ {selectedCareer.university} • {selectedCareer.campus}
+                <div className="flex items-center justify-between flex-wrap gap-2 text-neutral-400 text-[11px]">
+                  <span>
+                    🏛️ {selectedCareer.university} • {selectedCareer.campus}
+                  </span>
+                  <a
+                    href={getCareerUrl(selectedCareer)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sky-400 hover:text-sky-300 hover:underline font-medium text-[11px] shrink-0 transition-colors"
+                  >
+                    <span>Link de la carrera</span>
+                    <span aria-hidden="true" className="text-[10px]">↗</span>
+                  </a>
                 </div>
 
                 {/* Histórico de Cortes */}

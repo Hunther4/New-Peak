@@ -45,7 +45,11 @@ export const createPaesSlice = (set, get) => ({
 
   setPaesActiveSubject: async (code) => {
     set({ paesActiveSubject: code })
-    await get().fetchPaesSubtopics(1, code)
+    await Promise.allSettled([
+      get().fetchPaesSubtopics(1, code),
+      get().fetchPaesFsrsStatus(1, code),
+      get().loadErrorVault ? get().loadErrorVault(1, code) : (get().fetchPaesErrorNotebook ? get().fetchPaesErrorNotebook(code) : Promise.resolve()),
+    ])
   },
 
   fetchPaesFsrsStatus: async (userId = 1, subjectCode = null) => {
