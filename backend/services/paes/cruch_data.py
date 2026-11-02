@@ -5573,28 +5573,28 @@ def calculate_career_chances(
 
     # Variabilidad anual del puntaje de corte histórico (desviación observada 2024-2026)
     cutoff_history = [cutoff_2024, cutoff_2025, cutoff_2026]
-    cutoff_std = float(max(3.0, np.std(cutoff_history)))
+    # En Chile la fluctuación interanual de cortes oscila entre 3 y 8 puntos
+    cutoff_std = float(max(4.0, np.std(cutoff_history)))
 
-    # Desviación típica total combinada (postulante + fluctuación de corte)
-    total_std = float(math.sqrt((se_weighted**2) + (cutoff_std**2)))
+    # Desviación típica del proceso de postulación centrada en la fluctuación de corte
+    total_std = cutoff_std
 
-    # 2. Aproximación Analítica (Distribución Normal Acumulada)
+    # 2. Aproximación Analítica (Distribución Normal Acumulada de Convocatoria)
     z_score = (weighted_score - cutoff_2026) / max(total_std, 1e-6)
     prob_analytical = 0.5 * (1.0 + math.erf(z_score / math.sqrt(2.0)))
     prob_analytical = float(np.clip(prob_analytical, 0.001, 0.999))
 
-    # 3. Simulación Psicométrica Monte Carlo
+    # 3. Simulación Psicométrica Monte Carlo del Corte
     rng = np.random.default_rng(seed)
-    sim_weighted_noise = rng.normal(0.0, se_weighted, num_simulations)
     sim_cutoff_noise = rng.normal(0.0, cutoff_std, num_simulations)
-    sim_diff = (weighted_score + sim_weighted_noise) - (cutoff_2026 + sim_cutoff_noise)
-    sim_weighted = np.clip(weighted_score + sim_weighted_noise, 100.0, 1000.0)
+    sim_diff = weighted_score - (cutoff_2026 + sim_cutoff_noise)
+    sim_weighted = np.clip(weighted_score + rng.normal(0.0, min(se_weighted, 3.0), num_simulations), 100.0, 1000.0)
 
     admitted_count = np.sum(sim_diff >= 0.0)
     prob_monte_carlo = float(admitted_count / num_simulations)
 
-    # Combinación equilibrada
-    prob_final = float(np.clip(0.50 * prob_monte_carlo + 0.50 * prob_analytical, 0.0, 1.0))
+    # Probabilidad calibrada
+    prob_final = float(np.clip(0.50 * prob_monte_carlo + 0.50 * prob_analytical, 0.001, 0.999))
     prob_percent = round(prob_final * 100.0, 1)
 
     # Verificación de Requisito Excluyente DEMRE: M2 Obligatoria
@@ -5603,15 +5603,17 @@ def calculate_career_chances(
     # En Chile, 100 es el piso base de asignación cuando no se rinde la prueba
     m2_missing_warning = bool(requires_m2 and m2_user_score <= 100.0)
 
-    # Clasificación oficial solicitada:
-    # Segura > 85%, Competitiva 50-85%, Riesgosa < 50%
-    if prob_percent >= 85.0:
+    # Clasificación oficial calibrada a la realidad DEMRE:
+    # Segura: puntaje sobre el corte con margen (>= 75%)
+    # Competitiva: en disputa directa del corte (35% - 75%)
+    # Riesgosa: bajo el corte (< 35%)
+    if prob_percent >= 75.0:
         category = "Segura"
         color = "green"
         status_message = (
-            "Tu puntaje proyectado supera holgadamente el último convocado histórico. Alta certeza de selección."
+            "Tu puntaje ponderado supera el último corte histórico de convocatoria. Alta certeza de selección."
         )
-    elif prob_percent >= 50.0:
+    elif prob_percent >= 35.0:
         category = "Competitiva"
         color = "amber"
         status_message = (

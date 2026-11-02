@@ -124,9 +124,9 @@ export function CruchAdmissionSimulator() {
   const [searchTerm, setSearchTerm] = useState("")
 
   // Factores académicos (NEM, Ranking) y pruebas PAES calibrados con tabla oficial DEMRE Grupo A
-  const [nem, setNem] = useState(828)
-  const [nemGrade, setNemGrade] = useState(6.40) // 6.40 = 828 pts oficiales DEMRE
-  const [ranking, setRanking] = useState(850)
+  const [nem, setNem] = useState(713)
+  const [nemGrade, setNemGrade] = useState(6.00) // 6.00 = 713 pts oficiales DEMRE Grupo A
+  const [ranking, setRanking] = useState(713) // Predeterminado igual al NEM
   const [m1, setM1] = useState(800)
   const [lectura, setLectura] = useState(780)
   const [m2, setM2] = useState(700)
@@ -419,6 +419,49 @@ export function CruchAdmissionSimulator() {
   const selectedCareer = useMemo(() => {
     return careers.find((c) => c.id === selectedCareerId) || filteredCareers[0] || careers[0]
   }, [careers, selectedCareerId, filteredCareers])
+
+  // Cálculo en vivo instantáneo del puntaje ponderado oficial y aportes por prueba
+  const liveWeighted = useMemo(() => {
+    if (!selectedCareer || !selectedCareer.weights) {
+      return { total: 0, gap: 0, electName: "Ciencias", electScore: 0, nemContrib: 0, rankContrib: 0, lecContrib: 0, m1Contrib: 0, m2Contrib: 0, electContrib: 0 }
+    }
+    const w = selectedCareer.weights
+    const rule = w.elective_rule || "MAX"
+    let electScore = 0
+    let electName = "Ciencias"
+    if (rule === "CIENCIAS") {
+      electScore = Number(ciencias)
+      electName = "Ciencias"
+    } else if (rule === "HISTORIA") {
+      electScore = Number(historia)
+      electName = "Historia"
+    } else {
+      electScore = Math.max(Number(ciencias), Number(historia))
+      electName = Number(ciencias) >= Number(historia) ? "Ciencias" : "Historia"
+    }
+    const electWeight = (w.ciencias || 0) + (w.historia || 0)
+    const nemContrib = Number(nem) * (w.nem || 0)
+    const rankContrib = Number(ranking) * (w.ranking || 0)
+    const lecContrib = Number(lectura) * (w.lectura || 0)
+    const m1Contrib = Number(m1) * (w.m1 || 0)
+    const m2Contrib = Number(m2) * (w.m2 || 0)
+    const electContrib = electScore * electWeight
+    const total = nemContrib + rankContrib + lecContrib + m1Contrib + m2Contrib + electContrib
+    const cutoff2026 = Number(selectedCareer.cutoffs?.["2026"] || 0)
+    const gap = total - cutoff2026
+    return {
+      total,
+      gap,
+      electName,
+      electScore,
+      nemContrib,
+      rankContrib,
+      lecContrib,
+      m1Contrib,
+      m2Contrib,
+      electContrib
+    }
+  }, [selectedCareer, nem, ranking, lectura, m1, m2, ciencias, historia])
 
   // Obtener estilo de la categoría de probabilidad
   const getProbabilityTheme = (category, prob) => {
@@ -772,6 +815,22 @@ export function CruchAdmissionSimulator() {
                     </span>
                   </div>
                 </div>
+
+                {/* Puntaje Ponderado en Vivo */}
+                <div className="pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-[10px] text-neutral-400 font-mono uppercase block">Tu Ponderado Actual</span>
+                    <span className="font-mono font-black text-sky-400 text-sm">
+                      {liveWeighted.total.toFixed(2)} pts
+                    </span>
+                  </div>
+                  <div className="text-right font-mono text-[10px]">
+                    <span className={liveWeighted.gap >= 0 ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>
+                      {liveWeighted.gap >= 0 ? `+${liveWeighted.gap.toFixed(2)} pts (Sobre Corte)` : `${liveWeighted.gap.toFixed(2)} pts (Bajo Corte)`}
+                    </span>
+                    <div className="text-neutral-500">Corte '26: {selectedCareer.cutoffs["2026"]}</div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -780,12 +839,20 @@ export function CruchAdmissionSimulator() {
         {/* Columna Derecha: Controles de Puntajes (NEM, Ranking, Pruebas) (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           <div className="p-6 rounded-3xl bg-neutral-900/60 border border-white/[0.08] backdrop-blur-xl shadow-xl space-y-6">
-            <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <span>📊</span> Tus Puntajes Estimados o Simulados
-              </span>
-              <span className="text-[11px] font-mono text-neutral-500 font-normal">Escala DEMRE 100 - 1000</span>
-            </h3>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
+                  <span>📊</span> Tus Puntajes Estimados o Simulados
+                </h3>
+                <span className="text-[11px] font-mono text-neutral-500 font-normal">Escala DEMRE 100 - 1000</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/30 font-mono text-right">
+                <span className="text-[10px] text-neutral-400 uppercase block">Tu Ponderado</span>
+                <span className="text-sm font-black text-sky-300">
+                  {liveWeighted.total.toFixed(2)} pts
+                </span>
+              </div>
+            </div>
 
             {/* Factores Escolares: NEM y Ranking */}
             <div className="p-4 rounded-2xl bg-neutral-950/60 border border-white/[0.08] space-y-4">
@@ -946,6 +1013,11 @@ export function CruchAdmissionSimulator() {
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
                     <span>📐</span> Competencia Matemática 1 (M1)
+                    {selectedCareer && (
+                      <span className="text-[10px] font-mono text-sky-400 font-semibold">
+                        ({Math.round((selectedCareer.weights?.m1 || 0) * 100)}% • Aporta {liveWeighted.m1Contrib.toFixed(1)} pts)
+                      </span>
+                    )}
                   </span>
                   <span className="font-mono font-black text-white text-sm">{m1} pts</span>
                 </div>
@@ -965,6 +1037,11 @@ export function CruchAdmissionSimulator() {
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
                     <span>📖</span> Competencia Lectora
+                    {selectedCareer && (
+                      <span className="text-[10px] font-mono text-sky-400 font-semibold">
+                        ({Math.round((selectedCareer.weights?.lectura || 0) * 100)}% • Aporta {liveWeighted.lecContrib.toFixed(1)} pts)
+                      </span>
+                    )}
                   </span>
                   <span className="font-mono font-black text-white text-sm">{lectura} pts</span>
                 </div>
@@ -984,8 +1061,16 @@ export function CruchAdmissionSimulator() {
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
                     <span>🔬</span> Competencia Matemática 2 (M2)
-                    {selectedCareer?.requires_m2 && (
-                      <span className="text-[10px] font-mono text-amber-400">*(Requerida)*</span>
+                    {selectedCareer && (
+                      (selectedCareer.weights?.m2 || 0) > 0 ? (
+                        <span className="text-[10px] font-mono text-amber-300 font-semibold">
+                          ({Math.round(selectedCareer.weights.m2 * 100)}% Exigida • Aporta {liveWeighted.m2Contrib.toFixed(1)} pts)
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-mono text-neutral-500 font-normal">
+                          (No pondera: 0% en esta carrera)
+                        </span>
+                      )
                     )}
                   </span>
                   <span className="font-mono font-black text-white text-sm">{m2} pts</span>
@@ -1002,37 +1087,76 @@ export function CruchAdmissionSimulator() {
               </div>
 
               {/* Electivas: Ciencias e Historia */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="font-bold text-neutral-300">Ciencias (Bio/Fís/Quím)</span>
-                    <span className="font-mono font-bold text-neutral-300">{ciencias} pts</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="100"
-                    max="1000"
-                    step="5"
-                    value={ciencias}
-                    onChange={(e) => setCiencias(Number(e.target.value))}
-                    className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
-                  />
+              <div className="space-y-2 pt-1 border-t border-white/[0.06]">
+                <div className="flex items-center justify-between text-xs pt-1">
+                  <span className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span>🧪 / 🏛️</span> Pruebas Electivas
+                  </span>
+                  {selectedCareer && (
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                      {selectedCareer.weights?.elective_rule === "CIENCIAS"
+                        ? `Exige solo Ciencias (${Math.round((selectedCareer.weights?.ciencias || 0) * 100)}%)`
+                        : selectedCareer.weights?.elective_rule === "HISTORIA"
+                        ? `Exige solo Historia (${Math.round((selectedCareer.weights?.historia || 0) * 100)}%)`
+                        : `Regla DEMRE: Mejor Puntaje (${Math.round(((selectedCareer.weights?.ciencias || 0) + (selectedCareer.weights?.historia || 0)) * 100)}%)`}
+                    </span>
+                  )}
                 </div>
 
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="font-bold text-neutral-300">Historia y Cs. Sociales</span>
-                    <span className="font-mono font-bold text-neutral-300">{historia} pts</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1.5 p-2.5 rounded-xl bg-white/[0.015] border border-white/[0.04]">
+                    <div className="flex justify-between items-center text-xs">
+                      <div>
+                        <span className="font-bold text-neutral-300 block">Ciencias</span>
+                        {selectedCareer && (
+                          liveWeighted.electName === "Ciencias" && (selectedCareer.weights?.ciencias > 0 || selectedCareer.weights?.elective_rule === "MAX") ? (
+                            <span className="text-[9px] font-mono text-emerald-400 font-bold">● Activa en ponderado (+{liveWeighted.electContrib.toFixed(1)} pts)</span>
+                          ) : selectedCareer.weights?.ciencias === 0 && selectedCareer.weights?.elective_rule === "HISTORIA" ? (
+                            <span className="text-[9px] font-mono text-neutral-500">○ No pondera (0%)</span>
+                          ) : (
+                            <span className="text-[9px] font-mono text-neutral-500">○ Descartada por menor puntaje</span>
+                          )
+                        )}
+                      </div>
+                      <span className="font-mono font-bold text-neutral-300">{ciencias} pts</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="100"
+                      max="1000"
+                      step="5"
+                      value={ciencias}
+                      onChange={(e) => setCiencias(Number(e.target.value))}
+                      className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
+                    />
                   </div>
-                  <input
-                    type="range"
-                    min="100"
-                    max="1000"
-                    step="5"
-                    value={historia}
-                    onChange={(e) => setHistoria(Number(e.target.value))}
-                    className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
-                  />
+
+                  <div className="space-y-1.5 p-2.5 rounded-xl bg-white/[0.015] border border-white/[0.04]">
+                    <div className="flex justify-between items-center text-xs">
+                      <div>
+                        <span className="font-bold text-neutral-300 block">Historia y Cs. Sociales</span>
+                        {selectedCareer && (
+                          liveWeighted.electName === "Historia" && (selectedCareer.weights?.historia > 0 || selectedCareer.weights?.elective_rule === "MAX") ? (
+                            <span className="text-[9px] font-mono text-emerald-400 font-bold">● Activa en ponderado (+{liveWeighted.electContrib.toFixed(1)} pts)</span>
+                          ) : selectedCareer.weights?.historia === 0 && selectedCareer.weights?.elective_rule === "CIENCIAS" ? (
+                            <span className="text-[9px] font-mono text-neutral-500">○ No pondera (0%)</span>
+                          ) : (
+                            <span className="text-[9px] font-mono text-neutral-500">○ Descartada por menor puntaje</span>
+                          )
+                        )}
+                      </div>
+                      <span className="font-mono font-bold text-neutral-300">{historia} pts</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="100"
+                      max="1000"
+                      step="5"
+                      value={historia}
+                      onChange={(e) => setHistoria(Number(e.target.value))}
+                      className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
