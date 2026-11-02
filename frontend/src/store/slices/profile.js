@@ -12,18 +12,25 @@ export const createProfileSlice = (set, get) => ({
     if (cached) {
       try {
         const parsed = JSON.parse(cached)
+        // If cached profile was dummy "Invitado", purge it so user can choose their real name
+        if (parsed?.name && parsed.name.trim().toLowerCase() === "invitado") {
+          localStorage.removeItem("peak_profile")
+          localStorage.removeItem("peak_user_name")
+          set({ profile: null, profileLoading: false })
+          return null
+        }
         if (parsed?.name) {
           localStorage.setItem("peak_user_name", parsed.name.trim())
         }
         set({ profile: parsed, profileLoading: false })
         // Sync with backend in background (don't await)
         api.profile.get().then(profile => {
-          if (profile) {
+          if (profile && profile.name?.trim().toLowerCase() !== "invitado") {
             set({ profile })
             localStorage.setItem("peak_profile", JSON.stringify(profile))
             localStorage.setItem("peak_user_name", profile.name.trim())
           } else {
-            // Backend doesn't have a profile — clear stale cache
+            // Backend doesn't have a valid profile — clear stale cache
             localStorage.removeItem("peak_profile")
             localStorage.removeItem("peak_user_name")
             set({ profile: null })
@@ -37,11 +44,16 @@ export const createProfileSlice = (set, get) => ({
     // First time — fetch from API
     try {
       const profile = await api.profile.get()
-      if (profile) {
+      if (profile && profile.name?.trim().toLowerCase() !== "invitado") {
         localStorage.setItem("peak_profile", JSON.stringify(profile))
+        localStorage.setItem("peak_user_name", profile.name.trim())
+        set({ profile, profileLoading: false })
+        return profile
       }
-      set({ profile, profileLoading: false })
-      return profile
+      localStorage.removeItem("peak_profile")
+      localStorage.removeItem("peak_user_name")
+      set({ profile: null, profileLoading: false })
+      return null
     } catch {
       set({ profileLoading: false })
       return null

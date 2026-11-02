@@ -137,10 +137,11 @@ export function CruchAdmissionSimulator() {
     const regionIcons = {
       Biobío: "📍",
       Ñuble: "🌱",
+      Maule: "🍇",
       Metropolitana: "🏛️",
       Valparaíso: "🌊",
     }
-    const preferredOrder = ["Biobío", "Ñuble", "Metropolitana", "Valparaíso"]
+    const preferredOrder = ["Biobío", "Ñuble", "Maule", "Metropolitana", "Valparaíso"]
     preferredOrder.forEach((r) => {
       if (regSet.has(r)) {
         regionPills.push({
@@ -173,6 +174,9 @@ export function CruchAdmissionSimulator() {
       UdeC: "U. de Concepción",
       UBB: "U. del Bío-Bío",
       UCSC: "UCSC",
+      UTALCA: "U. de Talca",
+      UCM: "U. Católica del Maule",
+      UA: "U. Autónoma (Talca)",
       UCH: "U. de Chile",
       PUC: "Católica (PUC)",
       USACH: "USACH",
@@ -517,7 +521,7 @@ export function CruchAdmissionSimulator() {
               </div>
 
               {/* Campus Pills si existen sedes específicas */}
-              {["Concepción", "Chillán", "Los Ángeles"].some((cp) =>
+              {["Concepción", "Chillán", "Los Ángeles", "Talca", "Curicó"].some((cp) =>
                 filteredCareers.some((c) => (c.campus || "").toLowerCase().includes(cp.toLowerCase()))
               ) && (
                 <div className="flex items-center gap-1.5 overflow-x-auto text-[10px] font-mono">
@@ -527,20 +531,30 @@ export function CruchAdmissionSimulator() {
                     { id: "Concepción", label: "Concepción" },
                     { id: "Chillán", label: "Chillán" },
                     { id: "Los Ángeles", label: "Los Ángeles" },
-                  ].map((cp) => (
-                    <button
-                      key={cp.id}
-                      type="button"
-                      onClick={() => setSelectedCampusFilter(cp.id)}
-                      className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
-                        selectedCampusFilter === cp.id
-                          ? "bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30"
-                          : "bg-white/[0.03] text-neutral-400 hover:text-white"
-                      }`}
-                    >
-                      {cp.label}
-                    </button>
-                  ))}
+                    { id: "Talca", label: "Talca" },
+                    { id: "Curicó", label: "Curicó" },
+                  ]
+                    .filter(
+                      (cp) =>
+                        cp.id === "ALL" ||
+                        filteredCareers.some((c) =>
+                          (c.campus || "").toLowerCase().includes(cp.id.toLowerCase())
+                        )
+                    )
+                    .map((cp) => (
+                      <button
+                        key={cp.id}
+                        type="button"
+                        onClick={() => setSelectedCampusFilter(cp.id)}
+                        className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
+                          selectedCampusFilter === cp.id
+                            ? "bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30"
+                            : "bg-white/[0.03] text-neutral-400 hover:text-white"
+                        }`}
+                      >
+                        {cp.label}
+                      </button>
+                    ))}
                 </div>
               )}
 

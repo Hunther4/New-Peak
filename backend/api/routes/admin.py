@@ -203,7 +203,7 @@ def live_monitor(
         subjects_out.sort(key=lambda x: x["code"])
 
         prof = profiles_by_user_id.get(uid)
-        display_name = prof.name if prof else user.email.split("@")[0].capitalize()
+        display_name = prof.name if (prof and prof.name and prof.name.strip().lower() != "invitado") else f"Dispositivo ({user.email.split('@')[0]})"
         user_list.append(
             {
                 "user_id": uid,

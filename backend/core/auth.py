@@ -166,7 +166,7 @@ async def auth_middleware(request: Request, call_next):
         else:
             user_name = request.headers.get("X-User-Name") or request.query_params.get("user_name")
             device_id = request.headers.get("X-Device-Id") or request.query_params.get("device_id")
-            effective_name = user_name.strip() if (user_name and user_name.strip()) else "Invitado"
+            effective_name = user_name.strip() if (user_name and user_name.strip()) else ""
             principal = await run_in_threadpool(_resolve_beta_principal, effective_name, device_id)
             request.state.principal = principal
         return await call_next(request)
@@ -235,8 +235,8 @@ def _resolve_bearer(token: str) -> Principal | None:
 
 def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principal:
     """Resolve or auto-provision a Principal for tactical beta mode."""
-    clean_name = name.strip() or "Drack"
-    slug = re.sub(r"[^a-zA-Z0-9_]", "", clean_name.lower()) or "user"
+    clean_name = name.strip()
+    slug = re.sub(r"[^a-zA-Z0-9_]", "", clean_name.lower()) if clean_name else ""
     is_drack = slug in ("drack", "drackv1") or clean_name.lower() in ("drack", "drackv1")
 
     clean_device = re.sub(r"[^a-zA-Z0-9]", "", device_id or "")[:12]
@@ -244,10 +244,10 @@ def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principa
         email = "drack@peak.local"
         target_user_id = 1
     elif clean_device:
-        email = f"{slug}.{clean_device}@peak.local"
+        email = f"user.{clean_device}@peak.local"
         target_user_id = None
     else:
-        email = f"{slug}@peak.local"
+        email = "user.anon@peak.local"
         target_user_id = None
 
     now = datetime.now(timezone.utc)
@@ -318,8 +318,8 @@ def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principa
                 auth_session = session.exec(select(AuthSession).where(AuthSession.user_id == user.id)).first()
 
         prof = session.exec(select(UserProfile).where(UserProfile.user_id == user.id)).first()
-        if not prof:
-            prof = UserProfile(user_id=user.id, name=clean_name, age=18)
+        if is_drack and not prof:
+            prof = UserProfile(user_id=user.id, name="Drack", age=18)
             session.add(prof)
             try:
                 session.commit()

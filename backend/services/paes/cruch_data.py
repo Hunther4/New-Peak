@@ -4531,6 +4531,1042 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
         "requires_m2": False,
         "min_weighted_score": 458.0,
     },
+    {
+        "id": "medicina-utalca",
+        "name": "Medicina",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 85,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.25,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 902.5,
+                "2025": 905.8,
+                "2026": 908.4
+        },
+        "requires_m2": False,
+        "min_weighted_score": 600.0
+},
+    {
+        "id": "odontologia-utalca",
+        "name": "Odontología",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 70,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.25,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 808.5,
+                "2025": 812.0,
+                "2026": 815.3
+        },
+        "requires_m2": False,
+        "min_weighted_score": 550.0
+},
+    {
+        "id": "enfermeria-utalca",
+        "name": "Enfermería",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 80,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 768.4,
+                "2025": 772.1,
+                "2026": 775.5
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "obstetricia-y-puericultura-utalca",
+        "name": "Obstetricia y Puericultura",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 60,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 782.1,
+                "2025": 785.4,
+                "2026": 788.9
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "kinesiologia-utalca",
+        "name": "Kinesiología",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 65,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 728.5,
+                "2025": 732.0,
+                "2026": 735.6
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "tecnologia-medica-utalca",
+        "name": "Tecnología Médica",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 65,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 775.0,
+                "2025": 778.5,
+                "2026": 782.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "derecho-utalca",
+        "name": "Derecho",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 120,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.25,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 742.0,
+                "2025": 746.5,
+                "2026": 750.2
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "psicologia-utalca",
+        "name": "Psicología",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 85,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.2,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.075,
+                "historia": 0.075,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 748.2,
+                "2025": 752.1,
+                "2026": 755.8
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "arquitectura-utalca",
+        "name": "Arquitectura",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Arquitectura, Arte y Diseño",
+        "vacantes": 70,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.2,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 712.0,
+                "2025": 715.6,
+                "2026": 719.1
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "ingenieria-civil-industrial-utalca",
+        "name": "Ingeniería Civil Industrial",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Curicó (Los Niches)",
+        "region": "Maule",
+        "city": "Curicó",
+        "area": "Ingeniería y Ciencias Exactas",
+        "vacantes": 100,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.1,
+                "m1": 0.35,
+                "m2": 0.1,
+                "ciencias": 0.05,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 732.5,
+                "2025": 736.0,
+                "2026": 740.0
+        },
+        "requires_m2": True,
+        "min_weighted_score": 550.0
+},
+    {
+        "id": "ingenieria-civil-en-computacion-utalca",
+        "name": "Ingeniería Civil en Computación",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Curicó (Los Niches)",
+        "region": "Maule",
+        "city": "Curicó",
+        "area": "Ingeniería y Ciencias Exactas",
+        "vacantes": 90,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.1,
+                "m1": 0.35,
+                "m2": 0.1,
+                "ciencias": 0.05,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 728.0,
+                "2025": 732.5,
+                "2026": 736.4
+        },
+        "requires_m2": True,
+        "min_weighted_score": 550.0
+},
+    {
+        "id": "ingenieria-civil-mecatronica-utalca",
+        "name": "Ingeniería Civil Mecatrónica",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Curicó (Los Niches)",
+        "region": "Maule",
+        "city": "Curicó",
+        "area": "Ingeniería y Ciencias Exactas",
+        "vacantes": 60,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.1,
+                "m1": 0.35,
+                "m2": 0.1,
+                "ciencias": 0.05,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 698.0,
+                "2025": 702.4,
+                "2026": 706.5
+        },
+        "requires_m2": True,
+        "min_weighted_score": 550.0
+},
+    {
+        "id": "ingenieria-comercial-utalca",
+        "name": "Ingeniería Comercial",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 90,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.3,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 682.0,
+                "2025": 686.0,
+                "2026": 689.5
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "bioquimica-utalca",
+        "name": "Bioquímica",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Humanidades y Ciencias",
+        "vacantes": 45,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 748.0,
+                "2025": 752.0,
+                "2026": 756.2
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "agronomia-utalca",
+        "name": "Agronomía",
+        "university": "Universidad de Talca",
+        "university_short": "UTALCA",
+        "campus": "Campus Lircay (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Naturales y Agropecuarias",
+        "vacantes": 70,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 635.0,
+                "2025": 638.5,
+                "2026": 642.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "medicina-ucm",
+        "name": "Medicina",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 70,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.25,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 896.2,
+                "2025": 899.4,
+                "2026": 902.1
+        },
+        "requires_m2": False,
+        "min_weighted_score": 600.0
+},
+    {
+        "id": "enfermeria-ucm",
+        "name": "Enfermería",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 90,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 752.0,
+                "2025": 755.8,
+                "2026": 759.5
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "kinesiologia-ucm",
+        "name": "Kinesiología",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 75,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 722.0,
+                "2025": 725.5,
+                "2026": 729.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "psicologia-ucm",
+        "name": "Psicología",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 80,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.2,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.075,
+                "historia": 0.075,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 731.0,
+                "2025": 734.5,
+                "2026": 738.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "obstetricia-y-puericultura-ucm",
+        "name": "Obstetricia y Puericultura",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus Curicó (Carmen)",
+        "region": "Maule",
+        "city": "Curicó",
+        "area": "Ciencias de la Salud",
+        "vacantes": 50,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 765.0,
+                "2025": 768.4,
+                "2026": 772.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "derecho-ucm",
+        "name": "Derecho",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 80,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.25,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 710.0,
+                "2025": 714.0,
+                "2026": 717.5
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "ingenieria-civil-industrial-ucm",
+        "name": "Ingeniería Civil Industrial",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ingeniería y Ciencias Exactas",
+        "vacantes": 70,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.35,
+                "m2": 0.1,
+                "ciencias": 0.0,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 692.0,
+                "2025": 696.0,
+                "2026": 700.0
+        },
+        "requires_m2": True,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "ingenieria-civil-informatica-ucm",
+        "name": "Ingeniería Civil Informática",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ingeniería y Ciencias Exactas",
+        "vacantes": 65,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.35,
+                "m2": 0.1,
+                "ciencias": 0.0,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 685.0,
+                "2025": 689.0,
+                "2026": 693.0
+        },
+        "requires_m2": True,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "pedagogia-en-educacion-fisica-ucm",
+        "name": "Pedagogía en Educación Física",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Educación",
+        "vacantes": 90,
+        "weights": {
+                "nem": 0.25,
+                "ranking": 0.3,
+                "lectura": 0.2,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 612.0,
+                "2025": 616.0,
+                "2026": 620.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "pedagogia-en-educacion-diferencial-ucm",
+        "name": "Pedagogía en Educación Especial / Diferencial",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Educación",
+        "vacantes": 60,
+        "weights": {
+                "nem": 0.25,
+                "ranking": 0.3,
+                "lectura": 0.25,
+                "m1": 0.1,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 605.0,
+                "2025": 609.0,
+                "2026": 613.5
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "trabajo-social-ucm",
+        "name": "Trabajo Social",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 60,
+        "weights": {
+                "nem": 0.25,
+                "ranking": 0.25,
+                "lectura": 0.25,
+                "m1": 0.1,
+                "m2": 0.0,
+                "ciencias": 0.075,
+                "historia": 0.075,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 618.0,
+                "2025": 622.0,
+                "2026": 626.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "nutricion-y-dietetica-ucm",
+        "name": "Nutrición y Dietética",
+        "university": "Universidad Católica del Maule",
+        "university_short": "UCM",
+        "campus": "Campus San Miguel (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 55,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 695.0,
+                "2025": 699.0,
+                "2026": 703.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "medicina-ua-talca",
+        "name": "Medicina",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 80,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.25,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 878.5,
+                "2025": 882.1,
+                "2026": 885.3
+        },
+        "requires_m2": False,
+        "min_weighted_score": 600.0
+},
+    {
+        "id": "odontologia-ua-talca",
+        "name": "Odontología",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 65,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.25,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 745.0,
+                "2025": 749.0,
+                "2026": 753.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "enfermeria-ua-talca",
+        "name": "Enfermería",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 90,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 718.0,
+                "2025": 722.0,
+                "2026": 726.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "obstetricia-y-puericultura-ua-talca",
+        "name": "Obstetricia y Puericultura",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 60,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 725.0,
+                "2025": 729.0,
+                "2026": 733.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "kinesiologia-ua-talca",
+        "name": "Kinesiología",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias de la Salud",
+        "vacantes": 65,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.15,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.2,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 672.0,
+                "2025": 676.0,
+                "2026": 680.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "psicologia-ua-talca",
+        "name": "Psicología",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 85,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.2,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.075,
+                "historia": 0.075,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 665.0,
+                "2025": 669.0,
+                "2026": 673.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "derecho-ua-talca",
+        "name": "Derecho",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ciencias Sociales y Jurídicas",
+        "vacantes": 100,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.25,
+                "m1": 0.15,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 635.0,
+                "2025": 639.0,
+                "2026": 643.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "arquitectura-ua-talca",
+        "name": "Arquitectura",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Arquitectura, Arte y Diseño",
+        "vacantes": 60,
+        "weights": {
+                "nem": 0.2,
+                "ranking": 0.3,
+                "lectura": 0.2,
+                "m1": 0.2,
+                "m2": 0.0,
+                "ciencias": 0.05,
+                "historia": 0.05,
+                "elective_rule": "MAX"
+        },
+        "cutoffs": {
+                "2024": 625.0,
+                "2025": 629.0,
+                "2026": 633.0
+        },
+        "requires_m2": False,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "ingenieria-civil-industrial-ua-talca",
+        "name": "Ingeniería Civil Industrial",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ingeniería y Ciencias Exactas",
+        "vacantes": 70,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.35,
+                "m2": 0.1,
+                "ciencias": 0.0,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 655.0,
+                "2025": 659.0,
+                "2026": 663.0
+        },
+        "requires_m2": True,
+        "min_weighted_score": 500.0
+},
+    {
+        "id": "ingenieria-civil-informatica-ua-talca",
+        "name": "Ingeniería Civil Informática",
+        "university": "Universidad Autónoma de Chile",
+        "university_short": "UA",
+        "campus": "Campus Alameda (Talca)",
+        "region": "Maule",
+        "city": "Talca",
+        "area": "Ingeniería y Ciencias Exactas",
+        "vacantes": 65,
+        "weights": {
+                "nem": 0.15,
+                "ranking": 0.25,
+                "lectura": 0.15,
+                "m1": 0.35,
+                "m2": 0.1,
+                "ciencias": 0.0,
+                "historia": 0.0,
+                "elective_rule": "CIENCIAS"
+        },
+        "cutoffs": {
+                "2024": 648.0,
+                "2025": 652.0,
+                "2026": 656.0
+        },
+        "requires_m2": True,
+        "min_weighted_score": 500.0
+},
 ]
 
 
