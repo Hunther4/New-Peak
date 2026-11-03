@@ -559,7 +559,7 @@ const SUBJECT_EXAMS_CONFIG = {
                     Generador Paramétrico SymPy
                   </h3>
                   <p className="text-xs text-neutral-400 mt-0.5">
-                    Generá infinitas instancias algebraicas con distractores matemáticos controlados.
+                    Genera infinitas instancias algebraicas con distractores matemáticos controlados.
                   </p>
                 </div>
 
@@ -760,7 +760,7 @@ const SUBJECT_EXAMS_CONFIG = {
                 </div>
               ) : (
                 <div className="text-center py-12 text-neutral-500 text-xs">
-                  Hacé clic en &quot;Nueva Instancia&quot; para probar el motor algebraico SymPy.
+                  Haz clic en &quot;Nueva Instancia&quot; para probar el motor algebraico SymPy.
                 </div>
               )}
             </div>

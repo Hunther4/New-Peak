@@ -33,7 +33,7 @@ export default function CognitiveGym() {
         bgGlow: "bg-blue-500/10",
         pill: "Visuoespacial + Fonológico",
         description:
-          "Estimulación simultánea visual (grilla 3x3) y auditiva. El único ejercicio con evidencia clínica comprobada de incremento en la capacidad de memoria de trabajo y control inhibitorio.",
+          "Estimulación simultánea visual (cuadrícula 3x3) y auditiva. El único ejercicio con evidencia clínica comprobada de incremento en la capacidad de memoria de trabajo y control inhibitorio.",
         stats: [
           { label: "Canal", value: "Dual (Audio/Visual)" },
           { label: "Target", value: "Precisión ≥ 80%" },

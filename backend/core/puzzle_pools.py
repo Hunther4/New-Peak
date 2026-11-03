@@ -214,29 +214,29 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
         1: [
             {
                 "question": (
-                    "Compraste 3 cosas: una remera a $250, una gorra "
-                    "a $180 y un libro a $420. Si pagás con $1.000, "
-                    "¿cuánto te dan de vuelto?"
+                    "Compraste 3 cosas: una camiseta a $250, una gorra "
+                    "a $180 y un libro a $420. Si pagas con $1.000, "
+                    "¿cuánto te dan de cambio?"
                 ),
                 "correct_answer": 150.0,
                 "solution_steps": [
                     "total = 250 + 180 + 420 = 850",
-                    "vuelto = 1.000 - 850 = 150",
+                    "cambio = 1.000 - 850 = 150",
                 ],
-                "source": "Cotidiano — compra con vuelto",
+                "source": "Cotidiano — compra con cambio",
             },
             {
-                "question": ("Tenés 4 paquetes de yerba de 250 gramos cada uno. " "¿Cuántos gramos tenés en total?"),
+                "question": ("Tienes 4 paquetes de café de 250 gramos cada uno. " "¿Cuántos gramos tienes en total?"),
                 "correct_answer": 1000.0,
                 "solution_steps": [
                     "gramos = 4 × 250 = 1.000",
                 ],
-                "source": "Cotidiano — empaque de producto",
+                "source": "Cotidiano — empaque de café",
             },
             {
                 "question": (
-                    "Una pizza cuesta $1.200. La cortás en 8 porciones "
-                    "iguales para compartir con amigos. ¿Cuánto sale "
+                    "Una pizza cuesta $1.200. La cortas en 8 porciones "
+                    "iguales para compartir con amigos. ¿Cuánto cuesta "
                     "cada porción?"
                 ),
                 "correct_answer": 150.0,
@@ -259,7 +259,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "1 kilogramo = 1.000 gramos. Si comprás 3,5 " "kilogramos de naranjas, ¿cuántos gramos son?"
+                    "1 kilogramo = 1.000 gramos. Si compras 3,5 " "kilogramos de naranjas, ¿cuántos gramos son?"
                 ),
                 "correct_answer": 3500.0,
                 "solution_steps": [
@@ -269,9 +269,9 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Querés juntar $1.800 para comprarte una compu. "
-                    "Si podés ahorrar $200 por mes, ¿en cuántos meses "
-                    "llegás?"
+                    "Quieres juntar $1.800 para comprarte una computadora. "
+                    "Si puedes ahorrar $200 por mes, ¿en cuántos meses "
+                    "llegas?"
                 ),
                 "correct_answer": 9.0,
                 "solution_steps": [
@@ -280,7 +280,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Cotidiano — ahorro mensual",
             },
             {
-                "question": ("Tenés $5.000. Este mes gastás 30% en comida y " "20% en transporte. ¿Cuánto te queda?"),
+                "question": ("Tienes $5.000. Este mes gastas 30% en comida y " "20% en transporte. ¿Cuánto te queda?"),
                 "correct_answer": 2500.0,
                 "solution_steps": [
                     "gastado = 5.000 × 0,5 = 2.500",
@@ -289,7 +289,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Cotidiano — finanzas personales",
             },
             {
-                "question": ("Una remera cuesta $1.200 y te hacen 25% de " "descuento. ¿Cuánto pagás?"),
+                "question": ("Una camiseta cuesta $1.200 y te hacen 25% de " "descuento. ¿Cuánto pagas?"),
                 "correct_answer": 900.0,
                 "solution_steps": [
                     "descuento = 1.200 × 0,25 = 300",
@@ -300,7 +300,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             # --- Nuevos problemas estáticos nivel 1 ---
             {
                 "question": (
-                    "Tenés 12 huevos en la heladera. Usás 3 para hacer " "tortilla y 2 para una torta. ¿Cuántos quedan?"
+                    "Tienes 12 huevos en el refrigerador. Usas 3 para hacer " "tortilla y 2 para un pastel. ¿Cuántos quedan?"
                 ),
                 "correct_answer": 7.0,
                 "solution_steps": [
@@ -310,7 +310,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
                 "source": "Cotidiano — uso de ingredientes",
             },
             {
-                "question": ("Un bondi sale a las 8:15 y tarda 45 minutos en " "llegar. ¿A qué hora llegás?"),
+                "question": ("Un autobús sale a las 8:15 y tarda 45 minutos en " "llegar. ¿A qué hora llegas?"),
                 "correct_answer": 900.0,
                 "solution_steps": [
                     "8:15 + 45 min = 9:00",
@@ -319,8 +319,8 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Comprás 2 litros de leche a $800 cada uno y 1 "
-                    "paquete de galletitas a $350. ¿Cuánto gastás en total?"
+                    "Compras 2 litros de leche a $800 cada uno y 1 "
+                    "paquete de galletas a $350. ¿Cuánto gastas en total?"
                 ),
                 "correct_answer": 1950.0,
                 "solution_steps": [
@@ -331,7 +331,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Tu celular tiene 64 GB de almacenamiento. Ya usás " "45 GB. ¿Cuántos GB te quedan libres?"
+                    "Tu celular tiene 64 GB de almacenamiento. Ya usas " "45 GB. ¿Cuántos GB te quedan libres?"
                 ),
                 "correct_answer": 19.0,
                 "solution_steps": [
@@ -341,9 +341,9 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Necesitás pintar una pared de 8 metros de largo "
+                    "Necesitas pintar una pared de 8 metros de largo "
                     "por 2,5 metros de alto. ¿Cuántos metros cuadrados "
-                    "tenés que pintar?"
+                    "tienes que pintar?"
                 ),
                 "correct_answer": 20.0,
                 "solution_steps": [
@@ -354,9 +354,9 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Caminás 3.000 pasos por la mañana y 4.500 por la "
+                    "Caminas 3.000 pasos por la mañana y 4.500 por la "
                     "tarde. Si cada paso mide 0,75 metros, ¿cuántos "
-                    "metros recorrés en total?"
+                    "metros recorres en total?"
                 ),
                 "correct_answer": 5625.0,
                 "solution_steps": [
@@ -367,7 +367,7 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Tenés un presupuesto de $10.000 para la semana. "
+                    "Tienes un presupuesto de $10.000 para la semana. "
                     "Si ya gastaste $3.200 en comida y $1.800 en "
                     "transporte, ¿cuánto te queda para el resto?"
                 ),
@@ -380,8 +380,8 @@ PUZZLE_POOLS: dict[str, dict[int, list[dict]]] = {
             },
             {
                 "question": (
-                    "Una receta pide 2,5 tazas de harina. Si vos querés "
-                    "hacer el doble de la receta, ¿cuántas tazas necesitás?"
+                    "Una receta pide 2,5 tazas de harina. Si quieres "
+                    "hacer el doble de la receta, ¿cuántas tazas necesitas?"
                 ),
                 "correct_answer": 5.0,
                 "solution_steps": [

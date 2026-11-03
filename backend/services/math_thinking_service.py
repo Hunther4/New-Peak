@@ -160,10 +160,10 @@ def get_hint(db: Session, round_id: int) -> dict:
         hint_text = (
             result.hint
             if result
-            else "Pensá: ¿qué operación te acerca más a la respuesta? Probá descomponer el problema."
+            else "Piensa: ¿qué operación te acerca más a la respuesta? Prueba descomponer el problema."
         )
     except Exception:
-        hint_text = "Pensá: ¿qué operación te acerca más a la respuesta? Probá descomponer el problema."
+        hint_text = "Piensa: ¿qué operación te acerca más a la respuesta? Prueba descomponer el problema."
 
     return {"hint": hint_text}
 

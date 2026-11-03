@@ -18,7 +18,7 @@ export default function ChallengeList() {
 
   const handleGenerate = async () => {
     if (!skillId) {
-      toast.warning('Seleccioná una skill primero.');
+      toast.warning('Selecciona una habilidad primero.');
       return;
     }
     try {

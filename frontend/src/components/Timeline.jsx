@@ -65,7 +65,7 @@ export default function Timeline() {
       <div className="card text-center py-20">
         <div className="w-20 h-20 rounded-2xl bg-neutral-800/50 flex items-center justify-center text-3xl mx-auto mb-4">📝</div>
         <p className="text-neutral-400 text-sm font-medium">No hay sesiones todavía</p>
-        <p className="text-neutral-600 text-xs mt-2">Creá tu primera sesión en el panel de arriba</p>
+        <p className="text-neutral-600 text-xs mt-2">Crea tu primera sesión en el panel de arriba</p>
       </div>
     );
   }

@@ -55,7 +55,7 @@ export default function Settings() {
       {/* AI Mode */}
       <section className="card space-y-4">
         <h2 className="text-sm font-bold text-white uppercase tracking-wider">Motor de IA</h2>
-        <p className="text-xs text-neutral-500">Elegí entre procesamiento local o en la nube.</p>
+        <p className="text-xs text-neutral-500">Elige entre procesamiento local o en la nube.</p>
         <AiModeToggle />
         <div className="pt-2">
           <ModelInfo />
@@ -75,7 +75,7 @@ export default function Settings() {
       <section className="card space-y-4">
         <h2 className="text-sm font-bold text-white uppercase tracking-wider">Modelos en la nube</h2>
         <p className="text-xs text-neutral-500">
-          Lista de modelos que devuelve el proveedor con la key guardada. Elegí uno o dejá la selección automática.
+          Lista de modelos que devuelve el proveedor con la key guardada. Elige uno o deja la selección automática.
         </p>
         <CloudModelPicker />
       </section>

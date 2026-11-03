@@ -185,7 +185,7 @@ export default function GuidedPractice({ skillId, onClose }) {
               </div>
 
               <p className="text-xs text-neutral-600 text-center mb-8 leading-relaxed">
-                Sin límite — practicá hasta que sientas que aprendiste algo
+                Sin límite — practica hasta que sientas que aprendiste algo
               </p>
 
               <button onClick={handleStart} className="btn btn-primary text-base w-full py-3">
@@ -223,7 +223,7 @@ export default function GuidedPractice({ skillId, onClose }) {
               )}
 
               <p className="text-xs text-neutral-600 mb-8">
-                Concentrate en lo que estás haciendo
+                Concéntrate en lo que estás haciendo
               </p>
 
               <div className="flex gap-3">

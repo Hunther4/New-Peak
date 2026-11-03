@@ -272,7 +272,7 @@ class TestEnviarIntentoExtended:
                 "new_consecutive_correct": 0,
                 "new_consecutive_incorrect": 0,
                 "level_changed": True,
-                "message": "Bajaste al nivel 2. Seguí practicando.",
+                "message": "Bajaste al nivel 2. Sigue practicando.",
             }
             rnd = _create_mt_round(session, mt, correct_answer=8.0)
             result = math_thinking_service.enviar_intento(session, rnd.id, 999.0)

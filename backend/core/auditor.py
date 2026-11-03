@@ -56,7 +56,7 @@ def audit_session(session_data: dict, domain: str, onboarding_mode: bool) -> Aud
             real_citations.append(citation)
             rag_lines.append(f"Fragmento de referencia:\n{chunk['text']}\n---\nFuente: {chunk['book_title']}")
         rag_context_block = (
-            "\n\nCONTEXTO DE LIBROS INDEXADOS (usá estos fragmentos para tus book_citations):\n"
+            "\n\nCONTEXTO DE LIBROS INDEXADOS (usa estos fragmentos para tus book_citations):\n"
             + "\n\n".join(rag_lines)
             + "\n"
         )
@@ -97,7 +97,7 @@ REGLAS:
 - Hipótesis: {sanitize_prompt(session_data.get('hypothesis_tomorrow', ''))}
 </user_session_log>
 
-Respondé SOLO el JSON."""
+Responde SOLO el JSON."""
 
     from core.router import get_ai_mode
 

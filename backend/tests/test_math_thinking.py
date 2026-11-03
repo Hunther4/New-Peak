@@ -306,7 +306,7 @@ class TestCalculateStaircase:
         )
         assert "Incorrecto" in result["message"]
         assert "1/3" not in result["message"]  # no counter shown
-        assert "Seguí" in result["message"] or "intentando" in result["message"]
+        assert "Sigue" in result["message"] or "intentando" in result["message"]
 
     def test_three_failures_with_no_correct_never_level_down(self):
         """GIVEN cc=0 + 3 incorrect WHEN staircase THEN never level down.

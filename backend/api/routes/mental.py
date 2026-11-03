@@ -118,7 +118,7 @@ def create_mental_rep(request: Request, body: GenerateMentalRepRequest, db: Sess
     if not result:
         return {
             "generated": False,
-            "message": "La IA no pudo generar una representación. Verificá que LM Studio esté funcionando.",
+            "message": "La IA no pudo generar una representación. Verifica que LM Studio esté funcionando.",
             "suggestion": "Intentá de nuevo más tarde o generala manualmente.",
         }
 
@@ -256,7 +256,7 @@ def create_challenge(request: Request, body: GenerateChallengeRequest, db: Sessi
     ).all()
 
     if not last_sessions:
-        raise HTTPException(status_code=400, detail="Necesitás al menos una sesión para generar un challenge.")
+        raise HTTPException(status_code=400, detail="Necesitas al menos una sesión para generar un challenge.")
 
     last = last_sessions[0]
     last_session_str = (
@@ -282,13 +282,13 @@ def create_challenge(request: Request, body: GenerateChallengeRequest, db: Sessi
         result.description = (
             f"[ESTANCADO] {result.description}\n\n"
             "Nota: llevás varias sesiones sin mejorar en esta área. "
-            "Probá cambiar el sub-componente que practicás o modificá tu enfoque."
+            "Prueba cambiar el subcomponente que practicas o modifica tu enfoque."
         )
 
     if not result:
         return {
             "generated": False,
-            "message": "La IA no pudo generar un desafío. Verificá que LM Studio esté funcionando.",
+            "message": "La IA no pudo generar un desafío. Verifica que LM Studio esté funcionando.",
         }
 
     return {

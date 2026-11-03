@@ -136,7 +136,7 @@ def generate_challenge(
         rag_lines = []
         for c in rag_chunks:
             rag_lines.append(f"Fragmento de referencia:\n{c['text'][:400]}\n---\nFuente: {c['book_title']}")
-        rag_context = "\n\nCONTEXTO DE LIBROS (usá estos fragmentos para inspirar el desafío):\n" + "\n\n".join(
+        rag_context = "\n\nCONTEXTO DE LIBROS (usa estos fragmentos para inspirar el desafío):\n" + "\n\n".join(
             rag_lines
         )
         source_book = rag_chunks[0]["book_title"]

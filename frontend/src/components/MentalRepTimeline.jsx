@@ -14,7 +14,7 @@ export default function MentalRepTimeline() {
 
   const handleGenerate = async () => {
     if (!skillId) {
-      toast.warning('Seleccioná una skill primero.');
+      toast.warning('Selecciona una habilidad primero.');
       return;
     }
     try {
@@ -67,7 +67,7 @@ export default function MentalRepTimeline() {
           <div className="text-center py-6">
             <div className="w-12 h-12 rounded-xl bg-neutral-800/50 flex items-center justify-center text-xl mx-auto mb-3">🧠</div>
             <p className="text-xs text-neutral-500 leading-relaxed">
-              Acumulá sesiones para que la IA detecte cambios en tu comprensión.
+              Acumula sesiones para que la IA detecte cambios en tu comprensión.
             </p>
           </div>
         ) : (

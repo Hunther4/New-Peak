@@ -339,7 +339,7 @@ export default function CognitiveCoachDrawer() {
                   }}
                   rows={2}
                   disabled={coachLoading}
-                  placeholder="Pregúntale al coach (ej: ¿Qué propiedad uso acá?)..."
+                  placeholder="Pregúntale al coach (ej: ¿Qué propiedad uso aquí?)..."
                   className="w-full bg-neutral-950 border border-white/[0.1] rounded-xl px-3.5 py-2.5 pr-12 text-xs text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 resize-none transition-all disabled:opacity-50"
                 />
                 <button

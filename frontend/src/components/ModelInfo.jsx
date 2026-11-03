@@ -153,7 +153,7 @@ export default function ModelInfo() {
               Seleccionar modelo
             </h3>
             <p className="text-[11px] text-neutral-500 mb-4">
-              Elegí manualmente o dejá la selección inteligente
+              Elige manualmente o deja la selección inteligente
             </p>
 
             <div className="overflow-y-auto flex-1 -mx-6 px-6 space-y-2">

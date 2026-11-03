@@ -110,7 +110,7 @@ def generate_puzzle(
         f"Eres un generador de puzzles de inteligencia (IQ). Generá UN puzzle "
         f"de nivel {level} (nivel {label}, dificultad {difficulty}). "
         f"Tipo: {type_label}. "
-        "Respondé ÚNICAMENTE en formato JSON válido con los campos: "
+        "Responde ÚNICAMENTE en formato JSON válido con los campos: "
         '"question", "options" (lista de 4 strings), '
         '"correct_answer" (el texto exacto de la opción correcta), '
         '"explanation" (string), '

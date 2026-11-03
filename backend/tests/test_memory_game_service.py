@@ -58,7 +58,7 @@ def mock_memory_game_deps():
 
         # Default: AI coaching returns a message
         class FakeCoaching:
-            coaching_message = "¡Buen trabajo! Probá agrupar de a 3."
+            coaching_message = "¡Buen trabajo! Prueba agrupar de a 3."
 
         mock_ai.return_value = FakeCoaching()
 

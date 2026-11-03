@@ -75,7 +75,7 @@ def calculate_staircase(
                     "new_consecutive_correct": 0,
                     "new_consecutive_incorrect": 0,
                     "level_changed": False,
-                    "message": ("¡En el nivel máximo! " "Probá con problemas más complejos."),
+                    "message": ("¡En el nivel máximo! " "Prueba con problemas más complejos."),
                 }
             return {
                 "new_level": new_level,
@@ -104,7 +104,7 @@ def calculate_staircase(
             "new_consecutive_correct": 0,
             "new_consecutive_incorrect": consecutive_incorrect,
             "level_changed": False,
-            "message": "Incorrecto. Seguí intentando.",
+            "message": "Incorrecto. Sigue intentando.",
         }
 
     # Redistribute: one unit moves from cc to ci.
@@ -119,14 +119,14 @@ def calculate_staircase(
                 "new_consecutive_correct": 0,
                 "new_consecutive_incorrect": 0,
                 "level_changed": False,
-                "message": "En el nivel mínimo. Seguí practicando.",
+                "message": "En el nivel mínimo. Sigue practicando.",
             }
         return {
             "new_level": new_level,
             "new_consecutive_correct": 0,
             "new_consecutive_incorrect": 0,
             "level_changed": True,
-            "message": f"Bajaste al nivel {new_level}. Seguí practicando.",
+            "message": f"Bajaste al nivel {new_level}. Sigue practicando.",
         }
 
     return {

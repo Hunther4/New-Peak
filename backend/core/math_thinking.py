@@ -90,7 +90,7 @@ def generate_problem(
     system_prompt = (
         f"Eres un generador de problemas matemáticos. Generá UN problema "
         f"de nivel {level} (nivel {label}). "
-        "Respondé ÚNICAMENTE en formato JSON válido con los campos: "
+        "Responde ÚNICAMENTE en formato JSON válido con los campos: "
         '"question", "correct_answer" (número), '
         '"solution_steps" (lista de strings). '
         "NO incluyas texto fuera del JSON. NO uses markdown."
