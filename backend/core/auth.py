@@ -158,17 +158,16 @@ async def auth_middleware(request: Request, call_next):
         return await call_next(request)
 
     if os.environ.get("DISABLE_AUTH") == "1" or os.environ.get("PEAK_BETA_MODE") == "1":
+        principal = None
         bearer = _bearer_token(request)
         if bearer:
             principal = await run_in_threadpool(_resolve_bearer, bearer)
-            if principal is not None:
-                request.state.principal = principal
-        else:
+        if principal is None:
             user_name = request.headers.get("X-User-Name") or request.query_params.get("user_name")
             device_id = request.headers.get("X-Device-Id") or request.query_params.get("device_id")
             effective_name = user_name.strip() if (user_name and user_name.strip()) else ""
             principal = await run_in_threadpool(_resolve_beta_principal, effective_name, device_id)
-            request.state.principal = principal
+        request.state.principal = principal
         return await call_next(request)
 
     normative = JSONResponse(
@@ -237,7 +236,7 @@ def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principa
     """Resolve or auto-provision a Principal for tactical beta mode."""
     clean_name = name.strip()
     slug = re.sub(r"[^a-zA-Z0-9_]", "", clean_name.lower()) if clean_name else ""
-    is_drack = slug in ("drack", "drackv1") or clean_name.lower() in ("drack", "drackv1")
+    is_drack = slug in ("drack", "drackv1", "hunther", "hunther4") or clean_name.lower() in ("drack", "drackv1", "hunther", "hunther4")
 
     clean_device = re.sub(r"[^a-zA-Z0-9]", "", device_id or "")[:12]
     if is_drack:

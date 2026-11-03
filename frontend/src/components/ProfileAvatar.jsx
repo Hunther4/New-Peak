@@ -151,7 +151,7 @@ export default function ProfileAvatar() {
               onChange={e => setAge(e.target.value)}
               className="input"
               min={1}
-              max={150}
+              max={99}
               required
             />
           </div>

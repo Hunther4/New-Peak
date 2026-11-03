@@ -15,7 +15,7 @@ UPLOAD_DIR = Path(__file__).parent.parent.parent / "uploads" / "avatars"
 
 class ProfileCreate(BaseModel):
     name: str = Field(min_length=1, max_length=100)
-    age: int = Field(ge=1, le=150)
+    age: int = Field(ge=1, le=99)
 
 
 class ProfileRead(BaseModel):

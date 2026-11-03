@@ -88,7 +88,7 @@ def generate_problem(
     problem_type_str = ", ".join(problem_types) if problem_types else "cálculo directo"
 
     system_prompt = (
-        f"Eres un generador de problemas matemáticos. Generá UN problema "
+        f"Eres un generador de problemas matemáticos. Genera UN problema "
         f"de nivel {level} (nivel {label}). "
         "Responde ÚNICAMENTE en formato JSON válido con los campos: "
         '"question", "correct_answer" (número), '
@@ -97,7 +97,7 @@ def generate_problem(
     )
 
     user_prompt = (
-        f"Generá un problema de {topic_str} del tipo {problem_type_str}. "
+        f"Genera un problema de {topic_str} del tipo {problem_type_str}. "
         "Incluí la respuesta correcta como número y los pasos de solución."
     )
 
@@ -118,7 +118,7 @@ def generate_problem(
         if attempt > 0:
             # Stricter instruction on retry
             user_prompt = (
-                f"Generá un problema de {topic_str} del tipo "
+                f"Genera un problema de {topic_str} del tipo "
                 f"{problem_type_str}. "
                 "La respuesta correcta DEBE ser un número finito válido "
                 "(no NaN, no infinito). "
@@ -166,7 +166,7 @@ def generate_problem(
     return {
         "question": "¿Cuánto es 2 + 2?",
         "correct_answer": 4.0,
-        "solution_steps": ["Sumá 2 + 2 = 4."],
+        "solution_steps": ["Suma 2 + 2 = 4."],
         "source": None,
     }
 

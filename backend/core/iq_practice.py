@@ -33,22 +33,22 @@ PUZZLE_TYPE_LABELS = {
 
 PUZZLE_TYPE_PROMPTS = {
     "number_sequence": (
-        "Generá una secuencia numérica donde la persona debe encontrar "
+        "Genera una secuencia numérica donde la persona debe encontrar "
         "el siguiente número. Incluí 4 opciones (A, B, C, D). "
         "La regla debe ser clara pero no trivial."
     ),
     "verbal_analogy": (
-        "Generá una analogía verbal del tipo 'X es a Y como A es a ?'. "
+        "Genera una analogía verbal del tipo 'X es a Y como A es a ?'. "
         "Incluí 4 opciones (A, B, C, D). "
         "La relación debe ser semántica, no obvia."
     ),
     "logical": (
-        "Generá un problema de razonamiento lógico (silogismos, "
+        "Genera un problema de razonamiento lógico (silogismos, "
         "deducción, ordenamiento, etc.). Incluí 4 opciones (A, B, C, D). "
         "Debe requerir pensamiento deductivo."
     ),
     "pattern": (
-        "Generá un problema de reconocimiento de patrones abstractos "
+        "Genera un problema de reconocimiento de patrones abstractos "
         "descrito textualmente (series, matrices, transformaciones). "
         "Incluí 4 opciones (A, B, C, D). "
         "El patrón debe ser identificable pero no inmediato."
@@ -107,7 +107,7 @@ def generate_puzzle(
     type_label = PUZZLE_TYPE_LABELS.get(puzzle_type, puzzle_type)
 
     system_prompt = (
-        f"Eres un generador de puzzles de inteligencia (IQ). Generá UN puzzle "
+        f"Eres un generador de puzzles de inteligencia (IQ). Genera UN puzzle "
         f"de nivel {level} (nivel {label}, dificultad {difficulty}). "
         f"Tipo: {type_label}. "
         "Responde ÚNICAMENTE en formato JSON válido con los campos: "
@@ -140,7 +140,7 @@ def generate_puzzle(
     for attempt in range(3):
         if attempt > 0:
             user_prompt = (
-                f"Generá un puzzle de tipo {type_label}, nivel {level}, "
+                f"Genera un puzzle de tipo {type_label}, nivel {level}, "
                 f"dificultad {difficulty}. "
                 "Debe tener EXACTAMENTE 4 opciones. "
                 "correct_answer DEBE coincidir textualmente con una de las opciones."

@@ -93,7 +93,7 @@ Representación anterior: "{prev_description}"
 Resumen de sesiones recientes:
 {clean_summary}
 
-Generá la nueva representación mental. Si el cambio es genuino, describilo.
+Genera la nueva representación mental. Si el cambio es genuino, descríbelo.
 Si no hay un cambio real en la comprensión, marcá is_real_shift=false."""
     else:
         user_prompt = f"""Habilidad: {skill_name}
@@ -103,7 +103,7 @@ Esta es la PRIMERA representación mental (v1).
 Resumen de sesiones recientes:
 {clean_summary}
 
-Generá la representación mental inicial del usuario sobre esta habilidad.
+Genera la representación mental inicial del usuario sobre esta habilidad.
 ¿Cómo entiende él/ella esta habilidad en este momento?
 Formato: "Veo/entiendo X como Y"."""
 
@@ -141,7 +141,7 @@ def generate_challenge(
         )
         source_book = rag_chunks[0]["book_title"]
 
-    system_prompt = f"""Coach práctica deliberate. Generá UN desafío CONCRETO + MEDIBLE para PRÓXIMA sesión.
+    system_prompt = f"""Coach práctica deliberate. Genera UN desafío CONCRETO + MEDIBLE para PRÓXIMA sesión.
 Dominio: {domain} | Tipo: {skill_type}
 
 REGLA DE ORO: "Practicar X" = MAL. "Hacer Y específico con criterio Z" = BIEN.
@@ -176,7 +176,7 @@ DIFICULTAD objetivo:
 Nivel actual: {current_level}/100
 Última sesión: {sanitize_prompt(last_session)}{difficulty_guide}
 
-Generá el próximo desafío."""
+Genera el próximo desafío."""
     from core.router import _build_augmented_system
 
     augmented = _build_augmented_system(system_prompt, ChallengeResult)

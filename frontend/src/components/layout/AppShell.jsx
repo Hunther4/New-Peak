@@ -17,7 +17,8 @@ export default function AppShell() {
   const navigate = useNavigate()
   const { toggleCoach, profile } = useStore()
 
-  const isDrack = profile?.name?.trim().toLowerCase() === "drack"
+  const ADMIN_NAMES = ["drack", "drackv1", "hunther", "hunther4"]
+  const isDrack = ADMIN_NAMES.includes(profile?.name?.trim().toLowerCase() || "")
   const navItems = isDrack
     ? [...NAV_ITEMS, { to: "/admin", icon: "🗼", label: "Torre de Control", shortcut: "6" }]
     : NAV_ITEMS

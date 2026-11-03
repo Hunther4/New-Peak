@@ -142,8 +142,8 @@ def get_hint(db: Session, round_id: int) -> dict:
         raise ValueError("Round not found")
 
     hint_system = (
-        "Sos un tutor de matemáticas. Generá UNA pista breve y útil para el problema. "
-        "NO reveles la respuesta final. Solo orientá con un paso o estrategia. "
+        "Eres un tutor de matemáticas. Genera UNA pista breve y útil para el problema. "
+        "NO reveles la respuesta final. Solo orienta con un paso o estrategia. "
         "Máximo 2 oraciones."
     )
     hint_user = (

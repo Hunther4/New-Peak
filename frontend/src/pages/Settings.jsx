@@ -66,7 +66,7 @@ export default function Settings() {
       <section className="card space-y-4">
         <h2 className="text-sm font-bold text-white uppercase tracking-wider">API Keys</h2>
         <p className="text-xs text-neutral-500">
-          Cargá las keys de los proveedores cloud para habilitar sus modelos. Se guardan en el servidor y nunca se muestran completas.
+          Ingresa las API keys de los proveedores cloud para habilitar sus modelos. Se guardan en el servidor y nunca se muestran completas.
         </p>
         <ProviderKeys />
       </section>
