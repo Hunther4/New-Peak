@@ -1,23 +1,135 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react"
 import { api } from "../../api/client"
+import { gradeFromNem, nemFromGrade } from "../../utils/nemScale"
+
+export const UNIVERSITY_ADMISSION_URLS = {
+  UdeC: "https://admision.udec.cl/",
+  UTALCA: "https://admision.utalca.cl/",
+  UCM: "https://admision.ucm.cl/",
+  UA: "https://admision.uautonoma.cl/",
+  UCH: "https://admision.uchile.cl/",
+  PUC: "https://admision.uc.cl/",
+  USACH: "https://admision.usach.cl/",
+  UTFSM: "https://usm.cl/",
+  UBB: "https://admision.ubiobio.cl/",
+  UCSC: "https://admision.ucsc.cl/",
+}
+
+export const UDEC_CAREER_URLS = {
+  "13001": "https://admision.udec.cl/licenciatura-en-quimica-quimico/",
+  "13002": "https://admision.udec.cl/licenciatura-en-matematica/",
+  "13003": "https://admision.udec.cl/ingenieria-civil-matematica/",
+  "13004": "https://admision.udec.cl/quimico-a-analista/",
+  "13008": "https://admision.udec.cl/ingenieria-forestal/",
+  "13009": "https://admision.udec.cl/ingenieria-civil-agricola/",
+  "13012": "https://admision.udec.cl/bioingenieria/",
+  "13013": "https://admision.udec.cl/biologia-marina/",
+  "13014": "https://admision.udec.cl/biologia/",
+  "13015": "https://admision.udec.cl/geologia/",
+  "13016": "https://admision.udec.cl/ingenieria-en-biotecnologia-marina-y-acuicultura/",
+  "13018": "https://admision.udec.cl/geografia/",
+  "13019": "https://admision.udec.cl/ingenieria-comercial/",
+  "13025": "https://admision.udec.cl/trabajo-social/",
+  "13026": "https://admision.udec.cl/antropologia/",
+  "13027": "https://admision.udec.cl/educacion-parvularia/",
+  "13031": "https://admision.udec.cl/periodismo/",
+  "13036": "https://admision.udec.cl/pedagogia-en-ciencias-naturales-y-fisica/",
+  "13037": "https://admision.udec.cl/pedagogia-en-ciencias-naturales-y-quimica/",
+  "13039": "https://admision.udec.cl/pedagogia-en-educacion-musical/",
+  "13040": "https://admision.udec.cl/pedagogia-en-historia-y-geografia/",
+  "13041": "https://admision.udec.cl/pedagogia-en-espanol/",
+  "13042": "https://admision.udec.cl/pedagogia-en-filosofia/",
+  "13043": "https://admision.udec.cl/ingenieria-en-conservacion-de-recursos-naturales/",
+  "13044": "https://admision.udec.cl/ingenieria-ambiental-chillan/",
+  "13046": "https://admision.udec.cl/ciencias-fisicas/",
+  "13048": "https://admision.udec.cl/bioquimica/",
+  "13049": "https://admision.udec.cl/quimica-y-farmacia/",
+  "13050": "https://admision.udec.cl/nutricion-y-dietetica/",
+  "13052": "https://admision.udec.cl/bachillerato-en-humanidades/",
+  "13054": "https://admision.udec.cl/artes-visuales/",
+  "13055": "https://admision.udec.cl/astronomia/",
+  "13056": "https://admision.udec.cl/geofisica/",
+  "13058": "https://admision.udec.cl/traduccion-interpretacion-en-idiomas-extranjeros/",
+  "13059": "https://admision.udec.cl/licenciatura-en-historia/",
+  "13060": "https://admision.udec.cl/teatro/",
+  "13061": "https://admision.udec.cl/ingenieria-ambiental/",
+  "13062": "https://admision.udec.cl/ingenieria-civil-biomedica/",
+  "13064": "https://admision.udec.cl/ingenieria-civil-en-telecomunicaciones/",
+  "13065": "https://admision.udec.cl/ingenieria-estadistica/",
+  "13066": "https://admision.udec.cl/ingenieria-civil-aeroespacial/",
+  "13067": "https://admision.udec.cl/psicologia/",
+  "13068": "https://admision.udec.cl/ingenieria-civil-primer-ano-comun/",
+  "13069": "https://admision.udec.cl/ingenieria-civil/",
+  "13070": "https://admision.udec.cl/ingenieria-civil-electrica/",
+  "13071": "https://admision.udec.cl/ingenieria-civil-electronica/",
+  "13072": "https://admision.udec.cl/ingenieria-civil-industrial/",
+  "13073": "https://admision.udec.cl/ingenieria-civil-informatica/",
+  "13074": "https://admision.udec.cl/ingenieria-civil-mecanica/",
+  "13075": "https://admision.udec.cl/ingenieria-civil-metalurgica/",
+  "13076": "https://admision.udec.cl/ingenieria-civil-quimica/",
+  "13077": "https://admision.udec.cl/sociologia/",
+  "13080": "https://admision.udec.cl/arquitectura/",
+  "13081": "https://admision.udec.cl/tecnologia-medica/",
+  "13082": "https://admision.udec.cl/fonoaudiologia/",
+  "13083": "https://admision.udec.cl/kinesiologia/",
+  "13086": "https://admision.udec.cl/medicina/",
+  "13087": "https://admision.udec.cl/enfermeria/",
+  "13088": "https://admision.udec.cl/obstetricia-y-puericultura/",
+  "13091": "https://admision.udec.cl/odontologia/",
+  "13093": "https://admision.udec.cl/ingenieria-geomatica/",
+  "13101": "https://admision.udec.cl/pedagogia-en-educacion-fisica/",
+  "13102": "https://admision.udec.cl/ingenieria-civil-de-minas/",
+  "13107": "https://admision.udec.cl/pedagogia-en-artes-visuales/",
+  "13112": "https://admision.udec.cl/pedagogia-en-espanol-los-angeles/",
+  "13114": "https://admision.udec.cl/bachillerato-en-ciencias-e-innovacion/",
+}
+
+export function getCareerUrl(career) {
+  if (!career) return "https://demre.cl/"
+  if (career.url) return career.url
+  if (career.link) return career.link
+
+  if (career.code && UDEC_CAREER_URLS[career.code]) {
+    return UDEC_CAREER_URLS[career.code]
+  }
+  if (career.code === "29028" || career.id === "ingenieria-civil-en-automatizacion-ubb") {
+    return "https://ubiobio.cl/admision/Todas_las_Carreras/9/Ingenieria_Civil_en_Automatizacion/"
+  }
+
+  const shortCode = career.university_short
+  if (shortCode && UNIVERSITY_ADMISSION_URLS[shortCode]) {
+    return UNIVERSITY_ADMISSION_URLS[shortCode]
+  }
+
+  const uni = (career.university || "").toLowerCase()
+  if (uni.includes("concepción") || uni.includes("udec")) return UNIVERSITY_ADMISSION_URLS.UdeC
+  if (uni.includes("talca") || uni.includes("utalca")) return UNIVERSITY_ADMISSION_URLS.UTALCA
+  if (uni.includes("maule") || uni.includes("ucm")) return UNIVERSITY_ADMISSION_URLS.UCM
+  if (uni.includes("autónoma") || uni.includes("autonoma")) return UNIVERSITY_ADMISSION_URLS.UA
+  if (uni.includes("santiago de chile") || uni.includes("usach")) return UNIVERSITY_ADMISSION_URLS.USACH
+  if (uni.includes("santa maría") || uni.includes("santa maria") || uni.includes("utfsm") || uni.includes("usm")) return UNIVERSITY_ADMISSION_URLS.UTFSM
+  if (uni.includes("bío-bío") || uni.includes("bio-bio") || uni.includes("biobío") || uni.includes("ubb")) return UNIVERSITY_ADMISSION_URLS.UBB
+  if (uni.includes("santísima") || uni.includes("santisima") || uni.includes("ucsc")) return UNIVERSITY_ADMISSION_URLS.UCSC
+  if (uni.includes("católica de chile") || uni.includes("puc") || (uni.includes("católica") && uni.includes("pontificia"))) return UNIVERSITY_ADMISSION_URLS.PUC
+  if (uni.includes("chile")) return UNIVERSITY_ADMISSION_URLS.UCH
+
+  return "https://demre.cl/"
+}
 
 export function CruchAdmissionSimulator() {
   const [careers, setCareers] = useState([])
   const [loadingCareers, setLoadingCareers] = useState(true)
   const [selectedCareerId, setSelectedCareerId] = useState("medicina-udec")
-  const [selectedUniversityFilter, setSelectedUniversityFilter] = useState("CONCEPCION")
+  const [selectedRegionFilter, setSelectedRegionFilter] = useState("ALL")
+  const [selectedUniversityFilter, setSelectedUniversityFilter] = useState("ALL")
+  const [scopeFilter, setScopeFilter] = useState("POPULAR") // "POPULAR" | "ALL"
   const [selectedCampusFilter, setSelectedCampusFilter] = useState("ALL")
   const [searchTerm, setSearchTerm] = useState("")
 
-  // Sincronización Nota (4.00 - 7.00) y Puntaje NEM oficial DEMRE (100 - 1000)
-  // Fórmula DEMRE Grupo A: Puntaje = 100 + (Nota - 4.0) * 300
-  const gradeFromNem = (score) => Number((4.0 + (Math.max(100, Math.min(1000, score)) - 100) / 300).toFixed(2))
-  const nemFromGrade = (grade) => Math.round(100 + (Math.max(4.0, Math.min(7.0, grade)) - 4.0) * 300)
-
-  // Factores académicos (NEM, Ranking) y pruebas PAES
-  const [nem, setNem] = useState(820)
-  const [nemGrade, setNemGrade] = useState(gradeFromNem(820)) // 6.40
-  const [ranking, setRanking] = useState(850)
+  // Factores académicos (NEM, Ranking) y pruebas PAES calibrados con tabla oficial DEMRE Grupo A
+  const [nem, setNem] = useState(713)
+  const [nemGrade, setNemGrade] = useState(6.00) // 6.00 = 713 pts oficiales DEMRE Grupo A
+  const [ranking, setRanking] = useState(713) // Predeterminado igual al NEM
   const [m1, setM1] = useState(800)
   const [lectura, setLectura] = useState(780)
   const [m2, setM2] = useState(700)
@@ -64,6 +176,9 @@ export function CruchAdmissionSimulator() {
           setCareers(res.careers)
           const defaultCareer = res.careers.find((c) => c.id === "medicina-udec") || res.careers[0]
           setSelectedCareerId(defaultCareer.id)
+          if (res.careers.some((c) => c.region === "Biobío")) {
+            setSelectedRegionFilter("Biobío")
+          }
         }
       } catch (err) {
         console.error("Error cargando carreras CRUCH:", err)
@@ -116,22 +231,117 @@ export function CruchAdmissionSimulator() {
     return () => clearTimeout(timer)
   }, [runSimulation])
 
-  // Filtrado de carreras por universidad, campus y búsqueda textual
+  // Heurística de alta demanda / carreras populares
+  const isPopularCareer = useCallback((c) => {
+    if (c.is_popular === true) return true
+    const cutoff2026 = Number(c.cutoffs?.["2026"] || c.cutoffs?.["2025"] || 0)
+    if (cutoff2026 >= 720) return true
+    const popularRegex =
+      /(medicina|odontolog|enfermer|obstetricia|kinesiolog|psicolog|derecho|arquitectura|civil industrial|civil inform|civil plan com|civil el[eé]ctrica|civil qu[ií]mica|civil mec[aá]nica|automatiz|ingenier.*comercial|auditor|trabajo social|farmacia|bioqu|tecnolog.*m[eé]dica|veterinaria|educaci[oó]n diferencial)/i
+    return popularRegex.test(c.name || "")
+  }, [])
+
+  // Regiones disponibles en los datos
+  const availableRegions = useMemo(() => {
+    const regSet = new Set()
+    careers.forEach((c) => {
+      if (c.region) regSet.add(c.region)
+    })
+    const regionPills = [{ id: "ALL", label: "🌐 Todas las Regiones" }]
+    const regionIcons = {
+      Biobío: "📍",
+      Ñuble: "🌱",
+      Maule: "🍇",
+      Metropolitana: "🏛️",
+      Valparaíso: "🌊",
+    }
+    const regionNames = {
+      Biobío: "Región del Biobío",
+      Ñuble: "Región de Ñuble",
+      Maule: "Región del Maule",
+      Metropolitana: "Región Metropolitana",
+      Valparaíso: "Región de Valparaíso",
+    }
+    const preferredOrder = ["Biobío", "Ñuble", "Maule", "Metropolitana", "Valparaíso"]
+    preferredOrder.forEach((r) => {
+      if (regSet.has(r)) {
+        regionPills.push({
+          id: r,
+          label: `${regionIcons[r] || "📌"} ${regionNames[r] || `Región de ${r}`}`,
+        })
+        regSet.delete(r)
+      }
+    })
+    regSet.forEach((r) => {
+      regionPills.push({ id: r, label: `📌 ${r}` })
+    })
+    return regionPills
+  }, [careers])
+
+  // Universidades disponibles dinámicamente según la región seleccionada
+  const availableUniversities = useMemo(() => {
+    let pool = careers
+    if (selectedRegionFilter !== "ALL") {
+      pool = pool.filter((c) => c.region === selectedRegionFilter)
+    }
+    const map = new Map()
+    pool.forEach((c) => {
+      if (c.university_short && !map.has(c.university_short)) {
+        map.set(c.university_short, c.university || c.university_short)
+      }
+    })
+
+    const shortLabels = {
+      UdeC: "U. de Concepción",
+      UBB: "U. del Bío-Bío",
+      UCSC: "UCSC",
+      UTALCA: "U. de Talca",
+      UCM: "U. Católica del Maule",
+      UA: "U. Autónoma (Talca)",
+      UCH: "U. de Chile",
+      PUC: "Católica (PUC)",
+      USACH: "USACH",
+      UTFSM: "Santa María",
+    }
+
+    const items = [
+      {
+        id: "ALL",
+        label: selectedRegionFilter === "ALL" ? "Todas las Universidades" : `Todas en ${selectedRegionFilter}`,
+      },
+    ]
+
+    map.forEach((fullName, shortCode) => {
+      items.push({
+        id: shortCode,
+        label: shortLabels[shortCode] || shortCode,
+      })
+    })
+
+    return items
+  }, [careers, selectedRegionFilter])
+
+  // Filtrado de carreras por región, universidad, campus, alcance y búsqueda
   const filteredCareers = useMemo(() => {
     let list = careers
-    if (selectedUniversityFilter === "CONCEPCION") {
-      list = list.filter(
-        (c) =>
-          ["UdeC", "UBB", "UCSC"].includes(c.university_short) ||
-          c.city === "Concepción" ||
-          c.region === "Biobío"
-      )
-    } else if (selectedUniversityFilter !== "ALL") {
+
+    if (selectedRegionFilter !== "ALL") {
+      list = list.filter((c) => c.region === selectedRegionFilter)
+    }
+
+    if (selectedUniversityFilter !== "ALL") {
       list = list.filter((c) => c.university_short === selectedUniversityFilter)
     }
 
     if (selectedCampusFilter !== "ALL") {
       list = list.filter((c) => (c.campus || "").toLowerCase().includes(selectedCampusFilter.toLowerCase()))
+    }
+
+    if (scopeFilter === "POPULAR" && !searchTerm.trim()) {
+      const popList = list.filter(isPopularCareer)
+      if (popList.length > 0) {
+        list = popList
+      }
     }
 
     if (searchTerm.trim()) {
@@ -146,11 +356,115 @@ export function CruchAdmissionSimulator() {
     }
 
     return list
-  }, [careers, selectedUniversityFilter, selectedCampusFilter, searchTerm])
+  }, [
+    careers,
+    selectedRegionFilter,
+    selectedUniversityFilter,
+    selectedCampusFilter,
+    scopeFilter,
+    searchTerm,
+    isPopularCareer,
+  ])
+
+  // Agrupación por Área de Estudio y ordenamiento por Puntaje de Corte 2026 descendente
+  const AREA_PRIORITY = [
+    "Ciencias de la Salud",
+    "Ingeniería y Ciencias Exactas",
+    "Ciencias Sociales y Jurídicas",
+    "Ciencias Sociales",
+    "Arquitectura, Arte y Diseño",
+    "Educación",
+    "Humanidades y Ciencias",
+    "Ciencias Naturales y Agropecuarias",
+  ]
+
+  const groupedCareers = useMemo(() => {
+    const map = {}
+    filteredCareers.forEach((c) => {
+      const area = c.area || "Otras Áreas"
+      if (!map[area]) map[area] = []
+      map[area].push(c)
+    })
+
+    Object.keys(map).forEach((area) => {
+      map[area].sort((a, b) => {
+        const scoreA = Number(a.cutoffs?.["2026"] || a.cutoffs?.["2025"] || 0)
+        const scoreB = Number(b.cutoffs?.["2026"] || b.cutoffs?.["2025"] || 0)
+        if (scoreB !== scoreA) return scoreB - scoreA
+        return (a.name || "").localeCompare(b.name || "")
+      })
+    })
+
+    const sortedEntries = []
+    AREA_PRIORITY.forEach((area) => {
+      if (map[area] && map[area].length > 0) {
+        sortedEntries.push([area, map[area]])
+        delete map[area]
+      }
+    })
+    Object.entries(map).forEach(([area, list]) => {
+      if (list.length > 0) sortedEntries.push([area, list])
+    })
+
+    return sortedEntries
+  }, [filteredCareers])
+
+  // Sincronizar carrera seleccionada si queda fuera de los filtros
+  useEffect(() => {
+    if (filteredCareers.length > 0) {
+      const exists = filteredCareers.some((c) => c.id === selectedCareerId)
+      if (!exists) {
+        setSelectedCareerId(filteredCareers[0].id)
+      }
+    }
+  }, [filteredCareers, selectedCareerId])
 
   const selectedCareer = useMemo(() => {
     return careers.find((c) => c.id === selectedCareerId) || filteredCareers[0] || careers[0]
   }, [careers, selectedCareerId, filteredCareers])
+
+  // Cálculo en vivo instantáneo del puntaje ponderado oficial y aportes por prueba
+  const liveWeighted = useMemo(() => {
+    if (!selectedCareer || !selectedCareer.weights) {
+      return { total: 0, gap: 0, electName: "Ciencias", electScore: 0, nemContrib: 0, rankContrib: 0, lecContrib: 0, m1Contrib: 0, m2Contrib: 0, electContrib: 0 }
+    }
+    const w = selectedCareer.weights
+    const rule = w.elective_rule || "MAX"
+    let electScore = 0
+    let electName = "Ciencias"
+    if (rule === "CIENCIAS") {
+      electScore = Number(ciencias)
+      electName = "Ciencias"
+    } else if (rule === "HISTORIA") {
+      electScore = Number(historia)
+      electName = "Historia"
+    } else {
+      electScore = Math.max(Number(ciencias), Number(historia))
+      electName = Number(ciencias) >= Number(historia) ? "Ciencias" : "Historia"
+    }
+    const electWeight = (w.ciencias || 0) + (w.historia || 0)
+    const nemContrib = Number(nem) * (w.nem || 0)
+    const rankContrib = Number(ranking) * (w.ranking || 0)
+    const lecContrib = Number(lectura) * (w.lectura || 0)
+    const m1Contrib = Number(m1) * (w.m1 || 0)
+    const m2Contrib = Number(m2) * (w.m2 || 0)
+    const electContrib = electScore * electWeight
+    const total = nemContrib + rankContrib + lecContrib + m1Contrib + m2Contrib + electContrib
+    const cutoff2026 = Number(selectedCareer.cutoffs?.["2026"] || 0)
+    const gap = total - cutoff2026
+    return {
+      total,
+      gap,
+      electName,
+      electScore,
+      nemContrib,
+      rankContrib,
+      lecContrib,
+      m1Contrib,
+      m2Contrib,
+      electContrib
+    }
+  }, [selectedCareer, nem, ranking, lectura, m1, m2, ciencias, historia])
 
   // Obtener estilo de la categoría de probabilidad
   const getProbabilityTheme = (category, prob) => {
@@ -194,18 +508,6 @@ export function CruchAdmissionSimulator() {
     simulation?.category || "Competitiva",
     simulation?.probability || 50
   )
-
-  const universityPills = [
-    { id: "CONCEPCION", label: "📍 Zona Concepción (Biobío)" },
-    { id: "UdeC", label: "U. de Concepción" },
-    { id: "UBB", label: "U. del Bío-Bío" },
-    { id: "UCSC", label: "UCSC" },
-    { id: "ALL", label: "Todas las Universidades" },
-    { id: "UCH", label: "U. de Chile" },
-    { id: "PUC", label: "Católica (PUC)" },
-    { id: "USACH", label: "USACH" },
-    { id: "UTFSM", label: "Santa María" },
-  ]
 
   return (
     <div className="space-y-8 animate-fade-in pb-12">
@@ -271,21 +573,94 @@ export function CruchAdmissionSimulator() {
               )}
             </div>
 
-            {/* Filtro de Universidades */}
-            <div className="flex flex-wrap gap-1.5">
-              {universityPills.map((u) => (
+            {/* 1. Filtro de Región */}
+            {availableRegions.length > 1 && (
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-[11px] font-mono">
+                  <span className="text-neutral-400 font-semibold uppercase tracking-wider">1. Región Geográfica:</span>
+                  <span className="text-neutral-500">{selectedRegionFilter === "ALL" ? "Nacional" : selectedRegionFilter}</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {availableRegions.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedRegionFilter(r.id)
+                        setSelectedUniversityFilter("ALL")
+                        setSelectedCampusFilter("ALL")
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                        selectedRegionFilter === r.id
+                          ? "bg-sky-500 text-neutral-950 font-bold shadow-sm"
+                          : "bg-white/[0.04] text-neutral-400 hover:text-white hover:bg-white/[0.08]"
+                      }`}
+                    >
+                      {r.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 2. Filtro de Universidad */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center text-[11px] font-mono">
+                <span className="text-neutral-400 font-semibold uppercase tracking-wider">2. Universidad:</span>
+                <span className="text-neutral-500">{selectedUniversityFilter === "ALL" ? "Todas" : selectedUniversityFilter}</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {availableUniversities.map((u) => (
+                  <button
+                    key={u.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedUniversityFilter(u.id)
+                      setSelectedCampusFilter("ALL")
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                      selectedUniversityFilter === u.id
+                        ? "bg-sky-500 text-neutral-950 font-bold shadow-sm"
+                        : "bg-white/[0.04] text-neutral-400 hover:text-white hover:bg-white/[0.08]"
+                    }`}
+                  >
+                    {u.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. Filtro de Alcance: Populares vs Catálogo Completo */}
+            <div className="flex items-center justify-between p-1 rounded-xl bg-neutral-950/70 border border-white/[0.06]">
+              <span className="text-[10px] font-mono text-neutral-400 px-2 uppercase tracking-wider font-semibold">
+                Alcance:
+              </span>
+              <div className="flex gap-1">
                 <button
-                  key={u.id}
-                  onClick={() => setSelectedUniversityFilter(u.id)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
-                    selectedUniversityFilter === u.id
-                      ? "bg-sky-500 text-neutral-950 font-bold shadow-sm"
-                      : "bg-white/[0.04] text-neutral-400 hover:text-white hover:bg-white/[0.08]"
+                  type="button"
+                  onClick={() => setScopeFilter("POPULAR")}
+                  className={`px-3 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                    scopeFilter === "POPULAR"
+                      ? "bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
                   }`}
+                  title="Filtra por carreras de alta demanda y mayor interés general"
                 >
-                  {u.label}
+                  ⭐ Top / Alta Demanda
                 </button>
-              ))}
+                <button
+                  type="button"
+                  onClick={() => setScopeFilter("ALL")}
+                  className={`px-3 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
+                    scopeFilter === "ALL"
+                      ? "bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
+                  }`}
+                  title="Muestra todas las carreras disponibles sin excepción"
+                >
+                  📚 Catálogo Completo
+                </button>
+              </div>
             </div>
 
             {/* Buscador de Carreras y Filtro de Campus */}
@@ -309,8 +684,10 @@ export function CruchAdmissionSimulator() {
                 )}
               </div>
 
-              {/* Campus Pills para UdeC / Concepción */}
-              {["CONCEPCION", "UdeC", "UBB"].includes(selectedUniversityFilter) && (
+              {/* Campus Pills si existen sedes específicas */}
+              {["Concepción", "Chillán", "Los Ángeles", "Talca", "Curicó"].some((cp) =>
+                filteredCareers.some((c) => (c.campus || "").toLowerCase().includes(cp.toLowerCase()))
+              ) && (
                 <div className="flex items-center gap-1.5 overflow-x-auto text-[10px] font-mono">
                   <span className="text-neutral-500">Campus:</span>
                   {[
@@ -318,24 +695,34 @@ export function CruchAdmissionSimulator() {
                     { id: "Concepción", label: "Concepción" },
                     { id: "Chillán", label: "Chillán" },
                     { id: "Los Ángeles", label: "Los Ángeles" },
-                  ].map((cp) => (
-                    <button
-                      key={cp.id}
-                      type="button"
-                      onClick={() => setSelectedCampusFilter(cp.id)}
-                      className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
-                        selectedCampusFilter === cp.id
-                          ? "bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30"
-                          : "bg-white/[0.03] text-neutral-400 hover:text-white"
-                      }`}
-                    >
-                      {cp.label}
-                    </button>
-                  ))}
+                    { id: "Talca", label: "Talca" },
+                    { id: "Curicó", label: "Curicó" },
+                  ]
+                    .filter(
+                      (cp) =>
+                        cp.id === "ALL" ||
+                        filteredCareers.some((c) =>
+                          (c.campus || "").toLowerCase().includes(cp.id.toLowerCase())
+                        )
+                    )
+                    .map((cp) => (
+                      <button
+                        key={cp.id}
+                        type="button"
+                        onClick={() => setSelectedCampusFilter(cp.id)}
+                        className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
+                          selectedCampusFilter === cp.id
+                            ? "bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30"
+                            : "bg-white/[0.03] text-neutral-400 hover:text-white"
+                        }`}
+                      >
+                        {cp.label}
+                      </button>
+                    ))}
                 </div>
               )}
 
-              {/* Selector de Carrera */}
+              {/* Selector de Carrera Agrupado por Área y Ordenado por Corte */}
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <label className="text-neutral-400 font-medium">Seleccionar Carrera:</label>
@@ -349,11 +736,25 @@ export function CruchAdmissionSimulator() {
                   disabled={loadingCareers}
                   className="w-full bg-neutral-800/90 border border-white/[0.1] rounded-2xl px-4 py-3 text-white text-xs md:text-sm font-semibold focus:outline-none focus:border-sky-500 transition-colors cursor-pointer"
                 >
-                  {filteredCareers.map((c) => (
-                    <option key={c.id} value={c.id} className="bg-neutral-900 text-white">
-                      {c.name} ({c.campus}) — {c.university_short} • Cód. {c.code || "---"} (Corte '26: {c.cutoffs["2026"]} pts)
+                  {groupedCareers.length === 0 ? (
+                    <option value="" disabled className="bg-neutral-900 text-neutral-400">
+                      No hay carreras disponibles con estos filtros
                     </option>
-                  ))}
+                  ) : (
+                    groupedCareers.map(([area, careerList]) => (
+                      <optgroup
+                        key={area}
+                        label={`── ${area.toUpperCase()} (${careerList.length}) ──`}
+                        className="bg-neutral-950 text-sky-400 font-bold py-1"
+                      >
+                        {careerList.map((c) => (
+                          <option key={c.id} value={c.id} className="bg-neutral-900 text-white font-normal py-1">
+                            {c.name} ({c.campus}) — {c.university_short} • Corte '26: {c.cutoffs?.["2026"] || "---"} pts
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))
+                  )}
                 </select>
               </div>
             </div>
@@ -367,8 +768,19 @@ export function CruchAdmissionSimulator() {
                     {selectedCareer.university_short}
                   </span>
                 </div>
-                <div className="text-neutral-400 text-[11px]">
-                  🏛️ {selectedCareer.university} • {selectedCareer.campus}
+                <div className="flex items-center justify-between flex-wrap gap-2 text-neutral-400 text-[11px]">
+                  <span>
+                    🏛️ {selectedCareer.university} • {selectedCareer.campus}
+                  </span>
+                  <a
+                    href={getCareerUrl(selectedCareer)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sky-400 hover:text-sky-300 hover:underline font-medium text-[11px] shrink-0 transition-colors"
+                  >
+                    <span>Link de la carrera</span>
+                    <span aria-hidden="true" className="text-[10px]">↗</span>
+                  </a>
                 </div>
 
                 {/* Histórico de Cortes */}
@@ -406,6 +818,22 @@ export function CruchAdmissionSimulator() {
                     </span>
                   </div>
                 </div>
+
+                {/* Puntaje Ponderado en Vivo */}
+                <div className="pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-[10px] text-neutral-400 font-mono uppercase block">Tu Ponderado Actual</span>
+                    <span className="font-mono font-black text-sky-400 text-sm">
+                      {liveWeighted.total.toFixed(2)} pts
+                    </span>
+                  </div>
+                  <div className="text-right font-mono text-[10px]">
+                    <span className={liveWeighted.gap >= 0 ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>
+                      {liveWeighted.gap >= 0 ? `+${liveWeighted.gap.toFixed(2)} pts (Sobre Corte)` : `${liveWeighted.gap.toFixed(2)} pts (Bajo Corte)`}
+                    </span>
+                    <div className="text-neutral-500">Corte '26: {selectedCareer.cutoffs["2026"]}</div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -414,12 +842,20 @@ export function CruchAdmissionSimulator() {
         {/* Columna Derecha: Controles de Puntajes (NEM, Ranking, Pruebas) (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           <div className="p-6 rounded-3xl bg-neutral-900/60 border border-white/[0.08] backdrop-blur-xl shadow-xl space-y-6">
-            <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <span>📊</span> Tus Puntajes Estimados o Simulados
-              </span>
-              <span className="text-[11px] font-mono text-neutral-500 font-normal">Escala DEMRE 100 - 1000</span>
-            </h3>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
+                  <span>📊</span> Tus Puntajes Estimados o Simulados
+                </h3>
+                <span className="text-[11px] font-mono text-neutral-500 font-normal">Escala DEMRE 100 - 1000</span>
+              </div>
+              <div className="px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/30 font-mono text-right">
+                <span className="text-[10px] text-neutral-400 uppercase block">Tu Ponderado</span>
+                <span className="text-sm font-black text-sky-300">
+                  {liveWeighted.total.toFixed(2)} pts
+                </span>
+              </div>
+            </div>
 
             {/* Factores Escolares: NEM y Ranking */}
             <div className="p-4 rounded-2xl bg-neutral-950/60 border border-white/[0.08] space-y-4">
@@ -445,7 +881,7 @@ export function CruchAdmissionSimulator() {
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-xs font-bold text-neutral-200">NEM (Notas Enseñanza Media)</span>
-                      <div className="text-[10px] text-neutral-400 font-mono">Fórmula: 100 + (Nota - 4.0) × 300</div>
+                      <div className="text-[10px] text-neutral-400 font-mono">Tabla Oficial DEMRE Grupo A (301 notas)</div>
                     </div>
                     <div className="text-right">
                       <span className="font-mono font-black text-sky-400 text-sm">{nem} pts</span>
@@ -492,7 +928,7 @@ export function CruchAdmissionSimulator() {
                   />
                   <div className="flex justify-between text-[10px] text-neutral-500 font-mono">
                     <span>4.00 (100 pts)</span>
-                    <span>5.50 (550 pts)</span>
+                    <span>5.50 (572 pts)</span>
                     <span>7.00 (1000 pts)</span>
                   </div>
                 </div>
@@ -580,6 +1016,11 @@ export function CruchAdmissionSimulator() {
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
                     <span>📐</span> Competencia Matemática 1 (M1)
+                    {selectedCareer && (
+                      <span className="text-[10px] font-mono text-sky-400 font-semibold">
+                        ({Math.round((selectedCareer.weights?.m1 || 0) * 100)}% • Aporta {liveWeighted.m1Contrib.toFixed(1)} pts)
+                      </span>
+                    )}
                   </span>
                   <span className="font-mono font-black text-white text-sm">{m1} pts</span>
                 </div>
@@ -599,6 +1040,11 @@ export function CruchAdmissionSimulator() {
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
                     <span>📖</span> Competencia Lectora
+                    {selectedCareer && (
+                      <span className="text-[10px] font-mono text-sky-400 font-semibold">
+                        ({Math.round((selectedCareer.weights?.lectura || 0) * 100)}% • Aporta {liveWeighted.lecContrib.toFixed(1)} pts)
+                      </span>
+                    )}
                   </span>
                   <span className="font-mono font-black text-white text-sm">{lectura} pts</span>
                 </div>
@@ -618,8 +1064,16 @@ export function CruchAdmissionSimulator() {
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
                     <span>🔬</span> Competencia Matemática 2 (M2)
-                    {selectedCareer?.requires_m2 && (
-                      <span className="text-[10px] font-mono text-amber-400">*(Requerida)*</span>
+                    {selectedCareer && (
+                      (selectedCareer.weights?.m2 || 0) > 0 ? (
+                        <span className="text-[10px] font-mono text-amber-300 font-semibold">
+                          ({Math.round(selectedCareer.weights.m2 * 100)}% Exigida • Aporta {liveWeighted.m2Contrib.toFixed(1)} pts)
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-mono text-neutral-500 font-normal">
+                          (No pondera: 0% en esta carrera)
+                        </span>
+                      )
                     )}
                   </span>
                   <span className="font-mono font-black text-white text-sm">{m2} pts</span>
@@ -636,37 +1090,76 @@ export function CruchAdmissionSimulator() {
               </div>
 
               {/* Electivas: Ciencias e Historia */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="font-bold text-neutral-300">Ciencias (Bio/Fís/Quím)</span>
-                    <span className="font-mono font-bold text-neutral-300">{ciencias} pts</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="100"
-                    max="1000"
-                    step="5"
-                    value={ciencias}
-                    onChange={(e) => setCiencias(Number(e.target.value))}
-                    className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
-                  />
+              <div className="space-y-2 pt-1 border-t border-white/[0.06]">
+                <div className="flex items-center justify-between text-xs pt-1">
+                  <span className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span>🧪 / 🏛️</span> Pruebas Electivas
+                  </span>
+                  {selectedCareer && (
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                      {selectedCareer.weights?.elective_rule === "CIENCIAS"
+                        ? `Exige solo Ciencias (${Math.round((selectedCareer.weights?.ciencias || 0) * 100)}%)`
+                        : selectedCareer.weights?.elective_rule === "HISTORIA"
+                        ? `Exige solo Historia (${Math.round((selectedCareer.weights?.historia || 0) * 100)}%)`
+                        : `Regla DEMRE: Mejor Puntaje (${Math.round(((selectedCareer.weights?.ciencias || 0) + (selectedCareer.weights?.historia || 0)) * 100)}%)`}
+                    </span>
+                  )}
                 </div>
 
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="font-bold text-neutral-300">Historia y Cs. Sociales</span>
-                    <span className="font-mono font-bold text-neutral-300">{historia} pts</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1.5 p-2.5 rounded-xl bg-white/[0.015] border border-white/[0.04]">
+                    <div className="flex justify-between items-center text-xs">
+                      <div>
+                        <span className="font-bold text-neutral-300 block">Ciencias</span>
+                        {selectedCareer && (
+                          liveWeighted.electName === "Ciencias" && (selectedCareer.weights?.ciencias > 0 || selectedCareer.weights?.elective_rule === "MAX") ? (
+                            <span className="text-[9px] font-mono text-emerald-400 font-bold">● Activa en ponderado (+{liveWeighted.electContrib.toFixed(1)} pts)</span>
+                          ) : selectedCareer.weights?.ciencias === 0 && selectedCareer.weights?.elective_rule === "HISTORIA" ? (
+                            <span className="text-[9px] font-mono text-neutral-500">○ No pondera (0%)</span>
+                          ) : (
+                            <span className="text-[9px] font-mono text-neutral-500">○ Descartada por menor puntaje</span>
+                          )
+                        )}
+                      </div>
+                      <span className="font-mono font-bold text-neutral-300">{ciencias} pts</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="100"
+                      max="1000"
+                      step="5"
+                      value={ciencias}
+                      onChange={(e) => setCiencias(Number(e.target.value))}
+                      className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
+                    />
                   </div>
-                  <input
-                    type="range"
-                    min="100"
-                    max="1000"
-                    step="5"
-                    value={historia}
-                    onChange={(e) => setHistoria(Number(e.target.value))}
-                    className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
-                  />
+
+                  <div className="space-y-1.5 p-2.5 rounded-xl bg-white/[0.015] border border-white/[0.04]">
+                    <div className="flex justify-between items-center text-xs">
+                      <div>
+                        <span className="font-bold text-neutral-300 block">Historia y Cs. Sociales</span>
+                        {selectedCareer && (
+                          liveWeighted.electName === "Historia" && (selectedCareer.weights?.historia > 0 || selectedCareer.weights?.elective_rule === "MAX") ? (
+                            <span className="text-[9px] font-mono text-emerald-400 font-bold">● Activa en ponderado (+{liveWeighted.electContrib.toFixed(1)} pts)</span>
+                          ) : selectedCareer.weights?.historia === 0 && selectedCareer.weights?.elective_rule === "CIENCIAS" ? (
+                            <span className="text-[9px] font-mono text-neutral-500">○ No pondera (0%)</span>
+                          ) : (
+                            <span className="text-[9px] font-mono text-neutral-500">○ Descartada por menor puntaje</span>
+                          )
+                        )}
+                      </div>
+                      <span className="font-mono font-bold text-neutral-300">{historia} pts</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="100"
+                      max="1000"
+                      step="5"
+                      value={historia}
+                      onChange={(e) => setHistoria(Number(e.target.value))}
+                      className="w-full accent-purple-400 cursor-pointer h-1.5 bg-neutral-800 rounded-lg appearance-none"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

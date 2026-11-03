@@ -44,7 +44,7 @@ def cmd_query(text: str, top_k: int = 3) -> None:
     print(f'\n🔍 Buscando: "{text}" (top {top_k})\n')
     results = query_books(text, top_k=top_k)
     if not results:
-        print("Sin resultados. Verificá que haya libros indexados.")
+        print("Sin resultados. Verifica que haya libros indexados.")
         return
     for i, r in enumerate(results, 1):
         print(f"--- Resultado {i} ---")

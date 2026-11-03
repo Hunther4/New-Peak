@@ -156,7 +156,7 @@ function MemoryGame({ skillId, onClose }) {
     })
 
     if (parsed.some((v) => v === null)) {
-      setError("Completá todos los campos con números válidos")
+      setError("Completa todos los campos con números válidos")
       return
     }
 
@@ -316,7 +316,7 @@ function MemoryGame({ skillId, onClose }) {
               </h2>
               <p className="text-neutral-400 text-sm leading-relaxed max-w-md mx-auto mb-8">
                 Te mostraremos secuencias de números para que los recuerdes y repitas en orden.
-                Cada ronda aumenta la dificultad. ¿Cuántos números podés recordar?
+                Cada ronda aumenta la dificultad. ¿Cuántos números puedes recordar?
               </p>
 
               <div className="flex flex-col gap-3 max-w-xs mx-auto mb-8">
@@ -357,7 +357,7 @@ function MemoryGame({ skillId, onClose }) {
                 >
                   {countdown}
                 </span>
-                <p className="text-sm text-neutral-500 mt-4">Prepará tu memoria...</p>
+                <p className="text-sm text-neutral-500 mt-4">Prepara tu memoria...</p>
               </div>
             )}
 
@@ -421,7 +421,7 @@ function MemoryGame({ skillId, onClose }) {
                 Ronda {roundsCompleted + 1} · Span {span}
               </span>
               <p className="text-sm text-neutral-400 mt-2">
-                Recordá los números en orden
+                Recuerda los números en orden
               </p>
             </div>
 
@@ -564,7 +564,7 @@ function MemoryGame({ skillId, onClose }) {
                     </button>
                   ))}
                 </div>
-                <p className="text-[11px] text-neutral-600 mt-2 text-center">Si la marcás, la IA puede darte mejor feedback sobre tu proceso</p>
+                <p className="text-[11px] text-neutral-600 mt-2 text-center">Si la marcas, la IA puede darte mejor retroalimentación sobre tu proceso</p>
               </div>
 
               <div className="flex items-center justify-center gap-4">
@@ -608,7 +608,7 @@ function MemoryGame({ skillId, onClose }) {
                 ¡Sesión completada!
               </h2>
               <p className="text-neutral-400 text-sm mb-8">
-                Tu entrenamiento de memoria ha finalizado. Seguí practicando para mejorar tu span.
+                Tu entrenamiento de memoria ha finalizado. Sigue practicando para mejorar tu capacidad.
               </p>
 
               <div className="grid grid-cols-3 gap-4 mb-8">

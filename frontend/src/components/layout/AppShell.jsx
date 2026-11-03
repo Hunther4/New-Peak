@@ -1,4 +1,4 @@
-﻿import { useEffect } from "react"
+import { useEffect } from "react"
 import { Outlet, NavLink, useNavigate } from "react-router"
 import { StatusIndicator } from "../StatusIndicator"
 import TopNavBar from "./TopNavBar"
@@ -17,7 +17,13 @@ export default function AppShell() {
   const navigate = useNavigate()
   const { toggleCoach, profile } = useStore()
 
-  // Quick navigation shortcuts: keys 1 to 5 and Ctrl+J for Coach
+  const ADMIN_NAMES = ["drack", "drackv1", "hunther", "hunther4"]
+  const isDrack = ADMIN_NAMES.includes(profile?.name?.trim().toLowerCase() || "")
+  const navItems = isDrack
+    ? [...NAV_ITEMS, { to: "/admin", icon: "🗼", label: "Torre de Control", shortcut: "6" }]
+    : NAV_ITEMS
+
+  // Quick navigation shortcuts: keys 1 to 6 and Ctrl+J for Coach
   useEffect(() => {
     const handleKeyDown = (e) => {
       // Global shortcut for Coach: Ctrl + J or Cmd + J
@@ -32,14 +38,14 @@ export default function AppShell() {
       }
       if (e.metaKey || e.ctrlKey || e.altKey) return
 
-      const item = NAV_ITEMS.find((n) => n.shortcut === e.key)
+      const item = navItems.find((n) => n.shortcut === e.key)
       if (item) {
         navigate(item.to)
       }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [navigate, toggleCoach])
+  }, [navigate, toggleCoach, navItems])
 
   return (
     <div className="min-h-screen bg-neutral-950 relative text-neutral-100 selection:bg-emerald-500/30 selection:text-emerald-300">
@@ -56,7 +62,7 @@ export default function AppShell() {
 
         {/* Nav items */}
         <nav className="flex flex-col items-center gap-2.5 w-full px-2">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -101,7 +107,7 @@ export default function AppShell() {
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="flex items-center justify-around py-2 px-1">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

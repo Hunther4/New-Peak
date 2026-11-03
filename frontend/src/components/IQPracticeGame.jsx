@@ -252,7 +252,7 @@ export default function IQPracticeGame({ skillId, onClose }) {
               <p className="text-neutral-400 mb-8 max-w-lg mx-auto leading-relaxed">
                 Ejercicios de inteligencia general generados por IA: secuencias numéricas,
                 analogías verbales, puzzles lógicos y reconocimiento de patrones.
-                Cada 5 correctos <span className="text-green-400">subís de nivel</span>.
+                Cada 5 correctos <span className="text-green-400">subes de nivel</span>.
               </p>
 
               <div className="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8">
@@ -418,8 +418,8 @@ export default function IQPracticeGame({ skillId, onClose }) {
 
             <p className="text-center text-xs text-neutral-600">
               {puzzlesCompleted < 3
-                ? `Completá al menos ${3 - puzzlesCompleted} puzzle${3 - puzzlesCompleted !== 1 ? "s" : ""} más para finalizar`
-                : "Podés seguir practicando o finalizar la sesión"}
+                ? `Completa al menos ${3 - puzzlesCompleted} ejercicio${3 - puzzlesCompleted !== 1 ? "s" : ""} más para finalizar`
+                : "Puedes seguir practicando o finalizar la sesión"}
             </p>
           </div>
         )}

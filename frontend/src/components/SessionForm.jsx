@@ -24,7 +24,7 @@ export default function SessionForm() {
     setIsSubmitting(true);
     try {
       if (!formData.skill_id) {
-        toast.warning('Elegí una skill antes de guardar.');
+        toast.warning('Elige una habilidad primero antes de guardar.');
         return;
       }
 

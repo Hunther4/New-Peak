@@ -112,12 +112,12 @@ def _build_augmented_system(system_prompt: str, response_model: Type[T]) -> str:
     return (
         f"{system_prompt}{SECURITY_INSTRUCTION}\n\n"
         f"REGLAS DE SALIDA (OBLIGATORIAS):\n"
-        f"1. Respondé SOLO un objeto JSON válido. Nada más.\n"
+        f"1. Responde SOLO un objeto JSON válido. Nada más.\n"
         f"2. Campos requeridos ({len(required)}): {fields}\n"
         f"3. NO uses markdown, NO expliques, NO repitas el esquema.\n"
         f"4. Ejemplo de FORMATO (valores son placeholders):\n"
         f"{example_json}\n"
-        f"5. Si un campo es opcional y no tenés dato, usá null o [] según tipo."
+        f"5. Si un campo es opcional y no tienes datos, usa null o [] según tipo."
     )
 
 

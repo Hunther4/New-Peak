@@ -389,7 +389,7 @@ function DualNBackGame({ onClose }) {
       }))
 
       if (trials.length === 0) {
-        setError("No se registraron trials — jugá al menos 1 ronda")
+        setError("No se registraron intentos — juega al menos 1 ronda")
         setSubmitting(false)
         return
       }
@@ -518,8 +518,8 @@ function DualNBackGame({ onClose }) {
               </div>
               <h2 className="text-2xl font-black text-white mb-2">Dual N-Back</h2>
               <p className="text-sm text-neutral-400 mb-6 max-w-md mx-auto leading-relaxed">
-                Entrenamiento de memoria de trabajo. Mirá la grilla — una celda se ilumina y suena una letra.
-                Recordá si la <strong className="text-white">posición</strong> o la <strong className="text-white">letra</strong> son iguales a las de hace N intentos atrás.
+                Entrenamiento de memoria de trabajo. Observa la cuadrícula — una celda se ilumina y suena una letra.
+                Recuerda si la <strong className="text-white">posición</strong> o la <strong className="text-white">letra</strong> son iguales a las de hace N intentos atrás.
               </p>
 
               {/* Ejemplo visual paso a paso */}
@@ -536,7 +536,7 @@ function DualNBackGame({ onClose }) {
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-yellow-400 font-mono font-bold text-xs mt-0.5">T2</span>
-                    <span>Ahora preguntás: ¿La posición o letra de T2 es igual a T1? → No. No presionás nada.</span>
+                    <span>Ahora te preguntas: ¿La posición o letra de T2 es igual a T1? → No. No presionas nada.</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-green-400 font-mono font-bold text-xs mt-0.5">T3</span>
@@ -620,7 +620,7 @@ function DualNBackGame({ onClose }) {
             {isPreview && (
               <div className="text-center">
                 <span className="text-sm text-yellow-400 font-semibold bg-yellow-500/10 px-4 py-2 rounded-full">
-                  👀 Memorizá esta posición — el juego empieza después
+                  👀 Memoriza esta posición — el juego empieza después
                 </span>
               </div>
             )}
@@ -840,7 +840,7 @@ function DualNBackGame({ onClose }) {
                 {results.nextN > results.n
                   ? "↑ Subiste de nivel!"
                   : results.nextN < results.n
-                    ? "↓ Bajaste de nivel — seguí practicando"
+                    ? "↓ Bajaste de nivel — sigue practicando"
                     : "— Mantuviste el nivel"}
               </p>
             </div>

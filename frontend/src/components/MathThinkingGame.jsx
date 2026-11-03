@@ -200,8 +200,8 @@ function MathThinkingGame({ skillId, onClose }) {
                 Pensamiento Matemático
               </h2>
               <p className="text-neutral-400 text-sm leading-relaxed max-w-md mx-auto mb-8">
-                Resolvé problemas matemáticos generados por IA adaptados a tu nivel actual.
-                Cada acierto te acerca al siguiente nivel. ¿Hasta dónde podés llegar?
+                Resuelve problemas matemáticos generados por IA adaptados a tu nivel actual.
+                Cada acierto te acerca al siguiente nivel. ¿Hasta dónde puedes llegar?
               </p>
 
               <div className="flex flex-col gap-3 max-w-xs mx-auto mb-8">
@@ -359,7 +359,7 @@ function MathThinkingGame({ skillId, onClose }) {
                         Generando pista...
                       </span>
                     ) : (
-                      "💡 Necesitás una pista"
+                      "💡 ¿Necesitas una pista?"
                     )}
                   </button>
                 )}
@@ -425,7 +425,7 @@ function MathThinkingGame({ skillId, onClose }) {
                     <p className="text-xs text-neutral-500">
                       {isCorrect
                         ? "Tu respuesta es correcta"
-                        : "Revisá la solución paso a paso"}
+                        : "Revisa la solución paso a paso"}
                     </p>
                   </div>
                 </div>
@@ -532,7 +532,7 @@ function MathThinkingGame({ skillId, onClose }) {
                 ¡Sesión completada!
               </h2>
               <p className="text-neutral-400 text-sm mb-8">
-                Seguí practicando para mejorar tu nivel de pensamiento matemático.
+                Sigue practicando para mejorar tu nivel de pensamiento matemático.
               </p>
 
               {/* Stats */}

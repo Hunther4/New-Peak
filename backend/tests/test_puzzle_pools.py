@@ -100,16 +100,16 @@ class TestPoolDataIntegrity:
         """
         # Marker -> expected correct answer (float).
         answer_by_marker = {
-            "3 cosas: una remera": 150.0,  # vuelto
-            "4 paquetes de yerba": 1_000.0,  # empaque
+            "3 cosas: una camiseta": 150.0,  # vuelto
+            "4 paquetes de café": 1_000.0,  # empaque
             "pizza cuesta $1.200": 150.0,  # porción de pizza
             "sin propina": 500.0,  # cuenta dividida
             "3,5 kilogramos": 3_500.0,  # kilo a gramo
             "1.800 para comprarte": 9.0,  # ahorro mensual
             "30% en comida": 2_500.0,  # presupuesto
             "25% de descuento": 900.0,  # compra con descuento
-            "12 huevos": 7.0,  # huevos en heladera
-            "8:15 y tarda 45": 900.0,  # bondi (9:00 como número)
+            "12 huevos": 7.0,  # huevos en refrigerador
+            "8:15 y tarda 45": 900.0,  # autobús (9:00 como número)
             "2 litros de leche": 1_950.0,  # compra supermercado
             "64 GB": 19.0,  # almacenamiento libre
             "8 metros de largo": 20.0,  # pared m²

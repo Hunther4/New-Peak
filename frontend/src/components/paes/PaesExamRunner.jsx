@@ -559,7 +559,7 @@ export function PaesExamRunner() {
             </button>
 
             <div className="text-xs font-mono text-neutral-500 hidden sm:block">
-              Navegá con [←] y [→]
+              Navega con [←] y [→]
             </div>
 
             {paesCurrentIndex < totalQuestions - 1 ? (

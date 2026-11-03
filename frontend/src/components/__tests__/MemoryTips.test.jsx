@@ -68,7 +68,7 @@ describe("MemoryTips", () => {
 
   it("renders title, body, and technique badge for each tip on idle", () => {
     render(<MemoryTips phase="idle" />)
-    expect(screen.getByText("Agrupá en bloques")).toBeInTheDocument()
+    expect(screen.getByText("Agrupa en bloques")).toBeInTheDocument()
     expect(screen.getByText("Repaso")).toBeInTheDocument()
     expect(screen.getAllByText("Atención").length).toBeGreaterThanOrEqual(1)
     expect(screen.getAllByText("Codificación").length).toBeGreaterThanOrEqual(1)

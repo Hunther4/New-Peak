@@ -233,7 +233,7 @@ def consolidar_sesion(db: Session, session_id: int, elapsed_seconds: Optional[in
 def _generate_coaching(weak_spans: list, strong_spans: list, best_span: int, best_phase: int) -> str:
     """Generate a brief AI coaching message based on session performance."""
     if not weak_spans and not strong_spans:
-        return "Seguí practicando para mejorar tu memoria de trabajo."
+        return "Sigue practicando para mejorar tu memoria de trabajo."
 
     performance_summary = ""
     if weak_spans:
@@ -242,17 +242,17 @@ def _generate_coaching(weak_spans: list, strong_spans: list, best_span: int, bes
         performance_summary += f"Niveles dominados: {', '.join(strong_spans)}. "
 
     system_prompt = (
-        "Coach memoria de trabajo. Español rioplatense, cálido, directo. "
+        "Coach de memoria de trabajo. Español neutro, profesional y cálido. "
         "Máx 2-3 oraciones. Estrategia CONCRETA + ACCIONABLE.\n\n"
-        "✅ BUENO: 'Agrupá de a 3 números: recordás 3 bloques, no 9 sueltos. Probá en la próxima ronda.'\n"
-        "✅ BUENO: 'Cuando falles span 6, bajá a 5 y hacé 3 rondas perfectas antes de subir.'\n"
+        "✅ BUENO: 'Agrupa en bloques de 3 números: recuerdas 3 bloques, no 9 sueltos. Prueba en la próxima ronda.'\n"
+        "✅ BUENO: 'Cuando falles en nivel 6, baja a 5 y haz 3 rondas perfectas antes de subir.'\n"
         "❌ MALO: 'Tu memoria de trabajo es clave para aprender.'\n"
-        "❌ MALO: 'Seguí practicando con constancia.'\n\n"
+        "❌ MALO: 'Sigue practicando con constancia.'\n\n"
         "REGLAS:\n"
         "- NO expliques ciencia. NO des vueltas.\n"
         "- SÍ: qué HACER distinto mañana.\n"
-        "- Si no hay weak_spans: felicitá + proponé siguiente reto.\n"
-        "- Respondé SOLO el texto, sin formato adicional."
+        "- Si no hay weak_spans: felicita + propone siguiente reto.\n"
+        "- Responde SOLO el texto, sin formato adicional."
     )
     user_prompt = f"Mejor span: {best_span}. Fase: {best_phase}.\n" f"{performance_summary}\n" "Consejo accionable:"
 
@@ -271,8 +271,8 @@ def _generate_coaching(weak_spans: list, strong_spans: list, best_span: int, bes
 def _coaching_fallback(weak_spans: list) -> str:
     """Fallback coaching when AI is unavailable."""
     if weak_spans:
-        return "Noté que te costaron los niveles más altos. Seguí practicando con constancia — la memoria de trabajo se mejora con repetición."
-    return "¡Buen trabajo! Tu memoria de trabajo está funcionando bien. Seguí desafiándote con spans más altos."
+        return "Noté que te costaron los niveles más altos. Sigue practicando con constancia — la memoria de trabajo se mejora con repetición."
+    return "¡Buen trabajo! Tu memoria de trabajo está funcionando bien. Sigue desafiándote con niveles más altos."
 
 
 def log_round_strategy(db: Session, round_id: int, strategy_used: str) -> dict:

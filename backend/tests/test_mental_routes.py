@@ -172,7 +172,7 @@ def test_generate_challenge_no_sessions(mock_gen, client, auth_headers, skill_fa
     skill = skill_factory()
     resp = client.post("/api/mental/challenges/generate", json={"skill_id": skill.id}, headers=auth_headers)
     assert resp.status_code == 400
-    assert "necesitás al menos una sesión" in resp.json()["detail"].lower()
+    assert "necesitas al menos una sesión" in resp.json()["detail"].lower()
 
 
 @patch("api.routes.mental.generate_challenge")

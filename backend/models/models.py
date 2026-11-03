@@ -137,7 +137,7 @@ class UserProfile(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: int = Field(foreign_key="users.id", index=True)
     name: str = Field(max_length=100)
-    age: int = Field(ge=1, le=150)
+    age: int = Field(ge=1, le=99)
     avatar_url: Optional[str] = None
     #: Per-user FSRS v4.5 weight vector (JSON array of 17 floats). Defaults to
     #: the engine's canonical ``FSRS_W``; ``None``/invalid values fall back to

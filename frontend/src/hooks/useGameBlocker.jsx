@@ -80,7 +80,7 @@ export function ExitGamePrompt({ show, onConfirm, onCancel }) {
           ¿Salir del juego?
         </h3>
         <p className="text-sm text-neutral-400 mb-6">
-          Si salís ahora, perderás el progreso de esta sesión.
+          Si sales ahora, perderás el progreso de esta sesión.
         </p>
         <div className="flex items-center justify-end gap-3">
           <button

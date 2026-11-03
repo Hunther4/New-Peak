@@ -15,7 +15,7 @@ UPLOAD_DIR = Path(__file__).parent.parent.parent / "uploads" / "avatars"
 
 class ProfileCreate(BaseModel):
     name: str = Field(min_length=1, max_length=100)
-    age: int = Field(ge=1, le=150)
+    age: int = Field(ge=1, le=99)
 
 
 class ProfileRead(BaseModel):
@@ -34,7 +34,7 @@ def get_profile(request: Request):
     with Session(engine) as db:
         if principal and principal.user_id:
             profile = db.exec(select(UserProfile).where(UserProfile.user_id == principal.user_id)).first()
-            if profile:
+            if profile and profile.name and profile.name.strip().lower() != "invitado":
                 return profile
         return None
 
@@ -46,12 +46,13 @@ def create_or_update_profile(data: ProfileCreate, request: Request):
     with Session(engine) as db:
         if principal and principal.user_id:
             existing = db.exec(select(UserProfile).where(UserProfile.user_id == principal.user_id)).first()
+            clean_name = data.name.strip()
             if existing:
-                existing.name = data.name
+                existing.name = clean_name
                 existing.age = data.age
                 profile = existing
             else:
-                profile = UserProfile(user_id=principal.user_id, name=data.name, age=data.age)
+                profile = UserProfile(user_id=principal.user_id, name=clean_name, age=data.age)
                 db.add(profile)
             db.commit()
             db.refresh(profile)

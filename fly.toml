@@ -9,6 +9,7 @@ primary_region = 'gru'
   PORT = '8080'
   DATABASE_URL = 'sqlite:////data/peak.db'
   PYTHONUNBUFFERED = '1'
+  PEAK_BETA_MODE = '1'
 
 [http_service]
   internal_port = 8080

@@ -266,8 +266,8 @@ const SUBJECT_EXAMS_CONFIG = {
           <span>{paesError}</span>
           <button
             onClick={() => {
-              fetchPaesFsrsStatus()
-              fetchPaesSubtopics()
+              fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
+              fetchPaesSubtopics(1, paesActiveSubject || "M1")
             }}
             className="text-xs underline font-semibold text-rose-400 cursor-pointer"
           >
@@ -319,7 +319,7 @@ const SUBJECT_EXAMS_CONFIG = {
           <button
             onClick={() => {
               resetPaesSession()
-              fetchPaesFsrsStatus()
+              fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
             }}
             className="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
           >
@@ -559,7 +559,7 @@ const SUBJECT_EXAMS_CONFIG = {
                     Generador Paramétrico SymPy
                   </h3>
                   <p className="text-xs text-neutral-400 mt-0.5">
-                    Generá infinitas instancias algebraicas con distractores matemáticos controlados.
+                    Genera infinitas instancias algebraicas con distractores matemáticos controlados.
                   </p>
                 </div>
 
@@ -760,7 +760,7 @@ const SUBJECT_EXAMS_CONFIG = {
                 </div>
               ) : (
                 <div className="text-center py-12 text-neutral-500 text-xs">
-                  Hacé clic en &quot;Nueva Instancia&quot; para probar el motor algebraico SymPy.
+                  Haz clic en &quot;Nueva Instancia&quot; para probar el motor algebraico SymPy.
                 </div>
               )}
             </div>
