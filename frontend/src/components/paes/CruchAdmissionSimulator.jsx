@@ -92,6 +92,9 @@ export function getCareerUrl(career) {
   if (career.code && UDEC_CAREER_URLS[career.code]) {
     return UDEC_CAREER_URLS[career.code]
   }
+  if (career.code === "29028" || career.id === "ingenieria-civil-en-automatizacion-ubb") {
+    return "https://ubiobio.cl/admision/Todas_las_Carreras/9/Ingenieria_Civil_en_Automatizacion/"
+  }
 
   const shortCode = career.university_short
   if (shortCode && UNIVERSITY_ADMISSION_URLS[shortCode]) {

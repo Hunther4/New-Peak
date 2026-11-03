@@ -152,6 +152,15 @@ describe("CruchAdmissionSimulator Component", () => {
       expect(getCareerUrl({ code: "13080", university_short: "UdeC" })).toBe("https://admision.udec.cl/arquitectura/")
     })
 
+    it("resolves specific UBB Automatización official URL", () => {
+      expect(getCareerUrl({ code: "29028", university_short: "UBB" })).toBe(
+        "https://ubiobio.cl/admision/Todas_las_Carreras/9/Ingenieria_Civil_en_Automatizacion/"
+      )
+      expect(getCareerUrl({ id: "ingenieria-civil-en-automatizacion-ubb", university_short: "UBB" })).toBe(
+        "https://ubiobio.cl/admision/Todas_las_Carreras/9/Ingenieria_Civil_en_Automatizacion/"
+      )
+    })
+
     it("resolves intelligent fallback URLs for all CRUCH partner universities by shortcode", () => {
       expect(getCareerUrl({ university_short: "UdeC" })).toBe("https://admision.udec.cl/")
       expect(getCareerUrl({ university_short: "UTALCA" })).toBe("https://admision.utalca.cl/")

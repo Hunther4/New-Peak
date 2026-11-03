@@ -2893,7 +2893,7 @@ CRUCH_CAREERS: List[Dict[str, Any]] = [
         "area": "Ingeniería y Ciencias Exactas",
         "vacantes": 75,
         "is_popular": True,
-        "url": "https://admision.ubiobio.cl/carreras/ingenieria-civil-en-automatizacion/",
+        "url": "https://ubiobio.cl/admision/Todas_las_Carreras/9/Ingenieria_Civil_en_Automatizacion/",
         "weights": {
             "nem": 0.2,
             "ranking": 0.15,
