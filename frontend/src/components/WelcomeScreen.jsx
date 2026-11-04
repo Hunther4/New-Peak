@@ -50,7 +50,7 @@ function WelcomeScreen() {
               Peak <span className="text-green-400/80 font-semibold">Practice</span>
             </h1>
             <p className="text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium mt-1.5">
-              Práctica Deliberada 🎯
+              Práctica Deliberada 
             </p>
           </div>
 
@@ -60,7 +60,7 @@ function WelcomeScreen() {
           {/* Greeting */}
           <p className="text-neutral-300 text-base mb-2">Bienvenido a Peak</p>
           <p className="text-neutral-500 text-xs mb-8">
-            Contanos quién sos para empezar
+            Ingresa tus datos para comenzar
           </p>
 
           {/* Form */}
@@ -91,7 +91,7 @@ function WelcomeScreen() {
                 onChange={(e) => setAge(e.target.value)}
                 placeholder="Tu edad"
                 min={1}
-                max={150}
+                max={99}
                 required
                 className="input"
                 disabled={saving}
@@ -113,7 +113,7 @@ function WelcomeScreen() {
                   Guardando...
                 </span>
               ) : (
-                "Comenzar 🚀"
+                "Comenzar "
               )}
             </button>
           </form>

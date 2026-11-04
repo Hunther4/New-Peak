@@ -124,7 +124,7 @@ export default function GuidedPractice({ skillId, onClose }) {
     <GameShell
       title="Práctica guiada"
       subtitle={skillName}
-      icon="🧠"
+      icon=""
       accentColor="green"
       onBack={onClose}
       error={error}
@@ -136,7 +136,7 @@ export default function GuidedPractice({ skillId, onClose }) {
           {phase === "idle" && (
             <div className="card p-8 md:p-10">
               <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-2xl mx-auto mb-6">
-                🧠
+                
               </div>
 
               <h2 className="text-2xl font-black text-white text-center mb-1">
@@ -185,7 +185,7 @@ export default function GuidedPractice({ skillId, onClose }) {
               </div>
 
               <p className="text-xs text-neutral-600 text-center mb-8 leading-relaxed">
-                Sin límite — practicá hasta que sientas que aprendiste algo
+                Sin límite — practica hasta que sientas que aprendiste algo
               </p>
 
               <button onClick={handleStart} className="btn btn-primary text-base w-full py-3">
@@ -223,7 +223,7 @@ export default function GuidedPractice({ skillId, onClose }) {
               )}
 
               <p className="text-xs text-neutral-600 mb-8">
-                Concentrate en lo que estás haciendo
+                Concéntrate en lo que estás haciendo
               </p>
 
               <div className="flex gap-3">
@@ -252,7 +252,7 @@ export default function GuidedPractice({ skillId, onClose }) {
           {phase === "finished" && (
             <div className="card p-8 md:p-10 text-center">
               <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-2xl mx-auto mb-6">
-                🏆
+                
               </div>
 
               <h2 className="text-2xl font-black text-white mb-8">

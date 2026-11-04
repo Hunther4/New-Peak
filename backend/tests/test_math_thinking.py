@@ -31,7 +31,7 @@ def _make_mock_problem(
     return SimpleNamespace(
         question=question,
         correct_answer=correct_answer,
-        solution_steps=solution_steps or ["Sumá 5 y 3 = 8."],
+        solution_steps=solution_steps or ["Suma 5 y 3 = 8."],
     )
 
 
@@ -306,7 +306,7 @@ class TestCalculateStaircase:
         )
         assert "Incorrecto" in result["message"]
         assert "1/3" not in result["message"]  # no counter shown
-        assert "Seguí" in result["message"] or "intentando" in result["message"]
+        assert "Sigue" in result["message"] or "intentando" in result["message"]
 
     def test_three_failures_with_no_correct_never_level_down(self):
         """GIVEN cc=0 + 3 incorrect WHEN staircase THEN never level down.
@@ -342,13 +342,13 @@ class TestGenerateProblem:
             return _make_mock_problem(
                 question="¿Cuánto es 5 + 3?",
                 correct_answer=8.0,
-                solution_steps=["Sumá 5 y 3 = 8."],
+                solution_steps=["Suma 5 y 3 = 8."],
             )
 
         result = generate_problem(5, MINIMAL_CONFIG, mock_router)
         assert result["question"] == "¿Cuánto es 5 + 3?"
         assert result["correct_answer"] == 8.0
-        assert result["solution_steps"] == ["Sumá 5 y 3 = 8."]
+        assert result["solution_steps"] == ["Suma 5 y 3 = 8."]
 
     def test_prompt_construction(self):
         """Prompts include correct level, label, and topics."""
@@ -473,7 +473,7 @@ class TestGenerateProblem:
         assert call_count == 3
         assert result["question"] == "¿Cuánto es 2 + 2?"
         assert result["correct_answer"] == 4.0
-        assert result["solution_steps"] == ["Sumá 2 + 2 = 4."]
+        assert result["solution_steps"] == ["Suma 2 + 2 = 4."]
 
     def test_retry_prompt_includes_error_context(self):
         """Retry prompt mentions the previous error."""
@@ -556,7 +556,7 @@ def mock_math_thinking_ai():
         mock_gen.return_value = {
             "question": "¿Cuánto es 5 + 3?",
             "correct_answer": 8.0,
-            "solution_steps": ["Sumá 5 y 3 = 8."],
+            "solution_steps": ["Suma 5 y 3 = 8."],
         }
         mock_config.return_value = {"difficulties": {}}
         yield
@@ -687,7 +687,7 @@ class TestSubmitAttempt:
         mock_problem = {
             "question": "¿Cuánto es 5 + 3?",
             "correct_answer": 8.0,
-            "solution_steps": ["Sumá 5 y 3 = 8."],
+            "solution_steps": ["Suma 5 y 3 = 8."],
             "source": "Test mock",
         }
 
@@ -745,7 +745,7 @@ class TestSubmitAttempt:
         mock_problem = {
             "question": "¿Cuánto es 5 + 3?",
             "correct_answer": 8.0,
-            "solution_steps": ["Sumá 5 y 3 = 8."],
+            "solution_steps": ["Suma 5 y 3 = 8."],
             "source": "Test mock",
         }
 

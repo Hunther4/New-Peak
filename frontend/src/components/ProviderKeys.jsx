@@ -3,9 +3,9 @@ import { api } from "../api/client"
 import { useToast } from "./ui/Toast"
 
 const PROVIDERS = [
-  { id: "groq", label: "Groq", icon: "⚡" },
-  { id: "openrouter", label: "OpenRouter", icon: "🌐" },
-  { id: "generalcompute", label: "General Compute", icon: "⚙" },
+  { id: "groq", label: "Groq", icon: "" },
+  { id: "openrouter", label: "OpenRouter", icon: "" },
+  { id: "generalcompute", label: "General Compute", icon: "" },
 ]
 
 export default function ProviderKeys() {

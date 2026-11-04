@@ -56,7 +56,7 @@ def audit_session(session_data: dict, domain: str, onboarding_mode: bool) -> Aud
             real_citations.append(citation)
             rag_lines.append(f"Fragmento de referencia:\n{chunk['text']}\n---\nFuente: {chunk['book_title']}")
         rag_context_block = (
-            "\n\nCONTEXTO DE LIBROS INDEXADOS (usá estos fragmentos para tus book_citations):\n"
+            "\n\nCONTEXTO DE LIBROS INDEXADOS (usa estos fragmentos para tus book_citations):\n"
             + "\n\n".join(rag_lines)
             + "\n"
         )
@@ -74,13 +74,13 @@ CRITERIOS — La sesión es DELIBERADA solo si TODOS se cumplen:
 DOMINIO: """
         + domain
         + """
-- Técnico (código, música, deporte): exigi tecnicismo en error/corrección
+- Técnico (código, música, deporte): exige tecnicismo en error/corrección
 - Blando (escritura, arte, liderazgo): acepta error conceptual ("enfoqué la audiencia errónea")
 
 REGLAS:
 - Si fallan 2+ criterios → was_deliberate: false, score ≤ 30
 - Sé implacable: vaguedad = no deliberada
-- NO inventes book_citations. Si no hay RAG, devolve []."""
+- NO inventes book_citations. Si no hay RAG, devuelve []."""
         + rag_context_block
     )
 
@@ -97,7 +97,7 @@ REGLAS:
 - Hipótesis: {sanitize_prompt(session_data.get('hypothesis_tomorrow', ''))}
 </user_session_log>
 
-Respondé SOLO el JSON."""
+Responde SOLO el JSON."""
 
     from core.router import get_ai_mode
 

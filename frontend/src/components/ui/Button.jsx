@@ -2,11 +2,15 @@ import { memo } from "react"
 
 const VARIANTS = {
   primary:
-    "bg-gradient-to-r from-green-400 to-emerald-500 text-black font-bold shadow-lg shadow-green-500/25 hover:shadow-green-500/40 hover:from-green-300 hover:to-emerald-400 active:scale-[0.98]",
+    "bg-[#525252] text-white font-bold hover:bg-[#4a4a4a] active:bg-[#414141]",
+  secondary:
+    "bg-[#2fc2c2] text-[#142626] font-bold hover:bg-[#28a8a8] active:bg-[#208d8d]",
+  tertiary:
+    "bg-[#ebf5e6] text-[#2a3a2a] font-bold hover:bg-[#dbe8d0]",
   ghost:
     "bg-white/[0.04] text-neutral-300 border border-white/[0.08] hover:bg-white/[0.08] hover:text-white hover:border-white/[0.2]",
   danger:
-    "bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30 hover:text-red-300",
+    "bg-red-500/10 text-red-300 border border-red-500/25 hover:bg-red-500/20 hover:text-red-200",
   subtle:
     "bg-transparent text-neutral-500 hover:text-neutral-300 hover:bg-white/[0.04]",
 }

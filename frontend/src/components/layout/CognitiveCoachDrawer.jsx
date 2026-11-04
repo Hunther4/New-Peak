@@ -53,7 +53,7 @@ export default function CognitiveCoachDrawer() {
       const sub = paesActiveSubject || paesActiveQuestion?.subject || "M1"
       const topic = paesActiveQuestion?.subtopic || paesSubtopic?.name || "Ejercitación"
       return {
-        icon: "📐",
+        icon: "",
         label: `PAES ${sub} · ${topic}`,
         category: "paes",
       }
@@ -64,20 +64,20 @@ export default function CognitiveCoachDrawer() {
       else if (mathSession) gameName = `Math Thinking (Nvl ${mathSession.difficulty_level || 1})`
       else if (iqSession) gameName = `IQ Matrices (Nvl ${iqSession.difficulty_level || 1})`
       return {
-        icon: "🧠",
+        icon: "",
         label: gameName,
         category: "gym",
       }
     }
     if (path.includes("/dashboard") || path === "/") {
       return {
-        icon: "📊",
+        icon: "",
         label: "Centro de Mando",
         category: "dashboard",
       }
     }
     return {
-      icon: "💡",
+      icon: "",
       label: "Mentor Socrático",
       category: "general",
     }
@@ -189,7 +189,7 @@ export default function CognitiveCoachDrawer() {
           {/* Socratic Zero-Spoilers Notice */}
           <div className="px-5 py-2 bg-emerald-950/20 border-b border-emerald-500/10 flex items-center justify-between text-[11px] text-emerald-300/80">
             <span className="flex items-center gap-1.5">
-              <span>🛡️</span>
+              
               <span>Método Socrático · Sin spoilers ni respuestas directas</span>
             </span>
             <span className="text-[10px] font-mono text-neutral-500">Esc para salir</span>
@@ -200,7 +200,7 @@ export default function CognitiveCoachDrawer() {
             {coachMessages.length === 0 ? (
               <div className="h-full flex flex-col justify-center items-center text-center px-4 py-8">
                 <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-3xl mb-4 shadow-inner">
-                  🧠
+                  
                 </div>
                 <h4 className="text-sm font-semibold text-neutral-200 mb-1.5">
                   Instructor Cognitivo Activo
@@ -258,7 +258,7 @@ export default function CognitiveCoachDrawer() {
                     {/* Metadata chips from Coach */}
                     {msg.concept_highlight && (
                       <div className="mt-2.5 pt-2 border-t border-white/[0.06] flex items-center gap-1.5 text-[11px] text-amber-300 font-mono">
-                        <span className="shrink-0">🎯</span>
+                        <span className="shrink-0"></span>
                         <span className="font-semibold">Concepto clave:</span>
                         <span className="truncate">{msg.concept_highlight}</span>
                       </div>
@@ -266,7 +266,7 @@ export default function CognitiveCoachDrawer() {
 
                     {msg.suggested_action && (
                       <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-emerald-300 font-mono">
-                        <span className="shrink-0">⚡</span>
+                        <span className="shrink-0"></span>
                         <span className="font-semibold">Próximo paso:</span>
                         <span className="truncate">{msg.suggested_action}</span>
                       </div>
@@ -274,7 +274,7 @@ export default function CognitiveCoachDrawer() {
 
                     {msg.consulted_document && (
                       <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-cyan-300 font-mono">
-                        <span className="shrink-0">📖</span>
+                        <span className="shrink-0"></span>
                         <span className="font-semibold">Fuente DEMRE:</span>
                         <span className="truncate">{msg.consulted_document}</span>
                       </div>
@@ -298,7 +298,7 @@ export default function CognitiveCoachDrawer() {
             {/* Error banner */}
             {coachError && (
               <div className="p-3 bg-red-950/30 border border-red-500/30 rounded-xl text-xs text-red-300 flex items-start gap-2">
-                <span className="shrink-0">⚠️</span>
+                <span className="shrink-0"></span>
                 <span>{coachError}</span>
               </div>
             )}
@@ -309,7 +309,7 @@ export default function CognitiveCoachDrawer() {
           {/* Quick suggestions when history exists */}
           {coachMessages.length > 0 && !coachLoading && (
             <div className="px-5 py-2 border-t border-white/[0.04] bg-neutral-950/40 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-              <span className="text-[10px] text-neutral-500 shrink-0">💡 Pistas:</span>
+              <span className="text-[10px] text-neutral-500 shrink-0"> Pistas:</span>
               {quickSuggestions.slice(0, 2).map((sug, idx) => (
                 <button
                   key={idx}
@@ -339,7 +339,7 @@ export default function CognitiveCoachDrawer() {
                   }}
                   rows={2}
                   disabled={coachLoading}
-                  placeholder="Pregúntale al coach (ej: ¿Qué propiedad uso acá?)..."
+                  placeholder="Pregúntale al coach (ej: ¿Qué propiedad uso aquí?)..."
                   className="w-full bg-neutral-950 border border-white/[0.1] rounded-xl px-3.5 py-2.5 pr-12 text-xs text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 resize-none transition-all disabled:opacity-50"
                 />
                 <button

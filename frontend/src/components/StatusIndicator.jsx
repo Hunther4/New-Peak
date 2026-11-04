@@ -117,7 +117,7 @@ export const StatusIndicator = ({ compact = false }) => {
       <div className="flex items-center gap-2 cursor-help" title={status.ai === 'local' ? 'LM Studio (Tu PC)' : 'Groq/OpenRouter'}>
         <StatusDot status={status.ai} />
         <span className={`text-[10px] font-semibold tracking-wider uppercase transition-colors duration-300 ${status.ai === 'error' ? 'text-red-400' : 'text-neutral-400'}`}>
-          {status.ai === 'local' ? 'GPU 🖥' : status.ai === 'ok' ? 'Cloud ☁' : status.ai === 'checking' ? 'Checking...' : 'Offline'}
+          {status.ai === 'local' ? 'GPU ' : status.ai === 'ok' ? 'Cloud ' : status.ai === 'checking' ? 'Checking...' : 'Offline'}
         </span>
       </div>
     </div>

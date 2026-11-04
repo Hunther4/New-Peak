@@ -389,7 +389,7 @@ function DualNBackGame({ onClose }) {
       }))
 
       if (trials.length === 0) {
-        setError("No se registraron trials — jugá al menos 1 ronda")
+        setError("No se registraron intentos — juega al menos 1 ronda")
         setSubmitting(false)
         return
       }
@@ -494,7 +494,7 @@ function DualNBackGame({ onClose }) {
     <GameShell
       title="Dual N-Back"
       subtitle="Memoria de trabajo — Jaeggi et al. 2008"
-      icon="🧠"
+      icon=""
       accentColor="green"
       sessionTimer={phase !== "setup" ? sessionTimer.formatTime() : null}
       onBack={handleBack}
@@ -514,12 +514,12 @@ function DualNBackGame({ onClose }) {
           <div className="space-y-6">
             <div className="card p-8 text-center">
               <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-2xl mx-auto mb-6">
-                🧠
+                
               </div>
               <h2 className="text-2xl font-black text-white mb-2">Dual N-Back</h2>
               <p className="text-sm text-neutral-400 mb-6 max-w-md mx-auto leading-relaxed">
-                Entrenamiento de memoria de trabajo. Mirá la grilla — una celda se ilumina y suena una letra.
-                Recordá si la <strong className="text-white">posición</strong> o la <strong className="text-white">letra</strong> son iguales a las de hace N intentos atrás.
+                Entrenamiento de memoria de trabajo. Observa la cuadrícula — una celda se ilumina y suena una letra.
+                Recuerda si la <strong className="text-white">posición</strong> o la <strong className="text-white">letra</strong> son iguales a las de hace N intentos atrás.
               </p>
 
               {/* Ejemplo visual paso a paso */}
@@ -536,7 +536,7 @@ function DualNBackGame({ onClose }) {
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-yellow-400 font-mono font-bold text-xs mt-0.5">T2</span>
-                    <span>Ahora preguntás: ¿La posición o letra de T2 es igual a T1? → No. No presionás nada.</span>
+                    <span>Ahora te preguntas: ¿La posición o letra de T2 es igual a T1? → No. No presionas nada.</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-green-400 font-mono font-bold text-xs mt-0.5">T3</span>
@@ -544,10 +544,10 @@ function DualNBackGame({ onClose }) {
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-yellow-400 font-mono font-bold text-xs mt-0.5">T3</span>
-                    <span>¿T3 = T2? → No. ¿T3 = T1? → <strong className="text-green-400">¡Sí! Misma posición Y misma letra.</strong> → Presionás <kbd className="text-green-400 bg-green-500/10 px-1.5 py-0.5 rounded font-mono font-bold">D</kbd></span>
+                    <span>¿T3 = T2? → No. ¿T3 = T1? → <strong className="text-green-400">¡Sí! Misma posición Y misma letra.</strong> → Presionas <kbd className="text-green-400 bg-green-500/10 px-1.5 py-0.5 rounded font-mono font-bold">D</kbd></span>
                   </div>
                 </div>
-                <p className="text-xs text-neutral-500 mt-3 italic">Con N=2, comparás con hace 2 intentos. Con N=3, con hace 3. Eso es lo que hace difícil.</p>
+                <p className="text-xs text-neutral-500 mt-3 italic">Con N=2, comparas con hace 2 intentos. Con N=3, con hace 3. Eso es lo que hace difícil.</p>
               </div>
 
               <div className="flex items-center justify-center gap-6 mb-8 text-sm">
@@ -620,7 +620,7 @@ function DualNBackGame({ onClose }) {
             {isPreview && (
               <div className="text-center">
                 <span className="text-sm text-yellow-400 font-semibold bg-yellow-500/10 px-4 py-2 rounded-full">
-                  👀 Memorizá esta posición — el juego empieza después
+                   Memoriza esta posición — el juego empieza después
                 </span>
               </div>
             )}
@@ -669,7 +669,7 @@ function DualNBackGame({ onClose }) {
                     ? "bg-black/20 text-black"
                     : "bg-green-500/10 text-green-400"
                 }`}>A</kbd>
-                <span className="font-bold text-xs sm:text-sm">🎯 Posición</span>
+                <span className="font-bold text-xs sm:text-sm"> Posición</span>
               </button>
 
               <button
@@ -687,7 +687,7 @@ function DualNBackGame({ onClose }) {
                     ? "bg-black/20 text-black"
                     : "bg-green-500/10 text-green-400"
                 }`}>W / L</kbd>
-                <span className="font-bold text-xs sm:text-sm">🔊 Letra</span>
+                <span className="font-bold text-xs sm:text-sm"> Letra</span>
               </button>
 
               <button
@@ -705,7 +705,7 @@ function DualNBackGame({ onClose }) {
                     ? "bg-black/20 text-black"
                     : "bg-green-500/10 text-green-400"
                 }`}>D / Espacio</kbd>
-                <span className="font-bold text-xs sm:text-sm">⚡ Ambos</span>
+                <span className="font-bold text-xs sm:text-sm"> Ambos</span>
               </button>
             </div>
 
@@ -727,7 +727,7 @@ function DualNBackGame({ onClose }) {
                     >
                       <span className="text-neutral-500 font-mono">T{r.trial}</span>
                       <span className={`font-bold ${r.correct ? "text-green-400" : "text-red-400"}`}>
-                        {r.correct ? "✓" : "✗"} {r.key !== "None" ? r.key : "—"}
+                        {r.correct ? "" : ""} {r.key !== "None" ? r.key : "—"}
                       </span>
                       <span className="text-neutral-600">
                         {r.visTarget ? "V" : "·"}{r.audTarget ? "A" : "·"}
@@ -741,11 +741,11 @@ function DualNBackGame({ onClose }) {
             {/* Real-time hit counters */}
             <div className="grid grid-cols-2 gap-4">
               <div className="card p-4 text-center">
-                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">🎯 Visual</p>
+                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1"> Visual</p>
                 <p className="text-lg font-bold text-white">{visHitCount}/{visTargetCount} hits</p>
               </div>
               <div className="card p-4 text-center">
-                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">🔊 Auditivo</p>
+                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1"> Auditivo</p>
                 <p className="text-lg font-bold text-white">{audHitCount}/{audTargetCount} hits</p>
               </div>
             </div>
@@ -784,13 +784,13 @@ function DualNBackGame({ onClose }) {
                 <p className="text-3xl font-black text-white">{results.avgReactionTime} <span className="text-sm text-neutral-500 font-normal">ms</span></p>
               </div>
               <div className="card p-5 text-center">
-                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">🎯 Visual</p>
+                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1"> Visual</p>
                 <p className={`text-3xl font-black ${results.visAccuracy >= 80 ? "text-green-400" : "text-yellow-400"}`}>
                   {results.visAccuracy}%
                 </p>
               </div>
               <div className="card p-5 text-center">
-                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1">🔊 Auditivo</p>
+                <p className="text-xs text-neutral-500 uppercase tracking-wider mb-1"> Auditivo</p>
                 <p className={`text-3xl font-black ${results.audAccuracy >= 80 ? "text-green-400" : "text-yellow-400"}`}>
                   {results.audAccuracy}%
                 </p>
@@ -840,7 +840,7 @@ function DualNBackGame({ onClose }) {
                 {results.nextN > results.n
                   ? "↑ Subiste de nivel!"
                   : results.nextN < results.n
-                    ? "↓ Bajaste de nivel — seguí practicando"
+                    ? "↓ Bajaste de nivel — sigue practicando"
                     : "— Mantuviste el nivel"}
               </p>
             </div>

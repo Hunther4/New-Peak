@@ -18,7 +18,7 @@ export default function ChallengeList() {
 
   const handleGenerate = async () => {
     if (!skillId) {
-      toast.warning('Seleccioná una skill primero.');
+      toast.warning('Selecciona una habilidad primero.');
       return;
     }
     try {
@@ -57,7 +57,7 @@ export default function ChallengeList() {
               Generando...
             </>
           ) : (
-            <>🎯 Nuevo</>
+            <> Nuevo</>
           )}
           {/* Hover glow effect */}
           <div className="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -66,7 +66,7 @@ export default function ChallengeList() {
 
       {challenges.length === 0 ? (
         <div className="text-center py-6">
-          <div className="w-12 h-12 rounded-xl bg-neutral-800/50 flex items-center justify-center text-xl mx-auto mb-3">🎯</div>
+          <div className="w-12 h-12 rounded-xl bg-neutral-800/50 flex items-center justify-center text-xl mx-auto mb-3"></div>
           <p className="text-xs text-neutral-500 leading-relaxed">
             La IA genera desafíos concretos después de cada sesión deliberada.
           </p>
@@ -123,7 +123,7 @@ export default function ChallengeList() {
               <div className="mt-3 space-y-2">
                 {completedChallenges.map((c) => (
                   <div key={c.id} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.01] border border-white/[0.03] hover:border-green-500/10 hover:bg-white/[0.02] transition-all duration-200">
-                    <span className="w-6 h-6 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500 text-[10px] shrink-0 mt-0.5">✓</span>
+                    <span className="w-6 h-6 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500 text-[10px] shrink-0 mt-0.5"></span>
                     <div>
                       <p className="text-xs text-neutral-600 line-through">{c.description}</p>
                       <p className="text-[10px] text-neutral-800 mt-0.5 font-mono">

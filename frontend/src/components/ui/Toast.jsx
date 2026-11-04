@@ -36,7 +36,7 @@ export function useToast() {
 function ToastContainer({ toasts }) {
   if (toasts.length === 0) return null
 
-  const icons = { success: "✓", error: "✕", warning: "⚠", info: "ℹ" }
+  const icons = { success: "", error: "", warning: "", info: "ℹ" }
   const colors = {
     success: "border-green-500/30 bg-green-500/10",
     error: "border-red-500/30 bg-red-500/10",

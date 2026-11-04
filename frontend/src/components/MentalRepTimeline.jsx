@@ -14,7 +14,7 @@ export default function MentalRepTimeline() {
 
   const handleGenerate = async () => {
     if (!skillId) {
-      toast.warning('Seleccioná una skill primero.');
+      toast.warning('Selecciona una habilidad primero.');
       return;
     }
     try {
@@ -58,16 +58,16 @@ export default function MentalRepTimeline() {
                 Generando...
               </>
             ) : (
-              <>🧠 Nueva</>
+              <> Nueva</>
             )}
           </button>
         </div>
 
         {mentalReps.length === 0 ? (
           <div className="text-center py-6">
-            <div className="w-12 h-12 rounded-xl bg-neutral-800/50 flex items-center justify-center text-xl mx-auto mb-3">🧠</div>
+            <div className="w-12 h-12 rounded-xl bg-neutral-800/50 flex items-center justify-center text-xl mx-auto mb-3"></div>
             <p className="text-xs text-neutral-500 leading-relaxed">
-              Acumulá sesiones para que la IA detecte cambios en tu comprensión.
+              Acumula sesiones para que la IA detecte cambios en tu comprensión.
             </p>
           </div>
         ) : (
@@ -134,9 +134,9 @@ export default function MentalRepTimeline() {
 
             <div className="flex items-center gap-2">
               {pendingRep.is_real_shift ? (
-                <span className="badge badge-deliberate">✅ Cambio real detectado</span>
+                <span className="badge badge-deliberate"> Cambio real detectado</span>
               ) : (
-                <span className="badge bg-yellow-500/10 text-yellow-400 border-yellow-500/20">⚠ Cambio menor</span>
+                <span className="badge bg-yellow-500/10 text-yellow-400 border-yellow-500/20"> Cambio menor</span>
               )}
             </div>
 

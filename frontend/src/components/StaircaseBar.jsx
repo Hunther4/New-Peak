@@ -15,7 +15,7 @@ export function StaircaseBar({ correct, incorrect }) {
   return (
     <div className="flex items-center justify-center gap-4 text-xs" data-testid="staircase-bar">
       <div className="flex items-center gap-1.5">
-        <span className="text-green-400/70" aria-hidden="true">✓</span>
+        <span className="text-green-400/70" aria-hidden="true"></span>
         <div className="flex gap-0.5" role="progressbar" aria-valuenow={correct} aria-valuemax={correctThreshold} aria-label={`Aciertos consecutivos: ${correct} de ${correctThreshold}`}>
           {Array.from({ length: correctThreshold }, (_, i) => (
             <div
@@ -36,7 +36,7 @@ export function StaircaseBar({ correct, incorrect }) {
       <span className="text-neutral-700" aria-hidden="true">|</span>
 
       <div className="flex items-center gap-1.5">
-        <span className="text-red-400/70" aria-hidden="true">✕</span>
+        <span className="text-red-400/70" aria-hidden="true"></span>
         <div className="flex gap-0.5" role="progressbar" aria-valuenow={incorrect} aria-valuemax={incorrectThreshold} aria-label={`Errores consecutivos: ${incorrect} de ${incorrectThreshold}`}>
           {Array.from({ length: incorrectThreshold }, (_, i) => (
             <div

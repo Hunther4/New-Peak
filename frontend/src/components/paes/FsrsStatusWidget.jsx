@@ -12,26 +12,26 @@ export function FsrsStatusWidget({ fsrsStatus, onReviewDueClick, onReviewSubtopi
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
-              Motor FSRS v4.5
+            <span className="text-xs font-bold uppercase tracking-wider text-[#2fc2c2] bg-[#2fc2c2]/10 px-2.5 py-1 rounded-full border border-[#2fc2c2]/20">
+              Repasos
             </span>
             <span className="text-xs text-neutral-400">
-              Amortiguación cognitiva activa (Máx {fsrsStatus.review_capping_limit || 5}/día)
+              Máximo {fsrsStatus.review_capping_limit || 5} repaso(s) al día
             </span>
           </div>
           <h3 className="text-lg font-bold text-white">
-            Estado de Memoria & Retención Espaciada {fsrsStatus.subject_code ? `(${fsrsStatus.subject_code})` : ""}
+            Tu memoria y tus repasos {fsrsStatus.subject_code ? `(${fsrsStatus.subject_code})` : ""}
           </h3>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="bg-neutral-800/80 border border-white/[0.06] px-4 py-2 rounded-xl text-center">
             <div className="text-2xl font-black text-amber-400">{dueCount}</div>
-            <div className="text-[11px] font-medium text-neutral-400">Repasos pendientes</div>
+            <div className="text-[11px] font-medium text-neutral-400">Por repasar</div>
           </div>
           <div className="bg-neutral-800/80 border border-white/[0.06] px-4 py-2 rounded-xl text-center">
-            <div className="text-2xl font-black text-emerald-400">{cappedCount}</div>
-            <div className="text-[11px] font-medium text-neutral-400">Objetivo hoy</div>
+            <div className="text-2xl font-black text-[#2fc2c2]">{cappedCount}</div>
+            <div className="text-[11px] font-medium text-neutral-400">Objetivo de hoy</div>
           </div>
         </div>
       </div>
@@ -40,14 +40,14 @@ export function FsrsStatusWidget({ fsrsStatus, onReviewDueClick, onReviewSubtopi
         <div className="mt-4 pt-4 border-t border-white/[0.06] space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <span className="text-xs text-neutral-300 font-medium">
-              Subtemas prioritarios para reforzar hoy según curva de olvido:
+              Subtemas para reforzar hoy:
             </span>
             {onReviewDueClick && (
               <button
                 onClick={onReviewDueClick}
-                className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-black font-extrabold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+                className="btn btn-secondary px-3.5 py-1.5 text-xs"
               >
-                ⚡ Repasar Cola FSRS ({cappedCount})
+                 Repasar ahora ({cappedCount})
               </button>
             )}
           </div>
@@ -61,11 +61,11 @@ export function FsrsStatusWidget({ fsrsStatus, onReviewDueClick, onReviewSubtopi
                 <div className="min-w-0">
                   <div className="font-bold text-white truncate">{item.subtopic_name}</div>
                   <div className="text-[10px] text-neutral-400 font-mono flex items-center gap-2 mt-0.5">
-                    <span className="text-emerald-400">
-                      R(t): {Math.round((item.projected_retention || item.projected_r || 0.8) * 100)}%
+                    <span className="text-[#2fc2c2]">
+                      Retención: {Math.round((item.projected_retention || item.projected_r || 0.8) * 100)}%
                     </span>
                     <span>•</span>
-                    <span>Caja Leitner: {item.leitner_box || 1}</span>
+                    <span>Nivel: {item.leitner_box || 1}</span>
                   </div>
                 </div>
                 {onReviewSubtopic && item.slug && (
@@ -73,7 +73,7 @@ export function FsrsStatusWidget({ fsrsStatus, onReviewDueClick, onReviewSubtopi
                     onClick={() => onReviewSubtopic(item.slug)}
                     className="shrink-0 px-2.5 py-1 bg-white/[0.08] hover:bg-white text-white hover:text-neutral-950 font-bold text-[11px] rounded-lg transition-all cursor-pointer"
                   >
-                    Repasar ➔
+                    Repasar 
                   </button>
                 )}
               </div>

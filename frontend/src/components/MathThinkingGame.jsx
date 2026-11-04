@@ -193,32 +193,32 @@ function MathThinkingGame({ skillId, onClose }) {
           <div className="text-center" style={{ animation: "fadeInUp 0.6s ease-out both" }}>
             <div className="card p-10 md:p-12">
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-400/20 to-indigo-600/20 border border-blue-500/20 flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg shadow-blue-500/10">
-                🧮
+                
               </div>
 
               <h2 className="text-2xl md:text-3xl font-black text-white mb-3">
                 Pensamiento Matemático
               </h2>
               <p className="text-neutral-400 text-sm leading-relaxed max-w-md mx-auto mb-8">
-                Resolvé problemas matemáticos generados por IA adaptados a tu nivel actual.
-                Cada acierto te acerca al siguiente nivel. ¿Hasta dónde podés llegar?
+                Resuelve problemas matemáticos generados por IA adaptados a tu nivel actual.
+                Cada acierto te acerca al siguiente nivel. ¿Hasta dónde puedes llegar?
               </p>
 
               <div className="flex flex-col gap-3 max-w-xs mx-auto mb-8">
                 <div className="flex items-center gap-3 bg-white/[0.03] rounded-xl px-4 py-3 border border-white/[0.06]">
-                  <span className="text-lg">📐</span>
+                  <span className="text-lg"></span>
                   <span className="text-xs text-neutral-400 text-left">
                     Problemas según tu nivel actual
                   </span>
                 </div>
                 <div className="flex items-center gap-3 bg-white/[0.03] rounded-xl px-4 py-3 border border-white/[0.06]">
-                  <span className="text-lg">📈</span>
+                  <span className="text-lg"></span>
                   <span className="text-xs text-neutral-400 text-left">
                     Dificultad adaptativa del 1 al 10
                   </span>
                 </div>
                 <div className="flex items-center gap-3 bg-white/[0.03] rounded-xl px-4 py-3 border border-white/[0.06]">
-                  <span className="text-lg">💡</span>
+                  <span className="text-lg"></span>
                   <span className="text-xs text-neutral-400 text-left">
                     Pistas y solución paso a paso en cada problema
                   </span>
@@ -359,13 +359,13 @@ function MathThinkingGame({ skillId, onClose }) {
                         Generando pista...
                       </span>
                     ) : (
-                      "💡 Necesitás una pista"
+                      " ¿Necesitas una pista?"
                     )}
                   </button>
                 )}
                 {hint && (
                   <div className="bg-yellow-500/[0.06] border border-yellow-500/20 rounded-xl p-4 mt-2 text-left">
-                    <p className="text-xs text-yellow-400 font-semibold mb-1">💡 Pista</p>
+                    <p className="text-xs text-yellow-400 font-semibold mb-1"> Pista</p>
                     <p className="text-sm text-neutral-300 leading-relaxed">{hint}</p>
                   </div>
                 )}
@@ -413,7 +413,7 @@ function MathThinkingGame({ skillId, onClose }) {
                       : "bg-red-500/[0.06] border-red-500/30"
                   }`}
                 >
-                  <span className="text-3xl">{isCorrect ? "✅" : "❌"}</span>
+                  <span className="text-3xl">{isCorrect ? "" : ""}</span>
                   <div className="text-left">
                     <p
                       className={`text-lg font-bold ${
@@ -425,7 +425,7 @@ function MathThinkingGame({ skillId, onClose }) {
                     <p className="text-xs text-neutral-500">
                       {isCorrect
                         ? "Tu respuesta es correcta"
-                        : "Revisá la solución paso a paso"}
+                        : "Revisa la solución paso a paso"}
                     </p>
                   </div>
                 </div>
@@ -439,7 +439,7 @@ function MathThinkingGame({ skillId, onClose }) {
                     className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
                   >
                     <h4 className="text-sm font-bold text-neutral-300 flex items-center gap-2">
-                      <span>📝</span> Solución paso a paso
+                      Solución paso a paso
                     </h4>
                     <span className={`text-xs text-neutral-500 transition-transform ${showSteps ? "rotate-180" : ""}`}>
                       ▼
@@ -486,7 +486,7 @@ function MathThinkingGame({ skillId, onClose }) {
                       isCorrect ? "text-green-400" : "text-red-400"
                     }`}
                   >
-                    {isCorrect ? "✓" : "✕"}
+                    {isCorrect ? "" : ""}
                   </span>
                   <span className="text-[10px] text-neutral-500 uppercase">
                     {isCorrect ? "correcto" : "incorrecto"}
@@ -525,14 +525,14 @@ function MathThinkingGame({ skillId, onClose }) {
           <div className="text-center" style={{ animation: "fadeInUp 0.6s ease-out both" }}>
             <div className="card p-10 md:p-12">
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-400/20 to-indigo-600/20 border border-blue-500/20 flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg shadow-blue-500/10">
-                🏆
+                
               </div>
 
               <h2 className="text-2xl md:text-3xl font-black text-white mb-3">
                 ¡Sesión completada!
               </h2>
               <p className="text-neutral-400 text-sm mb-8">
-                Seguí practicando para mejorar tu nivel de pensamiento matemático.
+                Sigue practicando para mejorar tu nivel de pensamiento matemático.
               </p>
 
               {/* Stats */}

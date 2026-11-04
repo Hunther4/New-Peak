@@ -33,24 +33,24 @@ PUZZLE_TYPE_LABELS = {
 
 PUZZLE_TYPE_PROMPTS = {
     "number_sequence": (
-        "Generá una secuencia numérica donde la persona debe encontrar "
-        "el siguiente número. Incluí 4 opciones (A, B, C, D). "
+        "Genera una secuencia numérica donde la persona debe encontrar "
+        "el siguiente número. Incluye 4 opciones (A, B, C, D). "
         "La regla debe ser clara pero no trivial."
     ),
     "verbal_analogy": (
-        "Generá una analogía verbal del tipo 'X es a Y como A es a ?'. "
-        "Incluí 4 opciones (A, B, C, D). "
+        "Genera una analogía verbal del tipo 'X es a Y como A es a ?'. "
+        "Incluye 4 opciones (A, B, C, D). "
         "La relación debe ser semántica, no obvia."
     ),
     "logical": (
-        "Generá un problema de razonamiento lógico (silogismos, "
-        "deducción, ordenamiento, etc.). Incluí 4 opciones (A, B, C, D). "
+        "Genera un problema de razonamiento lógico (silogismos, "
+        "deducción, ordenamiento, etc.). Incluye 4 opciones (A, B, C, D). "
         "Debe requerir pensamiento deductivo."
     ),
     "pattern": (
-        "Generá un problema de reconocimiento de patrones abstractos "
+        "Genera un problema de reconocimiento de patrones abstractos "
         "descrito textualmente (series, matrices, transformaciones). "
-        "Incluí 4 opciones (A, B, C, D). "
+        "Incluye 4 opciones (A, B, C, D). "
         "El patrón debe ser identificable pero no inmediato."
     ),
 }
@@ -107,10 +107,10 @@ def generate_puzzle(
     type_label = PUZZLE_TYPE_LABELS.get(puzzle_type, puzzle_type)
 
     system_prompt = (
-        f"Eres un generador de puzzles de inteligencia (IQ). Generá UN puzzle "
+        f"Eres un generador de puzzles de inteligencia (IQ). Genera UN puzzle "
         f"de nivel {level} (nivel {label}, dificultad {difficulty}). "
         f"Tipo: {type_label}. "
-        "Respondé ÚNICAMENTE en formato JSON válido con los campos: "
+        "Responde ÚNICAMENTE en formato JSON válido con los campos: "
         '"question", "options" (lista de 4 strings), '
         '"correct_answer" (el texto exacto de la opción correcta), '
         '"explanation" (string), '
@@ -120,7 +120,7 @@ def generate_puzzle(
 
     user_prompt = type_prompt + (
         f" Nivel {level} ({label}), dificultad {difficulty}. "
-        "Asegurate de que exactamente UNA de las 4 opciones sea correcta "
+        "Asegúrate de que exactamente UNA de las 4 opciones sea correcta "
         "y que las otras 3 sean plausibles pero incorrectas."
     )
 
@@ -131,7 +131,7 @@ def generate_puzzle(
 
             patterns_text = format_patterns_for_prompt(db, skill_id, "iq_practice")
             if patterns_text:
-                user_prompt += f"\n\n{patterns_text}\n\nAdaptá el puzzle para reforzar las áreas donde el usuario tiene más errores."
+                user_prompt += f"\n\n{patterns_text}\n\nAdapta el puzzle para reforzar las áreas donde el usuario tiene más errores."
         except Exception:
             pass  # Graceful degradation — generate normally if patterns fail
 
@@ -140,13 +140,13 @@ def generate_puzzle(
     for attempt in range(3):
         if attempt > 0:
             user_prompt = (
-                f"Generá un puzzle de tipo {type_label}, nivel {level}, "
+                f"Genera un puzzle de tipo {type_label}, nivel {level}, "
                 f"dificultad {difficulty}. "
                 "Debe tener EXACTAMENTE 4 opciones. "
                 "correct_answer DEBE coincidir textualmente con una de las opciones."
             )
             if last_error:
-                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corregí."
+                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corrige."
 
         result = router_fn(
             task_type="iq_puzzle",

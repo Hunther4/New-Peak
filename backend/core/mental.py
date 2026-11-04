@@ -80,7 +80,7 @@ EJEMPLOS DE NO-CAMBIO (is_real_shift=false):
 
 REGLAS:
 - is_real_shift=true SOLO si el MODELO MENTAL cambió, no si solo practicó más
-- Sé honesto: si no hay shift real, marcá false
+- Sé honesto: si no hay shift real, marca false
 - NO inventes insights.{rag_context}"""
 
     clean_summary = sanitize_prompt(session_summary)
@@ -93,8 +93,8 @@ Representación anterior: "{prev_description}"
 Resumen de sesiones recientes:
 {clean_summary}
 
-Generá la nueva representación mental. Si el cambio es genuino, describilo.
-Si no hay un cambio real en la comprensión, marcá is_real_shift=false."""
+Genera la nueva representación mental. Si el cambio es genuino, descríbelo.
+Si no hay un cambio real en la comprensión, marca is_real_shift=false."""
     else:
         user_prompt = f"""Habilidad: {skill_name}
 Nivel actual: {current_level}/100
@@ -103,7 +103,7 @@ Esta es la PRIMERA representación mental (v1).
 Resumen de sesiones recientes:
 {clean_summary}
 
-Generá la representación mental inicial del usuario sobre esta habilidad.
+Genera la representación mental inicial del usuario sobre esta habilidad.
 ¿Cómo entiende él/ella esta habilidad en este momento?
 Formato: "Veo/entiendo X como Y"."""
 
@@ -136,12 +136,12 @@ def generate_challenge(
         rag_lines = []
         for c in rag_chunks:
             rag_lines.append(f"Fragmento de referencia:\n{c['text'][:400]}\n---\nFuente: {c['book_title']}")
-        rag_context = "\n\nCONTEXTO DE LIBROS (usá estos fragmentos para inspirar el desafío):\n" + "\n\n".join(
+        rag_context = "\n\nCONTEXTO DE LIBROS (usa estos fragmentos para inspirar el desafío):\n" + "\n\n".join(
             rag_lines
         )
         source_book = rag_chunks[0]["book_title"]
 
-    system_prompt = f"""Coach práctica deliberate. Generá UN desafío CONCRETO + MEDIBLE para PRÓXIMA sesión.
+    system_prompt = f"""Coach práctica deliberate. Genera UN desafío CONCRETO + MEDIBLE para PRÓXIMA sesión.
 Dominio: {domain} | Tipo: {skill_type}
 
 REGLA DE ORO: "Practicar X" = MAL. "Hacer Y específico con criterio Z" = BIEN.
@@ -176,7 +176,7 @@ DIFICULTAD objetivo:
 Nivel actual: {current_level}/100
 Última sesión: {sanitize_prompt(last_session)}{difficulty_guide}
 
-Generá el próximo desafío."""
+Genera el próximo desafío."""
     from core.router import _build_augmented_system
 
     augmented = _build_augmented_system(system_prompt, ChallengeResult)

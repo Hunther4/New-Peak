@@ -49,7 +49,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-2 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-500/25 text-sky-400 text-xs font-bold tracking-wider uppercase font-mono">
-              <span>🎯</span>
+              
               <span>Puntaje Proyectado Admisión 2026</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
@@ -137,7 +137,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <span className="p-2 rounded-xl bg-purple-500/10 text-purple-400 text-lg font-bold">
-              📊
+              
             </span>
             <div>
               <h4 className="text-base font-bold text-white tracking-tight">
@@ -192,7 +192,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
           onClick={onNewExam}
           className="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-neutral-950 font-bold text-xs transition-all shadow-lg shadow-sky-500/20 cursor-pointer"
         >
-          Nuevo Simulacro ➔
+          Nuevo Simulacro 
         </button>
       </div>
 
@@ -200,7 +200,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-            <span>📖</span>
+            
             <span>Solucionario Detallado & Análisis de Distractores</span>
           </h3>
 
@@ -236,7 +236,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
 
             let statusBadge = (
               <span className="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-bold font-mono">
-                ✓ Correcta
+                 Correcta
               </span>
             )
             if (isUnanswered) {
@@ -248,7 +248,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
             } else if (!isCorrect) {
               statusBadge = (
                 <span className="px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/25 text-rose-400 text-xs font-bold font-mono">
-                  ✕ Incorrecta
+                   Incorrecta
                 </span>
               )
             }
@@ -289,7 +289,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
                         }}
                         className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 text-white font-bold text-xs shadow-md shadow-rose-500/25 transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
                       >
-                        <span>⚡</span>
+                        
                         <span>Vengar Error</span>
                       </button>
                     )}
@@ -375,7 +375,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
                       <div className="space-y-3">
                         <div className="p-4 rounded-xl bg-sky-500/[0.06] border border-sky-500/20 space-y-2">
                           <div className="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
-                            <span>💡</span>
+                            
                             <span>Resolución Pedagógica Paso a Paso</span>
                           </div>
                           <div className="text-xs text-neutral-300 leading-relaxed">
@@ -394,7 +394,7 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
                         {item.explanation.distractor_analysis && (
                           <div className="p-4 rounded-xl bg-amber-500/[0.06] border border-amber-500/20 space-y-2.5">
                             <div className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                              <span>🎯</span>
+                              
                               <span>Análisis Cognitivo de Distractores</span>
                             </div>
                             <div className="grid grid-cols-1 gap-2 pt-1">

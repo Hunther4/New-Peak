@@ -44,7 +44,7 @@ def mock_math_thinking_ai():
         mock_gen.return_value = {
             "question": "¿Cuánto es 5 + 3?",
             "correct_answer": 8.0,
-            "solution_steps": ["Sumá 5 y 3 = 8."],
+            "solution_steps": ["Suma 5 y 3 = 8."],
         }
         mock_config.return_value = {"difficulties": {}}
         yield
@@ -71,7 +71,7 @@ def _create_mt_round(db, mt_session, correct_answer=8.0):
         level=mt_session.level,
         problem_text="¿Cuánto es 5 + 3?",
         correct_answer=correct_answer,
-        solution_steps_json=json.dumps(["Sumá 5 y 3 = 8."]),
+        solution_steps_json=json.dumps(["Suma 5 y 3 = 8."]),
     )
     db.add(rnd)
     db.commit()
@@ -129,7 +129,7 @@ class TestCrearRound:
         assert round_obj.level == 1
         assert round_obj.problem_text == "¿Cuánto es 5 + 3?"
         assert round_obj.correct_answer == 8.0
-        assert json.loads(round_obj.solution_steps_json) == ["Sumá 5 y 3 = 8."]
+        assert json.loads(round_obj.solution_steps_json) == ["Suma 5 y 3 = 8."]
         assert problem["question"] == "¿Cuánto es 5 + 3?"
         assert problem["correct_answer"] == 8.0
         # Session counter advanced
@@ -272,7 +272,7 @@ class TestEnviarIntentoExtended:
                 "new_consecutive_correct": 0,
                 "new_consecutive_incorrect": 0,
                 "level_changed": True,
-                "message": "Bajaste al nivel 2. Seguí practicando.",
+                "message": "Bajaste al nivel 2. Sigue practicando.",
             }
             rnd = _create_mt_round(session, mt, correct_answer=8.0)
             result = math_thinking_service.enviar_intento(session, rnd.id, 999.0)

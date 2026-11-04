@@ -12,7 +12,7 @@ import AmbientParticles from "../AmbientParticles"
  * - icon: string/element — icon to display
  * - accentColor: string — Tailwind color class for accent (default: green)
  * - level: number — current level (shown in header)
- * - phase: string — current phase (if not 'idle' or 'done', show "Presioná Escape")
+ * - phase: string — current phase (if not 'idle' or 'done', show "Presiona Escape")
  * - sessionTimer: string | null — pre-formatted "MM:SS" time to display in header
  * - onBack: () => void — back button handler
  * - error: string | null — error message to display
@@ -32,7 +32,7 @@ export function GameShell({
   onClearError,
   children,
 }) {
-  // Esc shortcut to leave a game (matches the "Presioná Escape" hint).
+  // Esc shortcut to leave a game (matches the "Presiona Escape" hint).
   // Only active during safe phases — not during in-progress game phases.
   useEffect(() => {
     if (!onBack) return
@@ -114,7 +114,7 @@ export function GameShell({
             )}
             {phase && ["idle", "done", "setup", "results", "finished"].includes(phase) && (
               <span className="text-[10px] text-neutral-600 italic">
-                Presioná Escape para salir
+                Presiona Escape para salir
               </span>
             )}
             <button

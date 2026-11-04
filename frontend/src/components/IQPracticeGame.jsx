@@ -8,10 +8,10 @@ import api from "../api/client"
 const OPTION_LABELS = ["A", "B", "C", "D"]
 
 const PUZZLE_TYPE_ICONS = {
-  number_sequence: "🔢",
-  verbal_analogy: "💬",
-  logical: "🧩",
-  pattern: "🔮",
+  number_sequence: "",
+  verbal_analogy: "",
+  logical: "",
+  pattern: "",
 }
 
 const PUZZLE_TYPE_LABELS = {
@@ -246,13 +246,13 @@ export default function IQPracticeGame({ skillId, onClose }) {
           <div className="space-y-8">
             <div className="card p-10 text-center">
               <div className="w-20 h-20 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-4xl mx-auto mb-6">
-                🧠
+                
               </div>
               <h2 className="text-3xl font-black text-white mb-3">Práctica de IQ</h2>
               <p className="text-neutral-400 mb-8 max-w-lg mx-auto leading-relaxed">
                 Ejercicios de inteligencia general generados por IA: secuencias numéricas,
                 analogías verbales, puzzles lógicos y reconocimiento de patrones.
-                Cada 5 correctos <span className="text-green-400">subís de nivel</span>.
+                Cada 5 correctos <span className="text-green-400">subes de nivel</span>.
               </p>
 
               <div className="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8">
@@ -283,7 +283,7 @@ export default function IQPracticeGame({ skillId, onClose }) {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-lg">{PUZZLE_TYPE_ICONS[iqCurrentRound.puzzle_type] || "🧩"}</span>
+              <span className="text-lg">{PUZZLE_TYPE_ICONS[iqCurrentRound.puzzle_type] || ""}</span>
               <span className="text-xs text-purple-400/80 bg-purple-500/10 px-3 py-1 rounded-full font-mono uppercase tracking-wider">
                 {PUZZLE_TYPE_LABELS[iqCurrentRound.puzzle_type] || iqCurrentRound.puzzle_type}
               </span>
@@ -371,7 +371,7 @@ export default function IQPracticeGame({ skillId, onClose }) {
                 : "border-red-500/30 bg-red-500/[0.04]"
             }`}>
               <div className="text-6xl mb-4">
-                {iqLastAttempt.correct ? "✅" : "❌"}
+                {iqLastAttempt.correct ? "" : ""}
               </div>
               <h2 className={`text-2xl font-black mb-2 ${iqLastAttempt.correct ? "text-green-400" : "text-red-400"}`}>
                 {iqLastAttempt.correct ? "¡Correcto!" : "Incorrecto"}
@@ -418,8 +418,8 @@ export default function IQPracticeGame({ skillId, onClose }) {
 
             <p className="text-center text-xs text-neutral-600">
               {puzzlesCompleted < 3
-                ? `Completá al menos ${3 - puzzlesCompleted} puzzle${3 - puzzlesCompleted !== 1 ? "s" : ""} más para finalizar`
-                : "Podés seguir practicando o finalizar la sesión"}
+                ? `Completa al menos ${3 - puzzlesCompleted} ejercicio${3 - puzzlesCompleted !== 1 ? "s" : ""} más para finalizar`
+                : "Puedes seguir practicando o finalizar la sesión"}
             </p>
           </div>
         )}
@@ -428,7 +428,7 @@ export default function IQPracticeGame({ skillId, onClose }) {
         {iqPhase === "done" && (
           <div className="space-y-8">
             <div className="card p-12 text-center">
-              <div className="text-6xl mb-4">🎉</div>
+              <div className="text-6xl mb-4"></div>
               <h2 className="text-3xl font-black text-white mb-2">¡Sesión completada!</h2>
               <p className="text-neutral-400 mb-8">
                 Completaste {puzzlesCompleted} puzzles de IQ · Mejor nivel: {bestLevel}

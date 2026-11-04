@@ -1,4 +1,4 @@
-﻿import { useEffect, useCallback } from "react"
+import { useEffect, useCallback, lazy, Suspense } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { useStore } from "./store/store"
 import { ToastProvider } from "./components/ui"
@@ -9,7 +9,12 @@ import Practice from "./pages/Practice"
 import PaesStudy from "./pages/PaesStudy"
 import MetacognitionLab from "./pages/MetacognitionLab"
 import Settings from "./pages/Settings"
-import Admin from "./pages/Admin"
+// Admin es opcional: solo existe en el entorno local/Fly. En un clon limpio
+// (GitHub/CI) el módulo no está y la app igual compila.
+const _adminModules = import.meta.glob("./pages/Admin.jsx")
+const Admin = _adminModules["./pages/Admin.jsx"]
+  ? lazy(_adminModules["./pages/Admin.jsx"])
+  : null
 import NotFound from "./pages/NotFound"
 import WelcomeScreen from "./components/WelcomeScreen"
 
@@ -74,7 +79,7 @@ const router = createBrowserRouter(
         { path: "paes", element: <PaesStudy /> },
         { path: "lab", element: <MetacognitionLab /> },
         { path: "settings", element: <Settings /> },
-        { path: "admin", element: <Admin /> },
+        ...(Admin ? [{ path: "admin", element: <Suspense fallback={null}><Admin /></Suspense> }] : []),
         { path: "*", element: <NotFound /> },
       ],
     },

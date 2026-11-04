@@ -88,17 +88,17 @@ def generate_problem(
     problem_type_str = ", ".join(problem_types) if problem_types else "cálculo directo"
 
     system_prompt = (
-        f"Eres un generador de problemas matemáticos. Generá UN problema "
+        f"Eres un generador de problemas matemáticos. Genera UN problema "
         f"de nivel {level} (nivel {label}). "
-        "Respondé ÚNICAMENTE en formato JSON válido con los campos: "
+        "Responde ÚNICAMENTE en formato JSON válido con los campos: "
         '"question", "correct_answer" (número), '
         '"solution_steps" (lista de strings). '
         "NO incluyas texto fuera del JSON. NO uses markdown."
     )
 
     user_prompt = (
-        f"Generá un problema de {topic_str} del tipo {problem_type_str}. "
-        "Incluí la respuesta correcta como número y los pasos de solución."
+        f"Genera un problema de {topic_str} del tipo {problem_type_str}. "
+        "Incluye la respuesta correcta como número y los pasos de solución."
     )
 
     # Inject learning patterns if available (graceful degradation)
@@ -108,7 +108,7 @@ def generate_problem(
 
             patterns_text = format_patterns_for_prompt(db, skill_id, "problem_set")
             if patterns_text:
-                user_prompt += f"\n\n{patterns_text}\n\nAdaptá el problema para reforzar las áreas donde el usuario tiene más errores."
+                user_prompt += f"\n\n{patterns_text}\n\nAdapta el problema para reforzar las áreas donde el usuario tiene más errores."
         except Exception:
             pass  # Graceful degradation — generate normally if patterns fail
 
@@ -118,14 +118,14 @@ def generate_problem(
         if attempt > 0:
             # Stricter instruction on retry
             user_prompt = (
-                f"Generá un problema de {topic_str} del tipo "
+                f"Genera un problema de {topic_str} del tipo "
                 f"{problem_type_str}. "
                 "La respuesta correcta DEBE ser un número finito válido "
                 "(no NaN, no infinito). "
-                "Incluí los pasos de solución detallados."
+                "Incluye los pasos de solución detallados."
             )
             if last_error:
-                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corregí el formato."
+                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corrige el formato."
 
         result = router_fn(
             task_type="math_problem",
@@ -166,7 +166,7 @@ def generate_problem(
     return {
         "question": "¿Cuánto es 2 + 2?",
         "correct_answer": 4.0,
-        "solution_steps": ["Sumá 2 + 2 = 4."],
+        "solution_steps": ["Suma 2 + 2 = 4."],
         "source": None,
     }
 

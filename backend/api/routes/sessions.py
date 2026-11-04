@@ -9,6 +9,7 @@ from sqlmodel import Session, select
 from core.ai import generate_quick_log_completions
 from core.auditor import audit_session
 from core.database import engine, get_session
+from core.identity import Principal, UserPrincipalDep
 from core.limiter import get_rate_limit_str, limiter
 from core.mental import generate_challenge
 from core.tasks import background_executor
@@ -192,24 +193,29 @@ class SessionCreate(BaseModel):
 
 
 @router.get("/", response_model=List[PracticeSession])
-def get_sessions(skill_id: Optional[int] = None, limit: int = 50, db: Session = Depends(get_session)):
-    query = select(PracticeSession).order_by(PracticeSession.created_at.desc()).limit(limit)
+def get_sessions(principal: Principal = UserPrincipalDep, skill_id: Optional[int] = None, limit: int = 50, db: Session = Depends(get_session)):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
+    user_id = principal.user_id
+    query = select(PracticeSession).where(PracticeSession.user_id == user_id).order_by(PracticeSession.created_at.desc()).limit(limit)
     if skill_id:
         query = query.where(PracticeSession.skill_id == skill_id)
     return db.exec(query).all()
 
 
 @router.get("/{session_id}", response_model=PracticeSession)
-def get_session_by_id(session_id: int, db: Session = Depends(get_session)):
+def get_session_by_id(session_id: int, principal: Principal = UserPrincipalDep, db: Session = Depends(get_session)):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
     session = db.get(PracticeSession, session_id)
-    if not session:
+    if not session or session.user_id != principal.user_id:
         raise HTTPException(status_code=404, detail="Sesión no encontrada")
     return session
 
 
 @router.post("/", status_code=201)
 @limiter.limit(get_rate_limit_str())
-def create_session(request: Request, data: SessionCreate, db: Session = Depends(get_session)):
+def create_session(request: Request, data: SessionCreate, principal: Principal = UserPrincipalDep, db: Session = Depends(get_session)):
     # Validaciones
     skill = db.get(Skill, data.skill_id)
     if not skill:
@@ -239,8 +245,7 @@ def create_session(request: Request, data: SessionCreate, db: Session = Depends(
     sessions_count = len(db.exec(select(PracticeSession).where(PracticeSession.skill_id == data.skill_id)).all())
     onboarding = sessions_count < ONBOARDING_SESSION_THRESHOLD  # La sesión actual aún no está en DB
 
-    principal = getattr(request.state, "principal", None)
-    effective_user_id = principal.user_id if (principal and principal.user_id) else 1
+    effective_user_id = principal.user_id
 
     if not db.get(User, effective_user_id):
         try:
@@ -331,8 +336,11 @@ def clear_all_practice_data(
 
 
 @router.get("/skill/{skill_id}/count")
-def get_session_count(skill_id: int, db: Session = Depends(get_session)):
-    sessions = db.exec(select(PracticeSession).where(PracticeSession.skill_id == skill_id)).all()
+def get_session_count(skill_id: int, principal: Principal = UserPrincipalDep, db: Session = Depends(get_session)):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
+    user_id = principal.user_id
+    sessions = db.exec(select(PracticeSession).where(PracticeSession.skill_id == skill_id, PracticeSession.user_id == user_id)).all()
     deliberate = [s for s in sessions if s.was_deliberate is True]
     return {
         "total": len(sessions),

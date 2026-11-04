@@ -11,6 +11,7 @@ import logging
 
 from sqlmodel import Session, select
 
+from models.identity_models import User
 from models.models import Skill, SkillLevelHistory
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,7 @@ def apply_staircase(
     session_success: bool | None,
     trigger: str,
     session_id: int | None = None,
+    user_id: int | None = None,
 ) -> None:
     """Apply the adaptive staircase algorithm (1↑/1↓).
 
@@ -63,14 +65,14 @@ def apply_staircase(
     """
     if session_success is None:
         # No data — record but don't move level
-        _record_history(db, skill, False, trigger, session_id)
+        _record_history(db, skill, False, trigger, session_id, user_id=user_id)
         return
 
     recent = get_recent_results(db, skill.id, window=STAIRCASE_WINDOW)
 
     if len(recent) < 2:
         # First or second session — record but don't move level yet
-        _record_history(db, skill, session_success, trigger, session_id)
+        _record_history(db, skill, session_success, trigger, session_id, user_id=user_id)
         return
 
     # Include current result in calculation
@@ -92,6 +94,7 @@ def apply_staircase(
         session_id,
         old_level,
         skill.current_level,
+        user_id=user_id,
     )
 
 
@@ -103,6 +106,7 @@ def _record_history(
     session_id: int | None = None,
     old_level: float | None = None,
     new_level: float | None = None,
+    user_id: int | None = None,
 ) -> SkillLevelHistory:
     """Record a staircase evaluation in SkillLevelHistory."""
     if old_level is None:
@@ -110,7 +114,13 @@ def _record_history(
     if new_level is None:
         new_level = skill.current_level
 
+    if user_id is None:
+        user_id = 1
+    if db.get(User, user_id) is None:
+        db.add(User(id=user_id, email='user{}@peak.local'.format(user_id)))
+        db.flush()
     history = SkillLevelHistory(
+        user_id=user_id,
         skill_id=skill.id,
         success=success,
         level_before=old_level,

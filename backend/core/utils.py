@@ -1,3 +1,4 @@
+import json
 import logging
 import re
 from typing import Optional, Type, TypeVar
@@ -59,12 +60,14 @@ def parse_structured_json(content: str, response_model: Type[T]) -> Optional[T]:
     """Limpia content y parsea con Pydantic. Permite campos extra (security_flag, socratic_prompt)."""
     cleaned = clean_json_response(content)
     try:
-        return response_model.model_validate_json(cleaned, extra="allow")
+        data = json.loads(cleaned)
+        return response_model.model_validate(data)
     except Exception as e:
         # Intento de reparación de escapes inválidos (común cuando los LLMs emiten LaTeX como \Delta o \frac)
         try:
             repaired = re.sub(r'\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', lambda m: r"\\", cleaned)
-            return response_model.model_validate_json(repaired, extra="allow")
+            data = json.loads(repaired)
+            return response_model.model_validate(data)
         except Exception:
             logger.error("Error parseando Pydantic: %s", e)
             return None

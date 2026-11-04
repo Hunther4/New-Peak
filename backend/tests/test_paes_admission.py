@@ -88,11 +88,12 @@ def test_normalize_nem_ranking():
     assert math.isclose(score_4, 100.0, abs_tol=1.0)
 
     score_5 = normalize_nem_ranking(5.0)
-    assert math.isclose(score_5, 400.0, abs_tol=1.0)
+    # Oficial DEMRE Grupo A: 415 pts
+    assert math.isclose(score_5, 415.0, abs_tol=1.0)
 
     score_6 = normalize_nem_ranking(6.0)
-    # 100 + 2.0 * 300 = 700
-    assert math.isclose(score_6, 700.0, abs_tol=1.0)
+    # Oficial DEMRE Grupo A: 713 pts
+    assert math.isclose(score_6, 713.0, abs_tol=1.0)
 
 
 def test_paes_score_to_raw_items():

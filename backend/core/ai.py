@@ -247,7 +247,7 @@ def generate_quick_log_completions(what_i_practiced: str, micro_error_found: str
     """
     system_prompt = (
         f"Coach práctica deliberada — Quick Log (dominio: {domain}).\n"
-        f"Usuario fatigado. Completá 2 campos basándote en su objetivo + error.\n\n"
+        f"Usuario fatigado. Completa 2 campos basándote en su objetivo + error.\n\n"
         f"EJEMPLOS de buenos outputs:\n"
         f'- Objetivo: "compás 14-16 piano" | Error: "pulgar tarde en negro"\n'
         f'  → correction_applied: "ralentice 50% y aislé pulgar 5 min"\n'
@@ -264,7 +264,7 @@ def generate_quick_log_completions(what_i_practiced: str, micro_error_found: str
     user_prompt = (
         f"Objetivo: {sanitize_prompt(what_i_practiced)}\n"
         f"Error: {sanitize_prompt(micro_error_found)}\n\n"
-        f"Completá JSON:"
+        f"Completa JSON:"
     )
 
     from core.router import get_ai_mode

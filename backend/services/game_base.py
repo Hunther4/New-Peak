@@ -102,6 +102,7 @@ def consolidar_sesion_base(
             session_success,
             trigger="session_consolidation",
             session_id=practice_session.id,
+            user_id=getattr(practice_session, "user_id", None),
         )
         skill.practice_level = compute_practice_level(practice_session)
         db.add(skill)

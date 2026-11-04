@@ -41,7 +41,7 @@ const SkillCard = memo(function SkillCard({ summary, onPractice, compact = false
               {skill.practice_level && (
                 <Badge variant={skill.practice_level} className="!text-[8px] !px-1 !py-0" />
               )}
-              {skill.is_plateaued && <span className="text-[9px] text-orange-400">⚠</span>}
+              {skill.is_plateaued && <span className="text-[9px] text-orange-400"></span>}
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@ const SkillCard = memo(function SkillCard({ summary, onPractice, compact = false
             </span>
           )}
           {streak_days > 0 && (
-            <span className="text-orange-400/70">🔥 {streak_days}</span>
+            <span className="text-orange-400/70"> {streak_days}</span>
           )}
         </div>
 
@@ -108,7 +108,7 @@ const SkillCard = memo(function SkillCard({ summary, onPractice, compact = false
             <h3 className="font-bold text-lg text-white truncate">{skill.name}</h3>
             {skill.practice_level && <Badge variant={skill.practice_level} />}
             {skill.is_plateaued && (
-              <span className="text-[10px] text-orange-400" title="Estancado">⚠</span>
+              <span className="text-[10px] text-orange-400" title="Estancado"></span>
             )}
           </div>
 
@@ -119,7 +119,7 @@ const SkillCard = memo(function SkillCard({ summary, onPractice, compact = false
               <span className="text-sm font-bold text-green-400">{sessions_this_week} <span className="text-[10px] font-normal text-neutral-500">esta sem</span></span>
             )}
             {streak_days > 0 && (
-              <span className="text-sm font-bold text-orange-400">🔥 {streak_days}</span>
+              <span className="text-sm font-bold text-orange-400"> {streak_days}</span>
             )}
           </div>
 

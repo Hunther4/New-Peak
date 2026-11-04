@@ -131,7 +131,7 @@ def consolidar_sesion(db: DBSession, session_id: int, elapsed_seconds: Optional[
 
     session_success = determine_session_success(db, cognitive_session, skill=skill)
     if skill:
-        apply_staircase(db, skill, session_success, trigger="session_consolidation", session_id=practice_session.id)
+        apply_staircase(db, skill, session_success, trigger="session_consolidation", session_id=practice_session.id, user_id=getattr(practice_session, "user_id", None))
         skill.practice_level = compute_practice_level(practice_session)
         skill.current_level = float(cognitive_session.nivel_n_alcanzado)
         db.add(skill)

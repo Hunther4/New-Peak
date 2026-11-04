@@ -9,9 +9,9 @@ import { PaesExamResults } from "../components/paes/PaesExamResults"
 import { MathRenderer } from "../components/paes/MathRenderer"
 import { PaesErrorVault } from "../components/paes/PaesErrorVault"
 import { CruchAdmissionSimulator } from "../components/paes/CruchAdmissionSimulator"
-import { PaesWeeklyRoutineBar } from "../components/paes/PaesWeeklyRoutineBar"
 import { isSoundMuted, toggleSoundMute } from "../utils/soundEffects"
 import { api } from "../api/client"
+import { icons } from "../components/ui/icons"
 
 // Every tab that the study hub can render. The list is the single source of
 // truth for the navigation bar and for the ?tab= query parameter.
@@ -127,11 +127,11 @@ export default function PaesStudy() {
   }
 
 const SUBJECTS_LIST = [
-  { code: "M1", name: "Matemática 1", icon: "📐", badge: "Obligatoria", timePerQ: "2 min 09 seg / preg" },
-  { code: "LECTURA", name: "Competencia Lectora", icon: "📖", badge: "Obligatoria", timePerQ: "2 min 18 seg / preg" },
-  { code: "M2", name: "Matemática 2", icon: "📊", badge: "Específica", timePerQ: "2 min 32 seg / preg" },
-  { code: "CIENCIAS", name: "Ciencias", icon: "🧪", badge: "Electiva", timePerQ: "2 min 00 seg / preg" },
-  { code: "HISTORIA", name: "Historia y Cs. Sociales", icon: "🏛️", badge: "Electiva", timePerQ: "1 min 50 seg / preg" },
+  { code: "M1", name: "Matemática 1", icon: "math1", badge: "Obligatoria", timePerQ: "2 min 09 seg / preg" },
+  { code: "LECTURA", name: "Competencia Lectora", icon: "reading", badge: "Obligatoria", timePerQ: "2 min 18 seg / preg" },
+  { code: "M2", name: "Matemática 2", icon: "math2", badge: "Específica", timePerQ: "2 min 32 seg / preg" },
+  { code: "CIENCIAS", name: "Ciencias", icon: "science", badge: "Electiva", timePerQ: "2 min 00 seg / preg" },
+  { code: "HISTORIA", name: "Historia y Cs. Sociales", icon: "history", badge: "Electiva", timePerQ: "1 min 50 seg / preg" },
 ]
 
 const SUBJECT_EXAMS_CONFIG = {
@@ -198,17 +198,18 @@ const SUBJECT_EXAMS_CONFIG = {
       <div className="flex items-center gap-2 mb-6 p-1.5 rounded-2xl bg-neutral-900/60 border border-white/[0.06] overflow-x-auto">
         {SUBJECTS_LIST.map((subj) => {
           const isActive = (paesActiveSubject || "M1") === subj.code
+          const SubjectIcon = icons[subj.icon]
           return (
             <button
               key={subj.code}
               onClick={() => setPaesActiveSubject(subj.code)}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-2.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-2 whitespace-nowrap cursor-pointer ${
                 isActive
-                  ? "bg-sky-500 text-neutral-950 shadow-md shadow-sky-500/20 font-black"
+                  ? "bg-sky-500 text-neutral-950"
                   : "text-neutral-400 hover:text-white hover:bg-white/[0.04]"
               }`}
             >
-              <span>{subj.icon}</span>
+              <SubjectIcon size={16} strokeWidth={1.8} />
               <span>{subj.name}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.5 rounded-md font-mono ${
@@ -226,35 +227,36 @@ const SUBJECT_EXAMS_CONFIG = {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-2xl">{currentSubject.icon}</span>
-            <h1 className="text-2xl font-black text-white tracking-tight">
-              Academia PAES {currentSubject.name}
+            {(() => { const SubjectIcon = icons[currentSubject.icon]; return <SubjectIcon size={22} strokeWidth={1.8} className="text-sky-400" /> })()}
+            <h1 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
+              {currentSubject.name}
             </h1>
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-400 font-bold">
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-400 font-semibold">
               {currentSubject.code}
             </span>
           </div>
           <p className="text-xs md:text-sm text-neutral-400">
-            Ecosistema de preparación oficial DEMRE 2026 con Ensayos Concretos, Algoritmo FSRS y Práctica Deliberada.
+            Preguntas oficiales DEMRE 2026, con corrección inmediata y seguimiento de errores.
           </p>
         </div>
 
         <div className="flex items-center gap-2 self-start md:self-auto">
           <button
             onClick={() => setSoundMuted(toggleSoundMute())}
-            className="px-3 py-2 bg-neutral-800/80 hover:bg-neutral-700 text-neutral-300 text-xs font-semibold rounded-xl border border-white/[0.08] transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
-            title={soundMuted ? "Activar Efectos Sonoros" : "Silenciar Audio"}
+            className="btn btn-ghost btn-sm"
+            title={soundMuted ? "Activar efectos sonoros" : "Silenciar audio"}
           >
-            <span>{soundMuted ? "🔇" : "🔊"}</span>
-            <span className="hidden sm:inline">{soundMuted ? "Silenciado" : "Audio Activo"}</span>
+            {soundMuted ? <icons.volumeOff size={16} strokeWidth={1.8} /> : <icons.volumeOn size={16} strokeWidth={1.8} />}
+            <span className="hidden sm:inline">{soundMuted ? "Silenciado" : "Audio"}</span>
           </button>
 
           {paesSessionId && !paesExamActive && (
             <button
               onClick={resetPaesSession}
-              className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-xs font-bold rounded-xl border border-white/[0.08] transition-all cursor-pointer"
+              className="btn btn-secondary btn-sm"
             >
-              ← Salir de Práctica
+              <icons.back size={15} strokeWidth={1.8} />
+              Salir de práctica
             </button>
           )}
         </div>
@@ -266,8 +268,8 @@ const SUBJECT_EXAMS_CONFIG = {
           <span>{paesError}</span>
           <button
             onClick={() => {
-              fetchPaesFsrsStatus()
-              fetchPaesSubtopics()
+              fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
+              fetchPaesSubtopics(1, paesActiveSubject || "M1")
             }}
             className="text-xs underline font-semibold text-rose-400 cursor-pointer"
           >
@@ -308,72 +310,67 @@ const SUBJECT_EXAMS_CONFIG = {
         </div>
       ) : paesSessionId && !paesActiveQuestion ? (
         /* REGULAR BLOCK COMPLETE */
-        <div className="bg-neutral-900/80 border border-white/[0.08] rounded-3xl p-8 backdrop-blur-xl text-center max-w-xl mx-auto my-8 space-y-4">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 text-3xl flex items-center justify-center mx-auto border border-emerald-500/30">
-            🏆
+        <div className="card text-center max-w-xl mx-auto my-8 space-y-4 py-8">
+          <div className="w-14 h-14 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/25">
+            <icons.trophy size={26} strokeWidth={1.8} />
           </div>
-          <h2 className="text-xl font-black text-white">¡Bloque de Práctica Completado!</h2>
-          <p className="text-xs text-neutral-400 leading-relaxed">
-            Tus respuestas fueron integradas al modelo FSRS. La estabilidad de memoria y tus errores cognitivos ya están sincronizados.
+          <h2 className="text-lg font-semibold text-white">Bloque completado</h2>
+          <p className="text-sm text-neutral-400 leading-relaxed">
+            Tus respuestas quedaron registradas. La estabilidad de memoria y tus errores ya están actualizados.
           </p>
           <button
             onClick={() => {
               resetPaesSession()
-              fetchPaesFsrsStatus()
+              fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
             }}
-            className="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+            className="btn btn-primary"
           >
-            Volver al Ecosistema PAES
+            Volver a PAES
           </button>
         </div>
       ) : (
         /* SPECIALIZED HUB TABS */
         <div className="space-y-6">
-          {/* Barra de Rutina Semanal con Boton 1-Clic (Arriba arriba de los tabs) */}
-          <PaesWeeklyRoutineBar
-            onStartSession={(subjectCode, count) => {
-              if (setPaesActiveSubject) setPaesActiveSubject(subjectCode)
-              startPaesSession("PRACTICE", null, count || 15, subjectCode)
-            }}
-            isStarting={paesLoading}
-          />
-
           {/* Main Tab Navigation: every hub block must be reachable from here */}
-          <div className="flex items-center gap-2 p-1.5 bg-neutral-900/80 border border-white/[0.08] rounded-2xl backdrop-blur-md overflow-x-auto">
+          <div className="flex items-center gap-1.5 p-1.5 bg-[#101010] border border-white/[0.07] rounded-xl overflow-x-auto">
             {[
-              { id: "exams", label: `🎯 Entrenar Hoy & Ensayos`, icon: "🎯" },
+              { id: "exams", label: "Entrenar", icon: "focus" },
               {
                 id: "error_vault",
-                label: `🔥 Cuaderno de Errores`,
+                label: "Errores",
+                icon: "error",
                 badge: paesErrorNotebook?.total_errors > 0 ? paesErrorNotebook.total_errors : null
               },
-              { id: "cruch", label: "🏛️ Simulador CRUCH", icon: "🏛️" },
-              { id: "curriculum", label: `📚 Temario (${paesSubtopicsList.length} Subtemas)`, icon: "📚" },
-              { id: "parametric", label: "🧮 Parametric Generator", icon: "🧮" },
-              { id: "fsrs", label: "🧠 FSRS Memory Status", icon: "🧠" },
-            ].map((tab) => (
-
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-2 ${
-                  activeTab === tab.id
-                    ? "bg-white text-neutral-950 shadow-md font-black"
-                    : "text-neutral-400 hover:text-white"
-                }`}
-              >
-                <span>{tab.label}</span>
-                {tab.badge ? (
-                  <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+              { id: "cruch", label: "Admisión", icon: "analysis" },
+              { id: "curriculum", label: `Temario (${paesSubtopicsList.length})`, icon: "curriculum" },
+              { id: "parametric", label: "Generador", icon: "parametric" },
+              { id: "fsrs", label: "Memoria", icon: "memory" },
+            ].map((tab) => {
+              const TabIcon = icons[tab.icon]
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-3 py-2.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer flex items-center gap-2 ${
                     activeTab === tab.id
-                      ? "bg-rose-500 text-white"
-                      : "bg-rose-500/20 text-rose-300 border border-rose-500/30"
-                  }`}>
-                    {tab.badge}
-                  </span>
-                ) : null}
-              </button>
-            ))}
+                      ? "bg-white text-neutral-950"
+                      : "text-neutral-400 hover:text-white hover:bg-white/[0.05]"
+                  }`}
+                >
+                  <TabIcon size={15} strokeWidth={1.8} />
+                  <span>{tab.label}</span>
+                  {tab.badge ? (
+                    <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-semibold ${
+                      activeTab === tab.id
+                        ? "bg-rose-500 text-white"
+                        : "bg-rose-500/20 text-rose-300 border border-rose-500/30"
+                    }`}>
+                      {tab.badge}
+                    </span>
+                  ) : null}
+                </button>
+              )
+            })}
           </div>
 
           {/* TAB 1: ENTRENAR HOY & SIMULACROS */}
@@ -389,7 +386,7 @@ const SUBJECT_EXAMS_CONFIG = {
                     Simulacros Oficiales de {currentSubject.name}
                   </h3>
                   <p className="text-xs text-neutral-400 max-w-xl">
-                    Practicá bajo presión real de tiempo ({currentSubject.timePerQ}). Al finalizar, obtenés tu puntaje en escala oficial DEMRE 100–1000 y el solucionario analítico.
+                    Practica bajo presión real de tiempo ({currentSubject.timePerQ}). Al finalizar, obtienes tu puntaje en escala DEMRE 100–1000 y el solucionario analítico.
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -401,90 +398,83 @@ const SUBJECT_EXAMS_CONFIG = {
               </div>
 
               {/* 3 Exam Tier Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Mini-Ensayo */}
-                <div className="p-6 rounded-3xl bg-neutral-900/60 border border-white/[0.08] hover:border-sky-500/50 transition-all flex flex-col justify-between group">
+                <div className="card flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex justify-between items-start">
-                      <span className="p-3 rounded-2xl bg-sky-500/10 text-sky-400 text-xl font-bold">
-                        ⚡
+                      <span className="w-10 h-10 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center">
+                        <icons.focus size={19} strokeWidth={1.8} />
                       </span>
-                      <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-md bg-sky-500/10 border border-sky-500/20 text-sky-400">
-                        {currentExamConfig.mini.time} MIN
-                      </span>
+                      <span className="badge badge-neutral">{currentExamConfig.mini.time} MIN</span>
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-white">Mini-Ensayo Focalizado</h4>
-                      <p className="text-xs text-neutral-400 mt-1">{currentExamConfig.mini.label}</p>
+                      <h4 className="text-base font-semibold text-white">Mini-ensayo</h4>
+                      <p className="text-sm text-neutral-400 mt-1">{currentExamConfig.mini.label}</p>
                     </div>
-                    <div className="pt-3 border-t border-white/[0.06] text-[11px] text-neutral-400 font-mono">
-                      • {currentExamConfig.mini.count} Preguntas seleccionadas
+                    <div className="pt-3 border-t border-white/[0.06] text-xs text-neutral-400">
+                      {currentExamConfig.mini.count} preguntas
                     </div>
                   </div>
 
                   <button
                     onClick={() => startPaesExam(currentExamConfig.mini.count, currentSubject.code)}
-                    className="w-full mt-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-neutral-950 font-bold text-xs transition-all shadow-lg shadow-sky-500/20 cursor-pointer"
+                    className="btn btn-secondary w-full mt-5"
                   >
-                    Iniciar Mini-Ensayo ({currentExamConfig.mini.count}) ➔
+                    Empezar mini-ensayo
                   </button>
                 </div>
 
                 {/* Medio Ensayo */}
-                <div className="p-6 rounded-3xl bg-neutral-900/60 border border-white/[0.08] hover:border-purple-500/50 transition-all flex flex-col justify-between group">
+                <div className="card flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex justify-between items-start">
-                      <span className="p-3 rounded-2xl bg-purple-500/10 text-purple-400 text-xl font-bold">
-                        📝
+                      <span className="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center">
+                        <icons.exam size={19} strokeWidth={1.8} />
                       </span>
-                      <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                        {currentExamConfig.mid.time} MIN
-                      </span>
+                      <span className="badge badge-neutral">{currentExamConfig.mid.time} MIN</span>
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-white">Medio Ensayo Calibrado</h4>
-                      <p className="text-xs text-neutral-400 mt-1">{currentExamConfig.mid.label}</p>
+                      <h4 className="text-base font-semibold text-white">Ensayo medio</h4>
+                      <p className="text-sm text-neutral-400 mt-1">{currentExamConfig.mid.label}</p>
                     </div>
-                    <div className="pt-3 border-t border-white/[0.06] text-[11px] text-neutral-400 font-mono">
-                      • {currentExamConfig.mid.count} Preguntas para medir resistencia
+                    <div className="pt-3 border-t border-white/[0.06] text-xs text-neutral-400">
+                      {currentExamConfig.mid.count} preguntas
                     </div>
                   </div>
 
                   <button
                     onClick={() => startPaesExam(currentExamConfig.mid.count, currentSubject.code)}
-                    className="w-full mt-6 py-3 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-bold text-xs transition-all shadow-lg shadow-purple-500/20 cursor-pointer"
+                    className="btn btn-secondary w-full mt-5"
                   >
-                    Iniciar Medio Ensayo ({currentExamConfig.mid.count}) ➔
+                    Empezar ensayo medio
                   </button>
                 </div>
 
                 {/* Ensayo Completo DEMRE */}
-                <div className="p-6 rounded-3xl bg-neutral-900/60 border border-white/[0.08] hover:border-emerald-500/50 transition-all flex flex-col justify-between group relative overflow-hidden">
+                <div className="card flex flex-col justify-between border-green-500/25">
                   <div className="space-y-3">
                     <div className="flex justify-between items-start">
-                      <span className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 text-xl font-bold">
-                        🎓
+                      <span className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                        <icons.paes size={19} strokeWidth={1.8} />
                       </span>
-                      <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                        {currentExamConfig.full.time} MIN
-                      </span>
+                      <span className="badge badge-deliberate">{currentExamConfig.full.time} MIN</span>
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-white">Simulacro Oficial Completo</h4>
-                      <p className="text-xs text-neutral-400 mt-1">
-                        {currentExamConfig.full.label}
-                      </p>
+                      <h4 className="text-base font-semibold text-white">Simulacro completo</h4>
+                      <p className="text-sm text-neutral-400 mt-1">{currentExamConfig.full.label}</p>
                     </div>
-                    <div className="pt-3 border-t border-white/[0.06] text-[11px] text-neutral-400 font-mono">
-                      • {currentExamConfig.full.count} Preguntas oficiales DEMRE 2026
+                    <div className="pt-3 border-t border-white/[0.06] text-xs text-neutral-400">
+                      {currentExamConfig.full.count} preguntas oficiales DEMRE 2026
                     </div>
                   </div>
 
                   <button
                     onClick={() => startPaesExam(currentExamConfig.full.count, currentSubject.code)}
-                    className="w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-neutral-950 font-black text-xs transition-all shadow-lg shadow-emerald-500/25 cursor-pointer"
+                    className="btn btn-primary w-full mt-5"
                   >
-                    Iniciar Simulacro ({currentExamConfig.full.count} Preguntas) ➔
+                    Empezar simulacro
+                    <icons.next size={16} strokeWidth={2} />
                   </button>
                 </div>
               </div>
@@ -552,14 +542,14 @@ const SUBJECT_EXAMS_CONFIG = {
             <div className="p-6 md:p-8 rounded-3xl bg-neutral-900/60 border border-white/[0.08] space-y-6 animate-fade-in">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-white/[0.06]">
                 <div>
-                  <span className="text-[10px] font-mono uppercase font-bold text-purple-400 tracking-wider">
-                    Motor Matemático Formal
+                  <span className="text-[10px] font-mono uppercase font-semibold text-purple-400 tracking-wider">
+                    Práctica ilimitada
                   </span>
-                  <h3 className="text-lg font-bold text-white">
-                    Generador Paramétrico SymPy
+                  <h3 className="text-lg font-semibold text-white">
+                    Generador de ejercicios
                   </h3>
                   <p className="text-xs text-neutral-400 mt-0.5">
-                    Generá infinitas instancias algebraicas con distractores matemáticos controlados.
+                    Variantes algebraicas con distractores controlados.
                   </p>
                 </div>
 
@@ -570,19 +560,20 @@ const SUBJECT_EXAMS_CONFIG = {
                       setParametricTemplate(e.target.value)
                       handleGenerateParametric(e.target.value)
                     }}
-                    className="bg-neutral-800 border border-white/[0.1] text-neutral-200 text-xs font-bold rounded-xl px-3 py-2.5 focus:outline-none focus:border-purple-500 cursor-pointer"
+                    className="input text-xs font-medium cursor-pointer max-w-full"
                   >
-                    <option value="PARAM-M1-ALG-01">📐 Ecuación Lineal 1° Grado</option>
-                    <option value="PARAM-M1-ALG-02">🔀 Sistema de Ecuaciones 2×2</option>
-                    <option value="PARAM-M1-GEO-01">🔺 Teorema de Pitágoras</option>
+                    <option value="PARAM-M1-ALG-01">Ecuación lineal de primer grado</option>
+                    <option value="PARAM-M1-ALG-02">Sistema de ecuaciones 2×2</option>
+                    <option value="PARAM-M1-GEO-01">Teorema de Pitágoras</option>
                   </select>
 
                   <button
                     onClick={() => handleGenerateParametric()}
                     disabled={parametricLoading}
-                    className="px-5 py-2.5 bg-purple-500 hover:bg-purple-400 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-500/20 transition-all cursor-pointer disabled:opacity-50"
+                    className="btn btn-primary btn-sm"
                   >
-                    {parametricLoading ? "Generando..." : "🎲 Nueva Instancia"}
+                    <icons.retry size={15} strokeWidth={1.8} />
+                    {parametricLoading ? "Generando..." : "Nueva variante"}
                   </button>
                 </div>
               </div>
@@ -637,13 +628,15 @@ const SUBJECT_EXAMS_CONFIG = {
                             <MathRenderer text={opt.content || opt.text} />
                           </div>
                           {(parametricEvaluated || parametricRevealed) && isCorrect && (
-                            <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
-                              ✓ Correcta
+                            <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
+                              <icons.check size={13} strokeWidth={2.2} />
+                              Correcta
                             </span>
                           )}
                           {(parametricEvaluated || parametricRevealed) && isSelected && !isCorrect && (
-                            <span className="text-xs font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20">
-                              ✗ Tu elección
+                            <span className="inline-flex items-center gap-1 text-xs font-medium text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20">
+                              <icons.close size={13} strokeWidth={2.2} />
+                              Tu elección
                             </span>
                           )}
                           {(parametricEvaluated || parametricRevealed) && opt.distractor_type && (
@@ -667,17 +660,18 @@ const SUBJECT_EXAMS_CONFIG = {
                             setParametricEvaluated(true)
                             setParametricRevealed(true)
                           }}
-                          className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                          className="btn btn-primary btn-sm"
                         >
-                          Comprobar Respuesta
+                          Comprobar respuesta
                         </button>
                       ) : (
                         <button
                           type="button"
                           onClick={() => handleGenerateParametric()}
-                          className="px-6 py-2.5 bg-purple-500 hover:bg-purple-400 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-500/20 transition-all cursor-pointer"
+                          className="btn btn-secondary btn-sm"
                         >
-                          Siguiente Ejercicio SymPy ➔
+                          <icons.next size={15} strokeWidth={1.8} />
+                          Siguiente ejercicio
                         </button>
                       )}
 
@@ -693,12 +687,14 @@ const SUBJECT_EXAMS_CONFIG = {
                     {parametricEvaluated && (
                       <div className="text-xs font-mono font-bold">
                         {parametricQuestion.options.find(o => (o.id || o.key) === parametricSelected)?.is_correct ? (
-                          <span className="text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
-                            🎉 ¡Respuesta Correcta!
+                          <span className="inline-flex items-center gap-1.5 text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
+                            <icons.success size={14} strokeWidth={2} />
+                            Respuesta correcta
                           </span>
                         ) : (
-                          <span className="text-rose-400 bg-rose-500/10 px-3 py-1.5 rounded-xl border border-rose-500/20">
-                            💡 Respuesta Incorrecta — Revisa el paso a paso abajo
+                          <span className="inline-flex items-center gap-1.5 text-rose-400 bg-rose-500/10 px-3 py-1.5 rounded-xl border border-rose-500/20">
+                            <icons.info size={14} strokeWidth={2} />
+                            Revisa la solución paso a paso
                           </span>
                         )}
                       </div>
@@ -708,9 +704,9 @@ const SUBJECT_EXAMS_CONFIG = {
                   {/* Complete, Unambiguous Step-by-Step Explanation */}
                   {parametricRevealed && parametricQuestion.explanation && (
                     <div className="p-6 rounded-2xl bg-neutral-950/80 border border-purple-500/30 text-xs text-neutral-300 leading-relaxed space-y-4 animate-fade-in shadow-xl shadow-purple-950/20">
-                      <div className="flex items-center gap-2 text-purple-400 font-bold text-sm border-b border-white/[0.06] pb-2">
-                        <span>📝</span>
-                        <span>Solucionario Oficial y Desglose Paso a Paso</span>
+                      <div className="flex items-center gap-2 text-purple-400 font-semibold text-sm border-b border-white/[0.06] pb-2">
+                        <icons.exam size={15} strokeWidth={1.8} />
+                        <span>Solución paso a paso</span>
                       </div>
 
                       {/* Step by step */}
@@ -728,8 +724,9 @@ const SUBJECT_EXAMS_CONFIG = {
                       {/* Key concept */}
                       {parametricQuestion.explanation.key_concept && (
                         <div className="space-y-1">
-                          <strong className="text-sky-400 block font-bold text-xs">
-                            🎯 Concepto Clave DEMRE:
+                          <strong className="text-sky-400 flex items-center gap-1.5 font-semibold text-xs">
+                            <icons.focus size={13} strokeWidth={2} />
+                            Concepto clave
                           </strong>
                           <p className="text-neutral-300 pl-1">
                             {parametricQuestion.explanation.key_concept}
@@ -740,8 +737,9 @@ const SUBJECT_EXAMS_CONFIG = {
                       {/* Frequent mistake */}
                       {parametricQuestion.explanation.frequent_mistake && (
                         <div className="space-y-1">
-                          <strong className="text-amber-400 block font-bold text-xs">
-                            ⚠️ Distractor y Error Frecuente:
+                          <strong className="text-amber-400 flex items-center gap-1.5 font-semibold text-xs">
+                            <icons.error size={13} strokeWidth={2} />
+                            Error frecuente
                           </strong>
                           <p className="text-neutral-400 pl-1">
                             {parametricQuestion.explanation.frequent_mistake}
@@ -760,7 +758,7 @@ const SUBJECT_EXAMS_CONFIG = {
                 </div>
               ) : (
                 <div className="text-center py-12 text-neutral-500 text-xs">
-                  Hacé clic en &quot;Nueva Instancia&quot; para probar el motor algebraico SymPy.
+                  Haz clic en &quot;Nueva Instancia&quot; para probar el motor algebraico SymPy.
                 </div>
               )}
             </div>

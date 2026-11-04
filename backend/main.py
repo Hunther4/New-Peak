@@ -13,7 +13,6 @@ from starlette.responses import Response
 from starlette.staticfiles import StaticFiles
 
 from api.routes import (
-    admin,
     assessments,
     auth,
     books,
@@ -27,6 +26,12 @@ from api.routes import (
     sessions,
     skills,
 )
+# Admin es opcional: si el archivo no está (p. ej. clon limpio de GitHub), la app igual arranca.
+try:
+    from api.routes import admin as admin_route_module
+except ImportError:
+    admin_route_module = None
+
 from api.routes.iq_practice import router as iq_practice_router
 from api.routes.math_thinking import router as math_thinking_router
 from api.routes.memory_game import router as memory_game_router
@@ -182,7 +187,8 @@ app.include_router(paes_admission_router)
 app.include_router(paes_errors_router, prefix="/api/paes/errors", tags=["PAES Errors"])
 app.include_router(paes_questions_router, prefix="/api/paes/questions", tags=["PAES Questions"])
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
-app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
+if admin_route_module is not None:
+    app.include_router(admin_route_module.router, prefix="/api/admin", tags=["Admin"])
 
 
 _frontend_dist = _BASE / "dist"

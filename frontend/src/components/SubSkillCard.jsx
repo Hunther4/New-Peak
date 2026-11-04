@@ -80,7 +80,7 @@ const SubSkillCard = memo(function SubSkillCard({ summary, onPractice }) {
           {skill.practice_level && (
             <Badge variant={skill.practice_level} className="!text-[9px] !px-1.5 !py-0.5" />
           )}
-          {skill.is_plateaued && <span className="text-[9px] text-orange-400" title="Estancado">⚠</span>}
+          {skill.is_plateaued && <span className="text-[9px] text-orange-400" title="Estancado"></span>}
           <TrendArrow sessionsThisWeek={sessions_this_week} />
         </div>
         <div className="flex items-center gap-3 mt-1">
@@ -89,7 +89,7 @@ const SubSkillCard = memo(function SubSkillCard({ summary, onPractice }) {
             <span className="text-[10px] text-green-500/70">{sessions_this_week} esta sem</span>
           )}
           {streak_days > 0 && (
-            <span className="text-[10px] text-orange-400/70">🔥 {streak_days}</span>
+            <span className="text-[10px] text-orange-400/70"> {streak_days}</span>
           )}
           <TimeSince iso={last_session} />
         </div>

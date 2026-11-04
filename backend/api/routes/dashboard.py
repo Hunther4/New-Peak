@@ -6,6 +6,7 @@ from sqlalchemy.orm import selectinload
 from sqlmodel import Session, select
 
 from core.database import get_session
+from core.identity import Principal, UserPrincipalDep
 from core.timeutils import to_utc_aware
 from models.models import Assessment, Skill, SkillLevelHistory
 from models.models import Session as PracticeSession
@@ -15,26 +16,31 @@ router = APIRouter()
 
 
 @router.get("/summary")
-def get_summary(db: Session = Depends(get_session)):
+def get_summary(principal: Principal = UserPrincipalDep, db: Session = Depends(get_session)):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
+    user_id = principal.user_id
     skills = db.exec(select(Skill)).all()
     skill_ids = [s.id for s in skills]
 
-    # Batch load: todas las sesiones de todos los skills en 1 query
+    # Batch load: sesiones del usuario para todos los skills en 1 query
     all_sessions = (
         db.exec(
             select(PracticeSession)
-            .where(PracticeSession.skill_id.in_(skill_ids) if skill_ids else False)
+            .where(PracticeSession.skill_id.in_(skill_ids))
+            .where(PracticeSession.user_id == user_id)
             .order_by(PracticeSession.created_at.desc())
         ).all()
         if skill_ids
         else []
     )
 
-    # Batch load: todos los assessments (último por skill)
+    # Batch load: assessments del usuario (último por skill)
     all_assessments = (
         db.exec(
             select(Assessment)
-            .where(Assessment.skill_id.in_(skill_ids) if skill_ids else False)
+            .where(Assessment.skill_id.in_(skill_ids))
+            .where(Assessment.user_id == user_id)
             .order_by(Assessment.created_at.desc())
         ).all()
         if skill_ids

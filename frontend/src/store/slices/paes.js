@@ -45,13 +45,21 @@ export const createPaesSlice = (set, get) => ({
 
   setPaesActiveSubject: async (code) => {
     set({ paesActiveSubject: code })
-    await get().fetchPaesSubtopics(1, code)
+    await Promise.allSettled([
+      get().fetchPaesSubtopics(1, code),
+      get().fetchPaesFsrsStatus(1, code),
+      get().loadErrorVault ? get().loadErrorVault(1, code) : (get().fetchPaesErrorNotebook ? get().fetchPaesErrorNotebook(code) : Promise.resolve()),
+    ])
   },
 
   fetchPaesFsrsStatus: async (userId = 1, subjectCode = null) => {
     try {
       set({ paesLoading: true, paesError: null })
-      const targetSubject = subjectCode || get().paesActiveSubject || "M1"
+      // subjectCode=null => cola global (ya trae subject_code en cada ítem);
+      // subjectCode="ALL" se pasa vacío. No usar paesActiveSubject acá: eso
+      // dejaba la acción diaria hardcodeada a la materia activa (M1).
+      const targetSubject =
+        subjectCode === "ALL" ? null : subjectCode
       const data = await api.paes.getFsrsStatus(userId, targetSubject)
       set({ paesFsrsStatus: data, paesLoading: false })
       return data

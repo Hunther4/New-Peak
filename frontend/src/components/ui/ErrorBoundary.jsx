@@ -19,7 +19,7 @@ export class ErrorBoundary extends Component {
       return (
         <div className="card p-6 text-center">
           <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl mx-auto mb-3">
-            ⚠
+            
           </div>
           <p className="text-sm font-bold text-white mb-1">Algo salió mal</p>
           <p className="text-xs text-neutral-500 mb-4">

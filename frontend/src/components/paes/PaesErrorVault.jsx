@@ -60,13 +60,13 @@ export function PaesErrorVault({ onStartRevenge, onTwinVariant }) {
       <div className="p-6 rounded-3xl bg-neutral-900/60 border border-white/[0.08] backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xl">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="text-xl">🔥</span>
+            <span className="text-xl"></span>
             <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-400">
               Metacognición & Redención
             </span>
           </div>
           <h3 className="text-2xl font-black text-white tracking-tight">
-            Cuaderno Negro de Errores ({totalErrors})
+            Cuaderno de errores ({totalErrors})
           </h3>
           <p className="text-xs text-neutral-400 max-w-xl">
             Cada error es oro puro para la PAES. Aquí se concentran los ítems donde caíste en un distractor oficial. Domínalos en una sesión de revancha para erradicar tus puntos ciegos.
@@ -81,7 +81,7 @@ export function PaesErrorVault({ onStartRevenge, onTwinVariant }) {
             }}
             className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 text-white font-bold text-xs shadow-lg shadow-rose-500/25 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
           >
-            <span>⚔️</span>
+            
             <span>Iniciar Modo Revancha ({Math.min(totalErrors, 10)})</span>
           </button>
         )}
@@ -126,7 +126,7 @@ export function PaesErrorVault({ onStartRevenge, onTwinVariant }) {
       {/* Empty State */}
       {totalErrors === 0 && !paesLoading && (
         <div className="p-12 rounded-3xl bg-neutral-900/30 border border-white/[0.06] text-center space-y-4">
-          <div className="text-4xl">🎯</div>
+          <div className="text-4xl"></div>
           <h4 className="text-lg font-bold text-white">¡Cuaderno de Errores Limpio!</h4>
           <p className="text-xs text-neutral-400 max-w-md mx-auto">
             No tienes errores activos sin superar en {paesActiveSubject || "esta materia"}. Rinde un ensayo o sesión de práctica para poner a prueba tus habilidades.
@@ -182,7 +182,7 @@ export function PaesErrorVault({ onStartRevenge, onTwinVariant }) {
                     }}
                     className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 text-white font-bold text-xs shadow-md shadow-rose-500/20 transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
                   >
-                    <span>⚡</span>
+                    
                     <span>Vengar Error</span>
                   </button>
                   <span className="text-neutral-500 text-xs transition-transform duration-200">
@@ -258,7 +258,7 @@ export function PaesErrorVault({ onStartRevenge, onTwinVariant }) {
                     <div className="space-y-3">
                       <div className="p-4 rounded-xl bg-sky-500/[0.06] border border-sky-500/20 space-y-2">
                         <div className="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
-                          <span>💡</span>
+                          
                           <span>Resolución Pedagógica Paso a Paso</span>
                         </div>
                         <div className="text-xs text-neutral-300 leading-relaxed">
@@ -276,7 +276,7 @@ export function PaesErrorVault({ onStartRevenge, onTwinVariant }) {
                       {item.explanation.distractor_analysis && (
                         <div className="p-4 rounded-xl bg-amber-500/[0.06] border border-amber-500/20 space-y-2.5">
                           <div className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                            <span>🎯</span>
+                            
                             <span>Análisis de Distractores</span>
                           </div>
                           <div className="grid grid-cols-1 gap-2 pt-1">

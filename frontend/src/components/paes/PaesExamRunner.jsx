@@ -243,7 +243,7 @@ export function PaesExamRunner() {
       <header className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-neutral-900/80 border border-white/[0.08] backdrop-blur-md">
         <div className="flex items-center gap-3">
           <span className="p-2.5 rounded-xl bg-sky-500/10 text-sky-400 font-bold text-lg">
-            ⏱️
+            ⏱
           </span>
           <div>
             <h3 className="text-sm font-bold text-white tracking-tight">
@@ -280,7 +280,7 @@ export function PaesExamRunner() {
                 : "bg-emerald-500/15 border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/25"
             }`}
           >
-            <span className="text-sm" aria-hidden="true">{soundMuted ? "🔇" : "🔊"}</span>
+            <span className="text-sm" aria-hidden="true">{soundMuted ? "" : ""}</span>
             <span className="hidden sm:inline font-mono">{soundMuted ? "Mute" : "Audio"}</span>
           </button>
 
@@ -307,7 +307,7 @@ export function PaesExamRunner() {
             onClick={() => setShowConfirmModal(true)}
             className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-xs rounded-xl transition-all shadow-lg shadow-emerald-500/20 cursor-pointer"
           >
-            Finalizar Ensayo ➔
+            Finalizar Ensayo 
           </button>
         </div>
       </header>
@@ -335,7 +335,7 @@ export function PaesExamRunner() {
                 <span className="w-2.5 h-2.5 rounded bg-neutral-800 border border-white/20" /> Pendiente
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded bg-amber-500" /> Revisar 🚩
+                <span className="w-2.5 h-2.5 rounded bg-amber-500" /> Revisar 
               </span>
             </div>
 
@@ -365,7 +365,7 @@ export function PaesExamRunner() {
                   >
                     <span>{idx + 1}</span>
                     {isQFlagged && (
-                      <span className="absolute -top-1 -right-1 text-[9px]">🚩</span>
+                      <span className="absolute -top-1 -right-1 text-[9px]"></span>
                     )}
                   </button>
                 )
@@ -375,7 +375,7 @@ export function PaesExamRunner() {
 
           <div className="pt-4 mt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-neutral-400">
             <span>Atajo: [A, B, C, D] o [1, 2, 3, 4]</span>
-            <span>[F] Marcar 🚩</span>
+            <span>[F] Marcar </span>
           </div>
         </div>
 
@@ -403,7 +403,7 @@ export function PaesExamRunner() {
                     : "bg-neutral-800/60 border-white/[0.08] text-neutral-400 hover:text-white"
                 }`}
               >
-                <span>🚩</span>
+                
                 <span>{isFlagged ? "Marcada para Revisión" : "Marcar para Revisar"}</span>
               </button>
             </div>
@@ -426,7 +426,7 @@ export function PaesExamRunner() {
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <div className="flex items-center gap-2">
                       <span className={`text-sm ${isPacingExceeded ? "text-amber-400" : "text-sky-400"}`}>
-                        ⏱️
+                        ⏱
                       </span>
                       <span className="text-xs font-semibold">
                         {isPacingExceeded ? (
@@ -481,7 +481,7 @@ export function PaesExamRunner() {
                           }}
                           className="self-start sm:self-auto px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-100 text-[11px] font-bold rounded-lg border border-amber-500/30 transition-all cursor-pointer whitespace-nowrap"
                         >
-                          Marcar 🚩 y avanzar
+                          Marcar y avanzar
                         </button>
                       )}
                     </div>
@@ -559,7 +559,7 @@ export function PaesExamRunner() {
             </button>
 
             <div className="text-xs font-mono text-neutral-500 hidden sm:block">
-              Navegá con [←] y [→]
+              Navega con [←] y [→]
             </div>
 
             {paesCurrentIndex < totalQuestions - 1 ? (
@@ -574,7 +574,7 @@ export function PaesExamRunner() {
                 onClick={() => setShowConfirmModal(true)}
                 className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 text-xs font-bold transition-all shadow-lg shadow-emerald-500/20 cursor-pointer"
               >
-                Revisar y Entregar ➔
+                Revisar y Entregar 
               </button>
             )}
           </div>
@@ -587,7 +587,7 @@ export function PaesExamRunner() {
           <div className="max-w-md w-full p-6 rounded-3xl bg-neutral-900 border border-white/[0.1] space-y-5 shadow-2xl">
             <div className="flex items-center gap-3">
               <span className="p-3 rounded-2xl bg-amber-500/10 text-amber-400 text-xl font-bold">
-                ⚠️
+                
               </span>
               <div>
                 <h4 className="text-base font-bold text-white">¿Finalizar el Ensayo?</h4>
@@ -646,7 +646,7 @@ export function PaesExamRunner() {
           <div className="max-w-md w-full p-6 rounded-3xl bg-neutral-900 border border-white/[0.1] space-y-5 shadow-2xl">
             <div className="flex items-center gap-3">
               <span className="p-3 rounded-2xl bg-rose-500/10 text-rose-400 text-xl font-bold">
-                🚪
+                
               </span>
               <div>
                 <h4 className="text-base font-bold text-white">¿Abandonar el Ensayo?</h4>
