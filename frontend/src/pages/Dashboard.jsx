@@ -22,8 +22,8 @@ export default function Dashboard() {
     fetchSummary()
     fetchTimeline()
     fetchChallenges()
-    if (fetchPaesSubtopics) fetchPaesSubtopics(1, "ALL")
-    if (fetchPaesFsrsStatus) fetchPaesFsrsStatus(1, null)
+    if (fetchPaesSubtopics) fetchPaesSubtopics(null, "ALL")
+    if (fetchPaesFsrsStatus) fetchPaesFsrsStatus(null, null)
   }, [paesActiveSubject])
 
   const isLoading = loading && !timeline?.length

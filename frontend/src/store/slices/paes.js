@@ -46,13 +46,13 @@ export const createPaesSlice = (set, get) => ({
   setPaesActiveSubject: async (code) => {
     set({ paesActiveSubject: code })
     await Promise.allSettled([
-      get().fetchPaesSubtopics(1, code),
-      get().fetchPaesFsrsStatus(1, code),
-      get().loadErrorVault ? get().loadErrorVault(1, code) : (get().fetchPaesErrorNotebook ? get().fetchPaesErrorNotebook(code) : Promise.resolve()),
+      get().fetchPaesSubtopics(null, code),
+      get().fetchPaesFsrsStatus(null, code),
+      get().loadErrorVault ? get().loadErrorVault(null, code) : (get().fetchPaesErrorNotebook ? get().fetchPaesErrorNotebook(code) : Promise.resolve()),
     ])
   },
 
-  fetchPaesFsrsStatus: async (userId = 1, subjectCode = null) => {
+  fetchPaesFsrsStatus: async (userId = null, subjectCode = null) => {
     try {
       set({ paesLoading: true, paesError: null })
       // subjectCode=null => cola global (ya trae subject_code en cada ítem);
@@ -68,7 +68,7 @@ export const createPaesSlice = (set, get) => ({
     }
   },
 
-  fetchPaesSubtopics: async (userId = 1, subjectCode = null) => {
+  fetchPaesSubtopics: async (userId = null, subjectCode = null) => {
     try {
       set({ paesLoading: true, paesError: null })
       const targetSubject = subjectCode || get().paesActiveSubject || "M1"
@@ -80,7 +80,7 @@ export const createPaesSlice = (set, get) => ({
     }
   },
 
-  loadErrorVault: async (userId = 1, subjectCode = null) => {
+  loadErrorVault: async (userId = null, subjectCode = null) => {
     try {
       set({ paesLoading: true, paesError: null })
       const targetSubject = subjectCode || get().paesActiveSubject || null

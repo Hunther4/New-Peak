@@ -337,18 +337,18 @@ export const api = {
   // --- PAES Adaptive Learning Engine (Multidisciplinary) ---
   paes: {
     getSubjects: () => request("/paes/subjects"),
-    getFsrsStatus: (userId = 1, subjectCode = null) =>
-      request(`/paes/fsrs/status?user_id=${userId}${subjectCode ? `&subject_code=${subjectCode}` : ""}`),
-    getCurriculumSubtopics: (userId = 1, subjectCode = null) =>
-      request(`/paes/curriculum/subtopics?user_id=${userId}${subjectCode ? `&subject_code=${subjectCode}` : ""}`),
+    getFsrsStatus: (userId = null, subjectCode = null) =>
+      request(`/paes/fsrs/status${userId ? `?user_id=${userId}` : ""}${subjectCode ? `${userId ? "&" : "?"}subject_code=${subjectCode}` : ""}`),
+    getCurriculumSubtopics: (userId = null, subjectCode = null) =>
+      request(`/paes/curriculum/subtopics${userId ? `?user_id=${userId}` : ""}${subjectCode ? `${userId ? "&" : "?"}subject_code=${subjectCode}` : ""}`),
     getErrorNotebook: (subjectCode = null) =>
       request(`/paes/study/error_notebook${subjectCode ? `?subject_code=${subjectCode}` : ""}`),
-    getErrorVault: (userId = 1, subjectCode = null) =>
-      request(`/paes/errors/vault?user_id=${userId}${subjectCode ? `&subject_code=${subjectCode}` : ""}`),
-    startRevengeSession: (questionCount = 10, subjectCode = "M1", userId = 1) =>
+    getErrorVault: (userId = null, subjectCode = null) =>
+      request(`/paes/errors/vault${userId ? `?user_id=${userId}` : ""}${subjectCode ? `${userId ? "&" : "?"}subject_code=${subjectCode}` : ""}`),
+    startRevengeSession: (questionCount = 10, subjectCode = "M1", userId = null) =>
       request("/paes/errors/revenge-session", {
         method: "POST",
-        body: JSON.stringify({ question_count: questionCount, subject_code: subjectCode, user_id: userId }),
+        body: JSON.stringify({ question_count: questionCount, subject_code: subjectCode, ...(userId ? { user_id: userId } : {}) }),
       }),
     getQuestionVariant: (questionId, seed = null) =>
       request(`/paes/questions/${questionId}/variant${seed !== null ? `?seed=${seed}` : ""}`),

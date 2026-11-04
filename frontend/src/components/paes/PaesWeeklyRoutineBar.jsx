@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { api } from "../../api/client"
+import { api, getActiveDeviceId } from "../../api/client"
 import { icons } from "../ui/icons"
 
 const CalendarIcon = ({ className = "w-4 h-4" }) => <icons.calendar className={className} />
@@ -28,7 +28,15 @@ const SUBJECT_OPTIONS = [
   { code: "REST", label: "Descanso", color: "from-slate-700 to-slate-800", badge: "bg-slate-500/20 text-slate-400 border-slate-500/30" },
 ]
 
-const ROUTINE_CACHE_KEY = "peak_paes_weekly_routine"
+const ROUTINE_CACHE_KEY_BASE = "peak_paes_weekly_routine"
+function routineCacheKey() {
+  try {
+    const deviceId = getActiveDeviceId()
+    return `${ROUTINE_CACHE_KEY_BASE}_${deviceId}`
+  } catch {
+    return ROUTINE_CACHE_KEY_BASE
+  }
+}
 const COLLAPSED_CACHE_KEY = "peak_paes_routine_collapsed"
 const DISMISSED_CACHE_KEY = "peak_paes_routine_dismissed"
 
@@ -51,7 +59,7 @@ const SAVE_STATUS_LABELS = {
 
 function readCachedRoutine() {
   try {
-    const raw = localStorage.getItem(ROUTINE_CACHE_KEY)
+    const raw = localStorage.getItem(routineCacheKey())
     if (!raw) return null
     const parsed = JSON.parse(raw)
     return parsed && typeof parsed === "object" ? parsed : null
@@ -63,12 +71,20 @@ function readCachedRoutine() {
 
 function writeCachedRoutine(routine) {
   try {
-    localStorage.setItem(ROUTINE_CACHE_KEY, JSON.stringify(routine))
+    localStorage.setItem(routineCacheKey(), JSON.stringify(routine))
     return true
   } catch (err) {
     console.warn("[PaesWeeklyRoutineBar] Could not cache the weekly routine locally", err)
     return false
   }
+}
+
+// Clean up the legacy (unscoped) cache key so a shared routine from a
+// previous version does not leak between users on the same browser.
+try {
+  localStorage.removeItem(ROUTINE_CACHE_KEY_BASE)
+} catch {
+  // ignore storage access restrictions
 }
 
 export function PaesWeeklyRoutineBar({ onStartSession, isStarting = false, onDismiss = null, todayKey: todayKeyOverride = null }) {

@@ -84,10 +84,10 @@ export default function PaesStudy() {
 
   useEffect(() => {
     if (fetchPaesSubjects) fetchPaesSubjects()
-    fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
-    fetchPaesSubtopics(1, paesActiveSubject || "M1")
+    fetchPaesFsrsStatus(null, paesActiveSubject || "M1")
+    fetchPaesSubtopics(null, paesActiveSubject || "M1")
     if (loadErrorVault) {
-      loadErrorVault(1, paesActiveSubject || "M1")
+      loadErrorVault(null, paesActiveSubject || "M1")
     } else if (fetchPaesErrorNotebook) {
       fetchPaesErrorNotebook(paesActiveSubject || "M1")
     }
@@ -268,8 +268,8 @@ const SUBJECT_EXAMS_CONFIG = {
           <span>{paesError}</span>
           <button
             onClick={() => {
-              fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
-              fetchPaesSubtopics(1, paesActiveSubject || "M1")
+              fetchPaesFsrsStatus(null, paesActiveSubject || "M1")
+              fetchPaesSubtopics(null, paesActiveSubject || "M1")
             }}
             className="text-xs underline font-semibold text-rose-400 cursor-pointer"
           >
@@ -321,7 +321,7 @@ const SUBJECT_EXAMS_CONFIG = {
           <button
             onClick={() => {
               resetPaesSession()
-              fetchPaesFsrsStatus(1, paesActiveSubject || "M1")
+              fetchPaesFsrsStatus(null, paesActiveSubject || "M1")
             }}
             className="btn btn-primary"
           >
