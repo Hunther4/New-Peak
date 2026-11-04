@@ -80,7 +80,7 @@ EJEMPLOS DE NO-CAMBIO (is_real_shift=false):
 
 REGLAS:
 - is_real_shift=true SOLO si el MODELO MENTAL cambió, no si solo practicó más
-- Sé honesto: si no hay shift real, marcá false
+- Sé honesto: si no hay shift real, marca false
 - NO inventes insights.{rag_context}"""
 
     clean_summary = sanitize_prompt(session_summary)
@@ -94,7 +94,7 @@ Resumen de sesiones recientes:
 {clean_summary}
 
 Genera la nueva representación mental. Si el cambio es genuino, descríbelo.
-Si no hay un cambio real en la comprensión, marcá is_real_shift=false."""
+Si no hay un cambio real en la comprensión, marca is_real_shift=false."""
     else:
         user_prompt = f"""Habilidad: {skill_name}
 Nivel actual: {current_level}/100

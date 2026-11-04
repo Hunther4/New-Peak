@@ -74,13 +74,13 @@ CRITERIOS — La sesión es DELIBERADA solo si TODOS se cumplen:
 DOMINIO: """
         + domain
         + """
-- Técnico (código, música, deporte): exigi tecnicismo en error/corrección
+- Técnico (código, música, deporte): exige tecnicismo en error/corrección
 - Blando (escritura, arte, liderazgo): acepta error conceptual ("enfoqué la audiencia errónea")
 
 REGLAS:
 - Si fallan 2+ criterios → was_deliberate: false, score ≤ 30
 - Sé implacable: vaguedad = no deliberada
-- NO inventes book_citations. Si no hay RAG, devolve []."""
+- NO inventes book_citations. Si no hay RAG, devuelve []."""
         + rag_context_block
     )
 

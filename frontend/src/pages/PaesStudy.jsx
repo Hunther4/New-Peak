@@ -9,7 +9,6 @@ import { PaesExamResults } from "../components/paes/PaesExamResults"
 import { MathRenderer } from "../components/paes/MathRenderer"
 import { PaesErrorVault } from "../components/paes/PaesErrorVault"
 import { CruchAdmissionSimulator } from "../components/paes/CruchAdmissionSimulator"
-import { PaesWeeklyRoutineBar } from "../components/paes/PaesWeeklyRoutineBar"
 import { isSoundMuted, toggleSoundMute } from "../utils/soundEffects"
 import { api } from "../api/client"
 import { icons } from "../components/ui/icons"
@@ -332,15 +331,6 @@ const SUBJECT_EXAMS_CONFIG = {
       ) : (
         /* SPECIALIZED HUB TABS */
         <div className="space-y-6">
-          {/* Barra de Rutina Semanal con Boton 1-Clic (Arriba arriba de los tabs) */}
-          <PaesWeeklyRoutineBar
-            onStartSession={(subjectCode, count) => {
-              if (setPaesActiveSubject) setPaesActiveSubject(subjectCode)
-              startPaesSession("PRACTICE", null, count || 15, subjectCode)
-            }}
-            isStarting={paesLoading}
-          />
-
           {/* Main Tab Navigation: every hub block must be reachable from here */}
           <div className="flex items-center gap-1.5 p-1.5 bg-[#101010] border border-white/[0.07] rounded-xl overflow-x-auto">
             {[

@@ -75,7 +75,7 @@ describe("PaesStudy - hub tabs", () => {
   it("keeps the exams tab as the default tab", () => {
     renderStudy()
 
-    expect(screen.getByText("Tu Rutina Semanal de 1-Clic")).toBeInTheDocument()
+    // Rutina Semanal ahora vive solo en Dashboard, no en PaesStudy
     expect(screen.queryByText("Generador de ejercicios")).not.toBeInTheDocument()
     expect(screen.queryByText("Motor FSRS v4.5")).not.toBeInTheDocument()
     expect(screen.queryByText("Repasos")).not.toBeInTheDocument()

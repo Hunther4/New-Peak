@@ -2,12 +2,23 @@ import React, { useEffect, useRef, useState } from "react"
 import { MathRenderer } from "./MathRenderer"
 import { PaesReadingStimulus } from "./PaesReadingStimulus"
 import { PaesTwinVariantModal } from "./PaesTwinVariantModal"
+import { icons } from "../ui/icons"
 import {
   playClickSound,
   playSuccessSound,
   playErrorSound,
   playStreakSound,
 } from "../../utils/soundEffects"
+
+const PROVENANCE_LABELS = {
+  OFFICIAL_DEMRE: "DEMRE oficial",
+  CURATED_DEMRE: "Curada",
+  PARAMETRIC: "Generada",
+  PARAMETRIC_TWIN: "Variante",
+  ORIGINAL: "Original",
+  DERIVED: "Derivada",
+  OFFICIAL: "Original",
+}
 
 export function PaesQuestionCard({
   question,
@@ -55,17 +66,15 @@ export function PaesQuestionCard({
       {/* Header tags */}
       <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-white/[0.06]">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
-            {question.provenance_type || "PAES"}
+          <span className="badge badge-deliberate">
+            {PROVENANCE_LABELS[question.provenance_type] || "PAES"}
           </span>
           {question.is_pilot && (
-            <span className="text-[11px] font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-500/20">
-              Experimental
-            </span>
+            <span className="badge badge-onboarding">Experimental</span>
           )}
         </div>
         <div className="text-xs text-neutral-400 font-mono">
-          Dificultad est: {Math.round((question.difficulty_estimate || 0.5) * 100)}%
+          Dificultad est. {Math.round((question.difficulty_estimate || 0.5) * 100)}%
         </div>
       </div>
 
@@ -171,9 +180,9 @@ export function PaesQuestionCard({
             type="button"
             disabled={!selectedOption || loading}
             onClick={onSubmit}
-            className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 disabled:opacity-40 text-black font-bold text-sm rounded-xl shadow-lg shadow-emerald-500/20 transition-all"
+            className="btn btn-primary w-full sm:w-auto"
           >
-            {loading ? "Evaluando..." : "Confirmar Respuesta"}
+            {loading ? "Evaluando..." : "Confirmar respuesta"}
           </button>
         ) : (
           <div className="w-full">
@@ -186,7 +195,12 @@ export function PaesQuestionCard({
               }`}
             >
               <div className="flex items-center gap-2 font-bold text-sm mb-1.5">
-                <span>{lastResult.is_correct ? "✅ ¡Correcto!" : "❌ Respuesta incorrecta"}</span>
+                {lastResult.is_correct ? (
+                  <icons.success size={18} />
+                ) : (
+                  <icons.failure size={18} />
+                )}
+                <span>{lastResult.is_correct ? "Correcto" : "Respuesta incorrecta"}</span>
                 {lastResult.distractor_cause && (
                   <span className="text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-200 uppercase font-mono">
                     Causa: {lastResult.distractor_cause}
@@ -198,8 +212,8 @@ export function PaesQuestionCard({
               {(lastResult.explanation?.step_by_step || lastResult.explanation?.correct_solution || lastResult.explanation?.short_summary) && (
                 <div className="mt-2 pt-2 border-t border-white/[0.08] text-xs leading-relaxed">
                   <div className="font-semibold text-neutral-300 mb-1 flex items-center gap-1.5">
-                    <span>💡</span>
-                    <span>Resolución Pedagógica:</span>
+                    <icons.lightbulb size={14} />
+                    <span>Resolución pedagógica</span>
                   </div>
                   <MathRenderer
                     text={
@@ -215,8 +229,8 @@ export function PaesQuestionCard({
               {lastResult.explanation?.distractor_analysis && (
                 <div className="mt-2.5 pt-2 border-t border-white/[0.08] text-xs">
                   <div className="font-semibold text-amber-300 mb-1 flex items-center gap-1.5">
-                    <span>🎯</span>
-                    <span>Análisis de Alternativas:</span>
+                    <icons.focus size={14} />
+                    <span>Análisis de alternativas</span>
                   </div>
                   <div className="space-y-1.5 mt-1.5">
                     {Object.entries(lastResult.explanation.distractor_analysis).map(([optKey, desc]) => (
@@ -240,14 +254,14 @@ export function PaesQuestionCard({
                   <button
                     type="button"
                     onClick={() => setShowVariantModal(true)}
-                    className="px-4 py-2.5 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 text-white font-bold text-xs rounded-xl shadow-lg shadow-rose-500/25 transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
+                    className="btn btn-danger btn-sm shrink-0"
                   >
-                    <span>⚡</span>
-                    <span>Vengar Error</span>
+                    <icons.retry size={14} />
+                    <span>Practicar variante</span>
                   </button>
                   <div className="text-xs text-rose-300/90 flex items-center gap-1.5 font-medium">
-                    <span>🔥</span>
-                    <span>Registrado en tu <strong>Cuaderno de Errores</strong>.</span>
+                    <icons.errorBook size={14} />
+                    <span>Registrado en tu <strong>cuaderno de errores</strong>.</span>
                   </div>
                 </div>
               ) : (
@@ -257,9 +271,10 @@ export function PaesQuestionCard({
                 <button
                   type="button"
                   onClick={onNext}
-                  className="px-6 py-3 bg-white text-black hover:bg-neutral-200 font-bold text-sm rounded-xl shadow-lg transition-all cursor-pointer"
+                  className="btn btn-primary w-full sm:w-auto"
                 >
-                  Siguiente Pregunta →
+                  Siguiente pregunta
+                  <icons.next size={16} />
                 </button>
               </div>
             </div>

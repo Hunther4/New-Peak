@@ -50,7 +50,7 @@ function WelcomeScreen() {
               Peak <span className="text-green-400/80 font-semibold">Practice</span>
             </h1>
             <p className="text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium mt-1.5">
-              Práctica Deliberada 🎯
+              Práctica Deliberada 
             </p>
           </div>
 
@@ -113,7 +113,7 @@ function WelcomeScreen() {
                   Guardando...
                 </span>
               ) : (
-                "Comenzar 🚀"
+                "Comenzar "
               )}
             </button>
           </form>

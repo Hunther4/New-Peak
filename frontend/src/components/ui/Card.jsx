@@ -9,7 +9,7 @@ const Card = memo(function Card({
 }) {
   return (
     <div
-      className={`card relative overflow-hidden ${hover ? "hover:border-green-500/30 hover:-translate-y-2" : ""} ${interactive ? "cursor-pointer" : ""} ${className}`}
+      className={`card relative overflow-hidden ${hover ? "hover:border-white/[0.12]" : ""} ${interactive ? "cursor-pointer" : ""} ${className}`}
       {...props}
     >
       {children}

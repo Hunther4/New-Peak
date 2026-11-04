@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react"
+import React, { useState } from "react"
 import { MathRenderer } from "./MathRenderer"
 
 export function SocraticTutorDrawer({ hints = [], onRequestHint, loading = false }) {
@@ -15,7 +15,7 @@ export function SocraticTutorDrawer({ hints = [], onRequestHint, loading = false
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
-            💡
+            
           </div>
           <h4 className="text-sm font-bold text-white uppercase tracking-wider">
             Tutor Socrático Adaptativo

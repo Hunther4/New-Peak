@@ -72,7 +72,7 @@ export function PaesTwinVariantModal({ questionId, isOpen, onClose }) {
         <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/[0.08]">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-xl">⚡</span>
+              <span className="text-xl"></span>
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">
                 Ciclo de Redención • SymPy
               </span>
@@ -89,7 +89,7 @@ export function PaesTwinVariantModal({ questionId, isOpen, onClose }) {
             onClick={onClose}
             className="w-8 h-8 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-400 hover:text-white flex items-center justify-center text-sm font-bold transition-all cursor-pointer shrink-0"
           >
-            ✕
+            
           </button>
         </div>
 
@@ -164,12 +164,12 @@ export function PaesTwinVariantModal({ questionId, isOpen, onClose }) {
                     </div>
                     {isEvaluated && isCorrect && (
                       <span className="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
-                        ✓ Correcta
+                         Correcta
                       </span>
                     )}
                     {isEvaluated && isSelected && !isCorrect && (
                       <span className="text-xs font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20">
-                        ✗ Tu elección
+                         Tu elección
                       </span>
                     )}
                   </button>
@@ -187,7 +187,7 @@ export function PaesTwinVariantModal({ questionId, isOpen, onClose }) {
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="text-2xl">{isCurrentCorrect ? "🔥" : "⚠️"}</span>
+                  <span className="text-2xl">{isCurrentCorrect ? "" : ""}</span>
                   <div>
                     <h4 className="text-sm font-bold">
                       {isCurrentCorrect
@@ -208,7 +208,7 @@ export function PaesTwinVariantModal({ questionId, isOpen, onClose }) {
             {revealed && variant.explanation && (
               <div className="p-5 rounded-2xl bg-neutral-950/90 border border-white/[0.08] space-y-3 animate-fade-in text-xs text-neutral-300">
                 <div className="font-bold text-sky-400 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
-                  <span>💡</span>
+                  
                   <span>Solucionario Pedagógico Paso a Paso</span>
                 </div>
                 {variant.explanation.step_by_step && (
@@ -238,7 +238,7 @@ export function PaesTwinVariantModal({ questionId, isOpen, onClose }) {
                 onClick={() => loadVariant(Math.floor(Math.random() * 100000))}
                 className="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-xs rounded-xl border border-white/[0.08] transition-all cursor-pointer flex items-center gap-1.5"
               >
-                <span>🎲</span>
+                
                 <span>Probar Otra Variante</span>
               </button>
 
@@ -250,7 +250,7 @@ export function PaesTwinVariantModal({ questionId, isOpen, onClose }) {
                     onClick={handleEvaluate}
                     className="px-6 py-2.5 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 disabled:opacity-40 text-white font-bold text-xs rounded-xl shadow-lg shadow-rose-500/20 transition-all cursor-pointer disabled:cursor-not-allowed flex items-center gap-1.5"
                   >
-                    <span>⚡</span>
+                    
                     <span>Comprobar Venganza</span>
                   </button>
                 ) : (

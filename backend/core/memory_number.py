@@ -146,7 +146,7 @@ def calculate_staircase(
             "new_consecutive_incorrect": new_consecutive_incorrect,
             "phase_changed": False,
             "new_phase": phase,
-            "message": "Incorrecto. Intentá de nuevo.",
+            "message": "Incorrecto. Intenta de nuevo.",
         }
 
 

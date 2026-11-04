@@ -9,31 +9,32 @@ vi.mock("../../store/store", () => ({
   useStore: Object.assign(vi.fn(), { getState: vi.fn(), setState: vi.fn() }),
 }))
 
+vi.mock("../../api/client", () => ({
+  api: {
+    paes: {
+      getRoutine: vi.fn().mockResolvedValue({ routine: {} }),
+      updateRoutine: vi.fn().mockResolvedValue({}),
+    },
+  },
+}))
+
 import { useStore } from "../../store/store"
 import Dashboard from "../Dashboard"
 
 function createMockState(overrides = {}) {
   return {
+    // PAES
+    paesSubtopicsList: [],
+    paesFsrsStatus: { capped_review_queue: [] },
+    paesActiveSubject: "M1",
+    setPaesActiveSubject: vi.fn(),
+    fetchPaesSubtopics: vi.fn(),
+    fetchPaesFsrsStatus: vi.fn(),
     // Skills/Sessions
     skills: [],
     sessions: [],
     summary: null,
-    groupedSummary: [
-      {
-        skill: { id: 1, name: "Memory", slug: "memory", type: "memory", category: "cognitive" },
-        sessions: [],
-        total_sessions: 0,
-        total_time: 0,
-        avg_score: null,
-      },
-      {
-        skill: { id: 2, name: "Math", slug: "math", type: "math", category: "cognitive" },
-        sessions: [{ id: "s1", created_at: "2024-01-01", duration_minutes: 10, session_data: "{}" }],
-        total_sessions: 1,
-        total_time: 10,
-        avg_score: 85,
-      },
-    ],
+    groupedSummary: [],
     timeline: [],
     loading: false,
     error: null,
@@ -78,36 +79,23 @@ describe("Dashboard", () => {
     useStore.mockReturnValue(createMockState())
     useStore.getState.mockReturnValue(createMockState())
     render(<Dashboard />)
-    expect(screen.getByText("Tus habilidades")).toBeInTheDocument()
+    expect(screen.getByText("Tu Rutina Semanal")).toBeInTheDocument()
   })
 
-  it("displays skill cards when groupedSummary has data", () => {
+  it("muestra la acción diaria con el título honesto", () => {
+    useStore.mockReturnValue(createMockState({
+      paesFsrsStatus: { capped_review_queue: [{ subject_code: "M1" }] },
+    }))
+    useStore.getState.mockReturnValue(createMockState())
+    render(<Dashboard />)
+    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de M1/)).toBeInTheDocument()
+  })
+
+  it("muestra las secciones Desafíos Deliberados y Registro de Auditoría", () => {
     useStore.mockReturnValue(createMockState())
     useStore.getState.mockReturnValue(createMockState())
     render(<Dashboard />)
-    expect(screen.getAllByText("Memory").length).toBeGreaterThanOrEqual(1)
-    expect(screen.getAllByText("Math").length).toBeGreaterThanOrEqual(1)
-  })
-
-  it("shows manual registration section", () => {
-    useStore.mockReturnValue(createMockState())
-    useStore.getState.mockReturnValue(createMockState())
-    render(<Dashboard />)
-    expect(screen.getByText("Registro manual")).toBeInTheDocument()
-  })
-
-  it("shows section headings: Desafíos, Representaciones, Biblioteca, Motor, Auditoría", () => {
-    useStore.mockReturnValue(createMockState())
-    useStore.getState.mockReturnValue(createMockState())
-    render(<Dashboard />)
-    // These section headings are INSIDE ErrorBoundary wrappers.
-    // Even if child components throw, the h2 headings should render
-    // because they are outside the ErrorBoundary's child scope.
-    // Actually looking at the Dashboard code, the h2 IS inside ErrorBoundary.
-    // So if child throws, ErrorBoundary catches and shows fallback,
-    // but the h2 is also inside ErrorBoundary's children, so it won't show.
-    // Instead, we check that the ErrorBoundary fallbacks render.
-    expect(screen.getByText("Tus habilidades")).toBeInTheDocument()
+    expect(screen.getByText("Desafíos Deliberados")).toBeInTheDocument()
     expect(screen.getByText("Registro de Auditoría")).toBeInTheDocument()
   })
 })

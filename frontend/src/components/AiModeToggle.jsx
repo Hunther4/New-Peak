@@ -24,7 +24,7 @@ export default function AiModeToggle() {
             : "text-neutral-600 hover:text-neutral-400 border border-transparent"
         }`}
       >
-        🖥 Local
+         Local
       </button>
       <button
         onClick={() => handleToggle("api")}
@@ -34,7 +34,7 @@ export default function AiModeToggle() {
             : "text-neutral-600 hover:text-neutral-400 border border-transparent"
         }`}
       >
-        ☁ Cloud
+         Cloud
       </button>
     </div>
   )

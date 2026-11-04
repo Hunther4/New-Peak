@@ -124,7 +124,7 @@ export default function GuidedPractice({ skillId, onClose }) {
     <GameShell
       title="Práctica guiada"
       subtitle={skillName}
-      icon="🧠"
+      icon=""
       accentColor="green"
       onBack={onClose}
       error={error}
@@ -136,7 +136,7 @@ export default function GuidedPractice({ skillId, onClose }) {
           {phase === "idle" && (
             <div className="card p-8 md:p-10">
               <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-2xl mx-auto mb-6">
-                🧠
+                
               </div>
 
               <h2 className="text-2xl font-black text-white text-center mb-1">
@@ -252,7 +252,7 @@ export default function GuidedPractice({ skillId, onClose }) {
           {phase === "finished" && (
             <div className="card p-8 md:p-10 text-center">
               <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-2xl mx-auto mb-6">
-                🏆
+                
               </div>
 
               <h2 className="text-2xl font-black text-white mb-8">

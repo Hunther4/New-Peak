@@ -98,7 +98,7 @@ def generate_problem(
 
     user_prompt = (
         f"Genera un problema de {topic_str} del tipo {problem_type_str}. "
-        "Incluí la respuesta correcta como número y los pasos de solución."
+        "Incluye la respuesta correcta como número y los pasos de solución."
     )
 
     # Inject learning patterns if available (graceful degradation)
@@ -108,7 +108,7 @@ def generate_problem(
 
             patterns_text = format_patterns_for_prompt(db, skill_id, "problem_set")
             if patterns_text:
-                user_prompt += f"\n\n{patterns_text}\n\nAdaptá el problema para reforzar las áreas donde el usuario tiene más errores."
+                user_prompt += f"\n\n{patterns_text}\n\nAdapta el problema para reforzar las áreas donde el usuario tiene más errores."
         except Exception:
             pass  # Graceful degradation — generate normally if patterns fail
 
@@ -122,10 +122,10 @@ def generate_problem(
                 f"{problem_type_str}. "
                 "La respuesta correcta DEBE ser un número finito válido "
                 "(no NaN, no infinito). "
-                "Incluí los pasos de solución detallados."
+                "Incluye los pasos de solución detallados."
             )
             if last_error:
-                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corregí el formato."
+                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corrige el formato."
 
         result = router_fn(
             task_type="math_problem",

@@ -17,12 +17,18 @@ vi.mock('../store/store', () => ({
     profile: { name: 'Test', age: 25 },
     profileLoading: false,
     fetchProfile: vi.fn(),
+    paesSubtopicsList: [],
+    paesFsrsStatus: { capped_review_queue: [] },
+    paesActiveSubject: "M1",
+    setPaesActiveSubject: vi.fn(),
+    fetchPaesSubtopics: vi.fn(),
+    fetchPaesFsrsStatus: vi.fn(),
   })),
 }))
 
 vi.mock('../api/client', () => ({
   default: { sessions: { clearAll: vi.fn() } },
-  api: { sessions: { clearAll: vi.fn() } },
+  api: { sessions: { clearAll: vi.fn() }, paes: { getRoutine: vi.fn().mockResolvedValue({ routine: {} }), updateRoutine: vi.fn().mockResolvedValue({}) } },
 }))
 
 vi.mock('../components/SkillCard', () => ({
@@ -108,31 +114,18 @@ describe('App dashboard layout', () => {
     vi.clearAllMocks()
   })
 
-  it('renders Skills section BEFORE SessionForm', () => {
+  it('renders PAES routine and daily action on dashboard', () => {
     render(<App />)
 
-    const skillsHeading = screen.getByText('Tus Skills')
-    const registroButton = screen.getByText('Registro manual')
-
-    const skillsSection = skillsHeading.closest('section')
-    const sessionSection = registroButton.closest('section')
-
-    expect(skillsSection).toBeTruthy()
-    expect(sessionSection).toBeTruthy()
-
-    const skillsIndex = Array.from(document.querySelectorAll('section')).indexOf(skillsSection)
-    const sessionIndex = Array.from(document.querySelectorAll('section')).indexOf(sessionSection)
-
-    expect(skillsIndex).toBeLessThan(sessionIndex)
+    expect(screen.getByText('Tu Rutina Semanal')).toBeInTheDocument()
+    expect(screen.getByText('Tu próximo paso')).toBeInTheDocument()
   })
 
-  it('SessionForm is collapsed by default', () => {
+  it('does not render the old Skills / SessionForm sections', () => {
     render(<App />)
 
-    const registroButton = screen.getByText('Registro manual')
-    expect(registroButton).toBeInTheDocument()
-
-    const sessionForm = screen.queryByTestId('session-form')
-    expect(sessionForm).not.toBeInTheDocument()
+    expect(screen.queryByText('Tus habilidades')).not.toBeInTheDocument()
+    expect(screen.queryByText('Registro manual')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('session-form')).not.toBeInTheDocument()
   })
 })

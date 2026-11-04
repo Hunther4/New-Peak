@@ -404,11 +404,11 @@ export const api = {
           body: JSON.stringify(payload),
         }),
     },
-    getRoutine: (userId = 1) => request(`/paes/study/routine?user_id=${userId}`),
-    updateRoutine: (routine, userId = 1) =>
+    getRoutine: () => request("/paes/study/routine"),
+    updateRoutine: (routine) =>
       request("/paes/study/routine", {
         method: "POST",
-        body: JSON.stringify({ user_id: userId, routine }),
+        body: JSON.stringify({ routine }),
       }),
     quickStartToday: (questionCount = 15, userId = 1) =>
       request("/paes/study/routine/quick-start", {

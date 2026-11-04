@@ -22,7 +22,7 @@ export default function BooksPanel() {
           disabled={isIndexing || indexingProgress > 0}
           className="btn btn-ghost text-[10px] px-3 py-1.5 flex items-center gap-2 relative overflow-hidden group"
         >
-          🔄 {isIndexing ? 'Indexando...' : 'Reindexar'}
+           {isIndexing ? 'Indexando...' : 'Reindexar'}
           <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </button>
       </div>
@@ -35,7 +35,7 @@ export default function BooksPanel() {
         </div>
       ) : books.length === 0 ? (
         <div className="text-center py-6 relative z-10">
-          <div className="w-12 h-12 rounded-xl bg-neutral-800/50 flex items-center justify-center text-xl mx-auto mb-3">📚</div>
+          <div className="w-12 h-12 rounded-xl bg-neutral-800/50 flex items-center justify-center text-xl mx-auto mb-3"></div>
           <p className="text-xs text-neutral-500 leading-relaxed">No hay libros indexados.</p>
         </div>
       ) : (
@@ -48,7 +48,7 @@ export default function BooksPanel() {
             >
               {/* Hover gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              <span className="text-base shrink-0 relative z-10 group-hover:scale-110 transition-transform duration-300">📖</span>
+              <span className="text-base shrink-0 relative z-10 group-hover:scale-110 transition-transform duration-300"></span>
               <div className="flex-1 min-w-0 relative z-10">
                 <p className="text-sm text-neutral-300 truncate font-medium group-hover:text-white transition-colors duration-300">{book.book_title || book.source}</p>
                 <p className="text-[10px] text-neutral-600 group-hover:text-neutral-500 transition-colors duration-300">{book.chunks_count} fragmentos</p>

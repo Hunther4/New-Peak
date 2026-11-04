@@ -20,7 +20,7 @@ const STATS = [
   {
     key: "totalSessions",
     label: "Sesiones",
-    icon: "📊",
+    icon: "",
     color: "from-blue-500/15 to-blue-600/5",
     border: "border-blue-500/20",
     text: "text-blue-400",
@@ -28,7 +28,7 @@ const STATS = [
   {
     key: "weeklySessions",
     label: "Esta semana",
-    icon: "🔥",
+    icon: "",
     color: "from-orange-500/15 to-orange-600/5",
     border: "border-orange-500/20",
     text: "text-orange-400",
@@ -36,7 +36,7 @@ const STATS = [
   {
     key: "streak",
     label: "Racha",
-    icon: "⚡",
+    icon: "",
     color: "from-green-500/15 to-green-600/5",
     border: "border-green-500/20",
     text: "text-green-400",
@@ -44,7 +44,7 @@ const STATS = [
   {
     key: "avgLevel",
     label: "Nivel promedio",
-    icon: "🎯",
+    icon: "",
     color: "from-purple-500/15 to-purple-600/5",
     border: "border-purple-500/20",
     text: "text-purple-400",

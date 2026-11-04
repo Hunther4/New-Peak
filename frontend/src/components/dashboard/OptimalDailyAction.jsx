@@ -27,33 +27,34 @@ export default function OptimalDailyAction() {
   const { paesSubtopicsList, paesFsrsStatus, paesActiveSubject, skills } = useStore()
 
   // Find optimal target: prioritized by FSRS overdue or cognitive balance
+  // Título honesto: nunca se manda a un subtema puntual inventado.
   const recommendation = useMemo(() => {
     // 1. Priority: PAES Subtopics with scheduled review due
-    // shortest path: el subtítulo de retención (buildRetentionSubtitle) no se muestra en la UI;
-    // se deja la función para no romper los tests que la cubren, pero no se pinta.
+    // La cola FSRS existe, pero no decimos qué subtema puntual venció:
+    // el título es la invitación y usa la materia del elemento vencido, no
+    // siempre la materia activa. El botón va al Temario.
     const dueReviews = paesFsrsStatus?.capped_review_queue || []
     if (Array.isArray(dueReviews) && dueReviews.length > 0) {
       const topDue = Array.isArray(dueReviews[0]) ? dueReviews[0][0] : dueReviews[0]
-      const subId = topDue?.slug || topDue?.subtopic_id
-      if (subId) {
-        const subjCode = topDue?.subject_code || "M1"
-        return {
-          type: "paes",
-          title: `Hoy toca repasar ${topDue.subtopic_name || `PAES ${subjCode}`}`,
-          subtitle: "",
-          reason: "",
-          actionText: `Entrenar ${subjCode}`,
-          route: `/paes?subtopic=${subId}`,
-          badge: "Repasos pendientes",
-          badgeColor: "bg-sky-500/15 border-sky-500/30 text-sky-400",
-          icon: "",
-        }
+      const subjCode = topDue?.subject_code || paesActiveSubject || "M1"
+      return {
+        type: "paes",
+        title: `Presiona el botón hoy y revisa todos los temas de ${subjCode}`,
+        subtitle: "",
+        reason: "",
+        actionText: "Revisar todos los temas",
+        route: "/paes?tab=curriculum",
+        badge: "Repasos pendientes",
+        badgeColor: "bg-sky-500/15 border-sky-500/30 text-sky-400",
+        icon: "",
       }
     }
 
     // 2. Priority: Low mastery attempted subtopics in PAES (ZDP)
     // La lista general trae todas las materias (ALL) para los totales por grupo;
     // la ZDP se acota a la materia activa para no sugerir electivas sin tocar.
+    // Si hay subtemas con baja maestría, se manda al Temario de la materia
+    // ("revisar todos los temas") en vez de a un subtema puntual inventado.
     const subtopics = (paesSubtopicsList || []).filter(
       (s) => (s.subject_code || s.subject || "M1") === (paesActiveSubject || "M1")
     )
@@ -61,15 +62,14 @@ export default function OptimalDailyAction() {
       const attempted = subtopics.filter((s) => (s.attempts || 0) > 0)
       if (attempted.length > 0) {
         const lowestMastery = [...attempted].sort((a, b) => (a.mastery || 0) - (b.mastery || 0))[0]
-        const subId = lowestMastery?.slug || lowestMastery?.id
-        if (subId && (lowestMastery.mastery || 0) < 0.8) {
+        if ((lowestMastery.mastery || 0) < 0.8) {
           return {
             type: "paes",
-            title: `Hoy toca repasar ${lowestMastery.name}`,
+            title: `Presiona el botón hoy y revisa todos los temas de ${paesActiveSubject || "M1"}`,
             subtitle: "",
             reason: "",
-            actionText: "Practicar",
-            route: `/paes?subtopic=${subId}`,
+            actionText: "Revisar todos los temas",
+            route: "/paes?tab=curriculum",
             badge: "ZDP Óptima",
             badgeColor: "bg-[#2fc2c2]/15 border-[#2fc2c2]/30 text-[#2fc2c2]",
             icon: "",

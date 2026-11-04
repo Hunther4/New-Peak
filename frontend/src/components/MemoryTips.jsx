@@ -12,37 +12,37 @@ const TIPS = [
   {
     id: "chunking",
     title: "Agrupa en bloques",
-    body: "Partí la secuencia en grupos de 3 o 4 dígitos (739-251 en vez de 7-3-9-2-5-1). La memoria de trabajo maneja mejor piezas con significado que piezas sueltas (Miller, 1956).",
+    body: "Divide la secuencia en grupos de 3 o 4 dígitos (739-251 en vez de 7-3-9-2-5-1). La memoria de trabajo maneja mejor piezas con significado que piezas sueltas (Miller, 1956).",
     technique: "encoding",
   },
   {
     id: "visualization",
     title: "Asocia con imágenes",
-    body: "Vinculá cada número con una imagen vívida o colocalo en un punto de un recorrido que conozcas bien (método de los loci). Cuanto más detallada la escena, más fácil de recuperar.",
+    body: "Vincula cada número con una imagen vívida o colócalo en un punto de un recorrido que conozcas bien (método de los loci). Cuanto más detallada la escena, más fácil de recuperar.",
     technique: "encoding",
   },
   {
     id: "pattern",
     title: "Busca patrones",
-    body: "Escaneá la secuencia antes de que aparezca: fechas (15-09), dobles (77, 33, 22), primos consecutivos. Tu cerebro reconoce configuraciones familiares más rápido que dígitos aislados.",
+    body: "Escanea la secuencia antes de que aparezca: fechas (15-09), dobles (77, 33, 22), primos consecutivos. Tu cerebro reconoce configuraciones familiares más rápido que dígitos aislados.",
     technique: "attention",
   },
   {
     id: "rehearsal",
     title: "Repite activamente",
-    body: "Mientras llega el próximo dígito, repetí internamente el grupo anterior. No mires pasivamente: mantener los ítems activos en la memoria de trabajo es lo que evita que se borren.",
+    body: "Mientras llega el próximo dígito, repite internamente el grupo anterior. No mires pasivamente: mantener los ítems activos en la memoria de trabajo es lo que evita que se borren.",
     technique: "rehearsal",
   },
   {
     id: "semantic",
     title: "Convierte en historia",
-    body: "Transformá los números en algo con significado: 1945 → fin de la guerra, 911 → emergencias, 15-07 → Día del Amigo. Los datos con contexto se retienen mucho mejor que los abstractos.",
+    body: "Transforma los números en algo con significado: 1945 → fin de la guerra, 911 → emergencias, 15-07 → Día del Amigo. Los datos con contexto se retienen mucho mejor que los abstractos.",
     technique: "encoding",
   },
   {
     id: "interference",
     title: "Ancla antes de avanzar",
-    body: "Cuando aparece un dígito nuevo, «colocá» mentalmente el grupo anterior en un lugar fijo antes de prestarle atención. Así evitás que se superponga con lo que viene después.",
+    body: "Cuando aparece un dígito nuevo, «coloca» mentalmente el grupo anterior en un lugar fijo antes de prestarle atención. Así evitas que se superponga con lo que viene después.",
     technique: "attention",
   },
 ]

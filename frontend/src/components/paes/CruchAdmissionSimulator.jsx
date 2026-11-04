@@ -247,13 +247,13 @@ export function CruchAdmissionSimulator() {
     careers.forEach((c) => {
       if (c.region) regSet.add(c.region)
     })
-    const regionPills = [{ id: "ALL", label: "🌐 Todas las Regiones" }]
+    const regionPills = [{ id: "ALL", label: " Todas las Regiones"}]
     const regionIcons = {
-      Biobío: "📍",
-      Ñuble: "🌱",
-      Maule: "🍇",
-      Metropolitana: "🏛️",
-      Valparaíso: "🌊",
+      Biobío: "",
+      Ñuble: "",
+      Maule: "",
+      Metropolitana: "",
+      Valparaíso: "",
     }
     const regionNames = {
       Biobío: "Región del Biobío",
@@ -267,13 +267,13 @@ export function CruchAdmissionSimulator() {
       if (regSet.has(r)) {
         regionPills.push({
           id: r,
-          label: `${regionIcons[r] || "📌"} ${regionNames[r] || `Región de ${r}`}`,
+          label: `${regionIcons[r] || ""} ${regionNames[r] || `Región de ${r}`}`,
         })
         regSet.delete(r)
       }
     })
     regSet.forEach((r) => {
-      regionPills.push({ id: r, label: `📌 ${r}` })
+      regionPills.push({ id: r, label: ` ${r}` })
     })
     return regionPills
   }, [careers])
@@ -477,7 +477,7 @@ export function CruchAdmissionSimulator() {
         badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
         glow: "shadow-emerald-500/20",
         label: "Admisión Segura (>85%)",
-        icon: "🟢",
+        icon: "",
       }
     }
     if (category === "Competitiva" || prob >= 50) {
@@ -489,7 +489,7 @@ export function CruchAdmissionSimulator() {
         badge: "bg-amber-500/20 text-amber-300 border-amber-500/30",
         glow: "shadow-amber-500/20",
         label: "Zona Competitiva (50% - 85%)",
-        icon: "🟡",
+        icon: "",
       }
     }
     return {
@@ -500,7 +500,7 @@ export function CruchAdmissionSimulator() {
       badge: "bg-rose-500/20 text-rose-300 border-rose-500/30",
       glow: "shadow-rose-500/20",
       label: "Zona Riesgosa (<50%)",
-      icon: "🔴",
+      icon: "",
     }
   }
 
@@ -517,7 +517,7 @@ export function CruchAdmissionSimulator() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="text-2xl">🏛️</span>
+              <span className="text-2xl"></span>
               <span className="text-xs font-mono font-bold tracking-wider uppercase text-sky-400">
                 Admisión Universitaria Oficial DEMRE 2026
               </span>
@@ -564,7 +564,7 @@ export function CruchAdmissionSimulator() {
           <div className="p-6 rounded-3xl bg-neutral-900/60 border border-white/[0.08] backdrop-blur-xl shadow-xl space-y-5">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
-                <span>🎯</span> Carrera & Universidad Objetivo
+                Carrera & Universidad Objetivo
               </h3>
               {selectedCareer?.requires_m2 && (
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30">
@@ -646,7 +646,7 @@ export function CruchAdmissionSimulator() {
                   }`}
                   title="Filtra por carreras de alta demanda y mayor interés general"
                 >
-                  ⭐ Top / Alta Demanda
+                   Top / Alta Demanda
                 </button>
                 <button
                   type="button"
@@ -658,7 +658,7 @@ export function CruchAdmissionSimulator() {
                   }`}
                   title="Muestra todas las carreras disponibles sin excepción"
                 >
-                  📚 Catálogo Completo
+                   Catálogo Completo
                 </button>
               </div>
             </div>
@@ -668,7 +668,7 @@ export function CruchAdmissionSimulator() {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="🔍 Buscar carrera (ej. Aeroespacial, Medicina, Derecho, 13086)..."
+                  placeholder=" Buscar carrera (ej. Aeroespacial, Medicina, Derecho, 13086)..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full bg-neutral-950/70 border border-white/[0.1] rounded-xl px-3.5 py-2 text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-sky-500"
@@ -679,7 +679,7 @@ export function CruchAdmissionSimulator() {
                     onClick={() => setSearchTerm("")}
                     className="absolute right-2.5 top-2 text-xs text-neutral-400 hover:text-white"
                   >
-                    ✕
+                    
                   </button>
                 )}
               </div>
@@ -770,7 +770,7 @@ export function CruchAdmissionSimulator() {
                 </div>
                 <div className="flex items-center justify-between flex-wrap gap-2 text-neutral-400 text-[11px]">
                   <span>
-                    🏛️ {selectedCareer.university} • {selectedCareer.campus}
+                     {selectedCareer.university} • {selectedCareer.campus}
                   </span>
                   <a
                     href={getCareerUrl(selectedCareer)}
@@ -845,7 +845,7 @@ export function CruchAdmissionSimulator() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
-                  <span>📊</span> Tus Puntajes Estimados o Simulados
+                  Tus Puntajes Estimados o Simulados
                 </h3>
                 <span className="text-[11px] font-mono text-neutral-500 font-normal">Escala DEMRE 100 - 1000</span>
               </div>
@@ -862,7 +862,7 @@ export function CruchAdmissionSimulator() {
               <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-white/[0.06]">
                 <div className="space-y-0.5">
                   <div className="text-xs font-bold text-white flex items-center gap-1.5">
-                    <span>🎓</span> Trayectoria Escolar (DEMRE Grupo A)
+                    Trayectoria Escolar (DEMRE Grupo A)
                   </div>
                   <p className="text-[10px] text-neutral-400">
                     Conversión oficial de notas y bonificación de contexto educativo.
@@ -1015,7 +1015,7 @@ export function CruchAdmissionSimulator() {
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
-                    <span>📐</span> Competencia Matemática 1 (M1)
+                    Competencia Matemática 1 (M1)
                     {selectedCareer && (
                       <span className="text-[10px] font-mono text-sky-400 font-semibold">
                         ({Math.round((selectedCareer.weights?.m1 || 0) * 100)}% • Aporta {liveWeighted.m1Contrib.toFixed(1)} pts)
@@ -1039,7 +1039,7 @@ export function CruchAdmissionSimulator() {
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
-                    <span>📖</span> Competencia Lectora
+                    Competencia Lectora
                     {selectedCareer && (
                       <span className="text-[10px] font-mono text-sky-400 font-semibold">
                         ({Math.round((selectedCareer.weights?.lectura || 0) * 100)}% • Aporta {liveWeighted.lecContrib.toFixed(1)} pts)
@@ -1063,7 +1063,7 @@ export function CruchAdmissionSimulator() {
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-white flex items-center gap-1.5">
-                    <span>🔬</span> Competencia Matemática 2 (M2)
+                    Competencia Matemática 2 (M2)
                     {selectedCareer && (
                       (selectedCareer.weights?.m2 || 0) > 0 ? (
                         <span className="text-[10px] font-mono text-amber-300 font-semibold">
@@ -1093,7 +1093,7 @@ export function CruchAdmissionSimulator() {
               <div className="space-y-2 pt-1 border-t border-white/[0.06]">
                 <div className="flex items-center justify-between text-xs pt-1">
                   <span className="font-bold text-white text-xs flex items-center gap-1.5">
-                    <span>🧪 / 🏛️</span> Pruebas Electivas
+                    <span> / </span> Pruebas Electivas
                   </span>
                   {selectedCareer && (
                     <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
@@ -1220,7 +1220,7 @@ export function CruchAdmissionSimulator() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
               <div>
                 <h3 className="text-lg font-black text-white flex items-center gap-2">
-                  <span>🎯</span> Brecha a la Meta de Admisión
+                  Brecha a la Meta de Admisión
                 </h3>
                 <p className="text-xs text-neutral-400">
                   {simulation.weighted_gap <= 0
@@ -1257,7 +1257,7 @@ export function CruchAdmissionSimulator() {
                       </span>
                       {isMet ? (
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">
-                          Cumplido ✓
+                          Cumplido 
                         </span>
                       ) : (
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">
@@ -1290,7 +1290,7 @@ export function CruchAdmissionSimulator() {
                           </div>
                           {!item.is_achievable_alone && (
                             <div className="text-[10px] text-rose-400 pt-1 leading-tight">
-                              ⚠️ Excede 1000 pts si intentas compensar todo solo con esta prueba. Conviene distribuir esfuerzos.
+                               Excede 1000 pts si intentas compensar todo solo con esta prueba. Conviene distribuir esfuerzos.
                             </div>
                           )}
                         </>
@@ -1305,7 +1305,7 @@ export function CruchAdmissionSimulator() {
             {simulation.balanced_plan && simulation.balanced_plan.length > 0 && simulation.weighted_gap > 0 && (
               <div className="p-5 rounded-2xl bg-sky-500/10 border border-sky-500/20 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">💡</span>
+                  <span className="text-lg"></span>
                   <h4 className="text-xs font-black uppercase font-mono tracking-wider text-sky-300">
                     Estrategia Recomendada: Distribución Equilibrada de Aciertos
                   </h4>
@@ -1333,7 +1333,7 @@ export function CruchAdmissionSimulator() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-black text-white flex items-center gap-2">
-                    <span>📋</span> Pronóstico en otras Carreras CRUCH
+                    Pronóstico en otras Carreras CRUCH
                   </h3>
                   <p className="text-xs text-neutral-400">
                     Tu probabilidad proyectada con tus puntajes actuales en las principales carreras del país:

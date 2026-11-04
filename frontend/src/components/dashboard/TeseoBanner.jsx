@@ -21,7 +21,7 @@ export default function TeseoBanner() {
           <h4 className="flex-1 text-xs font-medium text-amber-200">
             El Barco de Teseo
           </h4>
-          <span className="text-xs text-neutral-500">{expandido ? "Ocultar" : "Leer"}</span>
+          <span className="text-xs text-neutral-500" style={{ marginRight: 44 }}>{expandido ? "Ocultar" : "Leer"}</span>
         </button>
 
         {expandido && (
@@ -36,7 +36,7 @@ export default function TeseoBanner() {
           type="button"
           onClick={() => setCerrado(true)}
           aria-label="Eliminar aviso"
-          className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 hover:text-neutral-300 hover:bg-white/[0.04] transition-colors cursor-pointer"
+          className="absolute top-1 right-2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 hover:text-neutral-300 hover:bg-white/[0.04] transition-colors cursor-pointer"
         >
           <icons.close size={14} strokeWidth={1.8} />
         </button>

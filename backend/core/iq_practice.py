@@ -34,23 +34,23 @@ PUZZLE_TYPE_LABELS = {
 PUZZLE_TYPE_PROMPTS = {
     "number_sequence": (
         "Genera una secuencia numérica donde la persona debe encontrar "
-        "el siguiente número. Incluí 4 opciones (A, B, C, D). "
+        "el siguiente número. Incluye 4 opciones (A, B, C, D). "
         "La regla debe ser clara pero no trivial."
     ),
     "verbal_analogy": (
         "Genera una analogía verbal del tipo 'X es a Y como A es a ?'. "
-        "Incluí 4 opciones (A, B, C, D). "
+        "Incluye 4 opciones (A, B, C, D). "
         "La relación debe ser semántica, no obvia."
     ),
     "logical": (
         "Genera un problema de razonamiento lógico (silogismos, "
-        "deducción, ordenamiento, etc.). Incluí 4 opciones (A, B, C, D). "
+        "deducción, ordenamiento, etc.). Incluye 4 opciones (A, B, C, D). "
         "Debe requerir pensamiento deductivo."
     ),
     "pattern": (
         "Genera un problema de reconocimiento de patrones abstractos "
         "descrito textualmente (series, matrices, transformaciones). "
-        "Incluí 4 opciones (A, B, C, D). "
+        "Incluye 4 opciones (A, B, C, D). "
         "El patrón debe ser identificable pero no inmediato."
     ),
 }
@@ -120,7 +120,7 @@ def generate_puzzle(
 
     user_prompt = type_prompt + (
         f" Nivel {level} ({label}), dificultad {difficulty}. "
-        "Asegurate de que exactamente UNA de las 4 opciones sea correcta "
+        "Asegúrate de que exactamente UNA de las 4 opciones sea correcta "
         "y que las otras 3 sean plausibles pero incorrectas."
     )
 
@@ -131,7 +131,7 @@ def generate_puzzle(
 
             patterns_text = format_patterns_for_prompt(db, skill_id, "iq_practice")
             if patterns_text:
-                user_prompt += f"\n\n{patterns_text}\n\nAdaptá el puzzle para reforzar las áreas donde el usuario tiene más errores."
+                user_prompt += f"\n\n{patterns_text}\n\nAdapta el puzzle para reforzar las áreas donde el usuario tiene más errores."
         except Exception:
             pass  # Graceful degradation — generate normally if patterns fail
 
@@ -146,7 +146,7 @@ def generate_puzzle(
                 "correct_answer DEBE coincidir textualmente con una de las opciones."
             )
             if last_error:
-                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corregí."
+                user_prompt += f"\n\n⚠ Error previo: {last_error}. Corrige."
 
         result = router_fn(
             task_type="iq_puzzle",

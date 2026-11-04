@@ -4,9 +4,9 @@ import { useStore } from "../store/store"
 import { useToast } from "./ui/Toast"
 
 const CLOUD_PROVIDERS = [
-  { id: "groq", label: "Groq", icon: "⚡" },
-  { id: "openrouter", label: "OpenRouter", icon: "🌐" },
-  { id: "generalcompute", label: "General Compute", icon: "⚙" },
+  { id: "groq", label: "Groq", icon: "" },
+  { id: "openrouter", label: "OpenRouter", icon: "" },
+  { id: "generalcompute", label: "General Compute", icon: "" },
 ]
 
 export default function CloudModelPicker() {

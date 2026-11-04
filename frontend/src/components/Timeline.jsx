@@ -63,7 +63,7 @@ export default function Timeline() {
   if (!timeline || timeline.length === 0) {
     return (
       <div className="card text-center py-20">
-        <div className="w-20 h-20 rounded-2xl bg-neutral-800/50 flex items-center justify-center text-3xl mx-auto mb-4">📝</div>
+        <div className="w-20 h-20 rounded-2xl bg-neutral-800/50 flex items-center justify-center text-3xl mx-auto mb-4"></div>
         <p className="text-neutral-400 text-sm font-medium">No hay sesiones todavía</p>
         <p className="text-neutral-600 text-xs mt-2">Crea tu primera sesión en el panel de arriba</p>
       </div>
@@ -160,9 +160,9 @@ export default function Timeline() {
                   <div className="flex items-center gap-3 pt-2 text-[10px] text-neutral-500 uppercase tracking-wider">
                     <span className="flex items-center gap-1">⏱ {entry.duration_minutes} min</span>
                     <span className="w-px h-3 bg-white/[0.06]" />
-                    <span>📊 Dif {entry.difficulty}/5</span>
+                    <span> Dif {entry.difficulty}/5</span>
                     <span className="w-px h-3 bg-white/[0.06]" />
-                    <span>{entry.entry_mode === 'quick' ? '⚡ Rápido' : '📋 Completo'}</span>
+                    <span>{entry.entry_mode === 'quick' ? ' Rápido' : ' Completo'}</span>
                   </div>
                 </div>
 
@@ -187,7 +187,7 @@ export default function Timeline() {
                           <div className="mt-3 space-y-2">
                             {auditLog.book_citations.map((cite, i) => (
                               <p key={i} className="text-[10px] text-green-400/80 bg-green-500/[0.06] rounded-lg px-3 py-2 border border-green-500/10 leading-relaxed hover:border-green-500/20 hover:bg-green-500/[0.08] transition-all duration-200 cursor-default">
-                                📖 {cite}
+                                 {cite}
                               </p>
                             ))}
                           </div>

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 
 vi.mock("react-router", () => ({
   useNavigate: () => vi.fn(),
@@ -19,64 +19,50 @@ const REVIEW_ITEM = {
   subject_code: "M1",
 }
 
-function renderWithQueue(queue) {
+function renderWith({ queue = [], list = [], subject = "M1" } = {}) {
   useStore.mockReturnValue({
-    paesSubtopicsList: [],
+    paesSubtopicsList: list,
     paesFsrsStatus: { capped_review_queue: queue },
+    paesActiveSubject: subject,
     skills: [],
   })
   return render(<OptimalDailyAction />)
 }
 
-function subtitle() {
-  return screen.getByTestId("optimal-daily-action-subtitle")
-}
-
-describe("OptimalDailyAction - FSRS retention claim", () => {
+describe("OptimalDailyAction", () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it("states the real projected retention of the top review item instead of an unmeasured threshold claim", () => {
-    renderWithQueue([{ ...REVIEW_ITEM, projected_retention: 0.62 }])
+  it("con repaso FSRS vencido muestra el título honesto y el botón al Temario", () => {
+    renderWith({ queue: [REVIEW_ITEM] })
 
-    expect(subtitle()).toHaveTextContent("62%")
-    expect(subtitle()).not.toHaveTextContent(/below/i)
+    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de M1/)).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /Revisar todos los temas/i })).toBeInTheDocument()
+    expect(screen.getByText("Repasos pendientes")).toBeInTheDocument()
   })
 
-  it("does not claim the item falls short of the target when its retention is above 85%", () => {
-    renderWithQueue([{ ...REVIEW_ITEM, projected_retention: 0.91 }])
-
-    expect(subtitle()).toHaveTextContent("91%")
-    expect(subtitle()).not.toHaveTextContent(/below/i)
-    expect(subtitle()).toHaveTextContent("85%")
+  it("el título usa la materia del elemento vencido, no la materia activa", () => {
+    renderWith({ queue: [{ ...REVIEW_ITEM, subject_code: "LECTURA" }], subject: "M1" })
+    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de LECTURA/)).toBeInTheDocument()
+    expect(screen.queryByText(/temas de M1/)).not.toBeInTheDocument()
   })
 
-  it("only asks for reinforcement when the retention is really under the target", () => {
-    renderWithQueue([{ ...REVIEW_ITEM, projected_retention: 0.8 }])
-
-    expect(subtitle()).toHaveTextContent("80%")
-    expect(subtitle()).toHaveTextContent(/conviene reforzar/i)
+  it("sin FSRS pero con baja maestría en la materia activa manda al Temario de esa materia", () => {
+    renderWith({
+      list: [{ slug: "t1", subject_code: "M1", attempts: 2, mastery: 0.3 }],
+      subject: "M1",
+    })
+    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de M1/)).toBeInTheDocument()
+    expect(screen.getByText("ZDP Óptima")).toBeInTheDocument()
   })
 
-  it("does not ask for reinforcement when the retention reaches the target", () => {
-    renderWithQueue([{ ...REVIEW_ITEM, projected_retention: 0.85 }])
-
-    expect(subtitle()).toHaveTextContent("85%")
-    expect(subtitle()).not.toHaveTextContent(/conviene reforzar/i)
-  })
-
-  it("falls back to projected_r when projected_retention is missing", () => {
-    renderWithQueue([{ ...REVIEW_ITEM, projected_r: 0.74 }])
-
-    expect(subtitle()).toHaveTextContent("74%")
-    expect(subtitle()).toHaveTextContent(/conviene reforzar/i)
-  })
-
-  it("states the fact without inventing a retention number when the item has no retention value", () => {
-    renderWithQueue([{ ...REVIEW_ITEM }])
-
-    expect(subtitle()).not.toHaveTextContent(/%/)
-    expect(subtitle()).toHaveTextContent(/aún no hay una estimación de retención/i)
+  it("la ZDP no sugiere electivas sin tocar (se acota a la materia activa)", () => {
+    renderWith({
+      list: [{ slug: "t1", subject_code: "CIENCIAS", attempts: 2, mastery: 0.1 }],
+      subject: "M1",
+    })
+    // Sin intentos en M1, cae al fallback de memoria de trabajo
+    expect(screen.queryByText(/Presiona el botón hoy/)).not.toBeInTheDocument()
   })
 })

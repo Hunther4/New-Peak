@@ -26,8 +26,8 @@ export default function CognitiveGym() {
         title: "Dual N-Back Científico",
         category: "Memoria Operativa",
         levelText: `Nivel N = ${nBack?.current_level ? Math.round(nBack.current_level) : 1}`,
-        staircase: "Escalera Jaeggi 1↑/1↓",
-        icon: "🧠",
+        staircase: "Progresión adaptativa",
+        icon: "",
         accent: "from-blue-500 to-indigo-600",
         borderGlow: "group-hover:border-blue-500/40",
         bgGlow: "bg-blue-500/10",
@@ -46,7 +46,7 @@ export default function CognitiveGym() {
         category: "Capacidad Nemotécnica",
         levelText: `Fase ${Math.round(memory?.current_level || 1)} · Span ${Math.round(memory?.current_level || 1) * 4}d`,
         staircase: "Escalera Ericsson SF 4→80",
-        icon: "🔢",
+        icon: "",
         accent: "from-purple-500 to-pink-600",
         borderGlow: "group-hover:border-purple-500/40",
         bgGlow: "bg-purple-500/10",
@@ -65,7 +65,7 @@ export default function CognitiveGym() {
         category: "Aritmética & Descomposición",
         levelText: `Nivel ${Math.round(math?.current_level || 1)} / 10`,
         staircase: "Staircase Aritmético",
-        icon: "⚡",
+        icon: "",
         accent: "from-emerald-500 to-teal-600",
         borderGlow: "group-hover:border-emerald-500/40",
         bgGlow: "bg-emerald-500/10",
@@ -84,7 +84,7 @@ export default function CognitiveGym() {
         category: "Inteligencia Fluida (Gf)",
         levelText: `Nivel ${Math.round(iq?.current_level || 1)} / 10`,
         staircase: "Escalera Raven Inductiva",
-        icon: "🧩",
+        icon: "",
         accent: "from-amber-500 to-orange-600",
         borderGlow: "group-hover:border-amber-500/40",
         bgGlow: "bg-amber-500/10",
@@ -112,17 +112,17 @@ export default function CognitiveGym() {
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-mono uppercase font-bold px-2.5 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-400">
-                Peak Cognitive Laboratory
+                Entrenamiento
               </span>
               <span className="text-xs text-neutral-400 font-medium">
-                4 Motores Psicométricos
+                4 ejercicios
               </span>
             </div>
             <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-white">
-              Gimnasio de Capacidades Cognitivas
+              Entrena tus capacidades
             </h1>
             <p className="text-xs lg:text-sm text-neutral-400 leading-relaxed">
-              La práctica deliberada exige someter los límites psicométricos a sobrecarga adaptativa (escalera 1↑/1↓). Ninguna sesión es pasiva; cada intento ajusta la dificultad milimétricamente en tu zona de desarrollo próximo.
+              Cada sesión ajusta la dificultad según tu avance: un acierto sube, un error baja. Practica en tu ritmo y en el punto justo donde más aprendes.
             </p>
           </div>
 
@@ -139,7 +139,7 @@ export default function CognitiveGym() {
           </div>
         </div>
 
-        {/* 4 Psychometric Engines Grid */}
+        {/* 4 exercises grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {gymGames.map((game) => (
             <div
@@ -203,7 +203,7 @@ export default function CognitiveGym() {
                 className={`mt-6 w-full py-3.5 rounded-2xl bg-gradient-to-r ${game.accent} text-white font-extrabold text-sm tracking-wide shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer`}
               >
                 <span>Entrenar Habilidad</span>
-                <span>➔</span>
+                
               </button>
             </div>
           ))}

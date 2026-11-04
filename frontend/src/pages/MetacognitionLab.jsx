@@ -42,7 +42,7 @@ export default function MetacognitionLab() {
               </span>
             </div>
             <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-white">
-              Laboratorio de Metacognición & RAG
+              Análisis de rendimiento
             </h1>
             <p className="text-xs lg:text-sm text-neutral-400 leading-relaxed">
               La maestría no se logra acumulando horas vacías, sino refinando representaciones mentales cada vez más abstractas y analizando la anatomía exacta de cada fallo.
@@ -59,7 +59,7 @@ export default function MetacognitionLab() {
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              🧠 Modelos Mentales
+               Modelos Mentales
             </button>
             <button
               onClick={() => setActiveTab("errors")}
@@ -69,7 +69,7 @@ export default function MetacognitionLab() {
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              🔍 Telemetría de Errores
+               Errores
             </button>
             <button
               onClick={() => setActiveTab("rag")}
@@ -79,7 +79,7 @@ export default function MetacognitionLab() {
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              📚 Biblioteca Peak RAG
+               Biblioteca Peak RAG
             </button>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function MetacognitionLab() {
               <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.06]">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xl">
-                    🧠
+                    
                   </div>
                   <div>
                     <h2 className="text-lg font-bold text-white tracking-tight">
@@ -113,7 +113,7 @@ export default function MetacognitionLab() {
               <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/[0.06]">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-xl">
-                    🧩
+                    
                   </div>
                   <div>
                     <h2 className="text-lg font-bold text-white tracking-tight">
@@ -133,7 +133,7 @@ export default function MetacognitionLab() {
           </div>
         )}
 
-        {/* Tab 2: Telemetría de Errores & Micro-fallos */}
+        {/* Tab 2: Errores & Micro-fallos */}
         {activeTab === "errors" && (
           <div className="space-y-6">
             <div className="p-6 lg:p-8 rounded-3xl bg-white/[0.02] border border-white/[0.06]">
@@ -176,7 +176,7 @@ export default function MetacognitionLab() {
                       </p>
 
                       <div className="p-2.5 rounded-xl bg-red-500/[0.08] border border-red-500/20 text-[11px] text-red-300 font-mono">
-                        ⚠️ {s.micro_error_found}
+                         {s.micro_error_found}
                       </div>
                     </div>
                   ))}

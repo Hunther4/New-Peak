@@ -12,10 +12,10 @@ const VARIANTS = {
 }
 
 const LABELS = {
-  deliberate: "🎯 Deliberada",
-  purposeful: "📋 Con propósito",
-  naive: "🔄 Naive",
-  plateau: "⚠ Estancado",
+  deliberate: " Deliberada",
+  purposeful: " Con propósito",
+  naive: " Naive",
+  plateau: " Estancado",
 }
 
 const Badge = memo(function Badge({ variant = "info", label, children, className = "" }) {

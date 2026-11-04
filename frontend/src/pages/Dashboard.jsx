@@ -1,9 +1,11 @@
 import { useEffect } from "react"
+import { useNavigate } from "react-router"
 import { useStore } from "../store/store"
 import DeliberatePracticeHero from "../components/dashboard/DeliberatePracticeHero"
 import OptimalDailyAction from "../components/dashboard/OptimalDailyAction"
 import TeseoBanner from "../components/dashboard/TeseoBanner"
 import DualProgressRadar from "../components/dashboard/DualProgressRadar"
+import { PaesWeeklyRoutineBar } from "../components/paes/PaesWeeklyRoutineBar"
 import Timeline from "../components/Timeline"
 import ChallengeList from "../components/ChallengeList"
 import { SkeletonHero } from "../components/ui/Skeleton"
@@ -12,7 +14,8 @@ import { PageTransition } from "../components/ui/PageTransition"
 import { icons } from "../components/ui/icons"
 
 export default function Dashboard() {
-  const { summary, timeline, paesSubtopicsList, loading, error, clearError, fetchSkills, fetchSummary, fetchTimeline, fetchChallenges, fetchPaesSubtopics, fetchPaesFsrsStatus, paesActiveSubject } = useStore()
+  const navigate = useNavigate()
+  const { summary, timeline, paesSubtopicsList, loading, error, clearError, fetchSkills, fetchSummary, fetchTimeline, fetchChallenges, fetchPaesSubtopics, fetchPaesFsrsStatus, paesActiveSubject, setPaesActiveSubject } = useStore()
 
   useEffect(() => {
     fetchSkills()
@@ -20,7 +23,7 @@ export default function Dashboard() {
     fetchTimeline()
     fetchChallenges()
     if (fetchPaesSubtopics) fetchPaesSubtopics(1, "ALL")
-    if (fetchPaesFsrsStatus) fetchPaesFsrsStatus()
+    if (fetchPaesFsrsStatus) fetchPaesFsrsStatus(1, null)
   }, [paesActiveSubject])
 
   const isLoading = loading && !timeline?.length
@@ -35,6 +38,8 @@ export default function Dashboard() {
     <PageTransition>
       {/* 1. Barco de Teseo plegable */}
       <TeseoBanner />
+
+      <PaesWeeklyRoutineBar onStartSession={(subject) => { setPaesActiveSubject(subject); navigate(`/paes?subject=${subject}`) }} />
 
       {/* 2. Acción principal */}
       <OptimalDailyAction />

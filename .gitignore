@@ -65,6 +65,10 @@ backend/uploads/questions/
 logs/
 .fleet/
 
+# Admin local — no debe aparecer en GitHub
+frontend/src/pages/Admin.jsx
+backend/api/routes/admin.py
+
 # Env
 .env
 .env.local

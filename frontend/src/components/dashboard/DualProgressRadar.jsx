@@ -61,7 +61,7 @@ export default function DualProgressRadar() {
                 aria-pressed={!ocultas.includes(materia)}
                 className={`px-2.5 py-1 text-[11px] rounded-full border transition-colors cursor-pointer ${ocultas.includes(materia) ? "border-white/10 text-neutral-500" : "border-[#2fc2c2]/30 text-[#2fc2c2] bg-[#2fc2c2]/10"}`}
               >
-                {ocultas.includes(materia) ? "＋ " : "✓ "}{NOMBRES[materia] || materia}
+                {ocultas.includes(materia) ? "＋ " : "● "}{NOMBRES[materia] || materia}
               </button>
             ))}
           </div>

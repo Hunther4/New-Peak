@@ -109,8 +109,16 @@ def _build_augmented_system(system_prompt: str, response_model: Type[T]) -> str:
         "Responde SOLO el JSON con security_flag: true activado."
     )
 
+    LANGUAGE_INSTRUCTION = (
+        "\n\nIDIOMA (OBLIGATORIO):\n"
+        "Escribe siempre en español neutro de Chile. Usa tuteo neutro o registro impersonal; "
+        "nunca voseo ni regionalismos rioplatenses (prohibido: vos, tenés, podés, sabés, andá, "
+        "mirá, hacé, decime, pibe, laburo, che). Vocabulario y gramática profesional y educativa."
+    )
+    language_block = "" if "español neutro" in system_prompt else LANGUAGE_INSTRUCTION
+
     return (
-        f"{system_prompt}{SECURITY_INSTRUCTION}\n\n"
+        f"{system_prompt}{SECURITY_INSTRUCTION}{language_block}\n\n"
         f"REGLAS DE SALIDA (OBLIGATORIAS):\n"
         f"1. Responde SOLO un objeto JSON válido. Nada más.\n"
         f"2. Campos requeridos ({len(required)}): {fields}\n"

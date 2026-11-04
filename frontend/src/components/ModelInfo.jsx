@@ -10,10 +10,10 @@ const PROVIDER_LABELS = {
 }
 
 const PROVIDER_ICONS = {
-  groq: "⚡",
-  openrouter: "🌐",
-  generalcompute: "⚙",
-  lm_studio: "🖥",
+  groq: "",
+  openrouter: "",
+  generalcompute: "",
+  lm_studio: "",
 }
 
 function groupByProvider(models) {
@@ -75,7 +75,7 @@ export default function ModelInfo() {
               ? "bg-green-500/10 text-green-400 border border-green-500/20 hover:border-green-500/30 hover:shadow-glow-green"
               : "bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:border-blue-500/30 hover:shadow-glow-blue"
           }`}>
-            {ai_mode === "api" ? "☁" : "🖥"}
+            {ai_mode === "api" ? "" : ""}
           </div>
           <div>
             <p className="text-sm font-semibold text-white">
@@ -92,7 +92,7 @@ export default function ModelInfo() {
           {selectedModel?.auto ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-xs text-green-400 font-bold">✦</span>
+                <span className="text-xs text-green-400 font-bold"></span>
                 <div>
                   <p className="text-xs font-semibold text-neutral-300">Recomendada (automática)</p>
                   {best_model && (
@@ -173,7 +173,7 @@ export default function ModelInfo() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-lg bg-green-500/15 flex items-center justify-center text-[10px]">✦</span>
+                    <span className="w-5 h-5 rounded-lg bg-green-500/15 flex items-center justify-center text-[10px]"></span>
                     <p className="text-sm font-semibold text-white">Recomendada (automática)</p>
                     <span className="text-[9px] font-bold uppercase tracking-wider text-green-400/70 border border-green-500/20 bg-green-500/10 px-1.5 py-0.5 rounded-full">
                       Default

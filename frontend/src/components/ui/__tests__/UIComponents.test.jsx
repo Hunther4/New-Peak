@@ -31,7 +31,7 @@ describe("Button", () => {
   it("applies variant classes", () => {
     render(<Button variant="primary">Primary</Button>)
     const btn = screen.getByText("Primary")
-    expect(btn.className).toContain("from-green-400")
+    expect(btn.className).toContain("bg-[#525252]")
   })
 
   it("applies size classes", () => {
@@ -53,7 +53,7 @@ describe("Card", () => {
   it("applies hover class when hover prop is true", () => {
     render(<Card hover>Hover Card</Card>)
     const card = screen.getByText("Hover Card").closest("div")
-    expect(card.className).toContain("hover:border-green-500/30")
+    expect(card.className).toContain("hover:border-white/[0.12]")
   })
 
   it("applies interactive class when interactive prop is true", () => {

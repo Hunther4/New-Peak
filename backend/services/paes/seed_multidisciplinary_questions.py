@@ -13,6 +13,10 @@ from models.paes_models import PaesCompetency, PaesQuestion
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("seed_multidisciplinary_questions")
 
+# Hand-written synthetic items, not DEMRE-extracted; label them accordingly.
+PROVENANCE_TYPE = "ORIGINAL"
+DIFFICULTY_SOURCE = "INITIAL_HEURISTIC"
+
 QUESTIONS = [
     # --- LECTURA 1: Divulgación Científica (Microbioma) ---
     {
@@ -331,14 +335,14 @@ def seed_questions(session_arg: Session = None):
                     id=q_data["id"],
                     subtopic_id=q_data["subtopic_id"],
                     skill_id=comp.id,
-                    provenance_type="OFFICIAL",
+                    provenance_type=PROVENANCE_TYPE,
                     stem=q_data["stem"],
                     stimulus_title=q_data.get("stimulus_title"),
                     stimulus_text=q_data.get("stimulus_text"),
                     options_json=json.dumps(q_data["options"], ensure_ascii=False),
                     explanation_json=json.dumps(q_data["explanation"], ensure_ascii=False),
                     difficulty_estimate=0.5,
-                    difficulty_source="OFFICIAL_DEMRE",
+                    difficulty_source=DIFFICULTY_SOURCE,
                 )
                 session.add(q)
                 added += 1
@@ -346,6 +350,8 @@ def seed_questions(session_arg: Session = None):
             else:
                 existing.stimulus_title = q_data.get("stimulus_title")
                 existing.stimulus_text = q_data.get("stimulus_text")
+                existing.provenance_type = PROVENANCE_TYPE
+                existing.difficulty_source = DIFFICULTY_SOURCE
                 session.add(existing)
 
         session.commit()

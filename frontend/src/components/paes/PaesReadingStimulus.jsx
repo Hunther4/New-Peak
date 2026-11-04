@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react"
+import React, { useState } from "react"
 
 export function PaesReadingStimulus({ title, text, defaultExpanded = false }) {
   const [fontSize, setFontSize] = useState("text-base") // text-sm, text-base, text-lg, text-xl
@@ -26,7 +26,7 @@ export function PaesReadingStimulus({ title, text, defaultExpanded = false }) {
       {/* Header & Controls Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-white/[0.08]">
         <div className="flex items-center gap-2">
-          <span className="p-1.5 rounded-lg bg-sky-500/10 text-sky-400 text-sm">📖</span>
+          <span className="p-1.5 rounded-lg bg-sky-500/10 text-sky-400 text-sm"></span>
           <div>
             <span className="text-[10px] font-mono uppercase font-bold tracking-wider text-sky-400 block">
               Texto de Lectura / Estímulo Oficial
@@ -103,7 +103,7 @@ export function PaesReadingStimulus({ title, text, defaultExpanded = false }) {
             }`}
             title="Modo Concentración (Pantalla Completa de Lectura)"
           >
-            <span>{concentrationMode ? "✕ Salir" : "🔍 Foco"}</span>
+            <span>{concentrationMode ? " Salir" : " Foco"}</span>
           </button>
         </div>
       </div>

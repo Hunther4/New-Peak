@@ -258,7 +258,7 @@ function MemoryGame({ skillId, onClose }) {
     <GameShell
       title="Memoria de Números"
       subtitle={`Span ${span} · ${PHASE_LABELS[phase] || phase || ""}`}
-      icon="🧠"
+      icon=""
       accentColor="green"
       level={Number(span) || undefined}
       phase={gamePhase}
@@ -308,7 +308,7 @@ function MemoryGame({ skillId, onClose }) {
 
             <div className="card p-10 md:p-12">
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-400/20 to-emerald-600/20 border border-green-500/20 flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg shadow-green-500/10">
-                🧠
+                
               </div>
 
               <h2 className="text-2xl md:text-3xl font-black text-white mb-3">
@@ -321,15 +321,15 @@ function MemoryGame({ skillId, onClose }) {
 
               <div className="flex flex-col gap-3 max-w-xs mx-auto mb-8">
                 <div className="flex items-center gap-3 bg-white/[0.03] rounded-xl px-4 py-3 border border-white/[0.06]">
-                  <span className="text-lg">🔢</span>
+                  <span className="text-lg"></span>
                   <span className="text-xs text-neutral-400 text-left">Secuencias cada vez más largas</span>
                 </div>
                 <div className="flex items-center gap-3 bg-white/[0.03] rounded-xl px-4 py-3 border border-white/[0.06]">
-                  <span className="text-lg">⏱️</span>
+                  <span className="text-lg">⏱</span>
                   <span className="text-xs text-neutral-400 text-left">Tiempo ajustado por dígito</span>
                 </div>
                 <div className="flex items-center gap-3 bg-white/[0.03] rounded-xl px-4 py-3 border border-white/[0.06]">
-                  <span className="text-lg">📈</span>
+                  <span className="text-lg"></span>
                   <span className="text-xs text-neutral-400 text-left">Seguimiento de progreso</span>
                 </div>
               </div>
@@ -513,7 +513,7 @@ function MemoryGame({ skillId, onClose }) {
                             : "text-red-500/70"
                         }`}
                       >
-                        {isCorrect ? "✓ Correcto" : "✕ Incorrecto"}
+                        {isCorrect ? " Correcto" : " Incorrecto"}
                       </span>
                     </div>
                   )
@@ -535,7 +535,7 @@ function MemoryGame({ skillId, onClose }) {
                       allCorrect ? "text-green-400" : "text-orange-400"
                     }`}
                   >
-                    {allCorrect ? "✓" : `${correctPositions.filter(Boolean).length}/${numbers.length}`}
+                    {allCorrect ? "" : `${correctPositions.filter(Boolean).length}/${numbers.length}`}
                   </span>
                   <span className="text-[10px] text-neutral-500 uppercase">
                     {allCorrect ? "completo" : "aciertos"}
@@ -601,7 +601,7 @@ function MemoryGame({ skillId, onClose }) {
           <div className="text-center" style={{ animation: "fadeInUp 0.6s ease-out both" }}>
             <div className="card p-10 md:p-12">
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-green-400/20 to-emerald-600/20 border border-green-500/20 flex items-center justify-center text-4xl mx-auto mb-6 shadow-lg shadow-green-500/10">
-                🏆
+                
               </div>
 
               <h2 className="text-2xl md:text-3xl font-black text-white mb-3">
@@ -630,7 +630,7 @@ function MemoryGame({ skillId, onClose }) {
               {consolidationResult?.coaching_message && (
                 <div className="mb-8 bg-green-500/[0.06] border border-green-500/20 rounded-xl p-5 text-left">
                   <p className="text-xs text-green-400 font-semibold mb-2 flex items-center gap-2">
-                    <span>🧠</span> Coach
+                    Coach
                   </p>
                   <p className="text-sm text-neutral-300 leading-relaxed">
                     {consolidationResult.coaching_message}
@@ -703,7 +703,7 @@ function MemoryGame({ skillId, onClose }) {
                   </button>
                 )}
                 {metaSaved && (
-                  <p className="text-xs text-green-500 text-center">✓ Feedback guardado</p>
+                  <p className="text-xs text-green-500 text-center"> Feedback guardado</p>
                 )}
               </div>
 
