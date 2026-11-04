@@ -23,6 +23,9 @@ export function MathRenderer({ text = "", className = "", inline = false }) {
 
     const mathBlocks = []
 
+    // 0. Wrap bare powers (a^3, b^2) in inline math delimiters so KaTeX renders them
+    protectedText = protectedText.replace(/([a-zA-Z0-9])\^(\d+)/g, (_, base, exp) => `$${base}^${exp}$`)
+
     // 1. Protect display math $$...$$ and \[...\]
     let protectedText = text
       .replace(/\$\$([\s\S]*?)\$\$/g, (_, expr) => {

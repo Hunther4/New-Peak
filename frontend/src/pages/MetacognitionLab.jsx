@@ -35,7 +35,7 @@ export default function MetacognitionLab() {
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-mono uppercase font-bold px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400">
-                Ericsson Deliberate Laboratory
+                Tu progreso y qué corregir
               </span>
               <span className="text-xs text-neutral-400 font-medium">
                 Metacognición & Base de Conocimiento
@@ -79,7 +79,7 @@ export default function MetacognitionLab() {
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-               Biblioteca Peak RAG
+               Ayuda con tus dudas
             </button>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function MetacognitionLab() {
                       Evolución de Representaciones Mentales
                     </h2>
                     <p className="text-xs text-neutral-400">
-                      Estructuras cognitivas internas auditadas (v1 $\to$ v2 $\to$ v3)
+                      Tus errores y cómo ensayarlos
                     </p>
                   </div>
                 </div>
