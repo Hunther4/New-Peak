@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
 from core.database import engine
+from core.identity import Principal, UserPrincipalDep
 from models.models import UserProfile
 
 router = APIRouter()
@@ -43,28 +44,18 @@ def get_profile(request: Request):
 def create_or_update_profile(data: ProfileCreate, request: Request):
     """Create or update the user profile (scoped to principal if present)."""
     principal = getattr(request.state, "principal", None)
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
+    user_id = principal.user_id
     with Session(engine) as db:
-        if principal and principal.user_id:
-            existing = db.exec(select(UserProfile).where(UserProfile.user_id == principal.user_id)).first()
-            clean_name = data.name.strip()
-            if existing:
-                existing.name = clean_name
-                existing.age = data.age
-                profile = existing
-            else:
-                profile = UserProfile(user_id=principal.user_id, name=clean_name, age=data.age)
-                db.add(profile)
-            db.commit()
-            db.refresh(profile)
-            return profile
-
-        existing = db.exec(select(UserProfile).where(UserProfile.name == data.name)).first()
+        existing = db.exec(select(UserProfile).where(UserProfile.user_id == user_id)).first()
+        clean_name = data.name.strip()
         if existing:
-            existing.name = data.name
+            existing.name = clean_name
             existing.age = data.age
             profile = existing
         else:
-            profile = UserProfile(name=data.name, age=data.age)
+            profile = UserProfile(user_id=user_id, name=clean_name, age=data.age)
             db.add(profile)
         db.commit()
         db.refresh(profile)

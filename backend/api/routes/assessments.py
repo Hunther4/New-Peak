@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
 from core.database import get_session
+from core.identity import Principal, UserPrincipalDep
 from core.limiter import get_rate_limit_str, limiter
 from models.models import Assessment, Skill
 
@@ -25,24 +26,32 @@ class AssessmentCreate(BaseModel):
 
 
 @router.get("/")
-def get_assessments(skill_id: Optional[int] = None, limit: int = 20, db: Session = Depends(get_session)):
-    query = select(Assessment).order_by(Assessment.created_at.desc()).limit(limit)
+def get_assessments(principal: Principal = UserPrincipalDep, skill_id: Optional[int] = None, limit: int = 20, db: Session = Depends(get_session)):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
+    user_id = principal.user_id
+    query = select(Assessment).where(Assessment.user_id == user_id).order_by(Assessment.created_at.desc()).limit(limit)
     if skill_id:
         query = query.where(Assessment.skill_id == skill_id)
     return db.exec(query).all()
 
 
 @router.get("/{assessment_id}")
-def get_assessment(assessment_id: int, db: Session = Depends(get_session)):
+def get_assessment(assessment_id: int, principal: Principal = UserPrincipalDep, db: Session = Depends(get_session)):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
     assessment = db.get(Assessment, assessment_id)
-    if not assessment:
+    if not assessment or assessment.user_id != principal.user_id:
         raise HTTPException(status_code=404, detail="Assessment no encontrado")
     return assessment
 
 
 @router.post("/", status_code=201)
 @limiter.limit(get_rate_limit_str())
-def create_assessment(request: Request, data: AssessmentCreate, db: Session = Depends(get_session)):
+def create_assessment(request: Request, data: AssessmentCreate, principal: Principal = UserPrincipalDep, db: Session = Depends(get_session)):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
+    user_id = principal.user_id
     skill = db.get(Skill, data.skill_id)
     if not skill:
         raise HTTPException(status_code=404, detail="Skill no encontrada")
@@ -51,6 +60,7 @@ def create_assessment(request: Request, data: AssessmentCreate, db: Session = De
         raise HTTPException(status_code=400, detail="Tipo debe ser 'probe' o 'formal'")
 
     assessment = Assessment(
+        user_id=user_id,
         skill_id=data.skill_id,
         type=data.type,
         score=data.score,
@@ -71,6 +81,7 @@ def create_assessment(request: Request, data: AssessmentCreate, db: Session = De
             session_success,
             trigger="assessment",
             session_id=data.linked_session_id,
+            user_id=user_id,
         )
 
     db.add(assessment)
