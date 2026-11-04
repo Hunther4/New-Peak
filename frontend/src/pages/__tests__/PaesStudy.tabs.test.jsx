@@ -76,37 +76,38 @@ describe("PaesStudy - hub tabs", () => {
     renderStudy()
 
     expect(screen.getByText("Tu Rutina Semanal de 1-Clic")).toBeInTheDocument()
-    expect(screen.queryByText("Generador Paramétrico SymPy")).not.toBeInTheDocument()
+    expect(screen.queryByText("Generador de ejercicios")).not.toBeInTheDocument()
     expect(screen.queryByText("Motor FSRS v4.5")).not.toBeInTheDocument()
+    expect(screen.queryByText("Repasos")).not.toBeInTheDocument()
   })
 
   it("exposes the parametric generator tab and renders its block when selected", () => {
     renderStudy()
-    expect(screen.queryByText("Generador Paramétrico SymPy")).not.toBeInTheDocument()
+    expect(screen.queryByText("Generador de ejercicios")).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole("button", { name: /Parametric Generator/i }))
+    fireEvent.click(screen.getByRole("button", { name: /Generador/i }))
 
-    expect(screen.getByText("Generador Paramétrico SymPy")).toBeInTheDocument()
+    expect(screen.getByText("Generador de ejercicios")).toBeInTheDocument()
   })
 
   it("exposes the FSRS status tab and renders the retention widget when selected", () => {
     renderStudy()
     expect(screen.queryByText("Motor FSRS v4.5")).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole("button", { name: /FSRS Memory Status/i }))
+    fireEvent.click(screen.getByRole("button", { name: /Memoria/i }))
 
-    expect(screen.getByText("Motor FSRS v4.5")).toBeInTheDocument()
+    expect(screen.getByText("Repasos")).toBeInTheDocument()
   })
 
   it("still opens the parametric block through the ?tab= query parameter", () => {
     renderStudy("/paes?tab=parametric")
 
-    expect(screen.getByText("Generador Paramétrico SymPy")).toBeInTheDocument()
+    expect(screen.getByText("Generador de ejercicios")).toBeInTheDocument()
   })
 
   it("still opens the FSRS widget through the ?tab= query parameter", () => {
     renderStudy("/paes?tab=fsrs")
 
-    expect(screen.getByText("Motor FSRS v4.5")).toBeInTheDocument()
+    expect(screen.getByText("Repasos")).toBeInTheDocument()
   })
 })

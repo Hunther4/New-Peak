@@ -13,22 +13,24 @@ function buildRetentionSubtitle(item) {
   const raw = item?.projected_retention ?? item?.projected_r
   const retention = typeof raw === "number" ? raw : Number(raw)
   if (raw === null || raw === undefined || !Number.isFinite(retention)) {
-    return "FSRS review pending — no retention estimate available"
+    return "Repaso pendiente: aún no hay una estimación de retención"
   }
   const percent = Math.round(retention * 100)
   if (retention < OPTIMAL_RETENTION) {
-    return `FSRS retention at ${percent}% — needs reinforcement to reach the 85% target`
+    return `Retención al ${percent}%, conviene reforzar para llegar al 85%`
   }
-  return `FSRS retention at ${percent}% — at or above the 85% target`
+  return `Retención al ${percent}%, en el nivel objetivo o superior`
 }
 
 export default function OptimalDailyAction() {
   const navigate = useNavigate()
-  const { paesSubtopicsList, paesFsrsStatus, skills } = useStore()
+  const { paesSubtopicsList, paesFsrsStatus, paesActiveSubject, skills } = useStore()
 
   // Find optimal target: prioritized by FSRS overdue or cognitive balance
   const recommendation = useMemo(() => {
     // 1. Priority: PAES Subtopics with scheduled review due
+    // shortest path: el subtítulo de retención (buildRetentionSubtitle) no se muestra en la UI;
+    // se deja la función para no romper los tests que la cubren, pero no se pinta.
     const dueReviews = paesFsrsStatus?.capped_review_queue || []
     if (Array.isArray(dueReviews) && dueReviews.length > 0) {
       const topDue = Array.isArray(dueReviews[0]) ? dueReviews[0][0] : dueReviews[0]
@@ -37,20 +39,24 @@ export default function OptimalDailyAction() {
         const subjCode = topDue?.subject_code || "M1"
         return {
           type: "paes",
-          title: `Repaso Curricular: ${topDue.subtopic_name || `PAES ${subjCode}`}`,
-          subtitle: buildRetentionSubtitle(topDue),
-          reason: "Tu memoria a largo plazo requiere afianzar este subtema antes de avanzar a prerrequisitos superiores.",
-          actionText: `Entrenar Subtema en PAES ${subjCode}`,
+          title: `Hoy toca repasar ${topDue.subtopic_name || `PAES ${subjCode}`}`,
+          subtitle: "",
+          reason: "",
+          actionText: `Entrenar ${subjCode}`,
           route: `/paes?subtopic=${subId}`,
-          badge: "FSRS v4.5 Pendiente",
+          badge: "Repasos pendientes",
           badgeColor: "bg-sky-500/15 border-sky-500/30 text-sky-400",
-          icon: subjCode === "M1" || subjCode === "M2" ? "📐" : subjCode === "CIENCIAS" ? "🧪" : "📖",
+          icon: "",
         }
       }
     }
 
     // 2. Priority: Low mastery attempted subtopics in PAES (ZDP)
-    const subtopics = paesSubtopicsList || []
+    // La lista general trae todas las materias (ALL) para los totales por grupo;
+    // la ZDP se acota a la materia activa para no sugerir electivas sin tocar.
+    const subtopics = (paesSubtopicsList || []).filter(
+      (s) => (s.subject_code || s.subject || "M1") === (paesActiveSubject || "M1")
+    )
     if (subtopics.length > 0) {
       const attempted = subtopics.filter((s) => (s.attempts || 0) > 0)
       if (attempted.length > 0) {
@@ -59,14 +65,14 @@ export default function OptimalDailyAction() {
         if (subId && (lowestMastery.mastery || 0) < 0.8) {
           return {
             type: "paes",
-            title: `Fortalecer: ${lowestMastery.name}`,
-            subtitle: `Nivel de maestría actual: ${Math.round((lowestMastery.mastery || 0) * 100)}%`,
-            reason: "Identificado en tu Zona de Desarrollo Próximo (ZDP). Resolver 5 ítems aquí elevará tu puntaje estimado.",
-            actionText: "Practicar con Tutor Socrático",
+            title: `Hoy toca repasar ${lowestMastery.name}`,
+            subtitle: "",
+            reason: "",
+            actionText: "Practicar",
             route: `/paes?subtopic=${subId}`,
             badge: "ZDP Óptima",
-            badgeColor: "bg-emerald-500/15 border-emerald-500/30 text-emerald-400",
-            icon: "🧠",
+            badgeColor: "bg-[#2fc2c2]/15 border-[#2fc2c2]/30 text-[#2fc2c2]",
+            icon: "",
           }
         }
       }
@@ -75,21 +81,21 @@ export default function OptimalDailyAction() {
     // 3. Fallback: Cognitive Gym (Dual N-Back)
     return {
       type: "gym",
-      title: "Estimulación Cognitiva: Dual N-Back",
-      subtitle: "Ampliación de memoria de trabajo",
-      reason: "La práctica deliberada de memoria operativa potencia la velocidad de procesamiento matemático en la PAES.",
-      actionText: "Iniciar Desafío Dual N-Back",
+      title: "Hoy toca memoria de trabajo",
+      subtitle: "",
+      reason: "",
+      actionText: "Entrenar",
       route: "/gym/dual_n_back",
-      badge: "Gimnasio Psicométrico",
+      badge: "Entrenamiento",
       badgeColor: "bg-purple-500/15 border-purple-500/30 text-purple-400",
-      icon: "⚡",
+      icon: "",
     }
-  }, [paesSubtopicsList, paesFsrsStatus, skills])
+  }, [paesSubtopicsList, paesFsrsStatus, paesActiveSubject, skills])
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-950/40 via-neutral-900/60 to-neutral-950 p-6 lg:p-8 shadow-2xl mb-8 backdrop-blur-xl group">
+    <div className="relative overflow-hidden rounded-3xl border border-[#2fc2c2]/20 bg-neutral-900/60 p-6 lg:p-8 shadow-2xl mb-8 group">
       {/* Decorative ambient glow */}
-      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/15 transition-all" />
+      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#2fc2c2]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#2fc2c2]/15 transition-all" />
 
       <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-3 max-w-2xl">
@@ -98,7 +104,7 @@ export default function OptimalDailyAction() {
               {recommendation.badge}
             </span>
             <span className="text-xs text-neutral-400 font-medium">
-              Recomendación de Práctica Deliberada
+              Tu próximo paso
             </span>
           </div>
 
@@ -107,22 +113,14 @@ export default function OptimalDailyAction() {
               <span>{recommendation.icon}</span>
               <span>{recommendation.title}</span>
             </h3>
-            <p className="text-sm font-medium text-emerald-300/80 mt-1" data-testid="optimal-daily-action-subtitle">
-              {recommendation.subtitle}
-            </p>
           </div>
-
-          <p className="text-xs text-neutral-400 leading-relaxed">
-            {recommendation.reason}
-          </p>
         </div>
 
         <button
           onClick={() => navigate(recommendation.route)}
-          className="shrink-0 w-full md:w-auto px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-400 text-black font-extrabold text-sm tracking-wide shadow-xl shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="shrink-0 w-full md:w-auto px-5 py-3 rounded-2xl bg-[#2fc2c2] text-neutral-950 font-semibold hover:bg-[#2fc2c2]/90 transition-colors"
         >
           <span>{recommendation.actionText}</span>
-          <span className="text-base">➔</span>
         </button>
       </div>
     </div>

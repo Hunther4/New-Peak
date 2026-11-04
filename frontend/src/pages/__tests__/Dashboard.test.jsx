@@ -78,7 +78,7 @@ describe("Dashboard", () => {
     useStore.mockReturnValue(createMockState())
     useStore.getState.mockReturnValue(createMockState())
     render(<Dashboard />)
-    expect(screen.getByText("Tus Skills")).toBeInTheDocument()
+    expect(screen.getByText("Tus habilidades")).toBeInTheDocument()
   })
 
   it("displays skill cards when groupedSummary has data", () => {
@@ -107,7 +107,7 @@ describe("Dashboard", () => {
     // So if child throws, ErrorBoundary catches and shows fallback,
     // but the h2 is also inside ErrorBoundary's children, so it won't show.
     // Instead, we check that the ErrorBoundary fallbacks render.
-    expect(screen.getByText("Tus Skills")).toBeInTheDocument()
+    expect(screen.getByText("Tus habilidades")).toBeInTheDocument()
     expect(screen.getByText("Registro de Auditoría")).toBeInTheDocument()
   })
 })

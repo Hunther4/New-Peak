@@ -56,27 +56,27 @@ describe("OptimalDailyAction - FSRS retention claim", () => {
     renderWithQueue([{ ...REVIEW_ITEM, projected_retention: 0.8 }])
 
     expect(subtitle()).toHaveTextContent("80%")
-    expect(subtitle()).toHaveTextContent(/needs reinforcement/i)
+    expect(subtitle()).toHaveTextContent(/conviene reforzar/i)
   })
 
   it("does not ask for reinforcement when the retention reaches the target", () => {
     renderWithQueue([{ ...REVIEW_ITEM, projected_retention: 0.85 }])
 
     expect(subtitle()).toHaveTextContent("85%")
-    expect(subtitle()).not.toHaveTextContent(/needs reinforcement/i)
+    expect(subtitle()).not.toHaveTextContent(/conviene reforzar/i)
   })
 
   it("falls back to projected_r when projected_retention is missing", () => {
     renderWithQueue([{ ...REVIEW_ITEM, projected_r: 0.74 }])
 
     expect(subtitle()).toHaveTextContent("74%")
-    expect(subtitle()).toHaveTextContent(/needs reinforcement/i)
+    expect(subtitle()).toHaveTextContent(/conviene reforzar/i)
   })
 
   it("states the fact without inventing a retention number when the item has no retention value", () => {
     renderWithQueue([{ ...REVIEW_ITEM }])
 
     expect(subtitle()).not.toHaveTextContent(/%/)
-    expect(subtitle()).toHaveTextContent(/no retention estimate/i)
+    expect(subtitle()).toHaveTextContent(/aún no hay una estimación de retención/i)
   })
 })

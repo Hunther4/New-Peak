@@ -4,7 +4,7 @@ import { useStore } from "../../store/store"
 export default function DeliberatePracticeHero() {
   const { summary, timeline, skills } = useStore()
 
-  // Compute Ericsson deliberate metrics
+  // Note: deliberate metrics — Ericsson reference removed from UI copy
   const stats = useMemo(() => {
     const total = summary?.total_sessions ?? timeline?.length ?? 0
     if (!total || !timeline?.length) {
@@ -48,7 +48,9 @@ export default function DeliberatePracticeHero() {
       {/* Plateau Alert Banner (if any skill is plateaued) */}
       {stats.plateauSkills.length > 0 && (
         <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3 text-amber-300">
-          <span className="text-xl">⚠️</span>
+          <span className="text-xl">
+            <icons.error size={20} />
+          </span>
           <div className="space-y-1">
             <h4 className="text-sm font-bold tracking-tight text-amber-200">
               Alerta de Meseta Detectada (Anders Ericsson)
@@ -66,18 +68,18 @@ export default function DeliberatePracticeHero() {
         {/* Card 1: Total & Ratio */}
         <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.1] transition-all">
           <div className="flex items-center justify-between text-neutral-400 mb-2">
-            <span className="text-xs font-semibold uppercase tracking-wider">Índice Ericsson</span>
-            <span className="text-base">🎯</span>
+            <span className="text-xs font-semibold uppercase tracking-wider">Índice de práctica</span>
+            <span className="text-base"></span>
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl lg:text-3xl font-black font-mono text-emerald-400">
+            <span className="text-2xl lg:text-3xl font-black font-mono text-[#2fc2c2]">
               {stats.ratio}%
             </span>
             <span className="text-xs text-neutral-500">deliberado</span>
           </div>
           <div className="w-full bg-white/[0.06] h-1.5 rounded-full mt-3 overflow-hidden">
             <div
-              className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500"
+              className="bg-[#2fc2c2] h-full rounded-full transition-all duration-500"
               style={{ width: `${Math.min(100, Math.max(5, stats.ratio))}%` }}
             />
           </div>
@@ -87,7 +89,7 @@ export default function DeliberatePracticeHero() {
         <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.1] transition-all">
           <div className="flex items-center justify-between text-neutral-400 mb-2">
             <span className="text-xs font-semibold uppercase tracking-wider">Deliberadas</span>
-            <span className="text-base">🔬</span>
+            <span className="text-base"></span>
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl lg:text-3xl font-black font-mono text-white">
@@ -95,7 +97,7 @@ export default function DeliberatePracticeHero() {
             </span>
             <span className="text-xs text-neutral-500">sesiones</span>
           </div>
-          <span className="text-[10px] text-emerald-400/90 font-medium mt-2 block">
+          <span className="text-[10px] text-[#2fc2c2]/90 font-medium mt-2 block">
             Con objetivo & micro-errores
           </span>
         </div>
@@ -104,7 +106,7 @@ export default function DeliberatePracticeHero() {
         <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.1] transition-all">
           <div className="flex items-center justify-between text-neutral-400 mb-2">
             <span className="text-xs font-semibold uppercase tracking-wider">Con Propósito</span>
-            <span className="text-base">⚡</span>
+            <span className="text-base"></span>
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl lg:text-3xl font-black font-mono text-white">
@@ -112,7 +114,7 @@ export default function DeliberatePracticeHero() {
             </span>
             <span className="text-xs text-neutral-500">sesiones</span>
           </div>
-          <span className="text-[10px] text-sky-400/90 font-medium mt-2 block">
+          <span className="text-[10px] text-[#2fc2c2]/90 font-medium mt-2 block">
             Estructuradas en la frontera
           </span>
         </div>
@@ -121,7 +123,7 @@ export default function DeliberatePracticeHero() {
         <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.1] transition-all">
           <div className="flex items-center justify-between text-neutral-400 mb-2">
             <span className="text-xs font-semibold uppercase tracking-wider">Disciplina</span>
-            <span className="text-base">🔥</span>
+            <span className="text-base"></span>
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl lg:text-3xl font-black font-mono text-orange-400">

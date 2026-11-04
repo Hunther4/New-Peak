@@ -1,4 +1,4 @@
-﻿import { useEffect, useCallback } from "react"
+import { useEffect, useCallback } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { useStore } from "./store/store"
 import { ToastProvider } from "./components/ui"
