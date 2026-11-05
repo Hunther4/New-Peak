@@ -67,9 +67,9 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         csp = (
             f"default-src 'self'; "
             f"script-src 'self' 'nonce-{nonce}' https://cdn.jsdelivr.net; "
-            f"style-src 'self' 'nonce-{nonce}' https://cdn.jsdelivr.net; "
+            f"style-src 'self' 'nonce-{nonce}' https://cdn.jsdelivr.net https://fonts.googleapis.com; "
             f"img-src 'self' data: blob:; "
-            f"font-src 'self' data: https://cdn.jsdelivr.net; "
+            f"font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; "
             f"connect-src 'self'; "
             f"frame-ancestors 'none'"
         )
@@ -136,7 +136,15 @@ async def lifespan(app: FastAPI):
     shutdown_executor()
 
 
-app = FastAPI(title="Peak Practice API", version="1.0.0", lifespan=lifespan)
+_disable_docs = os.getenv("DISABLE_DOCS", "").strip() == "1"
+app = FastAPI(
+    title="Peak Practice API",
+    version="1.0.0",
+    lifespan=lifespan,
+    docs_url=None if _disable_docs else "/docs",
+    redoc_url=None if _disable_docs else "/redoc",
+    openapi_url=None if _disable_docs else "/openapi.json",
+)
 
 _BASE = Path(__file__).resolve().parent
 _static_dir = _BASE / "static"
