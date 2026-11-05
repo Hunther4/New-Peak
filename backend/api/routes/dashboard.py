@@ -122,11 +122,20 @@ def get_summary(principal: Principal = UserPrincipalDep, db: Session = Depends(g
 
 
 @router.get("/timeline")
-def get_timeline(skill_id: Optional[int] = None, limit: int = 30, db: Session = Depends(get_session)):
+def get_timeline(
+    skill_id: Optional[int] = None,
+    limit: int = 30,
+    principal: Principal = UserPrincipalDep,
+    db: Session = Depends(get_session),
+):
+    if not (principal and principal.user_id):
+        raise HTTPException(status_code=401, detail="No autenticado")
+    user_id = principal.user_id
     # Eager load: trae las sessions con su skill en UNA sola query via JOIN
     query = (
         select(PracticeSession)
         .options(selectinload(PracticeSession.skill))
+        .where(PracticeSession.user_id == user_id)
         .order_by(PracticeSession.created_at.desc())
         .limit(limit)
     )
