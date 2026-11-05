@@ -202,23 +202,21 @@ describe("profile slice - initial state", () => {
     })
   })
 
-  it("fetchProfile returns cached profile from localStorage (background sync fires too)", async () => {
-    // Profile slice fires a background sync even when cached (fire-and-forget).
-    // Mock the API to return the same value so the background sync doesn't
-    // overwrite with null.
-    const cached = { name: "Cached User", age: 30 }
-    api.profile.get.mockResolvedValue(cached)
-    localStorage.setItem("peak_profile", JSON.stringify(cached))
+  it("fetchProfile ignores stale localStorage cache and uses backend", async () => {
+    const stale = { name: "Stale User", age: 30 }
+    const fresh = { name: "Backend User", age: 28 }
+    api.profile.get.mockResolvedValue(fresh)
+    localStorage.setItem("peak_profile", JSON.stringify(stale))
+    localStorage.setItem("peak_user_name", stale.name)
 
     const store = create((set, get) => ({ ...createProfileSlice(set, get) }))
 
     const result = await store.getState().fetchProfile()
 
-    // The important thing is that the cached value is returned immediately.
-    expect(result).toEqual(cached)
-    const state = store.getState()
-    expect(state.profile).toEqual(cached)
-    expect(state.profileLoading).toBe(false)
+    expect(api.profile.get).toHaveBeenCalled()
+    expect(result).toEqual(fresh)
+    expect(store.getState().profile).toEqual(fresh)
+    expect(store.getState().profileLoading).toBe(false)
   })
 
   it("calls api when no cache exists", async () => {
@@ -236,7 +234,7 @@ describe("profile slice - initial state", () => {
     expect(state.profileLoading).toBe(false)
   })
 
-  it("saveProfile calls api and caches result", async () => {
+  it("saveProfile calls api and does not write stale localStorage", async () => {
     const saved = { name: "New Name", age: 35 }
     api.profile.save.mockResolvedValue(saved)
 
@@ -245,9 +243,9 @@ describe("profile slice - initial state", () => {
     await store.getState().saveProfile("New Name", 35)
 
     expect(api.profile.save).toHaveBeenCalledWith({ name: "New Name", age: 35 })
-    const state = store.getState()
-    expect(state.profile).toEqual(saved)
-    expect(JSON.parse(localStorage.getItem("peak_profile"))).toEqual(saved)
+    expect(store.getState().profile).toEqual(saved)
+    expect(localStorage.getItem("peak_profile")).toBeNull()
+    expect(localStorage.getItem("peak_user_name")).toBeNull()
   })
 })
 

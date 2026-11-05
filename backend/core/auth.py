@@ -231,19 +231,34 @@ def _resolve_bearer(token: str) -> Principal | None:
         return resolve_session_principal(session, token)
 
 
+def _normalize_device_id(raw: str | None) -> str:
+    """Strip non-alphanumeric chars; return empty string for missing/garbage."""
+    if not raw:
+        return ""
+    return re.sub(r"[^a-zA-Z0-9]", "", str(raw))
+
+
 def _is_authorized_owner_device(clean_device: str) -> bool:
-    """True only if the device matches the owner allowlist (env secret)."""
+    """True only if the device matches the owner allowlist (env secret).
+
+    Compares the full normalized id (not the 12-char prefix) so a collision
+    on the prefix can no longer grant owner privileges.
+    """
     if not clean_device:
         return False
     allowed_raw = os.getenv("PEAK_DRACK_DEVICE_IDS", "")
     if not allowed_raw.strip():
         return False
     candidates = [
-        re.sub(r"[^a-zA-Z0-9]", "", part)[:12]
+        _normalize_device_id(part)
         for part in allowed_raw.split(",")
         if part.strip()
     ]
-    return any(hmac.compare_digest(clean_device, c) for c in candidates)
+    return any(
+        hmac.compare_digest(clean_device, c) and len(c) >= 8
+        for c in candidates
+        if c
+    )
 
 
 def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principal:
@@ -255,8 +270,11 @@ def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principa
     """
     del name  # display name is not identity; kept for caller compatibility
 
-    clean_device = re.sub(r"[^a-zA-Z0-9]", "", device_id or "")[:12]
-    is_owner = _is_authorized_owner_device(clean_device)
+    full_device = _normalize_device_id(device_id)
+    # Identity (email) keeps the legacy 12-char prefix for backward compat with
+    # already-provisioned beta users; owner detection uses the full id.
+    clean_device = full_device[:12]
+    is_owner = _is_authorized_owner_device(full_device)
     if is_owner:
         email = "drack@peak.local"
         target_user_id = 1

@@ -196,3 +196,14 @@ class TestAuthIntegration:
         monkeypatch.setenv("DISABLE_AUTH", "1")
         response = client.get("/api/skills/")
         assert response.status_code == 200
+
+class TestOwnerDeviceAllowlist:
+    def test_prefix_collision_is_not_owner(self, monkeypatch):
+        monkeypatch.setenv("PEAK_DRACK_DEVICE_IDS", "dev_1bc76e07bc3d4b388b350b7b616303b4")
+        from core.auth import _is_authorized_owner_device
+        assert _is_authorized_owner_device("dev1bc76e07bAAAAAAAA") is False
+
+    def test_full_normalized_id_is_owner(self, monkeypatch):
+        monkeypatch.setenv("PEAK_DRACK_DEVICE_IDS", "dev_1bc76e07bc3d4b388b350b7b616303b4")
+        from core.auth import _is_authorized_owner_device
+        assert _is_authorized_owner_device("dev1bc76e07bc3d4b388b350b7b616303b4") is True

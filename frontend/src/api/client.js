@@ -7,33 +7,24 @@ export const setClientApiKey = (key) => {
   API_KEY = key
 }
 
+const DEVICE_ID_RE = /^dev_[0-9a-f]{32}$/i
+
 export function getActiveDeviceId() {
   try {
     let deviceId = localStorage.getItem("peak_device_id")
-    if (!deviceId || !deviceId.trim()) {
-      deviceId = "dev_" + (typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID().replace(/-/g, "") : Math.random().toString(36).substring(2) + Date.now().toString(36))
+    // Validate stored id; regenerate if missing or malformed (rancio/corrupt).
+    if (!deviceId || !DEVICE_ID_RE.test(deviceId.trim())) {
+      const raw =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID().replace(/-/g, "")
+          : Math.random().toString(36).substring(2) + Date.now().toString(36)
+      deviceId = "dev_" + raw
       localStorage.setItem("peak_device_id", deviceId)
     }
-    return deviceId
+    return deviceId.trim()
   } catch {
     return "dev_fallback"
   }
-}
-
-export function getActiveUserName() {
-  try {
-    const direct = localStorage.getItem("peak_user_name")
-    if (direct && direct.trim()) return direct.trim()
-    const cached = localStorage.getItem("peak_profile")
-    if (cached) {
-      const parsed = JSON.parse(cached)
-      if (parsed?.name && parsed.name.trim()) {
-        localStorage.setItem("peak_user_name", parsed.name.trim())
-        return parsed.name.trim()
-      }
-    }
-  } catch {}
-  return null
 }
 
 async function request(path, options = {}) {

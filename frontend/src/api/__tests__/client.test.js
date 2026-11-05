@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
-import { api, setClientApiKey } from "../client"
+import { api, getActiveDeviceId, setClientApiKey } from "../client"
 
 // Save original fetch so we can restore between tests
 const originalFetch = globalThis.fetch
@@ -256,5 +256,22 @@ describe("api client - provider keys & available-for-key", () => {
     await api.models.getAvailableForKey("generalcompute")
     const [url] = globalThis.fetch.mock.calls[0]
     expect(url).toContain("/api/models/available-for-key?provider=generalcompute")
+  })
+})
+
+describe("api client - getActiveDeviceId", () => {
+  beforeEach(() => localStorage.clear())
+
+  it("regenerates a malformed stored id", () => {
+    localStorage.setItem("peak_device_id", "bad-id")
+    const id = getActiveDeviceId()
+    expect(id).toMatch(/^dev_[0-9a-f]{32}$/)
+    expect(localStorage.getItem("peak_device_id")).toBe(id)
+  })
+
+  it("keeps a valid stored id", () => {
+    const valid = "dev_" + "a".repeat(32)
+    localStorage.setItem("peak_device_id", valid)
+    expect(getActiveDeviceId()).toBe(valid)
   })
 })
