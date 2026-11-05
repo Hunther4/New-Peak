@@ -293,7 +293,11 @@ def clear_all_practice_data(
     'Limpiar registros' del frontend.
 
     Requires confirm="DELETE_ALL_DATA" to prevent accidental deletion.
+
+    DESHABILITADO (hotfix de seguridad): endpoint global que borraba datos de
+    todos los usuarios. Ver docs/SECURITY_AUDIT_HOTFIX.md.
     """
+    raise HTTPException(status_code=403, detail="Deshabilitado")
     if confirm != "DELETE_ALL_DATA":
         raise HTTPException(status_code=400, detail='confirm must be "DELETE_ALL_DATA"')
 
