@@ -1,4 +1,6 @@
+import hmac
 import json
+import os
 from typing import Literal, Optional
 
 import httpx
@@ -24,6 +26,17 @@ from core.router import _is_lm_studio_reachable, get_ai_mode, set_ai_mode
 from core.settings import get_setting, set_setting
 
 router = APIRouter()
+
+
+def _require_admin(request: Request) -> None:
+    """Guardia de admin para endpoints que mutan estado global.
+    Local (admin.py está gitignored): verifica X-Admin-Key vs PEAK_ADMIN_KEY
+    en tiempo constante. Igual que _require_admin en admin.py.
+    """
+    key = request.headers.get("X-Admin-Key", "")
+    expected = os.getenv("PEAK_ADMIN_KEY", "")
+    if not expected or not hmac.compare_digest(key, expected):
+        raise HTTPException(status_code=403, detail="Admin requerido")
 
 # Timeout para consultar {provider}/models con la key almacenada.
 MODELS_LIST_TIMEOUT = 10.0
@@ -141,7 +154,8 @@ def get_provider_keys():
 
 
 @router.put("/keys/{provider}")
-def update_provider_key(provider: str, req: ProviderKeyRequest):
+def update_provider_key(provider: str, req: ProviderKeyRequest, request: Request):
+    _require_admin(request)
     """Guarda la API key del proveedor. Key vacía limpia el setting de DB."""
     if not is_valid_provider(provider):
         raise HTTPException(
