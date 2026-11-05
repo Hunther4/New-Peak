@@ -38,13 +38,11 @@ export function getActiveUserName() {
 
 async function request(path, options = {}) {
   const url = `${BASE_URL}${path}`
-  const userName = getActiveUserName()
   const deviceId = getActiveDeviceId()
   const { headers: customHeaders, ...restOptions } = options
   const headers = {
     "Content-Type": "application/json",
     ...(API_KEY ? { "X-API-Key": API_KEY } : {}),
-    ...(userName ? { "X-User-Name": userName } : {}),
     ...(deviceId ? { "X-Device-Id": deviceId } : {}),
     ...customHeaders,
   }
@@ -202,11 +200,9 @@ export const api = {
       const url = `${BASE_URL}/profile/avatar`
       const formData = new FormData()
       formData.append("file", file)
-      const userName = getActiveUserName()
       const deviceId = getActiveDeviceId()
       const headers = {
         ...(API_KEY ? { "X-API-Key": API_KEY } : {}),
-        ...(userName ? { "X-User-Name": userName } : {}),
         ...(deviceId ? { "X-Device-Id": deviceId } : {}),
       }
       const res = await fetch(url, {

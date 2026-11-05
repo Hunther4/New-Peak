@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard"
 import CognitiveGym from "./pages/CognitiveGym"
 import Practice from "./pages/Practice"
 import PaesStudy from "./pages/PaesStudy"
+import { CruchAdmissionSimulator } from "./components/paes/CruchAdmissionSimulator"
 import MetacognitionLab from "./pages/MetacognitionLab"
 import Settings from "./pages/Settings"
 // Admin es opcional: solo existe en el entorno local/Fly. En un clon limpio
@@ -77,6 +78,7 @@ const router = createBrowserRouter(
         { path: "gym/:gameType", element: <Practice /> },
         { path: "practice/:gameType", element: <Practice /> },
         { path: "paes", element: <PaesStudy /> },
+        { path: "otros/admision", element: <CruchAdmissionSimulator /> },
         { path: "lab", element: <MetacognitionLab /> },
         { path: "settings", element: <Settings /> },
         ...(Admin ? [{ path: "admin", element: <Suspense fallback={null}><Admin /></Suspense> }] : []),

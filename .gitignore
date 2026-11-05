@@ -75,3 +75,6 @@ backend/api/routes/admin.py
 .env.*.local
 
 engram-export.json
+
+# Graphify knowledge graphs
+graphify-out/

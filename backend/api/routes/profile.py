@@ -6,7 +6,6 @@ from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
 from core.database import engine
-from core.identity import Principal, UserPrincipalDep
 from models.models import UserProfile
 
 router = APIRouter()

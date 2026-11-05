@@ -1,5 +1,7 @@
 import React, { useMemo } from "react"
 import { marked } from "marked"
+import katex from "katex"
+import "katex/dist/katex.min.css"
 
 // Configure marked for clean GFM with line breaks
 marked.setOptions({
@@ -22,9 +24,6 @@ export function MathRenderer({ text = "", className = "", inline = false }) {
     if (!text || typeof text !== "string") return ""
 
     const mathBlocks = []
-
-    // 0. Wrap bare powers (a^3, b^2) in inline math delimiters so KaTeX renders them
-    protectedText = protectedText.replace(/([a-zA-Z0-9])\^(\d+)/g, (_, base, exp) => `$${base}^${exp}$`)
 
     // 1. Protect display math $$...$$ and \[...\]
     let protectedText = text
@@ -60,7 +59,10 @@ export function MathRenderer({ text = "", className = "", inline = false }) {
       return `@@MATH_BLOCK_${idx}@@`
     })
 
-    // 4. Unescape any \$ to literal $
+    // 4. Wrap bare powers (a^3, b^2) in $...$ so KaTeX renders them as inline math
+    protectedText = protectedText.replace(/([a-zA-Z0-9])\^(\d+)/g, (_, base, exp) => `$${base}^{${exp}}$`)
+
+    // 5. Unescape any \$ to literal $
     protectedText = protectedText.replace(/\\\$/g, "$")
 
     // Determine if we should parse as inline snippet or full block document
@@ -85,9 +87,9 @@ export function MathRenderer({ text = "", className = "", inline = false }) {
       const block = mathBlocks[Number(idStr)]
       if (!block) return ""
 
-      if (typeof window !== "undefined" && window.katex) {
+      if (katex) {
         try {
-          return window.katex.renderToString(block.expr, {
+          return katex.renderToString(block.expr, {
             displayMode: block.display,
             throwOnError: false,
           })

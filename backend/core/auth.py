@@ -163,10 +163,9 @@ async def auth_middleware(request: Request, call_next):
         if bearer:
             principal = await run_in_threadpool(_resolve_bearer, bearer)
         if principal is None:
-            user_name = request.headers.get("X-User-Name") or request.query_params.get("user_name")
+            # Identity is device-scoped; the display name is not identity.
             device_id = request.headers.get("X-Device-Id") or request.query_params.get("device_id")
-            effective_name = user_name.strip() if (user_name and user_name.strip()) else ""
-            principal = await run_in_threadpool(_resolve_beta_principal, effective_name, device_id)
+            principal = await run_in_threadpool(_resolve_beta_principal, "", device_id)
         request.state.principal = principal
         return await call_next(request)
 
@@ -232,14 +231,33 @@ def _resolve_bearer(token: str) -> Principal | None:
         return resolve_session_principal(session, token)
 
 
+def _is_authorized_owner_device(clean_device: str) -> bool:
+    """True only if the device matches the owner allowlist (env secret)."""
+    if not clean_device:
+        return False
+    allowed_raw = os.getenv("PEAK_DRACK_DEVICE_IDS", "")
+    if not allowed_raw.strip():
+        return False
+    candidates = [
+        re.sub(r"[^a-zA-Z0-9]", "", part)[:12]
+        for part in allowed_raw.split(",")
+        if part.strip()
+    ]
+    return any(hmac.compare_digest(clean_device, c) for c in candidates)
+
+
 def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principal:
-    """Resolve or auto-provision a Principal for tactical beta mode."""
-    clean_name = name.strip()
-    slug = re.sub(r"[^a-zA-Z0-9_]", "", clean_name.lower()) if clean_name else ""
-    is_drack = slug in ("drack", "drackv1", "hunther", "hunther4") or clean_name.lower() in ("drack", "drackv1", "hunther", "hunther4")
+    """Resolve or auto-provision a Principal for tactical beta mode.
+
+    Identity comes from X-Device-Id only. The display name never grants
+    ownership: only a device listed in PEAK_DRACK_DEVICE_IDS resolves to
+    user_id=1 (drack@peak.local).
+    """
+    del name  # display name is not identity; kept for caller compatibility
 
     clean_device = re.sub(r"[^a-zA-Z0-9]", "", device_id or "")[:12]
-    if is_drack:
+    is_owner = _is_authorized_owner_device(clean_device)
+    if is_owner:
         email = "drack@peak.local"
         target_user_id = 1
     elif clean_device:
@@ -317,7 +335,7 @@ def _resolve_beta_principal(name: str, device_id: str | None = None) -> Principa
                 auth_session = session.exec(select(AuthSession).where(AuthSession.user_id == user.id)).first()
 
         prof = session.exec(select(UserProfile).where(UserProfile.user_id == user.id)).first()
-        if is_drack and not prof:
+        if is_owner and not prof:
             prof = UserProfile(user_id=user.id, name="Drack", age=18)
             session.add(prof)
             try:

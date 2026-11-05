@@ -31,8 +31,7 @@ export default function Dashboard() {
   // Ocultar métricas sin datos: solo mostrar el hero cuando ya hay sesiones
   const hasSessions = (summary?.total_sessions ?? 0) > 0 || (timeline?.length ?? 0) > 0
 
-  // Ocultar proyección DEMRE sin datos: solo mostrarla cuando ya hay intentos
-  const hasAttempts = paesSubtopicsList?.some((s) => (s.attempts || 0) > 0) ?? false
+  // Perfiles nuevos: mostrar proyección DEMRE desde el inicio (100 en todas)
 
   return (
     <PageTransition>
@@ -50,7 +49,7 @@ export default function Dashboard() {
       {/* Filas de Teseo y acción eliminadas del inicio por duplicación; la acción principal va arriba */}
 
       {/* 3. Progreso — solo con datos (sin datos no se muestra 100/1000) */}
-      {hasAttempts && <DualProgressRadar />}
+      <DualProgressRadar />
 
       {/* Error Banner if any */}
       {error && (

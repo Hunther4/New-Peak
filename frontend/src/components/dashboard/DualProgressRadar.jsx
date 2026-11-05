@@ -69,7 +69,7 @@ export default function DualProgressRadar() {
           <div className="space-y-4 p-4 rounded-2xl bg-neutral-900/60 border border-white/[0.04]">
             <div className="flex items-baseline gap-1.5">
               <span className="text-[10px] uppercase font-mono tracking-wider text-sky-400 font-bold">Puntaje estimado</span>
-              <span className="text-4xl font-black font-mono text-white">{grupo.score}</span>
+              <span className="text-4xl leading-none font-black font-mono text-white">{grupo.score}</span>
               <span className="text-xs font-mono text-neutral-500">/ 1000 pts</span>
             </div>
             {grupo.porMateria.map((m) => (

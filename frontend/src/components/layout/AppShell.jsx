@@ -37,7 +37,10 @@ export default function AppShell() {
 
   const homeItem = navItems[0]
   const paesItem = navItems[1]
-  const otrosItems = navItems.slice(2, 4) // Gimnasio + Análisis
+  const otrosItems = [
+    ...navItems.slice(2, 4), // Gimnasio + Análisis
+    { to: "/otros/admision", icon: icons.analysis, label: "Admisión", short: "Admisión" },
+  ]
   const restItems = navItems.slice(4) // Ajustes (+ Admin)
 
   const primaryItems = [homeItem, paesItem]

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
+    "katex": "0.16.11",
     "lucide-react": "^1.66.0",
     "marked": "^18.0.14",
     "react": "^19.2.6",

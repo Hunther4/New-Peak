@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 
 from services.paes.demre_scale import SUBJECT_METADATA
-from services.paes.nem_scale import grade_to_nem_score, nem_score_to_grade
+from services.paes.nem_scale import grade_to_nem_score
 
 # Catálogo oficial CRUCH con carreras emblemáticas de alta demanda
 CRUCH_CAREERS: List[Dict[str, Any]] = [

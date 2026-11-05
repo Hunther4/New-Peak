@@ -8,14 +8,13 @@ import { PaesExamRunner } from "../components/paes/PaesExamRunner"
 import { PaesExamResults } from "../components/paes/PaesExamResults"
 import { MathRenderer } from "../components/paes/MathRenderer"
 import { PaesErrorVault } from "../components/paes/PaesErrorVault"
-import { CruchAdmissionSimulator } from "../components/paes/CruchAdmissionSimulator"
 import { isSoundMuted, toggleSoundMute } from "../utils/soundEffects"
 import { api } from "../api/client"
 import { icons } from "../components/ui/icons"
 
 // Every tab that the study hub can render. The list is the single source of
 // truth for the navigation bar and for the ?tab= query parameter.
-const PAES_TAB_IDS = ["exams", "error_vault", "cruch", "curriculum", "parametric", "fsrs"]
+const PAES_TAB_IDS = ["exams", "error_vault", "curriculum", "parametric", "fsrs"]
 
 export default function PaesStudy() {
 
@@ -341,7 +340,6 @@ const SUBJECT_EXAMS_CONFIG = {
                 icon: "error",
                 badge: paesErrorNotebook?.total_errors > 0 ? paesErrorNotebook.total_errors : null
               },
-              { id: "cruch", label: "Admisión", icon: "analysis" },
               { id: "curriculum", label: `Temario (${paesSubtopicsList.length})`, icon: "curriculum" },
               { id: "parametric", label: "Generador", icon: "parametric" },
               { id: "fsrs", label: "Memoria", icon: "memory" },
@@ -784,12 +782,6 @@ const SUBJECT_EXAMS_CONFIG = {
             </div>
           )}
 
-          {/* TAB 6: CRUCH ADMISSION & PROBABILITY SIMULATOR */}
-          {activeTab === "cruch" && (
-            <div className="space-y-6 animate-fade-in">
-              <CruchAdmissionSimulator />
-            </div>
-          )}
         </div>
       )}
     </div>

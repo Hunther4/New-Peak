@@ -26,6 +26,7 @@ from api.routes import (
     sessions,
     skills,
 )
+
 # Admin es opcional: si el archivo no está (p. ej. clon limpio de GitHub), la app igual arranca.
 try:
     from api.routes import admin as admin_route_module
