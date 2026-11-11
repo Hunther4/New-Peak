@@ -2,6 +2,7 @@ import { useMemo, useEffect } from "react"
 import { useNavigate } from "react-router"
 import { useStore } from "../store/store"
 import { PageTransition } from "../components/ui/PageTransition"
+import { icons } from "../components/ui/icons"
 
 export default function CognitiveGym() {
   const navigate = useNavigate()
@@ -27,13 +28,13 @@ export default function CognitiveGym() {
         category: "Memoria Operativa",
         levelText: `Nivel N = ${nBack?.current_level ? Math.round(nBack.current_level) : 1}`,
         staircase: "Progresión adaptativa",
-        icon: "",
+        icon: <icons.brain className="w-6 h-6 text-blue-400" />,
         accent: "from-blue-500 to-indigo-600",
         borderGlow: "group-hover:border-blue-500/40",
         bgGlow: "bg-blue-500/10",
         pill: "Visuoespacial + Fonológico",
         description:
-          "Estimulación simultánea visual (cuadrícula 3x3) y auditiva. El único ejercicio con evidencia clínica comprobada de incremento en la capacidad de memoria de trabajo y control inhibitorio.",
+          "Estimulación simultánea visoespacial y auditiva para expandir la capacidad de la memoria de trabajo y el control inhibitorio.",
         stats: [
           { label: "Canal", value: "Dual (Audio/Visual)" },
           { label: "Target", value: "Precisión ≥ 80%" },
@@ -46,13 +47,13 @@ export default function CognitiveGym() {
         category: "Capacidad Nemotécnica",
         levelText: `Fase ${Math.round(memory?.current_level || 1)} · Span ${Math.round(memory?.current_level || 1) * 4}d`,
         staircase: "Escalera Ericsson SF 4→80",
-        icon: "",
+        icon: <icons.streak className="w-6 h-6 text-purple-400" />,
         accent: "from-purple-500 to-pink-600",
         borderGlow: "group-hover:border-purple-500/40",
         bgGlow: "bg-purple-500/10",
         pill: "Chunking & Mnemotecnia",
         description:
-          "Inspirado en el histórico experimento de Anders Ericsson con el sujeto Steve Faloon. Supera la barrera biológica de Miller (7±2 dígitos) desarrollando representaciones mentales y agrupación (chunking).",
+          "Entrenamiento de retención y agrupamiento de dígitos para desarrollar representaciones mentales y superar el límite de memoria a corto plazo.",
         stats: [
           { label: "Fases", value: "1 a 7 Progresivas" },
           { label: "Estrategias", value: "Chunking / Fonemas" },
@@ -65,13 +66,13 @@ export default function CognitiveGym() {
         category: "Aritmética & Descomposición",
         levelText: `Nivel ${Math.round(math?.current_level || 1)} / 10`,
         staircase: "Staircase Aritmético",
-        icon: "",
+        icon: <icons.math1 className="w-6 h-6 text-emerald-400" />,
         accent: "from-emerald-500 to-teal-600",
         borderGlow: "group-hover:border-emerald-500/40",
         bgGlow: "bg-emerald-500/10",
         pill: "Velocidad & Fluidez",
         description:
-          "Automatización de operaciones intermedias, cálculo mental y deducción de pasos algebraicos. Libera ancho de banda cognitivo para resolver los ítems más complejos de la PAES M1.",
+          "Automatización de operaciones intermedias y cálculo mental rápido para resolver problemas con mayor agilidad cognitiva.",
         stats: [
           { label: "Niveles", value: "1 al 10 Adaptativo" },
           { label: "Resolución", value: "Paso a paso guiado" },
@@ -84,13 +85,13 @@ export default function CognitiveGym() {
         category: "Inteligencia Fluida (Gf)",
         levelText: `Nivel ${Math.round(iq?.current_level || 1)} / 10`,
         staircase: "Escalera Raven Inductiva",
-        icon: "",
+        icon: <icons.focus className="w-6 h-6 text-amber-400" />,
         accent: "from-amber-500 to-orange-600",
         borderGlow: "group-hover:border-amber-500/40",
         bgGlow: "bg-amber-500/10",
         pill: "Matrices & Analogías",
         description:
-          "Prueba de razonamiento inductivo basada en tests psicométricos de matrices progresivas. Reconocimiento instantáneo de simetrías, rotaciones espaciales y transformaciones lógicas.",
+          "Reconocimiento de secuencias, simetrías y transformaciones lógicas mediante matrices inductivas con selección rápida.",
         stats: [
           { label: "Modalidad", value: "A/B/C/D Atajos" },
           { label: "Prefetching", value: "Cero latencia" },
@@ -202,8 +203,8 @@ export default function CognitiveGym() {
                 onClick={() => handleLaunch(game)}
                 className={`mt-6 w-full py-3.5 rounded-2xl bg-gradient-to-r ${game.accent} text-white font-extrabold text-sm tracking-wide shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer`}
               >
-                <span>Entrenar Habilidad</span>
-                
+                <span>Entrenar habilidad</span>
+                <icons.next size={16} />
               </button>
             </div>
           ))}

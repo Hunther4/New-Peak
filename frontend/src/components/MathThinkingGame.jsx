@@ -117,6 +117,22 @@ function MathThinkingGame({ skillId, onClose }) {
     }
   }, [createMathRound, mathSession])
 
+  // Key handler: Enter on feedback advances to next problem
+  useEffect(() => {
+    if (mathPhase !== "feedback") return
+    const handleFeedbackKey = (e) => {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) {
+        return
+      }
+      if (e.key === "Enter") {
+        e.preventDefault()
+        handleNext()
+      }
+    }
+    window.addEventListener("keydown", handleFeedbackKey)
+    return () => window.removeEventListener("keydown", handleFeedbackKey)
+  }, [mathPhase, handleNext])
+
   // T-07: Pre-fetch next round while user is answering the current one
   useEffect(() => {
     if (mathPhase === "answering" && mathCurrentRound?.id && mathSession?.id) {
@@ -333,7 +349,7 @@ function MathThinkingGame({ skillId, onClose }) {
               <button
                 onClick={handleSubmit}
                 disabled={submitting || !userAnswer.trim()}
-                className="btn btn-primary text-base px-10"
+                className="btn btn-primary text-base px-10 cursor-pointer"
               >
                 {submitting ? (
                   <span className="flex items-center justify-center gap-2">
@@ -341,7 +357,10 @@ function MathThinkingGame({ skillId, onClose }) {
                     Verificando...
                   </span>
                 ) : (
-                  "Enviar respuesta"
+                  <span className="flex items-center justify-center gap-2">
+                    <span>Enviar respuesta</span>
+                    <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
+                  </span>
                 )}
               </button>
 
@@ -496,8 +515,9 @@ function MathThinkingGame({ skillId, onClose }) {
 
               {/* Actions */}
               <div className="flex items-center justify-center gap-4">
-                <button onClick={handleNext} className="btn btn-primary text-base px-8">
-                  Siguiente problema
+                <button onClick={handleNext} className="btn btn-primary text-base px-8 cursor-pointer">
+                  <span>Siguiente problema</span>
+                  <kbd className="hidden sm:inline-block ml-1.5 px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
                 </button>
                 {canFinish && (
                   <button

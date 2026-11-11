@@ -53,22 +53,29 @@ export default function IQPracticeGame({ skillId, onClose }) {
 
   const sessionTimer = useSessionTimer()
 
-  // Key handler
+  // Key handler: A-D + Enter to select & submit, Enter on feedback to advance
   const handleKeyDown = useCallback((e) => {
-    if (iqPhase !== "answering" || !iqCurrentRound || submitting) return
-    const key = e.key.toLowerCase()
-    if (key === "a" || key === "b" || key === "c" || key === "d") {
-      e.preventDefault()
-      const idx = key.charCodeAt(0) - 97
-      if (idx < iqCurrentRound.options.length) {
-        setSelectedOption(idx)
+    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) {
+      return
+    }
+
+    if (iqPhase === "answering" && iqCurrentRound && !submitting) {
+      const key = e.key.toLowerCase()
+      if (key === "a" || key === "b" || key === "c" || key === "d") {
+        e.preventDefault()
+        const idx = key.charCodeAt(0) - 97
+        if (idx < iqCurrentRound.options.length) {
+          setSelectedOption(idx)
+        }
+      } else if (key === "enter" && selectedOption !== null) {
+        e.preventDefault()
+        handleSubmit()
       }
-    }
-    if (key === "enter" && selectedOption !== null) {
+    } else if (iqPhase === "feedback" && e.key === "Enter") {
       e.preventDefault()
-      handleSubmit()
+      handleNext()
     }
-  }, [iqPhase, iqCurrentRound, submitting, selectedOption])
+  }, [iqPhase, iqCurrentRound, submitting, selectedOption, handleSubmit, handleNext])
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown)
@@ -295,10 +302,12 @@ export default function IQPracticeGame({ skillId, onClose }) {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 gap-3" role="radiogroup" aria-label="Opciones de respuesta">
               {iqCurrentRound.options.map((option, idx) => (
                 <button
                   key={idx}
+                  role="radio"
+                  aria-checked={selectedOption === idx}
                   onClick={() => {
                     setSelectedOption(idx)
                     setError(null)
@@ -310,15 +319,20 @@ export default function IQPracticeGame({ skillId, onClose }) {
                       : "hover:border-purple-500/20 hover:bg-white/[0.03]"
                   } ${submitting ? "opacity-50 cursor-not-allowed" : ""}`}
                 >
-                  <div className="flex items-center gap-4">
-                    <span className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all ${
-                      selectedOption === idx
-                        ? "bg-purple-500 text-white shadow-lg shadow-purple-500/30"
-                        : "bg-neutral-800 text-neutral-400"
-                    }`}>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <span className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all ${
+                        selectedOption === idx
+                          ? "bg-purple-500 text-white shadow-lg shadow-purple-500/30"
+                          : "bg-neutral-800 text-neutral-400"
+                      }`}>
+                        {OPTION_LABELS[idx]}
+                      </span>
+                      <span className="text-base text-white">{option}</span>
+                    </div>
+                    <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/[0.04] border border-white/[0.08] text-neutral-400">
                       {OPTION_LABELS[idx]}
-                    </span>
-                    <span className="text-base text-white">{option}</span>
+                    </kbd>
                   </div>
                 </button>
               ))}
@@ -340,7 +354,10 @@ export default function IQPracticeGame({ skillId, onClose }) {
                     Evaluando...
                   </span>
                 ) : (
-                  "Confirmar respuesta"
+                  <span className="flex items-center gap-2">
+                    <span>Confirmar respuesta</span>
+                    <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
+                  </span>
                 )}
               </button>
               <button
@@ -402,8 +419,9 @@ export default function IQPracticeGame({ skillId, onClose }) {
             </div>
 
             <div className="flex gap-4 justify-center">
-              <button onClick={handleNext} className="btn btn-primary px-8">
-                Siguiente puzzle
+              <button onClick={handleNext} className="btn btn-primary px-8 cursor-pointer">
+                <span>Siguiente puzzle</span>
+                <kbd className="hidden sm:inline-block ml-1.5 px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
               </button>
               {puzzlesCompleted >= 3 && (
                 <button

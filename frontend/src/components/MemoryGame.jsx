@@ -185,6 +185,22 @@ function MemoryGame({ skillId, onClose }) {
     }
   }, [createMemoryRound, logRoundStrategy, roundStrategy, currentRound])
 
+  // Key handler: Enter on feedback advances to next round
+  useEffect(() => {
+    if (gamePhase !== "feedback") return
+    const handleFeedbackKey = (e) => {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) {
+        return
+      }
+      if (e.key === "Enter") {
+        e.preventDefault()
+        handleNextRound()
+      }
+    }
+    window.addEventListener("keydown", handleFeedbackKey)
+    return () => window.removeEventListener("keydown", handleFeedbackKey)
+  }, [gamePhase, handleNextRound])
+
   // --- Feedback: Consolidate ---
   const handleConsolidate = useCallback(async () => {
     setConsolidating(true)
@@ -450,7 +466,7 @@ function MemoryGame({ skillId, onClose }) {
               <button
                 onClick={handleSubmitRecall}
                 disabled={submitting}
-                className="btn btn-primary text-base px-10"
+                className="btn btn-primary text-base px-10 cursor-pointer"
               >
                 {submitting ? (
                   <span className="flex items-center justify-center gap-2">
@@ -458,7 +474,10 @@ function MemoryGame({ skillId, onClose }) {
                     Enviando...
                   </span>
                 ) : (
-                  "Enviar"
+                  <span className="flex items-center justify-center gap-2">
+                    <span>Enviar</span>
+                    <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
+                  </span>
                 )}
               </button>
             </div>
@@ -568,8 +587,9 @@ function MemoryGame({ skillId, onClose }) {
               </div>
 
               <div className="flex items-center justify-center gap-4">
-                <button onClick={handleNextRound} className="btn btn-primary text-base px-8">
-                  Siguiente ronda
+                <button onClick={handleNextRound} className="btn btn-primary text-base px-8 cursor-pointer">
+                  <span>Siguiente ronda</span>
+                  <kbd className="hidden sm:inline-block ml-1.5 px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
                 </button>
                 {roundsCompleted >= 2 && (
                   <button
