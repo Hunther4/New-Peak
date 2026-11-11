@@ -250,6 +250,10 @@ function Write-ReadinessFailure {
 function Resolve-PnpmPath {
     # Start-Process may fail when pnpm.cmd is not on the child PATH, so the real
     # path is resolved first and the literal name is only a fallback.
+    if ($env:APPDATA) {
+        $roamingPnpm = Join-Path $env:APPDATA 'npm\pnpm.cmd'
+        if (Test-Path $roamingPnpm) { return $roamingPnpm }
+    }
     $command = Get-Command 'pnpm.cmd' -ErrorAction SilentlyContinue
     if ($null -ne $command) {
         $source = [string](Get-PropertyValue $command 'Source')
