@@ -29,12 +29,12 @@ export function SocraticTutorDrawer({ hints = [], onRequestHint, loading = false
       {hints.length === 0 ? (
         <div className="p-4 rounded-xl bg-neutral-800/40 border border-white/[0.04] text-center">
           <p className="text-xs text-neutral-400 mb-3">
-            ¿Trancado o con dudas de cómo plantear el ejercicio? Pedile una pista orientadora al tutor sin quemar la solución.
+            ¿Tienes dudas sobre cómo plantear el ejercicio? Pídele una pista orientadora al tutor sin revelar la solución directa.
           </p>
           <button
             onClick={() => onRequestHint(null)}
             disabled={loading}
-            className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-semibold rounded-xl border border-white/[0.08] transition-all"
+            className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-semibold rounded-xl border border-white/[0.08] transition-all cursor-pointer"
           >
             {loading ? "Generando pista..." : "Pedir Pista Nivel 1"}
           </button>

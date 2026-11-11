@@ -25,8 +25,11 @@ export function MathRenderer({ text = "", className = "", inline = false }) {
 
     const mathBlocks = []
 
+    // 0. Wrap bare powers (a^3, b^2) in $...$ so KaTeX renders them as inline math
+    let protectedText = (text || "").replace(/([a-zA-Z0-9])\^(\d+)/g, (_, base, exp) => `$${base}^{${exp}}$`)
+
     // 1. Protect display math $$...$$ and \[...\]
-    let protectedText = text
+    protectedText = protectedText
       .replace(/\$\$([\s\S]*?)\$\$/g, (_, expr) => {
         const idx = mathBlocks.length
         mathBlocks.push({ display: true, expr: expr.trim() })
@@ -59,10 +62,7 @@ export function MathRenderer({ text = "", className = "", inline = false }) {
       return `@@MATH_BLOCK_${idx}@@`
     })
 
-    // 4. Wrap bare powers (a^3, b^2) in $...$ so KaTeX renders them as inline math
-    protectedText = protectedText.replace(/([a-zA-Z0-9])\^(\d+)/g, (_, base, exp) => `$${base}^{${exp}}$`)
-
-    // 5. Unescape any \$ to literal $
+    // 4. Unescape any \$ to literal $
     protectedText = protectedText.replace(/\\\$/g, "$")
 
     // Determine if we should parse as inline snippet or full block document

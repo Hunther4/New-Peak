@@ -61,6 +61,35 @@ export function PaesQuestionCard({
     if (onSelectOption) onSelectOption(key)
   }
 
+  // Keyboard navigation: A-D, 1-4, Enter to submit or next
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) {
+        return
+      }
+
+      const key = e.key ? e.key.toUpperCase() : ""
+
+      if (!isSubmitted) {
+        if (["A", "B", "C", "D"].includes(key)) {
+          handleOptionSelect(key)
+        } else if (["1", "2", "3", "4"].includes(key)) {
+          const mapping = { "1": "A", "2": "B", "3": "C", "4": "D" }
+          handleOptionSelect(mapping[key])
+        } else if (e.key === "Enter" && selectedOption && !loading) {
+          if (onSubmit) onSubmit()
+        }
+      } else {
+        if (e.key === "Enter" && onNext) {
+          onNext()
+        }
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isSubmitted, selectedOption, loading, onSubmit, onNext])
+
   return (
     <div className="bg-neutral-900/60 border border-white/[0.08] rounded-2xl p-6 backdrop-blur-xl shadow-2xl">
       {/* Header tags */}
@@ -100,7 +129,7 @@ export function PaesQuestionCard({
       )}
 
       {/* Options */}
-      <div className="space-y-3 mb-6">
+      <div className="space-y-3 mb-6" role="radiogroup" aria-label="Opciones de respuesta">
         {question.options.map((opt) => {
           const key = opt.key || opt.id
           const isSelected = selectedOption === key
@@ -122,6 +151,8 @@ export function PaesQuestionCard({
             <button
               key={key}
               type="button"
+              role="radio"
+              aria-checked={isSelected}
               disabled={isSubmitted}
               onClick={() => handleOptionSelect(key)}
               className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 min-h-[52px] active:scale-[0.99] touch-manipulation cursor-pointer ${optionStyle}`}
@@ -138,6 +169,9 @@ export function PaesQuestionCard({
               <div className="flex-1 pt-0.5 text-sm">
                 <MathRenderer text={opt.content || opt.text} />
               </div>
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/[0.04] border border-white/[0.08] text-neutral-400">
+                {key}
+              </kbd>
             </button>
           )
         })}
@@ -155,18 +189,26 @@ export function PaesQuestionCard({
             </div>
           </div>
           <div className="flex items-center gap-1.5 w-full sm:w-auto">
-            {[1, 2, 3, 4, 5].map((lvl) => (
+            {[
+              { lvl: 1, label: "Adiviné" },
+              { lvl: 2, label: "Dudoso" },
+              { lvl: 3, label: "Parcial" },
+              { lvl: 4, label: "Seguro" },
+              { lvl: 5, label: "Certeza" },
+            ].map(({ lvl, label }) => (
               <button
                 key={lvl}
                 type="button"
+                title={label}
                 onClick={() => onChangeConfidence(lvl)}
-                className={`flex-1 sm:flex-none px-3.5 py-2.5 min-h-[44px] flex items-center justify-center rounded-xl text-xs font-bold transition-all touch-manipulation active:scale-95 ${
+                className={`flex-1 sm:flex-none px-3 py-2 min-h-[44px] flex flex-col items-center justify-center rounded-xl text-xs font-bold transition-all touch-manipulation active:scale-95 cursor-pointer ${
                   confidence === lvl
                     ? "bg-emerald-500 text-black shadow-sm"
                     : "bg-neutral-800 text-neutral-400 hover:text-white"
                 }`}
               >
-                {lvl}
+                <span>{lvl}</span>
+                <span className="text-[9px] font-normal opacity-80 leading-none mt-0.5">{label}</span>
               </button>
             ))}
           </div>
@@ -180,9 +222,10 @@ export function PaesQuestionCard({
             type="button"
             disabled={!selectedOption || loading}
             onClick={onSubmit}
-            className="btn btn-primary w-full sm:w-auto"
+            className="btn btn-primary w-full sm:w-auto cursor-pointer"
           >
-            {loading ? "Evaluando..." : "Confirmar respuesta"}
+            <span>{loading ? "Evaluando..." : "Confirmar respuesta"}</span>
+            <kbd className="hidden sm:inline-block ml-1.5 px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
           </button>
         ) : (
           <div className="w-full">
@@ -271,9 +314,10 @@ export function PaesQuestionCard({
                 <button
                   type="button"
                   onClick={onNext}
-                  className="btn btn-primary w-full sm:w-auto"
+                  className="btn btn-primary w-full sm:w-auto cursor-pointer"
                 >
-                  Siguiente pregunta
+                  <span>Siguiente pregunta</span>
+                  <kbd className="hidden sm:inline-block mx-1 px-1.5 py-0.5 text-[10px] font-mono rounded bg-white/20 text-neutral-900 font-bold">[↵]</kbd>
                   <icons.next size={16} />
                 </button>
               </div>
