@@ -72,14 +72,14 @@ export default function DeliberatePracticeHero() {
             <span className="text-base"></span>
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl lg:text-3xl font-black font-mono text-[#2fc2c2]">
+            <span className="text-2xl lg:text-3xl font-black font-mono text-emerald-400">
               {stats.ratio}%
             </span>
             <span className="text-xs text-neutral-500">deliberado</span>
           </div>
           <div className="w-full bg-white/[0.06] h-1.5 rounded-full mt-3 overflow-hidden">
             <div
-              className="bg-[#2fc2c2] h-full rounded-full transition-all duration-500"
+              className="bg-emerald-500 h-full rounded-full transition-all duration-500"
               style={{ width: `${Math.min(100, Math.max(5, stats.ratio))}%` }}
             />
           </div>
@@ -97,7 +97,7 @@ export default function DeliberatePracticeHero() {
             </span>
             <span className="text-xs text-neutral-500">sesiones</span>
           </div>
-          <span className="text-[10px] text-[#2fc2c2]/90 font-medium mt-2 block">
+          <span className="text-[10px] text-emerald-400/90 font-medium mt-2 block">
             Con objetivo & micro-errores
           </span>
         </div>
@@ -114,7 +114,7 @@ export default function DeliberatePracticeHero() {
             </span>
             <span className="text-xs text-neutral-500">sesiones</span>
           </div>
-          <span className="text-[10px] text-[#2fc2c2]/90 font-medium mt-2 block">
+          <span className="text-[10px] text-emerald-400/90 font-medium mt-2 block">
             Estructuradas en la frontera
           </span>
         </div>

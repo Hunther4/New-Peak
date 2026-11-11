@@ -34,18 +34,18 @@ describe("OptimalDailyAction", () => {
     vi.clearAllMocks()
   })
 
-  it("con repaso FSRS vencido muestra el título honesto y el botón al Temario", () => {
+  it("con repaso FSRS vencido muestra el título pedagógico y el botón al Temario", () => {
     renderWith({ queue: [REVIEW_ITEM] })
 
-    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de M1/)).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: /Revisar todos los temas/i })).toBeInTheDocument()
+    expect(screen.getByText(/Refuerzo FSRS: revisa los temas pendientes de M1/)).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /Revisar temario/i })).toBeInTheDocument()
     expect(screen.getByText("Repasos pendientes")).toBeInTheDocument()
   })
 
   it("el título usa la materia del elemento vencido, no la materia activa", () => {
     renderWith({ queue: [{ ...REVIEW_ITEM, subject_code: "LECTURA" }], subject: "M1" })
-    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de LECTURA/)).toBeInTheDocument()
-    expect(screen.queryByText(/temas de M1/)).not.toBeInTheDocument()
+    expect(screen.getByText(/Refuerzo FSRS: revisa los temas pendientes de LECTURA/)).toBeInTheDocument()
+    expect(screen.queryByText(/temas pendientes de M1/)).not.toBeInTheDocument()
   })
 
   it("sin FSRS pero con baja maestría en la materia activa manda al Temario de esa materia", () => {
@@ -53,7 +53,7 @@ describe("OptimalDailyAction", () => {
       list: [{ slug: "t1", subject_code: "M1", attempts: 2, mastery: 0.3 }],
       subject: "M1",
     })
-    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de M1/)).toBeInTheDocument()
+    expect(screen.getByText(/Zona de desarrollo próximo: refuerza temas de M1/)).toBeInTheDocument()
     expect(screen.getByText("ZDP Óptima")).toBeInTheDocument()
   })
 
@@ -63,6 +63,6 @@ describe("OptimalDailyAction", () => {
       subject: "M1",
     })
     // Sin intentos en M1, cae al fallback de memoria de trabajo
-    expect(screen.queryByText(/Presiona el botón hoy/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/Zona de desarrollo próximo/)).not.toBeInTheDocument()
   })
 })

@@ -19,22 +19,35 @@ const Admin = _adminModules["./pages/Admin.jsx"]
 import NotFound from "./pages/NotFound"
 import WelcomeScreen from "./components/WelcomeScreen"
 
-// Card spotlight effect — global, runs once
+// Card spotlight effect — optimized for desktop with fine pointer
 function useCardSpotlight() {
-  const handleMouseMove = useCallback((e) => {
-    const card = e.target.closest('.card')
-    if (!card) return
-    const rect = card.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    const y = ((e.clientY - rect.top) / rect.height) * 100
-    card.style.setProperty('--mouse-x', `${x}%`)
-    card.style.setProperty('--mouse-y', `${y}%`)
-  }, [])
-
   useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove)
-    return () => document.removeEventListener('mousemove', handleMouseMove)
-  }, [handleMouseMove])
+    if (typeof window === "undefined") return
+    const hasFineHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (!hasFineHover || prefersReducedMotion) return
+
+    let rafId = null
+    const handleMouseMove = (e) => {
+      const card = e.target.closest(".card")
+      if (!card) return
+
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect()
+        const x = ((e.clientX - rect.left) / rect.width) * 100
+        const y = ((e.clientY - rect.top) / rect.height) * 100
+        card.style.setProperty("--mouse-x", `${x}%`)
+        card.style.setProperty("--mouse-y", `${y}%`)
+      })
+    }
+
+    document.addEventListener("mousemove", handleMouseMove, { passive: true })
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
+  }, [])
 }
 
 // Profile guard wrapper — shows spinner while loading, welcome if no profile

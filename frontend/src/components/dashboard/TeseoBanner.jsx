@@ -1,13 +1,29 @@
 import { useState } from "react"
 import { icons } from "../ui/icons"
 
+const DISMISSED_KEY = "peak_teseo_dismissed"
+
 export default function TeseoBanner() {
   const [expandido, setExpandido] = useState(false)
-  const [cerrado, setCerrado] = useState(false)
+  const [cerrado, setCerrado] = useState(() => {
+    try {
+      return localStorage.getItem(DISMISSED_KEY) === "true"
+    } catch {
+      return false
+    }
+  })
 
   if (cerrado) return null
 
-  // Arranca plegado: solo se ve el título y el usuario decides si lo abre.
+  const handleCerrar = (e) => {
+    e.stopPropagation()
+    setCerrado(true)
+    try {
+      localStorage.setItem(DISMISSED_KEY, "true")
+    } catch {}
+  }
+
+  // Arranca plegado: solo se ve el título y el usuario decide si lo abre.
   return (
     <section className="mb-6">
       <div className="rounded-2xl bg-white/[0.02] border border-white/[0.06] relative">
@@ -21,12 +37,14 @@ export default function TeseoBanner() {
           <h4 className="flex-1 text-xs font-medium text-amber-200">
             El Barco de Teseo
           </h4>
-          <span className="text-xs text-neutral-500" style={{ marginRight: 44 }}>{expandido ? "Ocultar" : "Leer"}</span>
+          <span className="text-xs text-neutral-400 font-medium" style={{ marginRight: 44 }}>
+            {expandido ? "Ocultar" : "Leer"}
+          </span>
         </button>
 
         {expandido && (
           <div className="px-4 pb-4 -mt-1">
-            <p className="text-sm text-neutral-400 leading-relaxed">
+            <p className="text-sm text-neutral-300 leading-relaxed">
               “Es gracioso como quizá el 80-90% de nosotros creemos que unas simples pruebas definirán nuestro futuro. Esto me hace pensar en el dilema del barco de Teseo: ¿qué somos nosotros si no un cuerpo que se renueva a sí mismo continuamente, qué somos nosotros sin esta prueba? Al final la respuesta es simple y tonta incluso: somos nosotros y lo que decidamos hacer. Ánimo en lo que hagas, ahora y en el futuro.”
             </p>
           </div>
@@ -34,9 +52,9 @@ export default function TeseoBanner() {
 
         <button
           type="button"
-          onClick={() => setCerrado(true)}
-          aria-label="Eliminar aviso"
-          className="absolute top-1 right-2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-600 hover:text-neutral-300 hover:bg-white/[0.04] transition-colors cursor-pointer"
+          onClick={handleCerrar}
+          aria-label="Cerrar reflexión"
+          className="absolute top-1 right-2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-500 hover:text-neutral-200 hover:bg-white/[0.08] transition-colors cursor-pointer"
         >
           <icons.close size={14} strokeWidth={1.8} />
         </button>
