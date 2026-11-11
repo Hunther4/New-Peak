@@ -3,7 +3,6 @@ import { useNavigate } from "react-router"
 import { useStore } from "../store/store"
 import DeliberatePracticeHero from "../components/dashboard/DeliberatePracticeHero"
 import OptimalDailyAction from "../components/dashboard/OptimalDailyAction"
-import TeseoBanner from "../components/dashboard/TeseoBanner"
 import DualProgressRadar from "../components/dashboard/DualProgressRadar"
 import { PaesWeeklyRoutineBar } from "../components/paes/PaesWeeklyRoutineBar"
 import Timeline from "../components/Timeline"
@@ -35,9 +34,6 @@ export default function Dashboard() {
 
   return (
     <PageTransition>
-      {/* 1. Barco de Teseo plegable */}
-      <TeseoBanner />
-
       <PaesWeeklyRoutineBar onStartSession={(subject) => { setPaesActiveSubject(subject); navigate(`/paes?subject=${subject}`) }} />
 
       {/* 2. Acción principal */}
@@ -45,8 +41,6 @@ export default function Dashboard() {
 
       {/* 3. Hero de práctica — solo con datos */}
       {isLoading ? <SkeletonHero /> : hasSessions ? <DeliberatePracticeHero /> : null}
-
-      {/* Filas de Teseo y acción eliminadas del inicio por duplicación; la acción principal va arriba */}
 
       {/* 3. Progreso — solo con datos (sin datos no se muestra 100/1000) */}
       <DualProgressRadar />

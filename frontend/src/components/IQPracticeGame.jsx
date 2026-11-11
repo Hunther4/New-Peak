@@ -53,35 +53,6 @@ export default function IQPracticeGame({ skillId, onClose }) {
 
   const sessionTimer = useSessionTimer()
 
-  // Key handler: A-D + Enter to select & submit, Enter on feedback to advance
-  const handleKeyDown = useCallback((e) => {
-    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) {
-      return
-    }
-
-    if (iqPhase === "answering" && iqCurrentRound && !submitting) {
-      const key = e.key.toLowerCase()
-      if (key === "a" || key === "b" || key === "c" || key === "d") {
-        e.preventDefault()
-        const idx = key.charCodeAt(0) - 97
-        if (idx < iqCurrentRound.options.length) {
-          setSelectedOption(idx)
-        }
-      } else if (key === "enter" && selectedOption !== null) {
-        e.preventDefault()
-        handleSubmit()
-      }
-    } else if (iqPhase === "feedback" && e.key === "Enter") {
-      e.preventDefault()
-      handleNext()
-    }
-  }, [iqPhase, iqCurrentRound, submitting, selectedOption, handleSubmit, handleNext])
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [handleKeyDown])
-
   // --- Start ---
   const handleStart = useCallback(async () => {
     setError(null)
@@ -138,6 +109,36 @@ export default function IQPracticeGame({ skillId, onClose }) {
       setError(e.message)
     }
   }, [createIQRound])
+
+  // Key handler: A-D + Enter to select & submit, Enter on feedback to advance
+  const handleKeyDown = useCallback((e) => {
+    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) {
+      return
+    }
+
+    if (iqPhase === "answering" && iqCurrentRound && !submitting) {
+      const key = e.key.toLowerCase()
+      if (key === "a" || key === "b" || key === "c" || key === "d") {
+        e.preventDefault()
+        const idx = key.charCodeAt(0) - 97
+        if (idx < iqCurrentRound.options.length) {
+          setSelectedOption(idx)
+        }
+      } else if (key === "enter" && selectedOption !== null) {
+        e.preventDefault()
+        handleSubmit()
+      }
+    } else if (iqPhase === "feedback" && e.key === "Enter") {
+      e.preventDefault()
+      handleNext()
+    }
+  }, [iqPhase, iqCurrentRound, submitting, selectedOption, handleSubmit, handleNext])
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [handleKeyDown])
+
 
   // T-07: Pre-fetch next puzzle while user is answering the current one
   useEffect(() => {

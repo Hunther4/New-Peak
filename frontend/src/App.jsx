@@ -22,7 +22,7 @@ import WelcomeScreen from "./components/WelcomeScreen"
 // Card spotlight effect — optimized for desktop with fine pointer
 function useCardSpotlight() {
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined" || !window.matchMedia) return
     const hasFineHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (!hasFineHover || prefersReducedMotion) return

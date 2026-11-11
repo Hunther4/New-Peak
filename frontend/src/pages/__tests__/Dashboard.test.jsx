@@ -88,7 +88,7 @@ describe("Dashboard", () => {
     }))
     useStore.getState.mockReturnValue(createMockState())
     render(<Dashboard />)
-    expect(screen.getByText(/Presiona el botón hoy y revisa todos los temas de M1/)).toBeInTheDocument()
+    expect(screen.getByText(/Refuerzo FSRS: revisa los temas pendientes de M1/)).toBeInTheDocument()
   })
 
   it("muestra las secciones Desafíos Deliberados y Registro de Auditoría", () => {
