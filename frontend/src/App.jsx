@@ -10,7 +10,7 @@ import PaesStudy from "./pages/PaesStudy"
 import { CruchAdmissionSimulator } from "./components/paes/CruchAdmissionSimulator"
 import MetacognitionLab from "./pages/MetacognitionLab"
 import Settings from "./pages/Settings"
-// Admin es opcional: solo existe en el entorno local/Fly. En un clon limpio
+// Admin es opcional: solo existe en el entorno local con PEAK_ADMIN_KEY. En un clon limpio
 // (GitHub/CI) el módulo no está y la app igual compila.
 const _adminModules = import.meta.glob("./pages/Admin.jsx")
 const Admin = _adminModules["./pages/Admin.jsx"]

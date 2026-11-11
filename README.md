@@ -1,8 +1,6 @@
 <div align="center">
 
-# PaesTeseo
-
-**🌐 Disponible en:** [https://paesteseo.fly.dev/](https://paesteseo.fly.dev/)
+# New Peak
 
 **High-Performance PAES Preparation Platform**  
 *3PL Item Response Theory Calibration · FSRS Spaced Repetition · Hardened Deliberate Practice*
