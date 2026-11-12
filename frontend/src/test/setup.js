@@ -27,3 +27,7 @@ if (typeof Storage !== 'undefined') {
   Storage.prototype.removeItem = mockStorage.removeItem
   Storage.prototype.clear = mockStorage.clear
 }
+
+if (typeof window !== 'undefined') {
+  window.scrollTo = vi.fn()
+}

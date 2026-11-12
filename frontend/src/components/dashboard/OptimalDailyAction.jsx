@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import { useNavigate } from "react-router"
 import { useStore } from "../../store/store"
+import { getTodayRoutineSubject } from "../paes/PaesWeeklyRoutineBar"
 
 // Optimal retention target used by the FSRS review queue.
 const OPTIMAL_RETENTION = 0.85
@@ -24,9 +25,9 @@ function buildRetentionSubtitle(item) {
 
 export default function OptimalDailyAction() {
   const navigate = useNavigate()
-  const { paesSubtopicsList, paesFsrsStatus, paesActiveSubject, skills } = useStore()
+  const { paesSubtopicsList, paesFsrsStatus, paesActiveSubject, setPaesActiveSubject, skills } = useStore()
 
-  // Find optimal target: prioritized by FSRS overdue or cognitive balance
+  // Find optimal target: prioritized by FSRS overdue, cognitive balance or direct PAES exam
   // Título honesto: nunca se manda a un subtema puntual inventado.
   const recommendation = useMemo(() => {
     // 1. Priority: PAES Subtopics with scheduled review due
@@ -77,7 +78,30 @@ export default function OptimalDailyAction() {
       }
     }
 
-    // 3. Fallback: Cognitive Gym (Dual N-Back)
+    // 3. Priority: Ensayo o práctica de la materia del día / PAES
+    // Cuando el estudiante está en flujo PAES o tiene fijada la materia del día en su rutina,
+    // se prioriza el inicio del ensayo oficial directamente en /paes, sin redirigir a minijuegos.
+    const routineSubject = getTodayRoutineSubject()
+    const targetSubject = (routineSubject && routineSubject !== "REST")
+      ? routineSubject
+      : (paesActiveSubject || "M1")
+
+    if (targetSubject && targetSubject !== "REST") {
+      return {
+        type: "paes",
+        title: `Ensayo de ${targetSubject}: inicia tu práctica oficial`,
+        subtitle: "",
+        reason: "",
+        actionText: "Iniciar ensayo",
+        route: "/paes",
+        subject: targetSubject,
+        badge: "Ensayo del día",
+        badgeColor: "bg-indigo-500/15 border-indigo-500/30 text-indigo-400",
+        icon: "",
+      }
+    }
+
+    // 4. Fallback: Cognitive Gym (Dual N-Back) solo si no hay materia activa ni rutina fijada
     return {
       type: "gym",
       title: "Hoy toca memoria de trabajo",
@@ -90,6 +114,13 @@ export default function OptimalDailyAction() {
       icon: "",
     }
   }, [paesSubtopicsList, paesFsrsStatus, paesActiveSubject, skills])
+
+  const handleAction = () => {
+    if (recommendation.subject && setPaesActiveSubject && recommendation.subject !== paesActiveSubject) {
+      setPaesActiveSubject(recommendation.subject)
+    }
+    navigate(recommendation.route)
+  }
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-sky-500/20 bg-neutral-900/60 p-6 lg:p-8 shadow-2xl mb-8 group">
@@ -116,7 +147,7 @@ export default function OptimalDailyAction() {
         </div>
 
         <button
-          onClick={() => navigate(recommendation.route)}
+          onClick={handleAction}
           className="shrink-0 w-full md:w-auto px-5 py-3 rounded-2xl bg-sky-500 text-neutral-950 font-semibold hover:bg-sky-400 cursor-pointer transition-colors"
         >
           <span>{recommendation.actionText}</span>

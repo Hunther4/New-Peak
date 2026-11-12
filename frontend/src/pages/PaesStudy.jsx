@@ -21,6 +21,7 @@ export default function PaesStudy() {
   const [searchParams] = useSearchParams()
   const subtopicParam = searchParams.get("subtopic")
   const tabParam = searchParams.get("tab")
+  const subjectParam = searchParams.get("subject")
 
   const {
     paesSessionId,
@@ -80,6 +81,12 @@ export default function PaesStudy() {
       restoreActiveExamSession()
     }
   }, [])
+
+  useEffect(() => {
+    if (subjectParam && subjectParam !== paesActiveSubject && setPaesActiveSubject) {
+      setPaesActiveSubject(subjectParam)
+    }
+  }, [subjectParam, paesActiveSubject, setPaesActiveSubject])
 
   useEffect(() => {
     if (fetchPaesSubjects) fetchPaesSubjects()
@@ -333,7 +340,7 @@ const SUBJECT_EXAMS_CONFIG = {
           {/* Main Tab Navigation: every hub block must be reachable from here */}
           <div className="flex items-center gap-1.5 p-1.5 bg-[#101010] border border-white/[0.07] rounded-xl overflow-x-auto">
             {[
-              { id: "exams", label: "Entrenar", icon: "focus" },
+              { id: "exams", label: "Ensayos", icon: "focus" },
               {
                 id: "error_vault",
                 label: "Errores",
@@ -371,7 +378,7 @@ const SUBJECT_EXAMS_CONFIG = {
             })}
           </div>
 
-          {/* TAB 1: ENTRENAR HOY & SIMULACROS */}
+          {/* TAB 1: ENSAYOS & SIMULACROS */}
           {activeTab === "exams" && (
             <div className="space-y-6 animate-fade-in">
               {/* Hero Banner */}

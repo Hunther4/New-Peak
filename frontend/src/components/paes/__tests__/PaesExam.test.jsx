@@ -97,6 +97,117 @@ describe("PaesExamRunner", () => {
     expect(localStorage.getItem("peak_sound_muted")).toBe("false")
   })
 
+  it("toggles auto-advance via the header switch", () => {
+    render(<PaesExamRunner />)
+    const toggle = screen.getByTestId("exam-auto-advance-toggle")
+    expect(toggle).toBeInTheDocument()
+    expect(toggle).toHaveAttribute("aria-pressed", "true")
+
+    // Click to disable
+    fireEvent.click(toggle)
+    expect(toggle).toHaveAttribute("aria-pressed", "false")
+    expect(localStorage.getItem("paes_exam_auto_advance")).toBe("false")
+
+    // Click to re-enable
+    fireEvent.click(toggle)
+    expect(toggle).toHaveAttribute("aria-pressed", "true")
+    expect(localStorage.getItem("paes_exam_auto_advance")).toBe("true")
+  })
+
+  it("auto-advances to next question after 250ms when an option is selected", () => {
+    vi.useFakeTimers()
+    render(<PaesExamRunner />)
+
+    expect(screen.getByText(/Pregunta 1 de 2/i)).toBeInTheDocument()
+
+    const optA = screen.getByText(/x = 3/i)
+    fireEvent.click(optA)
+
+    expect(useStore.getState().paesExamAnswers["q1"]?.selectedOption).toBe("A")
+
+    act(() => {
+      vi.advanceTimersByTime(200)
+    })
+    expect(useStore.getState().paesCurrentIndex).toBe(0)
+
+    act(() => {
+      vi.advanceTimersByTime(60)
+    })
+    expect(useStore.getState().paesCurrentIndex).toBe(1)
+
+    vi.useRealTimers()
+  })
+
+  it("does not auto-advance when auto-advance toggle is disabled", () => {
+    vi.useFakeTimers()
+    render(<PaesExamRunner />)
+
+    const toggle = screen.getByTestId("exam-auto-advance-toggle")
+    fireEvent.click(toggle)
+
+    const optA = screen.getByText(/x = 3/i)
+    fireEvent.click(optA)
+
+    act(() => {
+      vi.advanceTimersByTime(300)
+    })
+    expect(useStore.getState().paesCurrentIndex).toBe(0)
+
+    vi.useRealTimers()
+  })
+
+  it("does not auto-advance on the last question", () => {
+    vi.useFakeTimers()
+    useStore.setState({
+      paesCurrentIndex: 1,
+      paesActiveQuestion: {
+        id: "q2",
+        stem: "¿Cuál es el área de un cuadrado de lado 4?",
+        options: [
+          { key: "A", content: "16" },
+          { key: "B", content: "8" },
+        ],
+      },
+    })
+    render(<PaesExamRunner />)
+
+    const optA = screen.getByText(/16/i)
+    fireEvent.click(optA)
+
+    act(() => {
+      vi.advanceTimersByTime(300)
+    })
+    expect(useStore.getState().paesCurrentIndex).toBe(1)
+
+    vi.useRealTimers()
+  })
+
+  it("resets window scroll on question change", () => {
+    const scrollToSpy = vi.spyOn(window, "scrollTo")
+    render(<PaesExamRunner />)
+
+    expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, behavior: "instant" })
+  })
+
+  it("applies responsive max-height constraints to exercise images", () => {
+    useStore.setState({
+      paesActiveQuestion: {
+        id: "q_img",
+        stem: "Pregunta con imagen",
+        image_url: "https://example.com/demo.png",
+        options: [
+          { key: "A", content: "Opcion A" },
+          { key: "B", content: "Opcion B" },
+        ],
+      },
+    })
+    render(<PaesExamRunner />)
+
+    const img = screen.getByRole("img", { name: /Pregunta q_img/i })
+    expect(img).toHaveClass("max-h-[36vh]")
+    expect(img).toHaveClass("sm:max-h-[44vh]")
+  })
+
   it("finalizes exam and stores results without error", async () => {
     const mockFinalize = vi.fn().mockResolvedValue({
       total_questions: 2,

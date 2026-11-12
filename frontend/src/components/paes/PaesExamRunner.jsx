@@ -39,6 +39,44 @@ export function PaesExamRunner() {
   const [questionElapsedSeconds, setQuestionElapsedSeconds] = useState(0)
   const [soundMuted, setSoundMuted] = useState(isSoundMuted())
   const questionStartTimeRef = useRef(Date.now())
+  const [autoAdvance, setAutoAdvance] = useState(() => {
+    try {
+      const saved = localStorage.getItem("paes_exam_auto_advance")
+      return saved !== null ? saved === "true" : true
+    } catch {
+      return true
+    }
+  })
+  const autoAdvanceTimerRef = useRef(null)
+
+  const handleToggleAutoAdvance = () => {
+    setAutoAdvance((prev) => {
+      const next = !prev
+      try {
+        localStorage.setItem("paes_exam_auto_advance", String(next))
+      } catch {
+        // Ignore storage errors
+      }
+      return next
+    })
+  }
+
+  // Reinicio de scroll al cambiar de pregunta para no quedar atrapado abajo
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+      window.scrollTo({ top: 0, behavior: "instant" })
+    }
+  }, [paesCurrentIndex])
+
+  // Limpieza de timer de auto-avance al desmontar
+  useEffect(() => {
+    return () => {
+      if (autoAdvanceTimerRef.current) {
+        clearTimeout(autoAdvanceTimerRef.current)
+        autoAdvanceTimerRef.current = null
+      }
+    }
+  }, [])
 
   // Keep sound mute state synchronized
   useEffect(() => {
@@ -127,6 +165,9 @@ export function PaesExamRunner() {
       setSecondsRemaining((prev) => {
         if (prev <= 1) {
           clearInterval(timer)
+          if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+            window.scrollTo({ top: 0 })
+          }
           finalizePaesExam()
           return 0
         }
@@ -149,16 +190,32 @@ export function PaesExamRunner() {
     if (!currentQuestionId) return
     playClickSound()
     setExamAnswer(currentQuestionId, key)
+
+    if (autoAdvanceTimerRef.current) {
+      clearTimeout(autoAdvanceTimerRef.current)
+      autoAdvanceTimerRef.current = null
+    }
+
+    if (autoAdvance && paesCurrentIndex < totalQuestions - 1) {
+      autoAdvanceTimerRef.current = setTimeout(() => {
+        handleNavigate(paesCurrentIndex + 1)
+      }, 250)
+    }
   }
 
   const handleNavigate = (newIdx) => {
+    if (autoAdvanceTimerRef.current) {
+      clearTimeout(autoAdvanceTimerRef.current)
+      autoAdvanceTimerRef.current = null
+    }
     if (newIdx < 0 || newIdx >= paesQuestions.length) return
     playClickSound()
     const elapsedSeconds = Math.round(
       (Date.now() - questionStartTimeRef.current) / 1000
     )
     if (currentQuestionId) {
-      setExamAnswer(currentQuestionId, selectedOption, elapsedSeconds)
+      const latestOption = useStore.getState().paesExamAnswers[currentQuestionId]?.selectedOption ?? selectedOption
+      setExamAnswer(currentQuestionId, latestOption, elapsedSeconds)
     }
     questionStartTimeRef.current = Date.now()
     jumpToPaesQuestion(newIdx)
@@ -282,6 +339,24 @@ export function PaesExamRunner() {
           >
             <span className="text-sm" aria-hidden="true">{soundMuted ? "" : ""}</span>
             <span className="hidden sm:inline font-mono">{soundMuted ? "Mute" : "Audio"}</span>
+          </button>
+
+          {/* Auto-advance Toggle */}
+          <button
+            type="button"
+            data-testid="exam-auto-advance-toggle"
+            onClick={handleToggleAutoAdvance}
+            aria-pressed={autoAdvance}
+            aria-label={autoAdvance ? "Desactivar auto-avance" : "Activar auto-avance"}
+            title={autoAdvance ? "Auto-avance activo (avanza tras responder)" : "Auto-avance desactivado"}
+            className={`px-3 py-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+              autoAdvance
+                ? "bg-sky-500/15 border-sky-500/30 text-sky-300 hover:bg-sky-500/25"
+                : "bg-neutral-800/80 border-white/[0.08] text-neutral-400 hover:text-white"
+            }`}
+          >
+            <span className="text-xs" aria-hidden="true">⚡</span>
+            <span className="hidden sm:inline font-mono">Auto-avanzar</span>
           </button>
 
           {/* Live Timer */}
@@ -500,11 +575,11 @@ export function PaesExamRunner() {
 
             {/* Official DEMRE Question Image or Text Fallback */}
             {paesActiveQuestion.image_url ? (
-              <div className="mb-8 rounded-2xl overflow-hidden border border-white/10 bg-neutral-900/90 p-2 md:p-3 shadow-2xl min-h-[140px] flex items-center justify-center">
+              <div className="mb-6 rounded-2xl overflow-hidden border border-white/10 bg-neutral-900/90 p-2 md:p-3 shadow-2xl min-h-[120px] flex items-center justify-center">
                 <img
                   src={paesActiveQuestion.image_url}
                   alt={`Pregunta ${paesActiveQuestion.id || ""}`}
-                  className="w-full h-auto object-contain max-h-[550px] mx-auto rounded-xl bg-white p-2.5 md:p-4 select-none"
+                  className="max-h-[36vh] sm:max-h-[44vh] md:max-h-[500px] object-contain mx-auto w-auto rounded-xl bg-white p-2.5 md:p-4 select-none"
                   loading="lazy"
                 />
               </div>
@@ -625,9 +700,13 @@ export function PaesExamRunner() {
                     const elapsedSeconds = Math.round(
                       (Date.now() - questionStartTimeRef.current) / 1000
                     )
-                    setExamAnswer(currentQuestionId, selectedOption, elapsedSeconds)
+                    const latestOption = useStore.getState().paesExamAnswers[currentQuestionId]?.selectedOption ?? selectedOption
+                    setExamAnswer(currentQuestionId, latestOption, elapsedSeconds)
                   }
                   setShowConfirmModal(false)
+                  if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+                    window.scrollTo({ top: 0 })
+                  }
                   finalizePaesExam()
                 }}
                 disabled={paesLoading}

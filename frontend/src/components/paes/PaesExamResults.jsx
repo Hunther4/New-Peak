@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useStore } from "../../store/store"
 import { MathRenderer } from "./MathRenderer"
 import { PaesReadingStimulus } from "./PaesReadingStimulus"
@@ -9,6 +9,12 @@ export function PaesExamResults({ onNewExam, onBackToStudy }) {
   const [filter, setFilter] = useState("all") // all | errors | correct | unanswered
   const [expandedId, setExpandedId] = useState(null)
   const [revengingQuestionId, setRevengingQuestionId] = useState(null)
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+      window.scrollTo({ top: 0 })
+    }
+  }, [])
 
   if (!paesExamResults) return null
 

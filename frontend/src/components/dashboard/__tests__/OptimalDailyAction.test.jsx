@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
 import { render, screen, fireEvent } from "@testing-library/react"
 
+const mockNavigate = vi.fn()
+
 vi.mock("react-router", () => ({
-  useNavigate: () => vi.fn(),
+  useNavigate: () => mockNavigate,
 }))
 
 vi.mock("../../../store/store", () => ({
@@ -62,7 +64,22 @@ describe("OptimalDailyAction", () => {
       list: [{ slug: "t1", subject_code: "CIENCIAS", attempts: 2, mastery: 0.1 }],
       subject: "M1",
     })
-    // Sin intentos en M1, cae al fallback de memoria de trabajo
+    // Sin intentos en M1, no sugiere ZDP
     expect(screen.queryByText(/Zona de desarrollo próximo/)).not.toBeInTheDocument()
+  })
+
+  it("sin FSRS ni ZDP, prioriza el ensayo de la materia activa directamente a /paes", () => {
+    renderWith({ queue: [], list: [], subject: "M1" })
+
+    expect(screen.getByText(/Ensayo de M1: inicia tu práctica oficial/i)).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /Iniciar ensayo/i })).toBeInTheDocument()
+    expect(screen.getByText("Ensayo del día")).toBeInTheDocument()
+
+    // No debe redirigir a gimnasio cognitivo como primera opción
+    expect(screen.queryByText(/Hoy toca memoria de trabajo/i)).not.toBeInTheDocument()
+
+    // Al hacer clic, navega directamente a /paes
+    fireEvent.click(screen.getByRole("button", { name: /Iniciar ensayo/i }))
+    expect(mockNavigate).toHaveBeenCalledWith("/paes")
   })
 })

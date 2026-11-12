@@ -9,7 +9,7 @@ const ChevronUpIcon = ({ className = "w-4 h-4" }) => <icons.chevronUp className=
 const ChevronDownIcon = ({ className = "w-4 h-4" }) => <icons.chevronDown className={className} />
 const CloseIcon = ({ className = "w-4 h-4" }) => <icons.close className={className} />
 
-const DAYS = [
+export const DAYS = [
   { key: "monday", label: "Lunes", short: "Lun" },
   { key: "tuesday", label: "Martes", short: "Mar" },
   { key: "wednesday", label: "Miércoles", short: "Mié" },
@@ -19,7 +19,7 @@ const DAYS = [
   { key: "sunday", label: "Domingo", short: "Dom" },
 ]
 
-const SUBJECT_OPTIONS = [
+export const SUBJECT_OPTIONS = [
   { code: "M1", label: "M1 Matemática", color: "from-blue-600 to-indigo-600", badge: "bg-blue-500/20 text-blue-300 border-blue-500/30" },
   { code: "LECTURA", label: "Lectura", color: "from-emerald-600 to-teal-600", badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" },
   { code: "CIENCIAS", label: "Ciencias", color: "from-purple-600 to-violet-600", badge: "bg-purple-500/20 text-purple-300 border-purple-500/30" },
@@ -28,8 +28,8 @@ const SUBJECT_OPTIONS = [
   { code: "REST", label: "Descanso", color: "from-slate-700 to-slate-800", badge: "bg-slate-500/20 text-slate-400 border-slate-500/30" },
 ]
 
-const ROUTINE_CACHE_KEY_BASE = "peak_paes_weekly_routine"
-function routineCacheKey() {
+export const ROUTINE_CACHE_KEY_BASE = "peak_paes_weekly_routine"
+export function routineCacheKey() {
   try {
     const deviceId = getActiveDeviceId()
     return `${ROUTINE_CACHE_KEY_BASE}_${deviceId}`
@@ -40,7 +40,7 @@ function routineCacheKey() {
 const COLLAPSED_CACHE_KEY = "peak_paes_routine_collapsed"
 const DISMISSED_CACHE_KEY = "peak_paes_routine_dismissed"
 
-const DEFAULT_ROUTINE = {
+export const DEFAULT_ROUTINE = {
   monday: "M1",
   tuesday: "LECTURA",
   wednesday: "M1",
@@ -57,7 +57,7 @@ const SAVE_STATUS_LABELS = {
   error: "Falló el guardado",
 }
 
-function readCachedRoutine() {
+export function readCachedRoutine() {
   try {
     const raw = localStorage.getItem(routineCacheKey())
     if (!raw) return null
@@ -65,6 +65,17 @@ function readCachedRoutine() {
     return parsed && typeof parsed === "object" ? parsed : null
   } catch (err) {
     console.warn("[PaesWeeklyRoutineBar] Could not read the cached weekly routine", err)
+    return null
+  }
+}
+
+export function getTodayRoutineSubject() {
+  try {
+    const routine = readCachedRoutine() || DEFAULT_ROUTINE
+    const todayDayIndex = new Date().getDay()
+    const todayKey = DAYS[todayDayIndex === 0 ? 6 : todayDayIndex - 1]?.key || "monday"
+    return routine?.[todayKey] || null
+  } catch {
     return null
   }
 }
