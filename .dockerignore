@@ -16,6 +16,7 @@ frontend/.env*
 
 # Databases and local storage
 *.db
+!backend/peak.db
 *.sqlite
 /data
 uploads/
